@@ -1,0 +1,8 @@
+fort.*
+*.o
+*.exe
+*OUT
+*.swp
+SCRATCH
+tmp*
+*.aux
