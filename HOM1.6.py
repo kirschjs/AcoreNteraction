@@ -8,11 +8,11 @@ import quadpy
 from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 from functools import partial
 
-H = np.zeros((1, 1))
-K = np.zeros((1, 1))
-V = np.zeros((1, 1))
+H  = np.zeros((1, 1))
+K  = np.zeros((1, 1))
+V  = np.zeros((1, 1))
 Vl = np.zeros((1, 1))
-U = np.zeros((1, 1))
+U  = np.zeros((1, 1))
 
 
 
@@ -279,15 +279,35 @@ if __name__ == '__main__':
     print("hbar        : " + str(hbar))
     print("h^2/2m      : " + str(np.round(mh2,3)))
 
-    omega = 1
-    nu = mu * omega / (2 * hbar)
+
+
 
     debug=True
-    if True:
+    if debug:
+        omega = 1
+        nu = mu * omega / (2 * hbar)
         print(" ")
-        print("Most complicated integral check (Omega = 1. )")
+        print("(Line 290) Most complicated integral check (Omega = 1. )")
         #ARGS = NState-1, L, NState-1, L, nu, mu * omega ** 2, mh2
-        ARGS = 20, L, 20, L, nu, mu * omega ** 2, mh2
+
+                
+        Rmax   = 2
+        ARGS = 5, L, 5, L, nu, mu * omega **Z 2, mh2
+
+        print("Complete to Rmax: ", dblquad(pot_nol, 0.0, Rmax, lambda x: 0.,
+                                            lambda x: Rmax,epsabs=1.e-03, epsrel=1.e-03)[0])
+
+        order = 2000
+        def first_int(rr):
+            order=2000
+            return fixed_quad(pot_nol, 0.0, Rmax, n=order,args=(rr, ))[0]
+        integ = fixed_quad(lambda x:first_int(x), 0.0, Rmax, n=order)[0]
+        print("double 1d int:  ",integ      )
+        #quit()
+
+
+
+        ARGS = 5, L, 5, L, nu, mu * omega ** 2, mh2
         val = scheme.integrate(pot_nol_q,[[[0.0, 0.0], [Rmax, 0.0]], [[0.0, Rmax], [Rmax, Rmax]]])
         print("Approximation:    ", val)
         print("Complete to Rmax: ", dblquad(pot_nol, 0.0, Rmax, lambda x: 0.,
@@ -296,7 +316,8 @@ if __name__ == '__main__':
                     lambda x: np.inf,epsabs=1.e-03, epsrel=1.e-03)[0])
         print(" ")
 
-
+    nu = mu * omega / (2 * hbar)
+    
     for omega in omegas:
             nu = mu * omega / (2 * hbar)
             print("Omega       : " + str(omega))
