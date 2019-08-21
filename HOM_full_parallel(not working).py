@@ -2,6 +2,7 @@ import numpy as np
 from scipy.special import eval_genlaguerre, iv
 from scipy.integrate import quad,dblquad,fixed_quad
 import matplotlib.pyplot as plt
+import math as mt
 import sys
 import datetime
 import quadpy
@@ -91,43 +92,50 @@ def pot_nol(rl,rr):
         return psi(rl, n, l, nu) * Vvv * psi(rr, n1, l1, nu)
     return 0
 
-def int_K(i,more,j):
-        global V,Vl,K,ARGS
+def int_K(k,more):
+        global n
         L,nu,mu,omega,mh2,Rmax,order,scheme = more
-
+        i = mt.floor( ( 2*n+1 - np.sqrt( (2*n+1)*(2*n+1) - 8*k ) ) / 2 ) ;
+        j = k - (2*n-1- i)*i/2;
 
         ARGS = i, L, j, L, nu
-        K[i][j] = fixed_quad(kin, 0.0, Rmax, n=order)[0]
-        if (K[i][j] != K[i][j]):
-            K[i][j] = quad(kin, 0.0, Rmax)[0]
-            if (K[i][j] != K[i][j]):
+        k = fixed_quad(kin, 0.0, Rmax, n=order)[0]
+        if (k != k):
+            k = quad(kin, 0.0, Rmax)[0]
+            if (k != k):
                 print("kinetic", i, j)
                 quit()
-        return K[i][j]
+        return k
 
 
-def int_U(i, more, j):
-        global V,Vl,K,ARGS
+def int_U(k,more):
+        global n
+        i = mt.floor( ( 2*n+1 - np.sqrt( (2*n+1)*(2*n+1) - 8*k ) ) / 2 ) ;
+        j = k - (2*n-1- i)*i/2;
         L,nu,mu,omega,mh2,Rmax,order,scheme = more
-        U[i][j] = quad(psi2, 0.0, np.inf, args=(i,L,j,L,nu))[0]
-        return U[i][j]
+        u = quad(psi2, 0.0, np.inf, args=(i,L,j,L,nu))[0]
+        return u
 
-def int_Vl(i, more, j):
-        global V,Vl,K,ARGS
+def int_Vl(k,more):
+        global n
+        i = mt.floor( ( 2*n+1 - np.sqrt( (2*n+1)*(2*n+1) - 8*k ) ) / 2 ) ;
+        j = k - (2*n-1- i)*i/2;
         L,nu,mu,omega,mh2,Rmax,order,scheme = more
 
         ARGS = i, L, j, L, nu, mu * omega ** 2, mh2
-        Vl[i][j] = fixed_quad(pot_loc, 0.0, Rmax, n=order)[0]
-        if (Vl[i][j] != Vl[i][j]):
-            Vl[i][j] = quad(pot_loc, 0.0, Rmax)[0]
-            if (Vl[i][j] != Vl[i][j]):
+        vl = fixed_quad(pot_loc, 0.0, Rmax, n=order)[0]
+        if (vl != vl):
+            vl = quad(pot_loc, 0.0, Rmax)[0]
+            if (vl != vl):
                 print("potential", i, j)
                 quit()
-        return Vl[i][j]
+        return vl
 
 
-def int_V(i, more, j):
-        global V,Vl,K,ARGS
+def int_V(k,more):
+        global n
+        i = mt.floor( ( 2*n+1 - np.sqrt( (2*n+1)*(2*n+1) - 8*k ) ) / 2 ) ;
+        j = k - (2*n-1- i)*i/2;
         L,nu,mu,omega,mh2,Rmax,order,scheme = more
 
         #scheme = quadpy.quadrilateral.witherden_vincent_21()
@@ -135,11 +143,11 @@ def int_V(i, more, j):
         ARGS = i, L, j, L, nu, mu * omega ** 2, mh2
         if (interaction == "NonLocal"):
             if two_dimension_quadrature:
-            V[i][j] = scheme.integrate(pot_nol_q, [[[0.0, 0.0], [Rmax, 0.0]], [[0.0, Rmax], [Rmax, Rmax]]])
+                v = scheme.integrate(pot_nol_q, [[[0.0, 0.0], [Rmax, 0.0]], [[0.0, Rmax], [Rmax, Rmax]]])
             else:
-                V[i][j] = dblquad(pot_nol, 0.0, Rmax, lambda x: 0.,
+                v = dblquad(pot_nol, 0.0, Rmax, lambda x: 0.,
                 lambda x: Rmax,epsabs=1.49e-03, epsrel=1.49e-03)[0]
-        return V[i][j]
+        return v
 #        return (v,vl,k)
 
 
@@ -156,9 +164,9 @@ NState   = 200       #Number of basys states
 Rmax     = 50        #Max R integration
 order    = 200       #Integration order
 states_print = 3     #How many energies do you want?
-parallel = True     # Do you want trallel version?
+parallel = False     # Do you want trallel version?
 Nprocessors = 4      # Number of processors
-Sysem = "Hiyama_lambda_alpha"
+Sysem = "Pionless"
 
 two_dimension_quadrature = True
 
@@ -295,7 +303,10 @@ if __name__ == '__main__':
                     lambda x: np.inf,epsabs=1.e-03, epsrel=1.e-03)[0])
         print(" ")
 
-
+    aK  = np.zeros(int((NState**2 + NState)/2))
+    aV  = np.zeros(int((NState**2 + NState)/2))
+    aVl = np.zeros(int((NState**2 + NState)/2))
+    aU  = np.zeros(int((NState**2 + NState)/2))
     for omega in omegas:
             nu = mu * omega / (2 * hbar)
             print("Omega       : " + str(omega))
@@ -313,42 +324,27 @@ if __name__ == '__main__':
                 more = L, nu, mu, omega, mh2, Rmax, order, 12
             else:
                 more = L, nu, mu, omega, mh2, Rmax, order, scheme
-            
-            for i in np.arange(NState):
-                    a_string = str(np.round(100. * i / ((NState + 1) ), 1)) + " %"
-                    sys.stdout.write(a_string + " " * (78 - len(a_string)) + "\r")
-
-                    func = partial(int_Vl, i, more)
-                    if (parallel):
-                        Vl[i][:i+1] = (p.map(func, np.arange(i+1)))
-                    else:
-                        for j in np.arange(i+1):
-                            func(j)
 
 
-                    if (interaction=="NonLocal"):
-                        func = partial(int_V, i, more)
-                        if (parallel):
-                            V[i][:i+1] = (p.map(func, np.arange(i+1)))
-                        else:
-                            for j in np.arange(i+1):
-                                func(j)
+            for k in np.arange((NState+1)*NState/2):
+                n = NState
+                func = partial(int_Vl, more)
+                aVl[:] = func(k)
+                if (interaction=="NonLocal"):
+                    func = partial(int_V, more)
+                    aV[:] = func(k)
+                func = partial(int_K, more)
+                aK[:] = func(k)
 
-                    func = partial(int_K, i, more)
-                    if (parallel):
-                        K[i][:i+1] = (p.map(func, np.arange(i+1)))
-                    else:
-                        for j in np.arange(i+1):
-                            func(j)
+                i = mt.floor( ( 2*n+1 - np.sqrt( (2*n+1)*(2*n+1) - 8*k ) ) / 2 ) ;
+                j = k - (2*n-1- i)*i/2;
+                V[i][j]  = V[j][i]  = aV[k]
+                Vl[i][j] = Vl[j][i] = aVl[k]
+                K[i][j]  = K[j][i]  = aK[k]
 
 
             K = - mh2*K
             H =   V + Vl + K
-
-
-            for i in np.arange(NState):
-                for j in np.arange(0,i):
-                    H[j][i]=H[i][j]
 
 
             if debug:
