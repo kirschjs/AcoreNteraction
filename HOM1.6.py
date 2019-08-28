@@ -1,10 +1,11 @@
 import numpy as np
 from scipy.special import eval_genlaguerre, iv
-from scipy.integrate import quad,dblquad,fixed_quad
+from scipy.integrate import quad,dblquad,fixed_quad,quadrature
+
+from scipy import integrate
 import matplotlib.pyplot as plt
 import sys
 import datetime
-import quadpy
 from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 from functools import partial
 
@@ -73,15 +74,15 @@ def pot_loc(r):
         return psi(r, n, l, nu) * ( pot_local(r, MuOmegaSquare) + mh2 * l*(l+1) / r**2) * psi(r, n1, l1, nu)
     return 0
 
-def pot_nol_q(erre): #rl,rr):
-    global ARGS
-    rl = erre[0]
-    rr = erre[1]
-    n, l, n1, l1, nu, MuOmegaSquare, mh2 = ARGS
-    if l == l1:
-        Vvv = pot_nonlocal(rr, rl, l)
-        return psi(rl, n, l, nu) * Vvv * psi(rr, n1, l1, nu)
-    return 0
+    #def pot_nol_q(erre): #rl,rr):
+    #global ARGS
+    #rl = erre[0]
+    #rr = erre[1]
+    #n, l, n1, l1, nu, MuOmegaSquare, mh2 = ARGS
+    #if l == l1:
+    #    Vvv = pot_nonlocal(rr, rl, l)
+    #    return psi(rl, n, l, nu) * Vvv * psi(rr, n1, l1, nu)
+#return 0
 
 def pot_nol(rl,rr):
     global ARGS
@@ -91,9 +92,12 @@ def pot_nol(rl,rr):
         return psi(rl, n, l, nu) * Vvv * psi(rr, n1, l1, nu)
     return 0
 
+
+
+
 def int_K(i,more,j):
         global V,Vl,K,ARGS
-        L,nu,mu,omega,mh2,Rmax,order,scheme = more
+        L,nu,mu,omega,mh2,Rmax,order, t, w = more
 
 
         ARGS = i, L, j, L, nu
@@ -108,39 +112,48 @@ def int_K(i,more,j):
 
 def int_U(i, more, j):
         global V,Vl,K,ARGS
-        L,nu,mu,omega,mh2,Rmax,order,scheme = more
+        L,nu,mu,omega,mh2,Rmax,order,scheme, t, w = more
         U[i][j] = quad(psi2, 0.0, np.inf, args=(i,L,j,L,nu))[0]
         return U[i][j]
 
 def int_Vl(i, more, j):
         global V,Vl,K,ARGS
-        L,nu,mu,omega,mh2,Rmax,order,scheme = more
-
+        L,nu,mu,omega,mh2,Rmax,order, t, w = more
         ARGS = i, L, j, L, nu, mu * omega ** 2, mh2
-        Vl[i][j] = fixed_quad(pot_loc, 0.0, Rmax, n=order)[0]
+        
+        Vl[i][j] = sum(w * pot_loc(t))
+        #Vl[i][j] = fixed_quad(pot_loc, 0.0, Rmax, n=order)[0]
         if (Vl[i][j] != Vl[i][j]):
-            Vl[i][j] = quad(pot_loc, 0.0, Rmax)[0]
+            Vl[i][j] = quad(pot_loc, 0.0, Rmax)[0]* (0.5*(b - a))
             if (Vl[i][j] != Vl[i][j]):
                 print("potential", i, j)
                 quit()
         return Vl[i][j]
 
 
+def intermediate_quad(xx):
+    
+            global t, w
+    #return quad(pot_nol, 0, Rmax, args=(x, ))[0]
+    #return quadrature(pot_nol,0.0, Rmax, args=(x,), tol=1.49e-04, rtol=1.49e-04, maxiter=order, vec_func=False, miniter=order)[0]
+            #return fixed_quad(pot_nol, 0, Rmax, args=(x, ),n=200)[0]
+            partial = np.zeros(order)
+            for i in np.arange(order):
+                partial = partial + w[i] * pot_nol(xx,t[i])
+            return partial  #* 0.5*(b - a)
+
 def int_V(i, more, j):
         global V,Vl,K,ARGS
-        L,nu,mu,omega,mh2,Rmax,order,scheme = more
-        Rmax=2.
-        #scheme = quadpy.quadrilateral.witherden_vincent_21()
-        scheme = quadpy.quadrilateral.sommariva_54()
+        global t, w
+        L,nu,mu,omega,mh2,Rmax,order, t, w = more
         ARGS = i, L, j, L, nu, mu * omega ** 2, mh2
-        if (interaction == "NonLocal"):
-            if two_dimension_quadrature:
-                V[i][j] = scheme.integrate(pot_nol_q, [[[0.0, 0.0], [Rmax, 0.0]], [[0.0, Rmax], [Rmax, Rmax]]])
-            else:
-                V[i][j] = dblquad(pot_nol, 0.0, Rmax, lambda x: 0.,
-                lambda x: Rmax,epsabs=1.49e-03, epsrel=1.49e-03)[0]
+        V[i][j] = sum(w * intermediate_quad(t))
+        
+        #* 0.5*(b - a)
+        #quadrature(lambda x:intermediate_quad(x), 0.0, Rmax, args=(), tol=1.49e-03, rtol=1.49e-03, maxiter=order, vec_func=False, miniter=order)[0]
+
+        #V[i][j] = quad(lambda x:intermediate_quad(x), 0.0, Rmax)[0]
         return V[i][j]
-#        return (v,vl,k)
 
 
 
@@ -152,12 +165,12 @@ def int_V(i, more, j):
 ### Harmonic Hoscillator bases input ###
 ########################################
 
-NState   = 200       #Number of basys states
-Rmax     = 50        #Max R integration
-order    = 200       #Integration order
-states_print = 3     #How many energies do you want?
-parallel = True     # Do you want trallel version?
-Nprocessors = 4      # Number of processors
+NState       = 200       # Number of basys states
+Rmax         = 50        # Max R integration
+order        = 200       # Integration order
+states_print = 3     # How many energies do you want?
+parallel     = False # Do you want trallel version?
+Nprocessors  = 4     # Number of processors
 Sysem = "Hiyama_lambda_alpha"
 
 two_dimension_quadrature = True
@@ -197,34 +210,34 @@ elif Sysem == "HObenchmark"  :
 
 elif Sysem == "Hiyama_lambda_alpha"  :
 # Hyama non local benchmark
-    NState = 200     #Number of basys states
-    Rmax   = 2
+    NState = 50     #Number of basys states
+    Rmax   = 5
     m_alpha      = 3727.379378
     m_lambda     = 1115.683
     mu      = (m_alpha*m_lambda)/(m_alpha+m_lambda)
     hbar    = 197.327
     mh2     = hbar**2/(2*mu)
-    omegas  = [0.5]
+    omegas  = [1.]
     L       = 0
     interaction="NonLocal"
+    #interaction="Local"
 
-    scheme = quadpy.quadrilateral.sommariva_54()
-    scheme = quadpy.quadrilateral.witherden_vincent_21()
+    def pot_nonlocal(rl, rr, arguments):
+        #V = -200. * rl * rr * np.exp(-0.2 * (rr+rl)**2 )
 
-    def pot_nonlocal(rl, rr, MuOmegaSquare):
-        V = ((-0.3706) * np.exp(-0.1808 * (rr+rl)**2 - 0.4013 * (rr-rl)**2) +
-             (-12.94 ) * np.exp(-0.1808 * (rr+rl)**2 - 0.9633 * (rr-rl)**2) +
-             (-331.2 ) * np.exp(-0.1808 * (rr+rl)**2 - 2.930  * (rr-rl)**2))
+        V =(rr*rl)**(-1)*((-0.3706) * np.exp(-0.1808 * (rr+rl)**2 - 0.4013 * (rr-rl)**2) +
+            (-12.94 ) * np.exp(-0.1808 * (rr+rl)**2 - 0.9633 * (rr-rl)**2) +
+            (-331.2 ) * np.exp(-0.1808 * (rr+rl)**2 - 2.930  * (rr-rl)**2))
         return V
 
-    def pot_local(r, MuOmegaSquare):
-        V = ((-17.49) * np.exp(-0.2752*r**2) +
-             (-127.0) * np.exp(-0.4559*r**2) +
-             (497.8)  * np.exp(-0.6123*r**2))
+    def pot_local(r, arguments):
+        V = ((-17.49) * np.exp(-0.2752*(r**2)) +
+             (-127.0) * np.exp(-0.4559*(r**2)) +
+             (497.8)  * np.exp(-0.6123*(r**2)))
         return V
 
 elif Sysem == "P_wave_cluster_Johannes"  :
-# Hyama non local benchmark
+# non local benchmark
     NState = 200     #Number of basys states
     Rmax   = 2       #Radius after which the interaction is practically zero
     m_cluster      = 3727.379378  #Mass first cluster
@@ -253,11 +266,11 @@ else:
 ###########################
 ### All vectors to zero ###
 ###########################
-H = np.zeros((NState, NState))
-K = np.zeros((NState, NState))
-V = np.zeros((NState, NState))
+H =  np.zeros((NState, NState))
+K =  np.zeros((NState, NState))
+V =  np.zeros((NState, NState))
 Vl = np.zeros((NState, NState))
-U = np.zeros((NState, NState))
+U =  np.zeros((NState, NState))
 
 
 if __name__ == '__main__':
@@ -268,7 +281,7 @@ if __name__ == '__main__':
         p = Pool(Nprocessors)
         print("Numbero fo CPU: ", cpu_count())
 
-    mh2 = hbar ** 2 / (2. * mu)
+    #mh2 = hbar ** 2 / (2. * mu)
     print(datetime.datetime.now())
     print("")
     print("--- "+ Sysem + "---")
@@ -282,41 +295,89 @@ if __name__ == '__main__':
 
 
 
-    debug=True
+    debug=False
     if debug:
         omega = 1
         nu = mu * omega / (2 * hbar)
+        
+    
+    
+        
         print(" ")
-        print("(Line 290) Most complicated integral check (Omega = 1. )")
-        #ARGS = NState-1, L, NState-1, L, nu, mu * omega ** 2, mh2
+        print("(Line 290) DEBUG: Most complicated integral check (Omega = 1. ) :")
 
-                
-        Rmax   = 2
-        ARGS = 5, L, 5, L, nu, mu * omega **Z 2, mh2
-
-        print("Complete to Rmax: ", dblquad(pot_nol, 0.0, Rmax, lambda x: 0.,
-                                            lambda x: Rmax,epsabs=1.e-03, epsrel=1.e-03)[0])
-
-        order = 2000
+        def testintegral(x,y):
+            #return((x+y+1)**-1)
+            #return(np.exp(-(x+y)**2))
+            return psi(x, 2, 1, 0.5)*np.exp(-16.*(x+y)**2)*psi(y, 2, 1, 0.5)
+        
+        def first_int_fix(rr):
+            #order = 10
+            return fixed_quad(testintegral, 0.0, Rmax,args=(rr, ),n=order)[0]
+        
         def first_int(rr):
-            order=2000
-            return fixed_quad(pot_nol, 0.0, Rmax, n=order,args=(rr, ))[0]
-        integ = fixed_quad(lambda x:first_int(x), 0.0, Rmax, n=order)[0]
-        print("double 1d int:  ",integ      )
-        #quit()
+            return quad(testintegral, 0.0, Rmax,args=(rr, ))[0]
 
+        def first_int_quad(rr):
+            return quadrature(testintegral,0.0, Rmax, args=(rr,), tol=1.49e-04, rtol=1.49e-04, maxiter=order, vec_func=False, miniter=order)[0]
+        
+        order = 20
+        Rmax  = 2
+        
+        x, w  = np.polynomial.legendre.leggauss(order)
+        # Translate x values from the interval [-1, 1] to [a, b]
+        
+        
+        
+        a=0.0
+        b=Rmax
+        t = 0.5*(x + 1)*(b - a) + a
+        
+        #f = lambda x: sum(w * np.exp((t+x)))* 0.5*(b - a)
+        
+        def f(xx):
+            partial = np.zeros(order)
+            for i in np.arange(order):
+                partial = partial + w[i] * testintegral(xx,t[i])
+            return partial  * 0.5*(b - a)
+            #return np.sum( w[:] * testintegral(xx[:],t[:])) * 0.5*(b - a)
+        #f = lambda xx:  np.sum( w[:] * testintegral(xx,t[:])) * 0.5*(b - a)
+        #sum(w * psi(x, 10, 1, 0.5)*np.exp(-16.*(x+t)**2)*psi(t, 10, 1, 0.5))
 
-
+        integ = sum(w * f(t))* 0.5*(b - a)
+        print("polinomial hand : ", integ)
+        
+        integ = quad(lambda x:first_int(x), 0.0, Rmax)[0]
+        print("double 1d int:    ",integ      )
+        
+        integ =       quad(lambda x:first_int_fix(x), 0.0, Rmax)[0]
+        print("mix double 1d int:",integ      )
+        
+        integ = fixed_quad(lambda x:first_int_fix(x), 0.0, Rmax, n=order)[0]
+        print("fix double 1d int:",integ      )
+        
+        
+        #integ = quadrature(lambda x:first_int_quad(x), 0.0, Rmax, args=(), tol=1.49e-03, rtol=1.49e-03, maxiter=order, vec_func=False, miniter=order)[0]
+        #print("quadrature double 1d int:",integ      )
+        
         ARGS = 5, L, 5, L, nu, mu * omega ** 2, mh2
-        val = scheme.integrate(pot_nol_q,[[[0.0, 0.0], [Rmax, 0.0]], [[0.0, Rmax], [Rmax, Rmax]]])
-        print("Approximation:    ", val)
-        print("Complete to Rmax: ", dblquad(pot_nol, 0.0, Rmax, lambda x: 0.,
-                    lambda x: Rmax,epsabs=1.e-03, epsrel=1.e-03)[0])
-        print("Complete to inf:  ", dblquad(pot_nol, 0.0, np.inf, lambda x: 0.,
-                    lambda x: np.inf,epsabs=1.e-03, epsrel=1.e-03)[0])
-        print(" ")
+        print("Complete to Rmax: ", dblquad(testintegral, 0.0, Rmax, lambda x: 0.,
+                                            lambda x: Rmax,epsabs=1.e-03, epsrel=1.e-03)[0])
+        print("Complete to inf:  ", dblquad(testintegral, 0.0, np.inf, lambda x: 0.,
+                                                                                lambda x: np.inf,epsabs=1.e-03, epsrel=1.e-03)[0])
 
-    nu = mu * omega / (2 * hbar)
+        exit()
+
+
+
+
+
+    x, w  = np.polynomial.legendre.leggauss(order)
+    # Translate x values from the interval [-1, 1] to [a, b]
+    a=0.0
+    b=Rmax
+    t = 0.5*(x + 1)*(b - a) + a
+    gauss_scale = 0.5*(b - a)
     
     for omega in omegas:
             nu = mu * omega / (2 * hbar)
@@ -326,15 +387,9 @@ if __name__ == '__main__':
             print("Matrix creation:")
 
 
-            #scheme = quadpy.quadrilateral.witherden_vincent_21()
-            scheme = quadpy.quadrilateral.sommariva_54()
-    
-            if (parallel):
-                # I dont know why but i can not pass integration scheme
-                # in a function if multiprocessing.
-                more = L, nu, mu, omega, mh2, Rmax, order, 12
-            else:
-                more = L, nu, mu, omega, mh2, Rmax, order, scheme
+
+            more = L, nu, mu, omega, mh2, Rmax, order, t, w
+
             
             for i in np.arange(NState):
                     a_string = str(np.round(100. * i / ((NState + 1) ), 1)) + " %"
@@ -355,7 +410,6 @@ if __name__ == '__main__':
                         else:
                             for j in np.arange(i+1):
                                 func(j)
-
                     func = partial(int_K, i, more)
                     if (parallel):
                         K[i][:i+1] = (p.map(func, np.arange(i+1)))
@@ -365,18 +419,27 @@ if __name__ == '__main__':
 
 
             K = - mh2*K
-            H =   V + Vl + K
-
+            H =   V*(gauss_scale)**2 + Vl*gauss_scale + K
+            V =   V*gauss_scale**2
+            Vl=   Vl*gauss_scale
 
             for i in np.arange(NState):
                 for j in np.arange(0,i):
-                    H[j][i]=H[i][j]
+                    H[j][i]  = H[i][j]
+                    V[j][i]  = V[i][j]
+                    Vl[j][i] = Vl[i][j]
+                    K[j][i]  = K[i][j]
+
 
 
             if debug:
-                print(np.around(Vl))
-                print(np.around(V))
+                print("Vl: ")
+                print(np.around(Vl,2))
+                print("V:  ")
+                print(np.around(V,2))
+                print("K: ")
                 print(np.around(K))
+                print("H: ")
                 print(np.around(H))
 
 
@@ -384,7 +447,6 @@ if __name__ == '__main__':
             print("DONE")
             print(datetime.datetime.now())
             print("")
-
 
 
             if debug:
@@ -409,11 +471,12 @@ if __name__ == '__main__':
 
 
             # Diagonalize
-            val,vec=np.linalg.eig(H)
-            z = np.argsort(val)
-            z = z[0:states_print]
-            energies=(val[z])
-            print("Energies:" + str(energies))
+            for i in np.arange(NState):
+                val,vec=np.linalg.eig(H[:i,:i])
+                z = np.argsort(val)
+                z = z[0:states_print]
+                energies=(val[z])
+                print("states: "+str(i)+"  Energies: " + str(energies))
             print("--------------------------")
             print(" ")
             print(" ")
