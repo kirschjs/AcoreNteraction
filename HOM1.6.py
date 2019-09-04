@@ -89,7 +89,7 @@ def pot_nol(rl,rr):
     n, l, n1, l1, nu, MuOmegaSquare, mh2 = ARGS
     if l == l1:
         Vvv = pot_nonlocal(rr, rl, l)
-        return psi(rl, n, l, nu) * Vvv * psi(rr, n1, l1, nu)
+        return (4.*np.pi) * (rr * rl) * psi(rl, n, l, nu) * Vvv * psi(rr, n1, l1, nu)
     return 0
 
 
@@ -121,13 +121,14 @@ def int_Vl(i, more, j):
         L,nu,mu,omega,mh2,Rmax,order, t, w = more
         ARGS = i, L, j, L, nu, mu * omega ** 2, mh2
         
+        #Vl[i][j] = quad(pot_loc, 0.0, Rmax)[0]
         Vl[i][j] = sum(w * pot_loc(t))
         #Vl[i][j] = fixed_quad(pot_loc, 0.0, Rmax, n=order)[0]
-        if (Vl[i][j] != Vl[i][j]):
-            Vl[i][j] = quad(pot_loc, 0.0, Rmax)[0]* (0.5*(b - a))
-            if (Vl[i][j] != Vl[i][j]):
-                print("potential", i, j)
-                quit()
+        #if (Vl[i][j] != Vl[i][j]):
+        #    Vl[i][j] = quad(pot_loc, 0.0, Rmax)[0]
+        #    if (Vl[i][j] != Vl[i][j]):
+        #        print("potential", i, j)
+        #        quit()
         return Vl[i][j]
 
 
@@ -167,11 +168,11 @@ def int_V(i, more, j):
 
 NState       = 200       # Number of basys states
 Rmax         = 50        # Max R integration
-order        = 200       # Integration order
+order        = 100   # Integration order
 states_print = 3     # How many energies do you want?
 parallel     = False # Do you want trallel version?
 Nprocessors  = 4     # Number of processors
-Sysem = "Hiyama_lambda_alpha"
+Sysem = "Pionless"
 
 two_dimension_quadrature = True
 
@@ -185,13 +186,13 @@ two_dimension_quadrature = True
 ############################
 if Sysem == "Pionless" :
 # Physical system and benchmark
-    NState = 150     #Number of basys states
-    m     = 938.858
-    mu    = m/2.
-    hbar  = 197.327
-    mh2   = hbar**2/(2*m)
-    Rmax   = 50     #Max R integration
-    omegas  = [0.5]
+    NState  = 150     #Number of basys states
+    m       = 938.858
+    mu      = m/2.
+    hbar    = 197.327
+    mh2     = hbar**2/(2*mu)
+    Rmax    = 10     #Max R integration
+    omegas  = [1.0]
     L=0
     def pot_local(r, MuOmegaSquare):
         return -505.1703491 * np.exp(- 4. * r ** 2)
@@ -208,10 +209,10 @@ elif Sysem == "HObenchmark"  :
         return 0.5*MuOmegaSquare*r**2
     interaction="Local"
 
-elif Sysem == "Hiyama_lambda_alpha"  :
+elif Sysem == "Hiyama_lambda_alpha"  : # E = -3.12 MeV
 # Hyama non local benchmark
     NState = 50     #Number of basys states
-    Rmax   = 5
+    Rmax   = 30
     m_alpha      = 3727.379378
     m_lambda     = 1115.683
     mu      = (m_alpha*m_lambda)/(m_alpha+m_lambda)
@@ -223,18 +224,17 @@ elif Sysem == "Hiyama_lambda_alpha"  :
     #interaction="Local"
 
     def pot_nonlocal(rl, rr, arguments):
-        #V = -200. * rl * rr * np.exp(-0.2 * (rr+rl)**2 )
-
-        V =(rr*rl)**(-1)*((-0.3706) * np.exp(-0.1808 * (rr+rl)**2 - 0.4013 * (rr-rl)**2) +
-            (-12.94 ) * np.exp(-0.1808 * (rr+rl)**2 - 0.9633 * (rr-rl)**2) +
-            (-331.2 ) * np.exp(-0.1808 * (rr+rl)**2 - 2.930  * (rr-rl)**2))
-        return V
+        #V = -200. * np.exp(-0.2 * (rr+rl)**2 )
+        Vvv =((-0.3706) * np.exp(-0.1808 * (rr+rl)**2 -0.4013 * (rr-rl)**2) +
+              (-12.94 ) * np.exp(-0.1808 * (rr+rl)**2 -0.9633 * (rr-rl)**2) +
+              (-331.2 ) * np.exp(-0.1808 * (rr+rl)**2 -2.930  * (rr-rl)**2))
+        return Vvv
 
     def pot_local(r, arguments):
-        V = ((-17.49) * np.exp(-0.2752*(r**2)) +
-             (-127.0) * np.exp(-0.4559*(r**2)) +
-             (497.8)  * np.exp(-0.6123*(r**2)))
-        return V
+        Vvv =      ((-17.49) * np.exp(-0.2752*(r**2)) +
+                    (-127.0) * np.exp(-0.4559*(r**2)) +
+                    ( 497.8) * np.exp(-0.6123*(r**2)))
+        return Vvv
 
 elif Sysem == "P_wave_cluster_Johannes"  :
 # non local benchmark
@@ -251,12 +251,12 @@ elif Sysem == "P_wave_cluster_Johannes"  :
 
 
     def pot_nonlocal(rl, rr, MuOmegaSquare):
-        V = (-0.3706) * np.exp(-0.1808 * (rr+rl)**2 - 0.4013 * (rr-rl)**2)
-        return V
+        Vvv = (-0.3706) * np.exp(-0.1808 * (rr+rl)**2 - 0.4013 * (rr-rl)**2)
+        return Vvv
 
     def pot_local(r, MuOmegaSquare):
-        V = (-17.49) * np.exp(-0.2752*r**2)
-        return V
+        Vvv = (-17.49) * np.exp(-0.2752*r**2)
+        return Vvv
 
 
 else:
@@ -371,7 +371,7 @@ if __name__ == '__main__':
 
 
 
-
+    
     x, w  = np.polynomial.legendre.leggauss(order)
     # Translate x values from the interval [-1, 1] to [a, b]
     a=0.0
@@ -409,7 +409,8 @@ if __name__ == '__main__':
                             V[i][:i+1] = (p.map(func, np.arange(i+1)))
                         else:
                             for j in np.arange(i+1):
-                                func(j)
+                                V[i][j] = func(j)
+                            
                     func = partial(int_K, i, more)
                     if (parallel):
                         K[i][:i+1] = (p.map(func, np.arange(i+1)))
@@ -417,7 +418,7 @@ if __name__ == '__main__':
                         for j in np.arange(i+1):
                             func(j)
 
-
+                                
             K = - mh2*K
             H =   V*(gauss_scale)**2 + Vl*gauss_scale + K
             V =   V*gauss_scale**2
@@ -430,9 +431,11 @@ if __name__ == '__main__':
                     Vl[j][i] = Vl[i][j]
                     K[j][i]  = K[i][j]
 
+            print(mh2)
 
-
+            debug = True
             if debug:
+                print("Gauss scale: ", gauss_scale)
                 print("Vl: ")
                 print(np.around(Vl,2))
                 print("V:  ")
