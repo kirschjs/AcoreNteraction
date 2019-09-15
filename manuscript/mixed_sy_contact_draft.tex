@@ -1,0 +1,303 @@
+\documentclass[aps,prd,onecolumn
+,tightenlines,letterpaper,
+%superscriptaddress,linenumbers,
+notitlepage,11pt,
+nofootinbib]{revtex4-1}
+\pagestyle{empty}
+\usepackage{hyperref}
+\usepackage{amssymb,latexsym}
+\usepackage{amsmath,amsbsy,bbm}
+\usepackage{epsfig,bm,color}
+\usepackage{graphicx,comment}
+\usepackage[vcentermath]{youngtab}
+\usepackage{slashed}
+\usepackage{nicefrac}
+\usepackage{array}
+\usepackage{cjhebrew}
+\usepackage{amsthm}
+\usepackage{bbold}
+\usepackage{tikz,pgfplots}
+\usepackage{etoolbox}
+\usepackage{rotating}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathmorphing}
+\usepgfplotslibrary{patchplots}
+\usepgfplotslibrary{colormaps,fillbetween}
+
+\newcommand*{\mprime}{^{\prime}\mkern-1.2mu}
+\newcommand*{\mdprime}{^{\prime\prime}\mkern-1.2mu}
+\newcommand*{\mtprime}{^{\prime\prime\prime}\mkern-1.2mu}
+
+\makeatletter
+\newcommand{\changeoperator}[1]{
+  \csletcs{#1@saved}{#1@}
+  \csdef{#1@}{\changed@operator{#1}}
+}
+\newcommand{\changed@operator}[1]{
+  \mathop{
+    \mathchoice{\textstyle\csuse{#1@saved}}
+               {\csuse{#1@saved}}
+               {\csuse{#1@saved}}
+               {\csuse{#1@saved}}
+  }
+}
+\makeatother
+
+\changeoperator{sum}
+\changeoperator{prod}
+
+\definecolor{blue}{HTML}{4169E1}
+\definecolor{red}{HTML}{DC143C}
+\definecolor{green}{HTML}{2E8B57}
+\definecolor{black}{HTML}{000000}
+\definecolor{g1}{HTML}{A9A9A9}
+\definecolor{g2}{HTML}{696969}
+\definecolor{g3}{HTML}{7F7F7F}
+\definecolor{g4}{HTML}{D3D3D3}
+
+\DeclareMathOperator{\st}{str}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Erfc}{Erfc}
+\DeclareMathOperator{\Erf}{Erf}
+\DeclareMathOperator{\Pf}{Pf}
+\DeclareMathOperator{\sign}{sign}
+
+\usepackage{dutchcal}
+\usepackage{calligra}
+
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scriptr}{\mathcalligra{r}\,}
+\newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
+
+
+\begin{document}
+
+\newcommand{\sleq}{{\tiny \sum\limits_i^{A+1}}}
+\newcommand{\sube}{_\text{\tiny EX}}
+\newcommand{\subd}{_\text{\tiny D}}
+\newcommand{\la}{\label}
+\newcommand{\eftnopi}{\mbox{EFT$(\not \! \pi)$}}
+\newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand{\vcl}[1]{\ensuremath{\bar{\boldsymbol{r}}_\text{\tiny #1}}}
+\newcommand{\cl}[1]{\ensuremath{\bar{r}_\text{\tiny #1}}}
+\newcommand{\vsp}[1]{\ensuremath{\boldsymbol{r}}_\text{\tiny #1}}
+\newcommand{\ls}{\ve{L}\cdot\ve{S}}
+\newcommand{\bra}{\big\langle}
+\newcommand{\ket}{\big\rangle}
+\newcommand{\hl}{\big\vert}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\drei}[1]{\delta^{(3)}\!\big(#1\big)}
+\newcommand{\ddrei}[1]{\delta_{\tiny \Lambda}^{(3)}\!\big(#1\big)}
+
+\def\a{\text{\cjRL{'}}}
+\def\b{\text{\cjRL{b}}}
+\def\d{\text{\cjRL{d}}}
+\def\D{\text{\cjRL{g}}}
+\def\X{\text{\cjRL{h}}}
+
+\def\ol#1{{\overline{#1}}}
+
+\def\nexists{\slashed{\exists}}
+\def\Dslash{D\hskip-0.65em /}
+\def\Dtslash{\tilde{D} \hskip-0.65em /}
+
+\def\fm{\text{fm}^{-1}}
+\def\ie{{\it i.e.~}}
+\def\wrt{{\it w.r.t.~}}
+\def\eg{{\it e.g.~}}
+\def\he#1{{{}^#1\text{He}}}
+\def\li#1{{{}^#1\text{Li}}}
+\def\QCPT{{Q$\chi$PT}}
+\def\PQCPT{{PQ$\chi$PT}}
+\def\tr{\text{tr}}
+\def\str{\text{str}}
+\def\diag{\text{diag}}
+\def\order{{\mathcal O}}
+
+\def\cF{{\mathcal F}}
+\def\cG{{\mathcal G}}
+\def\cE{{\mathcal E}}
+\def\cS{{\mathcal S}}
+\def\cC{{\mathcal C}}
+\def\cB{{\mathcal B}}
+\def\cT{{\mathcal T}}
+\def\cQ{{\mathcal Q}}
+\def\cL{{\mathcal L}}
+\def\cO{{\mathcal O}}
+\def\cA{{\mathcal A}}
+\def\cQ{{\mathcal Q}}
+\def\cR{{\mathcal R}}
+\def\cH{{\mathcal H}}
+\def\cW{{\mathcal W}}
+\def\cM{{\widehat{M}}}
+\def\cD{{\mathcal D}}
+\def\cZ{{\mathcal Z}}
+\def\cN{{\mathcal N}}
+\def\cP{{\mathcal P}}
+\def\cK{{\mathcal K}}
+\def\Qt{{\tilde{Q}}}
+\def\Dt{{\tilde{D}}}
+\def\St{{\tilde{\Sigma}}}
+\def\cBt{{\tilde{\mathcal{B}}}}
+\def\cDt{{\tilde{\mathcal{D}}}}
+\def\cTt{{\tilde{\mathcal{T}}}}
+\def\cMt{{\tilde{\mathcal{M}}}}
+\def\At{{\tilde{A}}}
+\def\cNt{{\tilde{\mathcal{N}}}}
+\def\cOt{{\tilde{\mathcal{O}}}}
+\def\cPt{{\tilde{\mathcal{P}}}}
+\def\cI{{\mathcal{I}}}
+\def\cJ{{\mathcal{J}}}
+
+
+\def\eqref#1{{(\ref{#1})}}
+
+\newcommand{\duo}[2]{\ensuremath{\arraycolsep=4pt\def\arraystretch{2}
+	\begin{array}{c}
+	#1\\
+	#2
+	\end{array}}
+}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+\newenvironment{ecce}[1][Ecce]{\begin{trivlist}\scriptsize\color{blue}
+\item[\hskip \labelsep {\bfseries{\color{red} #1}}]}{\end{trivlist}}
+
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\textrm{\bfseries#1}}]}{\end{trivlist}}
+
+ \author{M.~Sch\"afer}
+ \author{L.~Contessi}
+ \author{J.~Kirscher}
+%\email[]{$\texttt{kirschjs@web.de}$}
+\affiliation{
+$\mathcal{HUJI}$ (Humour University's Joke Institute)
+}
+
+
+\title{
+On the character of contact interactions in few-body systems with mixed symmetry
+}
+\begin{abstract}
+We analyse predictions of regularized two- and three-body contact interactions
+in $A=2\ldots8$ body systems. The potentials are renormalized via 
+spatially symmetric two- and three-body wave functions.
+We apply these interactions to equal-mass systems with more constituents than
+internal degrees of freedom. The spatial wave functions is consequently
+of mixed symmetry.
+
+We find regulator-induced characteristic interaction ranges for these systems
+such that below a certain critical cutoff $\Lambda\lesssim\lambda_A$ a stable state exists.
+For any $\Lambda\gtrsim\lambda_A$, the system is unstable
+with respect to its lowest breakup threshold.
+We find a linear relation between the critical  $\lambda_A\approx\b\cdot A$, \ie, a linear dependence of the critical
+effective range on the number of constituents. This relation and the proximity of the interactions, which were used to obtain it, to unitarity,
+support the first main conclusion of this work: Any momentum-independent, spherically symmetric interaction, which is
+constrained by shallow two- and three-particle states, \ie, by totally spatially symmetric states, and a non-zero effective range
+
+
+ Furthermore, we find no evidence for a resonance pole close to the scattering
+threshold in the limit $\Lambda\to\infty$.
+
+\end{abstract}
+
+%\pacs{12.34.Ab}
+
+\maketitle
+
+\section{Overture}
+
+Contact interactions stabilize the unitary $A$-boson system
+with respect to certain thresholds which are set by an infinite
+number of stable 3-body states, each of which is correlated with a
+pair (one shallow and one deep) of 4-body states.
+A pair of 5-body states is then found for each of the deep 4-body states.
+This pattern generalizes such that a stable pair of a deep, and a shallow $A+1$-body state
+is found for each $A$-body state which is deep relative to its $A-1$-body threshold.
+With each particle, the binding energy increases with the number of pairs
+in the system which interact via a unitary attraction. Nothing hinders all particles
+to reside in the state which maximises the attraction.
+These ``bosonic'' states are the ground states of fermions whose internal space
+is of some dimension $n\geq A$\footnote{For nucleons $n=4$, \ie, two iso-spin and two spin degrees of freedom.}. The dynamics of fermionic systems with $n<A$ subject
+to pairwise contact interaction is the subject of this note.
+
+For
+$\hat{V}=\sum\limits_{i<j}\lim\limits_{\lambda\to\infty}\delta_\lambda(\ve{r}_i-\ve{r}_j)$
+we substantiate two conjecture with numerical evidence:
+
+\newtheorem*{thm1}{Fermion contact instability}
+\begin{thm1}
+$\nexists$ stable $A$-body state ($A>N_\text{internal}$) for particles interacting
+solely at zero-range, and there momentum independently (``contact interactions'').
+\end{thm1}
+
+For the theoretical description of nuclei, this theorem implies that the description of
+6-helium, for example, must take into account the effective range of the nuclear interaction.
+
+\newtheorem*{thm2}{Finite-range stability}
+\begin{thm2}
+$\forall$ non-zero, attractive, momentum-dependent (\ie, finite-range) interactions
+$\exists A_c:\forall N\geq A_C,~\text{partitions}~F~\text{of}~N:\;B(N)>\sum\limits_{n\in F}B(n)$.
+\end{thm2}
+\newpage
+\begin{table}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.4}
+\caption{\label{tab.legend}{Symbols, variables, numerical values as used in the manuscript..}}
+\small\centering
+\begin{tabular}{l|l}
+\hline\hline
+$\overline{\sum\limits_<}$ & $\sum\limits_{i=1}^{A-1}\vcl{i}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{sidewaystable}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{2.4}
+\caption{\label{tab.rgmpot}{Defining parameters of the effective potential between
+a Gaussian $A$-body core, characterized via the width $a$~\eqref{eq.corewfkt},
+and one {\it odd} particle. The 2- and 3-body LECs $C^\Lambda_0$ and $D^\Lambda_1$ are
+calibrated to a 2- and 3-body symmetric bound state (see table~\ref{tab.legend}). $A\mprime=A-1$}}
+\small\centering
+\begin{tabular}{lc|ccc}
+\hline\hline
+$i$ & $\eta_i$ & $\kappa_i$ & & \\
+1   & $8~C_0^\Lambda~\frac{A\mprime}{\left(4+\frac{A\mprime}{A}\frac{\Lambda^2}{a}\right)^{3/2}}$  & $\frac{A\Lambda^2}{4A+A\mprime\frac{\Lambda^2}{a}}$ \\
+2   & $
+\frac{32 D_1^\Lambda a^3 A\mdprime A\mprime}{\left(16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4\right)^{3/2}}$ & $\frac{\Lambda ^2 \left(4 a^2 A+2 a A \Lambda ^2\right)}{16 a^2 A+4 a (3 A\mdprime+5) \Lambda ^2+A\mdprime \Lambda ^4}$ \\
+3 & 
+$\frac{32 D_1^\Lambda A\mdprime A\mprime}{\left(\frac{\left(4 a+\Lambda ^2\right) \left(4 a A+A\mdprime \Lambda ^2\right)}{a^2 A}\right)^{3/2}}$ & $\frac{2 a A \Lambda ^2}{4 a A+A\mdprime \Lambda ^2}$ \\
+\hline
+$n$ & $\zeta_i$ & $\alpha_n$ & $\beta_n$ & $\gamma_n$ \\
+1 &$2 \sqrt{2} \left(\frac{A^2 \pi ^{A\mprime} a^{A\mdprime}}{A\mprime (A+1)^2}\right)^{3/2}$&
+$\frac{a \left(A^3+A\right)}{2 A\mprime (A+1)^2}$&
+$\frac{2 a A^2}{A\mprime (A+1)^2}$&
+$\frac{a \left(A^3+A\right)}{2 A\mprime (A+1)^2}$\\
+2 & 
+$ \frac{8 C_0^\Lambda a^3 A\mprime A^{9/2}}{\pi ^{3/2} (A+1)^3 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)^{3/2}}  $ & 
+$\frac{\text{} a A \left(4 a \left(A^2+1\right)+\left(3 A^2+A+2\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}$&
+$\frac{4 \text{} a A^2 \left(2 a+\Lambda ^2\right)}{(A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}$&
+$\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-A+2\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}$ \\
+3 &
+$\frac{32 D_1^\Lambda A\mdprime A\mprime (a A)^{9/2}}{\pi ^{3/2} (A+1)^3 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)^{3/2}}$&
+$\frac{\text{} a A \left(16 a^2 \left(A^2+1\right)+4 a \left(5 A^2+A+4\right) \Lambda ^2+\left(5 A^2+2 A+3\right) \Lambda ^4\right)}{2 (A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}$&
+$\frac{2 \text{} a A^2 \left(16 a^2+16 a \Lambda ^2+3 \Lambda ^4\right)}{(A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}$&
+$\frac{a A \left(16 a^2 \left(A^2+1\right)+4 a \left(3 A^2-A+4\right) \Lambda ^2+\left(A^2-2 A+3\right) \Lambda ^4\right)}{2 (A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}$\\ 
+4 &
+$\frac{32 D_1^\Lambda A\mdprime A\mprime}{\pi ^{3/2} \left(\frac{(A+1)^2 \left(4 a+\Lambda ^2\right) \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}{a^3 A^3}\right)^{3/2}}$&
+$\frac{\text{} a A \left(4 a \left(A^2+1\right)+\left(5 A^2+2 A+3\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}$&
+$\frac{2 \text{} a A^2 \left(4 a+3 \Lambda ^2\right)}{(A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}$&
+$\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-2 A+3\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}$\\
+\end{tabular}
+\end{sidewaystable}
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{Thebibliography.bib}
+
+\end{document}
