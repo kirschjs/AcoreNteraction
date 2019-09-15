@@ -51,8 +51,8 @@ def ddpsi(r, n, l, nu):
 states_print = 3     # How many energies do you want?
 
 # Parallel of this version not implemented 
-parallel     = False # Do you want trallel version?
-Nprocessors  = 4     # Number of processors
+parallel     = True # Do you want trallel version?
+Nprocessors  = 12     # Number of processors
 
 
 
