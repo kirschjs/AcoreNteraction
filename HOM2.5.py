@@ -8,31 +8,21 @@ import timeit
 ###############################
 ######## V LO pionless ########
 ###############################
-lec_list_c = {}
-lec_list_c['137'] = {  #d0GS TNI-UIX  ZENTRAL NNN   PROJ           d0ES
-    '2.00':
-    [-142.364, -106.2793, 68.488, 66.8240, 33.4723, -276.2272, -0.830307],
-    '4.00':
-    [-505.164, -434.9584, 677.799, 724.4771, 338.7663, -892.3704, -7.645753],
-    '6.00': [
-        -1090.584, -986.2518, 2652.651, 3198.9831, 1355.3977, -1692.1660,
-        -16.854889
-    ],
-    '8.00':
-    [-1898.622, -1760.1617, 7816.228, 0.0, 4101.7017, -2539.0099, -27.502527],
-    '10.0': [
-        -2929.277, -2756.6884, 20483.217, 0.0, 11095.8257, -3328.0227,
-        -39.169742
-    ],
-    '12.0': [
-        -4182.363, -3975.6195, 50939.941, 0.0, 28724.6969, -3999.5813,
-        -52.024708
-    ],
-    '15.0': [
-        -6479.576, -6221.5028, 195570.801, 0.0, 118778.9520, -4694.7019,
-        -71.996883
-    ]
-}
+lambdas = [
+    0.05, 0.1, 0.16, 0.2, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7,
+    0.75, 0.8, 0.9, 0.95, 1, 1.05, 1.1, 1.2, 1.5, 2, 3, 4, 6, 10
+]
+LeCofL = [
+    -1.552, -2.242, -3.440, -4.040, -6.397, -7.808, -9.310, -10.976, -12.782,
+    -14.726, -16.809, -19.032, -21.394, -23.894, -26.536, -32.234, -35.291,
+    -38.489, -41.824, -45.299, -52.666, -78.111, -131.646, -280.457, -484.921,
+    -1060.797, -2880.387
+]
+LeDofL = [
+    -0.324, -0.246, 0.019, 0.223, 1.207, 1.981, 2.828, 3.913, 5.209, 6.718,
+    8.468, 10.463, 12.734, 15.276, 18.137, 24.813, 28.664, 32.911, 37.527,
+    42.570, 53.971, 100.476, 232.413, 854.107, 2495.364, 16915.630, 756723.220
+]
 
 ###############################
 ######## Wave function ########
@@ -169,8 +159,8 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
     NState = 20  #Number of basys states
-    Rmax = 30
-    order = 500
+    Rmax = 5
+    order = 150
     omegas = [
         0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
         0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.3
@@ -178,7 +168,7 @@ elif Sysem == "PJM":
     L = 0
 
     Ncore = 4  # number of core particles (capital A in docu)
-    coreosci = .16  # oscillator parameter for the frozen core wave function
+    coreosci = 0.6  # oscillator parameter for the frozen core wave function
 
     mpi = '137'
     m = 938.858
@@ -187,11 +177,10 @@ elif Sysem == "PJM":
     mh2 = hbar**2 / (2 * mu)
 
     interaction = "Local"
-    Lamb = '4.00'
-    LeC = lec_list_c[mpi][Lamb][0]  # PiLess LO 2-body LEC
-    LeD = lec_list_c[mpi][Lamb][2]  # PiLess LO 3-body LEC
-
-    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+    lind = -3
+    Lamb = lambdas[lind]
+    LeC = LeCofL[lind]  # PiLess LO 2-body LEC
+    LeD = LeDofL[lind]  # PiLess LO 3-body LEC
 
     def pot_nonlocal(rl, rr, argv):
         ii = z = complex(0, 1)
@@ -209,31 +198,35 @@ elif Sysem == "PJM":
         # this function is high unstable for large r (it gives NaN but it should give 0.)
         return np.nan_to_num(Vvv.real)
 
+    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+
     def pot_local(r, argv):
 
-        Vvv = argv[3] * (8 * (-1 + argv[1])) / (4 + (
-            (-1 + argv[1]) * argv[2]**2) / (argv[0] * argv[1]))**1.5 * np.exp(
-                -(argv[0] * argv[1] * argv[2]**2) /
-                (4 * argv[0] * argv[1] + (-1 + argv[1]) * argv[2]**2) * r**2)
-        +argv[4] / 2. * 64 * argv[0]**3 * (-2 + argv[1]) * (-1 + argv[1]) * (
-            argv[1] /
-            (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
-             (-1 + 3 * argv[1]) * argv[2]**2 +
-             (-2 + argv[1]) * argv[2]**4))**1.5 * np.exp(
-                 -(2 * argv[0] * argv[1] * argv[2]**2 *
-                   (2 * argv[0] + argv[2]**2)) /
-                 (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
-                  (-1 + 3 * argv[1]) * argv[2]**2 +
-                  (-2 + argv[1]) * argv[2]**4) * r**2) + argv[4] / 2. * (64 * (
-                      -2 + argv[1]) * (-1 + argv[1])) / (
-                          ((4 * argv[0] + argv[2]**2) *
-                           (4 * argv[0] * argv[1] +
-                            (-2 + argv[1]) * argv[2]**2)) /
-                          (argv[0]**2 * argv[1]))**1.5 * np.exp(
-                              -(2 * argv[0] * argv[1] * argv[2]**2) /
-                              (4 * argv[0] * argv[1] +
-                               (-2 + argv[1]) * argv[2]**2) * r**2)
-        return Vvv
+        VnnDI = argv[3] * (argv[1] - 1) * 8 / (np.exp(
+            (r**2 * argv[0] * argv[1] * argv[2]**2) /
+            (4 * argv[0] * argv[1] + (-1 + argv[1]) * argv[2]**2)) *
+                                               (4 +
+                                                ((-1 + argv[1]) * argv[2]**2) /
+                                                (argv[0] * argv[1]))**1.5)
+
+        VnnnDIarm = argv[4] * (argv[1] - 1) * (argv[1] - 2) * (
+            64 * argv[0]**3 *
+            (argv[1] / (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
+                        (-1 + 3 * argv[1]) * argv[2]**2 +
+                        (-2 + argv[1]) * argv[2]**4))**1.5) / np.exp(
+                            (2 * r**2 * argv[0] * argv[1] * argv[2]**2 *
+                             (2 * argv[0] + argv[2]**2)) /
+                            (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
+                             (-1 + 3 * argv[1]) * argv[2]**2 +
+                             (-2 + argv[1]) * argv[2]**4))
+        VnnnDIstar = argv[4] * (argv[1] - 1) * (argv[1] - 2) * 64 / (np.exp(
+            (2 * r**2 * argv[0] * argv[1] * argv[2]**2) /
+            (4 * argv[0] * argv[1] +
+             (-2 + argv[1]) * argv[2]**2)) * (((4 * argv[0] + argv[2]**2) *
+                                               (4 * argv[0] * argv[1] +
+                                                (-2 + argv[1]) * argv[2]**2)) /
+                                              (argv[0]**2 * argv[1]))**1.5)
+        return VnnDI + VnnnDIarm + VnnnDIstar
 
 else:
     print("ERROR: I do not know the system you want")
@@ -305,7 +298,9 @@ if __name__ == '__main__':
             print(" >> NonLocal potential:  (",
                   timeit.default_timer() - start_time, " s )")
             start_time = timeit.default_timer()
-
+        plt.plot(VlocRN)
+        plt.show()
+        exit()
         #psiRN   = np.fromfunction(lambda x, y:  psi(t[x], y, L, nu)  , (order,NState), dtype=int)
         #ddpsiRN = np.fromfunction(lambda x, y:  ddpsi(t[x], y, L, nu)  , (order,NState), dtype=int)
         #VlocRN  = np.fromfunction(lambda x:  pot_local(t[x],[]) , order, dtype=int)
