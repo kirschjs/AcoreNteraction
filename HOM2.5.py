@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import sys
 from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 import timeit
+from potcoeffs import *
 
 ###############################
 ######## V LO pionless ########
@@ -159,16 +160,16 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
     NState = 20  #Number of basys states
-    Rmax = 5
-    order = 150
+    Rmax = 15
+    order = 500
     omegas = [
         0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
         0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.3
     ]
-    L = 0
+    L = 1
 
     Ncore = 4  # number of core particles (capital A in docu)
-    coreosci = 0.6  # oscillator parameter for the frozen core wave function
+    coreosci = 0.06  # oscillator parameter for the frozen core wave function
 
     mpi = '137'
     m = 938.858
@@ -202,30 +203,13 @@ elif Sysem == "PJM":
 
     def pot_local(r, argv):
 
-        VnnDI = argv[3] * (argv[1] - 1) * 8 / (np.exp(
-            (r**2 * argv[0] * argv[1] * argv[2]**2) /
-            (4 * argv[0] * argv[1] + (-1 + argv[1]) * argv[2]**2)) *
-                                               (4 +
-                                                ((-1 + argv[1]) * argv[2]**2) /
-                                                (argv[0] * argv[1]))**1.5)
+        VnnDI = argv[3] * (
+            argv[1] - 1) * eta1(argv) * np.exp(-kappa1(argv) * r**2)
 
-        VnnnDIarm = argv[4] * (argv[1] - 1) * (argv[1] - 2) * (
-            64 * argv[0]**3 *
-            (argv[1] / (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
-                        (-1 + 3 * argv[1]) * argv[2]**2 +
-                        (-2 + argv[1]) * argv[2]**4))**1.5) / np.exp(
-                            (2 * r**2 * argv[0] * argv[1] * argv[2]**2 *
-                             (2 * argv[0] + argv[2]**2)) /
-                            (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
-                             (-1 + 3 * argv[1]) * argv[2]**2 +
-                             (-2 + argv[1]) * argv[2]**4))
-        VnnnDIstar = argv[4] * (argv[1] - 1) * (argv[1] - 2) * 64 / (np.exp(
-            (2 * r**2 * argv[0] * argv[1] * argv[2]**2) /
-            (4 * argv[0] * argv[1] +
-             (-2 + argv[1]) * argv[2]**2)) * (((4 * argv[0] + argv[2]**2) *
-                                               (4 * argv[0] * argv[1] +
-                                                (-2 + argv[1]) * argv[2]**2)) /
-                                              (argv[0]**2 * argv[1]))**1.5)
+        VnnnDIarm = argv[4] * (argv[1] - 1) * (
+            argv[1] - 2) * eta2(argv) * np.exp(-kappa2(argv) * r**2)
+        VnnnDIstar = argv[4] * (argv[1] - 1) * (
+            argv[1] - 2) * eta3(argv) * np.exp(-kappa3(argv) * r**2)
         return VnnDI + VnnnDIarm + VnnnDIstar
 
 else:
