@@ -24,7 +24,8 @@
 \newcommand{\bs}[1]{\boldsymbol{#1}} 
 \newcommand{\nopieft}{\mbox{$\slashed{\pi}$EFT}} 
 \newcommand{\eftnopi}{\mbox{EFT($\slashed{\pi}$) }} 
-\newcommand{\Lag}{{\cal L}} 
+\newcommand{\Lag}{{\cal L}}
+\newcommand{\la}{\label} 
 \newcommand{\be}{\begin{equation}} 
 \newcommand{\ee}{\end{equation}} 
 \newcommand{\rvec}{{\bs{r}}} 
@@ -160,7 +161,11 @@ non-local potential
 \end{widetext}
 The coefficients $\alpha,\ldots,\kappa$ are functions of the number of core particles $A$,
 the core size $a$, the interaction regulator $\Lambda$, and the single-particle mass $m$,
-and $\mathcal{O}_1=\ve{\nabla}_R^2$, while $\mathcal{O}_{2,3,4}=\mathbb{1}$.
+and 
+\be\la{eq.exop}
+\mathcal{O}_1=\ve{\nabla}_R^2\to\left(4\alpha_1^2\ve{R}^2+\beta_1^2\ve{R}'^2-2\alpha_1\right)\;\;,
+\ee
+while $\mathcal{O}_{2,3,4}=\mathbb{1}$.
 
 A few comments are in order. Firstly, $\zeta_{1\ldots4}=0$ if $\mathcal{A}=\mathbb{1}$, \ie, the
 inter-cluster potential is local. The first non-local term encodes the so-called exchange interaction.

@@ -185,19 +185,27 @@ elif Sysem == "PJM":
 
     def pot_nonlocal(rl, rr, argv):
         ii = z = complex(0, 1)
-        v1, a1, b1, c1 = -0.3706, -0.1808 - 0.4013, -0.1808 - 0.4013, (
-            -0.1808 + 0.4013) * 2
-        v2, a2, b2, c2 = -12.94, -0.1808 - 0.9633, -0.1808 - 0.9633, (
-            -0.1808 + 0.9633) * 2
-        v3, a3, b3, c3 = -331.2, -0.1808 - 2.930, -0.1808 - 2.930, (
-            -0.1808 + 2.930) * 2
-        Vvv = (ii**L) * (v1 * spherical_jn(L, -ii * c1 * rr * rl) * np.exp(
-            a1 * rr**2 + b1 * rl**2) + v2 * spherical_jn(
-                L, -ii * c2 * rr * rl) * np.exp(a2 * rr**2 + b2 * rl**2) +
-                         v3 * spherical_jn(L, -ii * c3 * rr * rl
-                                           ) * np.exp(a3 * rr**2 + b3 * rl**2))
+
+        VnEx = (ii**L) * (zeta1(argv) * (
+            4 * alf1(argv)**2 * rr ^ 2 - 2 * alf1(argv) + bet1(argv)**2 * rl**2
+        ) * spherical_jn(L,
+                         ii * (-bet1(argv)) * rr * rl
+                         ) * np.exp(alf1(argv) * rr**2 + gam1(argv) * rl**2))
+        VnnEx = (ii**L) * (zeta2(argv) * spherical_jn(L,
+                                                      ii *
+                                                      (-bet2(argv)) * rr * rl)
+                           * np.exp(alf2(argv) * rr**2 + gam2(argv) * rl**2))
+        VnnnArmEx = (
+            ii**L) * (zeta3(argv) * spherical_jn(L,
+                                                 ii * (-bet3(argv)) * rr * rl)
+                      * np.exp(alf3(argv) * rr**2 + gam3(argv) * rl**2))
+        VnnnStarEx = (
+            ii**L) * (zeta4(argv) * spherical_jn(L,
+                                                 ii * (-bet4(argv)) * rr * rl)
+                      * np.exp(alf4(argv) * rr**2 + gam4(argv) * rl**2))
         # this function is high unstable for large r (it gives NaN but it should give 0.)
-        return np.nan_to_num(Vvv.real)
+        return np.nan_to_num(
+            VnEx.real + VnnEx.real + VnnnArmEx.real + VnnnStarEx.real)
 
     potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
@@ -282,9 +290,9 @@ if __name__ == '__main__':
             print(" >> NonLocal potential:  (",
                   timeit.default_timer() - start_time, " s )")
             start_time = timeit.default_timer()
-        plt.plot(VlocRN)
-        plt.show()
-        exit()
+        #plt.plot(VlocRN)
+        #plt.show()
+        #exit()
         #psiRN   = np.fromfunction(lambda x, y:  psi(t[x], y, L, nu)  , (order,NState), dtype=int)
         #ddpsiRN = np.fromfunction(lambda x, y:  ddpsi(t[x], y, L, nu)  , (order,NState), dtype=int)
         #VlocRN  = np.fromfunction(lambda x:  pot_local(t[x],[]) , order, dtype=int)
@@ -339,7 +347,7 @@ if __name__ == '__main__':
             print(" ")
             continue
 
-        debug = False
+        debug = True
         if debug:
             print("Gauss scale: ", gauss_scale)
             print(" ")
