@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def eta1(argv):
     return 8 / (4 + ((-1 + argv[1]) * argv[2]**2) / (argv[0] * argv[1]))**1.5
 
@@ -38,16 +41,16 @@ def zeta1(argv):
 
 
 def alf1(argv):
-    (argv[0] * (argv[1] + argv[1]**3)) / (2. * (-1 + argv[1]) *
+    return (argv[0] * (argv[1] + argv[1]**3)) / (2. * (-1 + argv[1]) *
                                           (1 + argv[1])**2)
 
 
 def bet1(argv):
-    (2 * argv[0] * argv[1]**2) / ((-1 + argv[1]) * (1 + argv[1])**2)
+    return (2 * argv[0] * argv[1]**2) / ((-1 + argv[1]) * (1 + argv[1])**2)
 
 
 def gam1(argv):
-    (argv[0] * (argv[1] + argv[1]**3)) / (2. * (-1 + argv[1]) *
+    return (argv[0] * (argv[1] + argv[1]**3)) / (2. * (-1 + argv[1]) *
                                           (1 + argv[1])**2)
 
 

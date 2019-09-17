@@ -887,7 +887,7 @@ def return_val(lamb,data,var,rang=[0.1,20]):
 		why        = fun(ics, popt[0], popt[1], popt[2], popt[3]) 
 	f2 		   = interp1d(ics,why, kind='cubic')
 	#plt.plot(X[mask],Y[mask],'ko',label="data")
-	return f2(lamb)
+	return float(f2(lamb))
 		
 		
 		
