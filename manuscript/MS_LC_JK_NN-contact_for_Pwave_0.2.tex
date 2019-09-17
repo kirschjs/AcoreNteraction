@@ -1,0 +1,810 @@
+\documentclass[aps,prd,onecolumn
+,tightenlines,letterpaper,
+%superscriptaddress,linenumbers,
+notitlepage,11pt,
+nofootinbib]{revtex4-1}
+\pagestyle{empty}
+\usepackage{hyperref}
+\usepackage{amssymb,latexsym}
+\usepackage{amsmath,amsbsy,bbm}
+\usepackage{epsfig,bm,color}
+\usepackage{graphicx,comment}
+\usepackage[vcentermath]{youngtab}
+\usepackage{slashed}
+\usepackage{nicefrac}
+\usepackage{array}
+\usepackage{cjhebrew}
+\usepackage{amsthm}
+\usepackage{bbold}
+\usepackage{tikz,pgfplots}
+\usepackage{etoolbox}
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathmorphing}
+\usepgfplotslibrary{patchplots}
+\usepgfplotslibrary{colormaps,fillbetween}
+
+\makeatletter
+\newcommand{\changeoperator}[1]{
+  \csletcs{#1@saved}{#1@}
+  \csdef{#1@}{\changed@operator{#1}}
+}
+\newcommand{\changed@operator}[1]{
+  \mathop{
+    \mathchoice{\textstyle\csuse{#1@saved}}
+               {\csuse{#1@saved}}
+               {\csuse{#1@saved}}
+               {\csuse{#1@saved}}
+  }
+}
+\makeatother
+
+\changeoperator{sum}
+\changeoperator{prod}
+
+\definecolor{blue}{HTML}{4169E1}
+\definecolor{red}{HTML}{DC143C}
+\definecolor{green}{HTML}{2E8B57}
+\definecolor{black}{HTML}{000000}
+\definecolor{g1}{HTML}{A9A9A9}
+\definecolor{g2}{HTML}{696969}
+\definecolor{g3}{HTML}{7F7F7F}
+\definecolor{g4}{HTML}{D3D3D3}
+
+\DeclareMathOperator{\st}{str}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Erfc}{Erfc}
+\DeclareMathOperator{\Erf}{Erf}
+\DeclareMathOperator{\Pf}{Pf}
+\DeclareMathOperator{\sign}{sign}
+
+\usepackage{dutchcal}
+\usepackage{calligra}
+
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scriptr}{\mathcalligra{r}\,}
+\newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
+
+
+\begin{document}
+
+\newcommand{\sleq}{{\tiny \sum\limits_i^{A+1}}}
+\newcommand{\sube}{_\text{\tiny EX}}
+\newcommand{\subd}{_\text{\tiny D}}
+\newcommand{\la}{\label}
+\newcommand{\eftnopi}{\mbox{EFT$(\not \! \pi)$}}
+\newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand{\vcl}[1]{\ensuremath{\bar{\boldsymbol{r}}_\text{\tiny #1}}}
+\newcommand{\cl}[1]{\ensuremath{\bar{r}_\text{\tiny #1}}}
+\newcommand{\vsp}[1]{\ensuremath{\boldsymbol{r}}_\text{\tiny #1}}
+\newcommand{\ls}{\ve{L}\cdot\ve{S}}
+\newcommand{\bra}{\big\langle}
+\newcommand{\ket}{\big\rangle}
+\newcommand{\hl}{\big\vert}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\drei}[1]{\delta^{(3)}\!\big(#1\big)}
+\newcommand{\ddrei}[1]{\delta_{\tiny \Lambda}^{(3)}\!\big(#1\big)}
+
+\def\a{\text{\cjRL{'}}}
+\def\b{\text{\cjRL{b}}}
+\def\d{\text{\cjRL{d}}}
+\def\D{\text{\cjRL{g}}}
+\def\X{\text{\cjRL{h}}}
+
+\def\ol#1{{\overline{#1}}}
+
+\def\nexists{\slashed{\exists}}
+\def\Dslash{D\hskip-0.65em /}
+\def\Dtslash{\tilde{D} \hskip-0.65em /}
+
+\def\fm{\text{fm}^{-1}}
+\def\ie{{\it i.e.~}}
+\def\wrt{{\it w.r.t.~}}
+\def\eg{{\it e.g.~}}
+\def\he#1{{{}^#1\text{He}}}
+\def\li#1{{{}^#1\text{Li}}}
+\def\QCPT{{Q$\chi$PT}}
+\def\PQCPT{{PQ$\chi$PT}}
+\def\tr{\text{tr}}
+\def\str{\text{str}}
+\def\diag{\text{diag}}
+\def\order{{\mathcal O}}
+
+\def\cF{{\mathcal F}}
+\def\cG{{\mathcal G}}
+\def\cE{{\mathcal E}}
+\def\cS{{\mathcal S}}
+\def\cC{{\mathcal C}}
+\def\cB{{\mathcal B}}
+\def\cT{{\mathcal T}}
+\def\cQ{{\mathcal Q}}
+\def\cL{{\mathcal L}}
+\def\cO{{\mathcal O}}
+\def\cA{{\mathcal A}}
+\def\cQ{{\mathcal Q}}
+\def\cR{{\mathcal R}}
+\def\cH{{\mathcal H}}
+\def\cW{{\mathcal W}}
+\def\cM{{\widehat{M}}}
+\def\cD{{\mathcal D}}
+\def\cZ{{\mathcal Z}}
+\def\cN{{\mathcal N}}
+\def\cP{{\mathcal P}}
+\def\cK{{\mathcal K}}
+\def\Qt{{\tilde{Q}}}
+\def\Dt{{\tilde{D}}}
+\def\St{{\tilde{\Sigma}}}
+\def\cBt{{\tilde{\mathcal{B}}}}
+\def\cDt{{\tilde{\mathcal{D}}}}
+\def\cTt{{\tilde{\mathcal{T}}}}
+\def\cMt{{\tilde{\mathcal{M}}}}
+\def\At{{\tilde{A}}}
+\def\cNt{{\tilde{\mathcal{N}}}}
+\def\cOt{{\tilde{\mathcal{O}}}}
+\def\cPt{{\tilde{\mathcal{P}}}}
+\def\cI{{\mathcal{I}}}
+\def\cJ{{\mathcal{J}}}
+
+
+\def\eqref#1{{(\ref{#1})}}
+
+\newcommand{\duo}[2]{\ensuremath{\arraycolsep=4pt\def\arraystretch{2}
+	\begin{array}{c}
+	#1\\
+	#2
+	\end{array}}
+}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+\newenvironment{ecce}[1][Ecce]{\begin{trivlist}\scriptsize\color{blue}
+\item[\hskip \labelsep {\bfseries{\color{red} #1}}]}{\end{trivlist}}
+
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\textrm{\bfseries#1}}]}{\end{trivlist}}
+
+ \author{M.~Sch\"afer}
+ \author{L.~Contessi}
+ \author{J.~Kirscher}
+%\email[]{$\texttt{kirschjs@web.de}$}
+\affiliation{
+$\mathcal{HUJI}$ (Humour University's Joke Institute)
+}
+
+
+\title{
+Contact interactions and $P$-wave dominated few-body systems
+}
+\begin{abstract}
+We analyse predictions of regularized two- and three-body contact interactions
+in $A=2\ldots8$ body systems. The interactions are renormalized with observables
+which are associated with totally symmetric spatial wave functions, specifically, the
+deuteron and triton ground states.
+We apply these interactions to systems whose number of fermionic constituents exceeds the number of
+internal degrees of freedom, thereby precluding a totally symmetric spatial wave function.
+
+For such $A$-body systems, we find a characteristic interaction range in form of a regulator parameter $\lambda_A\in\lbrace 0.01~\fm, \ldots,10~\fm\rbrace$
+such that for $\Lambda\lesssim\lambda_A$ a stable state exists, while for any $\Lambda\gtrsim\lambda_A$ the system is unstable
+with respect to its lowest breakup threshold. Specifically, we $\lambda_A\approx\b\cdot A$, \ie, a linear dependence of the critical
+effective range on the number of constituents. This relation and the proximity of the interactions, which were used to obtain it, to unitarity,
+support the first main conclusion of this work: Any momentum-independent, spherically symmetric interaction, which is
+constrained by shallow two- and three-particle states, \ie, by totally spatially symmetric states, and a non-zero effective range
+
+
+ Furthermore, we find no evidence for a resonance pole close to the scattering
+threshold in the limit $\Lambda\to\infty$.
+
+\end{abstract}
+
+%\pacs{12.34.Ab}
+
+\maketitle
+
+\section{Overture}
+
+Contact interactions stabilize the unitary $A$-boson system
+with respect to certain thresholds which are set by an infinite
+number of stable 3-body states, each of which is correlated with a
+pair (one shallow and one deep) of 4-body states.
+A pair of 5-body states is then found for each of the deep 4-body states.
+This pattern generalizes such that a stable pair of a deep, and a shallow $A+1$-body state
+is found for each $A$-body state which is deep relative to its $A-1$-body threshold.
+With each particle, the binding energy increases with the number of pairs
+in the system which interact via a unitary attraction. Nothing hinders all particles
+to reside in the state which maximises the attraction.
+These ``bosonic'' states are the ground states of fermions whose internal space
+is of some dimension $n\geq A$\footnote{For nucleons $n=4$, \ie, two iso-spin and two spin degrees of freedom.}. The dynamics of fermionic systems with $n<A$ subject
+to pairwise contact interaction is the subject of this note.
+
+For
+$\hat{V}=\sum\limits_{i<j}\lim\limits_{\lambda\to\infty}\delta_\lambda(\ve{r}_i-\ve{r}_j)$
+we substantiate two conjecture with numerical evidence:
+
+\newtheorem*{thm1}{Fermion contact instability}
+\begin{thm1}
+$\nexists$ stable $A$-body state ($A>N_\text{internal}$) for particles interacting
+solely at zero-range, and there momentum independently (``contact interactions'').
+\end{thm1}
+
+For the theoretical description of nuclei, this theorem implies that the description of
+6-helium, for example, must take into account the effective range of the nuclear interaction.
+
+\newtheorem*{thm2}{Finite-range stability}
+\begin{thm2}
+$\forall$ non-zero, attractive, momentum-dependent (\ie, finite-range) interactions
+$\exists A_c:\forall N\geq A_C,~\text{partitions}~F~\text{of}~N:\;B(N)>\sum\limits_{n\in F}B(n)$.
+\end{thm2}
+
+\begin{figure}
+\[\arraycolsep=4pt\def\arraystretch{4}
+\begin{array}{l|lllll}
+AB\ldots Z &  (AB\ldots Z)A & (AB\ldots Z_\text{even})^n & (AB\ldots Z_\text{odd})^n & & \\
+\duo{\yng(2) }{ {}^2n, np} &
+\duo{\yng(2,1)}{ {}^3\text{n}, \left({}^3\text{He}\right)^3} &
+\duo{\yng(2,2)}{ {}^4n} &
+\duo{\yng(1,1)}{{}^2n(S=1)} &
+\duo{\yng(3,2)}{{}^5\text{H(e)}} &
+\duo{\yng(4,2)}{{}^6\text{Li}} \\
+\duo{\yng(3)}{ {}^3\text{H(e)}} &
+\duo{\yng(3,1)}{{}^4\text{H}} &
+\duo{\yng(4,4)}{{}^8\text{Be}} &
+\duo{\yng(3,3)}{{}^6\text{Li}} &
+\yng(4,3) &
+\yng(6,2) \\
+\duo{\yng(4)}{{}^4\text{He}} &
+\duo{\yng(4,1)}{{}^5\text{H(e)}} &
+\duo{\yng(4,4,4)}{{}^{12}\text{C}} &
+\yng(3,3,3) &  &  \\ \hline
+\yng(5) &
+\yng(5,1) & &  &  &  \\
+\yng(6) &
+\yng(6,1) & &  &  &  \\
+\yng(7) & \yng(7,1) & &  &  &  \\
+\yng(8) & \yng(8,1) & &  &  &  \\\hline
+\begin{minipage}[c]{.15\textwidth}
+generalization of the universal ratio $\lim\limits_{n\to\infty}\frac{B_n}{B_{n-1}}$ to
+$\frac{B_n(A)}{B_{n}(A+1)}\stackrel{?}{=}f(A)$
+\end{minipage} &
+\begin{minipage}[c]{.15\textwidth} odd-odd (imbalanced)\\effect of additional bosons to which the $2^\text{\tiny nd}$ fermion can bind; no additional exchange effect from one system size to the other.
+\end{minipage} &
+\begin{minipage}[c]{.15\textwidth} even-even (balanced)\\exchange effects in combination
+with increasing number of cross-fragmentinteractions.
+\end{minipage} &
+\begin{minipage}[c]{.15\textwidth}odd-odd (balanced) same as even-even (triplet vs. doublet)
+\end{minipage} &
+\begin{minipage}[c]{.15\textwidth}
+\end{minipage} &
+\begin{minipage}[c]{.15\textwidth}
+\end{minipage} \\
+\end{array}
+\]\caption{\small Classification of $A$-body systems according to particle number and
+accessible internal states.}
+\end{figure}
+
+\section{$\lambda_c$~speculation}
+
+\begin{figure}
+
+\begin{tikzpicture}
+    \begin{axis}
+    [
+    scale = 1.95,
+    %ymax=2.2,
+    scaled ticks=false,
+     %thick,
+     smooth,
+     %no markers,
+     xlabel={$A$},
+     xlabel style={yshift=-5ex, font={\fontsize{18 pt}{12 pt}\selectfont}},
+     ylabel={$\lambda_c~$[fm$^{-1}$]},
+     ylabel style={yshift=5ex, font={\fontsize{18 pt}{12 pt}\selectfont}},
+     %legend entries={,,{ ${}^3P_0$},,,{ ${}^3P_1$},,,{ ${}^3P_2$}},
+     legend columns=3,
+     legend style={/tikz/column 4/.style={column sep=14pt,},/tikz/column 2/.style={column sep=14pt,},draw=none,row sep = 5.5pt,at={(.5,-.32)},anchor=center},
+     xtick={2,3,4,5,6},
+     %xticklabels={\small\textcolor{red}{A-A},\small\textcolor{red}{A-A}B,\small\textcolor{red}{A-A}BC,\small\textcolor{red}{A-A}BCD,\small\textcolor{red}{A-A}BCDE},
+     xticklabel style={rotate=0,yshift=-1.5ex, font={\fontsize{18 pt}{12 pt}\selectfont}},
+     yticklabel style={rotate=0,xshift=-1.ex, font={\fontsize{16 pt}{12 pt}\selectfont}},
+     ]
+
+\addplot[red!70!black,mark=*] table[x expr=\thisrowno{0},y expr={ \thisrowno{3}>=0 ? \thisrowno{3} : 1./0.0 }]
+{lambda_crit.dat};
+\addlegendentry{$\young(A,\ldots,A)~\hat{=}~$fermion$^{\textcolor{red}{n}}$}
+
+\addplot[green!60!black,mark=*] table[x expr=\thisrowno{0},y expr={ \thisrowno{2}>=0 ? \thisrowno{2} : 1./0.0 }]
+{lambda_crit.dat};
+\addlegendentry{$\young(AB,A,\ldots,A)~\hat{=}~$fermion-(fermion,boson$^{\textcolor{red}{n}}$)}
+
+\addplot[blue!70!black,mark=*] table[x expr=\thisrowno{0},y expr={ \thisrowno{1}>=0 ? \thisrowno{1} : 1./0.0 }]
+{lambda_crit.dat};
+\addlegendentry{$\young(AB\ldots Z,A)~\hat{=}~$fermion$^{\textcolor{red}{n}}$-(fermion,boson)}
+
+    \end{axis}
+
+\end{tikzpicture}
+\caption{\small .}
+
+\end{figure}
+
+If two systems $A$ and $B$ have similar critical binding ranges, $\lambda_c(A)\approx\lambda_c(B)$ we indicate this with
+$A\sim B$.
+
+\newtheorem{obs}{Observation}
+
+\begin{obs}[${\tiny\yng(1,1)}<{\tiny\yng(1,1,1)}$]
+Although, the third particle is forced into a higher orbital excitation, it is stable for even shorter ranges compared with the two-fermion system.
+The higher orbital suggests a higher angular-momentum barrier which demands an even longer-ranged attraction. Expressing the wave function in cluster
+coordinates, which are in this case identical to Jacobi coordinates, the 
+\end{obs}
+
+\section{Resonating-group derivation of the core-particle interaction}
+
+\begin{gather}
+\bra\phi_A\hl\big(\hat{T}_{\ve{R}}+\hat{V}_\text{\tiny A,A+1}-E\big)\hat{A}\left[\phi_A\psi(R)\right]\ket=0\\
+\Rightarrow~\left(\hat{T}_{\ve{R}}-E\right)\bra\phi_A\hl\hat{A}\left[\phi_A\psi\right]
+\ket+\bra\phi_A\hl\hat{V}_\text{\tiny A,A+1}\hl\hat{A}\left[\phi_A\psi\right]\ket=0
+\la{eq.rgm2}
+\end{gather}
+with an average over the internal coordinates of the fragment:
+\begin{gather}
+\bra\ldots\ket=\prod\limits_{i=1}^{A-1}\int d^3\vcl{i}
+\intertext{which we chose to express relative to its center or mass, \ie, we use
+the following set of coordinates}
+\vcl{i}:=\vsp{i}-\frac{\scriptstyle \sum_{i=1}^A\vsp{i}}{A}\;\;\;i\in\lbrace 1,\ldots,A\rbrace\\
+\ve{R}:=\vsp{A+1}-\frac{\scriptstyle \sum_{i=1}^A\vsp{i}}{A}\\
+\ve{R}_\text{\tiny cm}:=\frac{\scriptstyle \sum_{i=1}^{A+1}\vsp{i}}{A+1}
+\end{gather}
+which comprises $A$ independent vectors because $\vcl{A}=-(\vcl{1}+\ldots+\vcl{A-1})$ for
+$A+1$ equal-mass particles located at single-particle coordinates $\vsp{1,$\ldots$,A+1}$.
+\begin{gather}
+\phi_A:=e^{-\frac{a}{2}\sum_{i=1}^{\red{A}}\vcl{i}^2}=e^{-a\sum^{\red{A-1}}\vcl{i}^2-a\sum^{\red{A-1}}_{\red{i<j}}\vcl{i}\cdot\vcl{j}}\la{eq.wfktphi}\\
+\psi\to\int d^3\ve{R}'~\drei{\ve{R}-\ve{R}'}\psi(\ve{R}')\la{eq.wfktpsi}\\
+\hat{A}=\mathbb{1}-\hat{P}(\vsp{A}\leftrightarrow\vsp{A+1})
+\end{gather}
+\begin{align}
+\hat{P}(\vsp{A}\leftrightarrow\vsp{A+1})\left[\ve{R}=\vsp{A+1}-\frac{\sum^A_i\vsp{i}}{A}\right]=&~-A^{-1}\ve{R}-(1+A^{-1})\sum_i^{A-1}\vcl{i}\\
+\hat{P}(\vsp{A}\leftrightarrow\vsp{A+1})\left[\drei{\ve{R}-\ve{R}'}\right]=&~(2\pi)^{-3}\int ds~e^{is\left(A^{-1}\ve{R}+(1+A^{-1})\sum_i^{A-1}\vcl{i}+\ve{R}'\right)}\\
+%
+\hat{P}(\vsp{A}\leftrightarrow\vsp{A+1})\left[\phi_A\psi\right]=&~\frac{A}{A+1}
+(2\pi)^{-3}\prod\limits_{m\in\lbrace x,y,z\rbrace}~\int\limits_{\mathbb{R}^2}
+d(s,\ve{R}^{'}_m)~e^{-\frac{a\epsilon_1}{2}\ve{R}_m^2-is\left(\frac{\ve{R}_m}{A+1}+\frac{A}{A+1}\ve{R}^{'}_m\right)}\\
+&~\cdot e^{-\frac{a\epsilon_1}{2}\sum\limits_{i<A}\vcl{m,i}^2-\frac{a}{A}\sum\limits_{i\neq j<A}\vcl{m,i}\vcl{m,j}+\frac{a\ve{R}_m}{A}\sum\limits_{i<A}\vcl{m,i}-is\sum\limits_{i<A}\vcl{m,i}}\blue{\times\psi(\ve{R}')}
+\end{align}
+\begin{align}
+\hat{V}_\text{\tiny A,A+1}=&~C_0(\Lambda)\sum\limits_{\red{i\leq A}}\ddrei{\vsp{i}-\vsp{A+1}}\la{eq.v2}\\
+&~+D_1(\Lambda)\sum\limits_{\red{i\neq j\atop \leq A}}\left\lbrace\ddrei{\vsp{i}-\vsp{A+1}}\ddrei{\vsp{j}-\vsp{A+1}}+\ddrei{\vsp{i}-\vsp{A+1}}\ddrei{\vsp{j}-\vsp{j}}\right\rbrace\la{eq.v3}
+\end{align}
+An effective potential which considers the
+interaction potential -- which weighs a configuration of particles within a limited
+parameter space as circumscribed by the effective theory -- and the
+identity of particles -- reflected in the implied (anti)symmetry of the
+wave function -- is defined by
+\begin{gather}
+\int\limits_{\mathbb{R}}d^3\ve{R'}~\hat{V}_\text{\tiny eff}(\ve{R},\ve{R}')\psi(\ve{R}')
+:=
+\bra\phi_A\hl\hat{V}_\text{\tiny A,A+1}\hl\hat{A}\left[\phi_A\psi\right]\ket-\left(\hat{T}_{\ve{R}}-E\right)\bra\phi_A\hl\hat{P}(\vsp{A}\leftrightarrow\vsp{A+1})\left[\phi_A\psi\right]\ket\;\;,
+\end{gather}
+a function of
+$$ \big\lbrace\ve{R},\ve{R}',a,\Lambda,C_0,D_1,A\big\rbrace\;\;. $$
+Unorthodoxly, we do thus not distinguish between overlap/exchange kernel and direct/exchange interaction.
+
+\subsection{Overlap Kernel}
+The so-called exchange kernel measures the overlap of the fragment wave function, on the left-hand side, and the total
+wave function on the right. 
+\begin{gather*}
+\mathcal{K}(R):=\bra\phi_A\hl\hat{A}\left[\phi_A\psi\right]\ket\;\;.
+\intertext{The demand for a totally antisymmetric wave function preserves the dependence of this quantity
+on the quantum numbers which characterize the fragment state $\phi_A$. This dependence dissappears only in the
+approximation $\hat{A}=\mathbb{1}$ for orthonormal $\phi_A$'s. Assuming that the particles with label $A$ and $A+1$,
+respectively, are identical,}
+\mathcal{K}(R)=\int d(\vcl{1\ldots A},\ve{R}')e^{-\frac{a}{2}\sleq\vcl{i}^2}\left(\mathbb{1}-\hat{P}(\vsp{A},\vsp{A+1})\right)\left[
+e^{-\frac{a}{2}\sleq\vcl{i}^2}\drei{\ve{R}-\ve{R}'}\right]\psi(\ve{R}')\;\;.
+\intertext{We find}
+\hat{P}(\vsp{A},\vsp{A+1})\phi_A=\\
+\hat{P}(\vsp{A},\vsp{A+1})\drei{\ve{R}-\ve{R}'}=\frac{A}{A+1}~\drei{\vcl{A}-\frac{\ve{R}}{A+1}-\frac{A}{A+1}\ve{R}'}\\
+=(2\pi)^{-3}\prod\limits_{m\in\lbrace x,y,z\rbrace}\int_\mathbb{R}ds~e^{-is\left(\vcl{m,A}-\frac{\ve{R}_m}{A+1}-\frac{A}{A+1}\ve{R}^{'}_m\right)}
+\end{gather*}
+We proceed with
+\begin{align}
+\bra\phi_A\hl\hat{A}\left[\phi_A\psi\right]\ket=&
+~\int d^3\ve{R}'~\sum\limits_{k\in\lbrace \text{D,EX}
+\rbrace}A_k\left(
+\int\limits_{\mathbb{R}}\ldots\int\limits_{\mathbb{R}}d(\cl{1,$\ldots$,A-1},s)~
+e^{-\frac{1}{2}\vcl{}^\intercal\cM_k\vcl{}+\ve{\cS}^\intercal_k\cdot\vcl{}-isB_k}
+\right)^{\vec{3} }~\blue{\times\psi(\ve{R}')}
+\la{eq.exkernel}\\
+=&~\left\lbrace
+\drei{\ve{R}-\ve{R}'}
+-\frac{A}{A+1}\left(\pi^{-1}(A-1)^{-1}\right)^{3/2}e^{-\alpha_k\ve{R}^2-\beta_k\ve{R}'^2-\gamma_k\ve{R}\cdot\ve{R}'}
+\right\rbrace
+\\
+&~\times\left(\left(\frac{\pi}{a}\right)^{A-1}A^{-1}\right)^{3/2}~\psi(\ve{R}')\;\;,
+\end{align}
+with $\vec{3} $ indicating a product of prefactors$\times$exponentials
+for the spatial coordinates, \ie, in the exponents, components are to be replaced by
+vectors, and prefactors are $n$-cubed.
+Note that the combinatoric factors $A_k$ are included only once and not for each 
+dimension, separately.
+\begin{gather}
+A_\text{D(irect)}=1\;\;;\;\;\cM\subd =\texttt{MAT}(\text{\small A-1})=\begin{pmatrix}4a & & & \\ & 4a & &\multicolumn{2}{l}{\!\!\!\!(2a)_\nabla}\\
+ \multicolumn{2}{c}{(2a)_\triangle} & \ddots & \\ & & & & 4a \\\end{pmatrix}
+\;\;;\;\;\ve{\cS}\subd =\ve{0}\;\;;\;\;B\subd =(R-R')
+\\
+\det\cM\subd =2^{A-1}A~a^{A-1} \\
+A_\text{EX(change)}=-\frac{A}{A+1}(2\pi)^{-3}\;\;;\;\;B\sube =
+\left(\frac{R}{A+1}+\frac{A}{A+1}R^{'}\right)
+\intertext{The $A$ dependence in $A\sube$ stems from a rescaling of $\delta(R,R')$,
+and $(2\pi)^{-3}$ from the Fourier representation of it.}
+\cM\sube =\begin{pmatrix}a\epsilon_3 & & & \\ & a\epsilon_3 & &\multicolumn{2}{l}{\!\!\!\!(a\epsilon_1)_\nabla} \\
+ \multicolumn{2}{c}{(a\epsilon_1)_\triangle} & \ddots & \\ & & & & a\epsilon_3 \\\end{pmatrix}
+\;\;;\;\;\ve{\cS}\sube =\begin{pmatrix}\red{\frac{aR}{A}-is}\\\vdots\\\red{\frac{aR}{A}-is}\end{pmatrix}\;\;;\;\;\epsilon_{1(3)}:=\frac{(3)A-1}{A}
+\end{gather}
+\begin{align}
+\det\cM\sube =&~2^{A-2}(A+A^{-1})~a^{A-1}
+\intertext{After the cluster-coordinate integration, the exponent reads}
+\frac{1}{2}\cS\sube ^\intercal\cM\sube ^{-1}\cS\sube -isB\sube =&~\frac{\epsilon_1}{2(A^2+1)}aR^2-\frac{A-1}{A^2+1}iRs-\frac{\epsilon_1}{2(1+A^{-2})}s^2
+\\
+&~-is\left(\frac{R}{A+1}+\frac{A}{A+1}R^{'}\right)
+\end{align}
+From the last formula, we identify the coefficients for the quadratic and linear $s$
+terms which parametrize the one-dimensional Gaussian integral over $s$.
+After this integration, the $\drei{\ve{R}-\ve{R}'}$, as present for the direct 
+interaction is transformed into a Gaussian which is non-zero even if the direction
+of the relative distance between the centre of mass of the $A$ bodies and the odd man
+differs from its parameter value due to the interchange of $\vsp{A}$ and $\vsp{A+1}$:
+\begin{equation}
+\exp{\left[-\underbrace{\frac{3A^2-1}{2A(A+1)(A^2-1)}a}_{:=\alpha\sube}\ve{R}^2-
+\underbrace{\frac{A(A^2+1)}{2(A+1)(A^2-1)}a}_{:=\beta\sube}\ve{R}'^2-
+\underbrace{\frac{2A^2}{(A+1)(A^2-1)}a}_{:=\gamma\sube}\ve{R}\cdot\ve{R}'\right]}
+\end{equation}
+Note that all matrices are chosen to be symmetric in order to employ
+$$
+\int d^3\ve{v}e^{-\frac{1}{2}\ve{v}^\intercal\cM\ve{v}+\cS^\intercal\cdot\ve{v}}=(2\pi)^{(A-1)/2}~\big(\det\cM\big)^{-1/2}~e^{\frac{1}{2}\cS^\intercal\cM^{-1}\cS}
+$$
+For the direct term (corresponding to the $\mathbb{1}$ of the antisymmetrizer), only
+one (A-1)-dimensional Gaussian integral over the $\vcl{i}$'s has to be evaluated.
+The $s$ integral recovers $\drei{\ve{R}-\ve{R}'}$, yielding a constant which is
+naturally local (no $\ve{R}'$ dependence). The permutation encodes the probability to
+find the particles arranged in $\phi_A$ and $\phi_B(=1)$ with a single particle of
+the $A$ system to be present at a distance $\ve{R}$ from its centre of mass while the
+$B$ particle resides ``within'' $A$ in a non-local structure. The form of this
+structure results from the Gaussian integration over the quadratic $s$ terms.
+
+\subsection{Partial-wave projection}
+All complications related to the projection of Eq.\eqref{eq.rgm2} into partial waves
+arise even in the absence of an interaction and shall be described below.
+
+\begin{gather}
+\left(\hat{T}_{\ve{R}}-E\right)\bra\phi_A\hl\hat{A}\left[\phi_A\psi\right]
+\ket=0\\
+\left(\hat{T}_{\ve{R}}-E\right)
+\int d^3\ve{R}'\left\lbrace\drei{\ve{R}-\ve{R}'}+c\sube e^{-\alpha_k\ve{R}^2-\beta_k\ve{R}'^2-\gamma_k\ve{R}\cdot\ve{R}'}\right\rbrace\psi(\ve{R}')
+\intertext{which in virtue of}
+c\sube:=-\frac{A}{A+1}\left(\pi(A-1)\right)^{-3/2}\;\;;\;\;\psi(\ve{R})=R^{-1}\sum_{lm}\psi_{lm}(R)Y_{lm}(\hat{\ve{R}})\\
+\hat{T}^l_R=\frac{\hbar}{2}\underbrace{\frac{(A+1)}{mA}}_{=\mu^{-1}_\text{\tiny red}}\Big(-\frac{d^2}{dR^2}+\frac{l(l+1)}{R^2}\Big)\;\;;\;\;R\int d^2\hat{\ve{R}}~Y^*_{l'm'}(\hat{\ve{R}})\to(\ldots)
+\intertext{yields}
+\left(\hat{T}^l_{R}-E\right)\psi_{lm}(R)\\
++c\sube\int dR'~R'e^{-\beta\sube R'^2}\left(\hat{T}^l_{R}-E\right)\left[Re^{-\alpha\sube R^2}\int d^2~(\hat{\ve{R}},\hat{\ve{R'}})Y^*_{l'm'}(\hat{\ve{R}})e^{-\gamma\sube\ve{R}\cdot\ve{R}'}Y_{lm}(\hat{\ve{R}'})\right]\psi_{lm}(R')=0\nonumber
+\intertext{in which we substitute}
+e^{-\gamma\sube\ve{R}\cdot\ve{R}'}=e^{ii\gamma\sube\ve{R}\cdot\ve{R}'}=4\pi\sum_{LM}i^Lj_L(i\gamma\sube RR')Y^*_{LM}(\hat{\ve{R}})Y_{LM}(\hat{\ve{R}}')
+\intertext{to arrive at}
+\left(\hat{T}^l_{R}-E\right)\psi_{lm}(R)+4\pi\,i^l\,c\sube\int dR'~R'e^{-\beta\sube R'^2}\left(\hat{T}^l_{R}-E\right)\left[Re^{-\alpha\sube R^2}j_l(i\gamma\sube RR')\right]\psi_{lm}(R')=0\;\;.\nonumber\\
+\end{gather}
+Enter the interaction potential does not alter this basic structure but adds terms of
+the same type:
+\begin{gather}
+\left(\hat{T}^l_{R}-E\right)\psi_{lm}(R)+\sum_kc_k\int dR'~R'e^{-\beta_k R'^2}
+\hat{O}_k(R)
+\left[Re^{-\alpha_k R^2}j_l(i\gamma_k RR')\right]\psi_{lm}(R')=0
+\intertext{with}
+c\sube=-4\pi i^l~\frac{A}{A+1}\left(\pi(A-1)\right)^{-3/2}\;\;\;\;\text{and}\;\;\;\;\hat{O}\sube=\left(\hat{T}^l_{R}-E\right)
+\end{gather} 
+\newpage
+\subsection{Direct- and exchange interaction}
+Besides the interaction derived above is a consequence of the identity of 
+particles and the ensuing demand for an antisymmetric spatial wave function.
+This effective potential presents a deviation from a free motion between
+the $A$-body core and a particle even if the particle-particle interaction is zero.
+For specific non-zero two- and three-particle interactions we derive the contributions
+affecting the cluster-particle relative potential below. Specifically,
+we calculate the second term of Eq.~\eqref{eq.rgm2} employing the interaction
+Eq.\eqref{eq.v2} and Eq.\eqref{eq.v3}.
+
+For a Gaussian representation of the contact interactions,
+\[\ddrei{\ve{x}}=e^{-\frac{\Lambda}{4}\ve{x}^2}\;\;,\]
+and $\hat{P}\in\big\lbrace\mathbb{1},\hat{P}_{A,A+1}\big\rbrace$, one arrives at
+\begin{align}
+\bra\phi_A\hl\hat{V}_\text{\tiny A,A+1}\hl\hat{P}\left[\phi_A\psi\right]\ket=&~
+~\int d^3\ve{R}'~\sum\limits_{k=1}^7A_k\left(
+\int\limits_{\mathbb{R}}\ldots\int\limits_{\mathbb{R}}d(\cl{1,$\ldots$,A-1},s)~
+e^{-\frac{1}{2}\vcl{}^\intercal\cM_k\vcl{}+\ve{\cS}^\intercal_k\cdot\vcl{}-isB_k}
+\right)^{\vec{3} }~\blue{\times\psi(\ve{R}')}\;\;\nonumber\\
+=&~
+\int d^3\ve{R}'~\sum\limits_{k=1}^7A_k\left(
+\sqrt{\frac{(2\pi)^{A-1}}{\det\cM_k}}\int\limits_{\mathbb{R}}ds~
+e^{\frac{1}{2}\ve{\cS}_k^\intercal\cM^{-1}_k\ve{\cS}_k-isB_k}
+\right)^{\vec{3} }~\blue{\times\psi(\ve{R}')}
+\intertext{writing the exponent in the form 
+$\frac{1}{2}\ve{s}^\intercal\cM_{s,k}\ve{s}+\ve{B}_{s,k}^\intercal\cdot\ve{s}$
+translates the $s$ integral into}
+=&~\int d^3\ve{R}'~\sum\limits_{k=1}^7A_k\left(
+\sqrt{\frac{(2\pi)^{A-1}}{\det\cM_k}}\cdot\sqrt{\frac{2\pi}{\det\cM_{s,k}}}
+\right)^3\times
+e^{-\alpha_k\ve{R}^2-\beta_k\ve{R}'^2-\gamma_k\ve{R}\cdot\ve{R}'}
+\blue{\times\psi(\ve{R}')}\nonumber\\
+=&~\sum\limits_{k=1}^7A_k\left(
+\frac{(2\pi)^A}{\det\cM_k~\det\cM_{s,k}}
+\right)^{\frac{3}{2}}~\int d^3\ve{R}'~
+e^{-\alpha_k\ve{R}^2-\beta_k\ve{R}'^2-\gamma_k\ve{R}\cdot\ve{R}'}
+\blue{\times\psi(\ve{R}')}
+\la{eq.expot}
+\end{align}
+\ie, a structure which is analogous to Eq.\eqref{eq.exkernel}. 
+In order to obtain the coefficients,
+interacting pairs
+and triples are organized in seven terms, each of which corresponding to the same
+exponent. Specifically, we found the following arrangement convenient (details in
+Sec.\ref{sec.int}).
+\begin{align}
+C_0(\Lambda)\sum\limits_{\red{i\leq A}}\ddrei{\vsp{i}-\vsp{A+1}}
+=&~\left\lbrace
+\sum\limits_{\red{i<A}}\drei{\vcl{\red{i}}-R}+\drei{\scriptstyle -\sum\limits_{i<A}\vcl{i}-R}
+\right\rbrace\cdot C_0(\Lambda)\la{eq.v21}
+\\
+=&~\left\lbrace\,
+(A-1)\,\ddrei{\vcl{\red{1}}-R}+1\cdot\ddrei{\scriptstyle -\sum\limits_{i<A}\vcl{i}-R}
+\right\rbrace\cdot C_0(\Lambda)\la{eq.v22}
+\\
+D_1(\Lambda)\sum^A_{\red{i< j\atop \text{\tiny cyc}}}
+\ddrei{\vsp{i}-\vsp{A+1}}\ddrei{\vsp{j}-\vsp{A+1}}=&~
+\left\lbrace{A-1\choose 2}
+\ddrei{\vsp{1}-\vsp{A+1}}\ddrei{\vsp{2}-\vsp{A+1}}\right.\la{eq.v31}
+\\
++&~\left. (A-1)\,
+\ddrei{\vsp{A}-\vsp{A+1}}\ddrei{\vsp{1}-\vsp{A+1}}\right\rbrace
+\cdot D_1(\Lambda)\la{eq.v32}
+\\
+D_1(\Lambda)\sum\limits_{\red{i< j\atop \text{\tiny cyc}}}
+\ddrei{\vsp{i}-\vsp{A+1}}\ddrei{\vsp{j}-\vsp{j}}=&~
+\left\lbrace{A-1\choose 2}
+\ddrei{\vsp{1}-\vsp{A+1}}\ddrei{\vsp{1}-\vsp{2}}\right.\la{eq.v33}
+\\
++&~(A-1)\ddrei{\vsp{A}-\vsp{A+1}}\ddrei{\vsp{A}-\vsp{1}}\la{eq.v34}
+\\
++&~\left.(A-1)\ddrei{\vsp{1}-\vsp{A+1}}\ddrei{\vsp{1}-\vsp{A}}\right\rbrace\cdot D_1(\Lambda)\;\;\;,\la{eq.v35}
+\end{align}
+and written as a function of cluster, \ie, integration variables:
+\begin{eqnarray}
+\hat{V}_{A,A+1}=&~C_0(\Lambda)\cdot&
+\left\lbrace\,(A-1)\,\ddrei{\vcl{\red{1}}-R}+1\cdot
+\ddrei{\scriptstyle \sum\limits_{i<A}\vcl{i}+R}\right\rbrace_{\blue{k=1,2}}\nonumber\\
++&~
+D_1(\Lambda)\cdot&\left\lbrace{A-1\choose 2}\left(\ddrei{\vcl{1}-R}\ddrei{\vcl{2}-R}+
+\ddrei{\vcl{1}-R}\ddrei{\vcl{1}-\vcl{2}}\right)_{\blue{k=3,5}}\right.\nonumber\\
+&&+(A-1)\left(\ddrei{\sum\limits_{i<A}\vcl{i}+R}\ddrei{\vcl{1}-R}+\ddrei{\sum\limits_{i<A}\vcl{i}+R}\ddrei{\sum\limits_{i<A}\vcl{i}+\vcl{1}}\right.\nonumber\\
+&&~\;\;\;\;\;\;\;\;\;\;\;\;\;+\left.\left.
+\ddrei{\vcl{1}-R}\ddrei{\sum\limits_{i<A}\vcl{i}+\vcl{1}}\right)_{\blue{k=4,6,7}}\right\rbrace\;\;.
+\end{eqnarray}
+From these 7 terms, the matrices and vectors which parametrize the integral in
+Eq.\eqref{eq.expot} are read off (the blue subscripts refer to the parameter set
+which results from the respective term in the brackets):
+%
+\newpage
+%
+\arraycolsep=2.4pt\def\arraystretch{1.25}
+\begin{align*}
+\cM_1 =&
+\begin{pmatrix}
+a\green{\epsilon_3}+\frac{\Lambda^2}{2} & & & \\ 
+& a\green{\epsilon_3} & &\multicolumn{2}{l}{\!\!\!\!(a\green{\epsilon_1})_\nabla} \\
+ \multicolumn{2}{c}{(a\green{\epsilon_1})_\triangle} & \ddots & \\
+  & & & & a\green{\epsilon_3} \\
+\end{pmatrix}
+&
+\ve{\cS}_1 =&\begin{pmatrix}\red{\frac{aR}{A}-is}&+\frac{\Lambda^2}{2}R\\\red{\frac{aR}{A}-is}&\\\vdots&\\\red{\frac{aR}{A}-is}&\end{pmatrix}
+&
+B'_1=&-\frac{i}{s}\left(\red{\frac{a\epsilon_1}{2}}+\frac{\Lambda^2}{4}\right)R^2
+\\
+\cM_2 =&
+\begin{pmatrix}
+a\green{\epsilon_3}+\frac{\Lambda^2}{2} & & & \\ 
+& a\green{\epsilon_3}+\frac{\Lambda^2}{2} & &\multicolumn{2}{l}{\!\!\!\!(a\green{\epsilon_1}+\frac{\Lambda^2}{2})_\nabla} \\
+ \multicolumn{2}{c}{(a\green{\epsilon_1}+\frac{\Lambda^2}{2})_\triangle} & \ddots & \\
+  & & & & a\green{\epsilon_3}+\frac{\Lambda^2}{2} \\
+\end{pmatrix}
+&
+\ve{\cS}_2 =&\begin{pmatrix}\red{\frac{aR}{A}-is}-\frac{\Lambda^2}{2}R\\ \vdots\\
+\red{\frac{aR}{A}-is}-\frac{\Lambda^2}{2}R\end{pmatrix}
+&
+B'_2=&-\frac{i}{s}\left(\red{\frac{a\epsilon_1}{2}}+\frac{\Lambda^2}{4}\right)R^2
+\\
+\cM_3 =&
+\begin{pmatrix}
+a\green{\epsilon_3}+\frac{\Lambda^2}{2} & & & &\\ 
+& a\green{\epsilon_3}+\frac{\Lambda^2}{2} & &\multicolumn{2}{l}{\!\!\!\!(a\green{\epsilon_1})_\nabla} \\
+&& a\green{\epsilon_3} &&\\
+ \multicolumn{3}{c}{(a\green{\epsilon_1})_\triangle} & \ddots & \\
+  & & & & a\green{\epsilon_3}
+\end{pmatrix}
+&
+\ve{\cS}_3 =&\begin{pmatrix}\red{\frac{aR}{A}-is}&+\frac{\Lambda^2}{2}R\\\red{\frac{aR}{A}-is}&+\frac{\Lambda^2}{2}R \\ \red{\frac{aR}{A}-is}&\\\vdots&\\
+\red{\frac{aR}{A}-is}\end{pmatrix}
+&
+B'_3=&-\frac{i}{s}\left(\red{\frac{a\epsilon_1}{2}}+\frac{\Lambda^2}{2}\right)R^2
+\\
+\cM_4 =&
+\begin{pmatrix}
+a\green{\epsilon_3}+\Lambda^2 & & & \\ 
+& a\green{\epsilon_3}+\frac{\Lambda^2}{2} & &\multicolumn{2}{l}{\!\!\!\!(a\green{\epsilon_1}+\frac{\Lambda^2}{2})_\nabla} \\
+ \multicolumn{2}{c}{(a\green{\epsilon_1}+\frac{\Lambda^2}{2})_\triangle} & \ddots & \\
+  & & & & a\green{\epsilon_3}+\frac{\Lambda^2}{2} \\
+\end{pmatrix}
+&
+\ve{\cS}_4 =&\begin{pmatrix}\red{\frac{aR}{A}-is}&\\\red{\frac{aR}{A}-is}&-\frac{\Lambda^2}{2}R \\
+\vdots&\\ \red{\frac{aR}{A}-is}&-\frac{\Lambda^2}{2}R\end{pmatrix}
+&
+B'_4=&-\frac{i}{s}\left(\red{\frac{a\epsilon_1}{2}}+\frac{\Lambda^2}{2}\right)R^2
+\\
+\cM_5 =&
+\begin{pmatrix}
+a\green{\epsilon_3}+\Lambda^2 & a\green{\epsilon_1}-\frac{\Lambda^2}{2} & & &\\ 
+a\green{\epsilon_1}-\frac{\Lambda^2}{2} & a\green{\epsilon_3}+\frac{\Lambda^2}{2} & &\multicolumn{2}{l}{\!\!\!\!(a\green{\epsilon_1})_\nabla} \\
+&& a\green{\epsilon_3} &&\\
+ \multicolumn{3}{c}{(a\green{\epsilon_1})_\triangle} & \ddots & \\
+  & & & & a\green{\epsilon_3} \\
+\end{pmatrix}
+&
+\ve{\cS}_5 =&\begin{pmatrix}\red{\frac{aR}{A}-is}&+\frac{\Lambda^2}{2}R\\\red{\frac{aR}{A}-is}& \\
+\vdots&\\ \red{\frac{aR}{A}-is}&\end{pmatrix}
+&
+B'_4=&-\frac{i}{s}\left(\red{\frac{a\epsilon_1}{2}}+\frac{\Lambda^2}{4}\right)R^2
+\\
+\cM_6 =&
+\begin{pmatrix}
+a\green{\epsilon_3}+\frac{5}{2}\Lambda^2 & a\green{\epsilon_1}+\frac{3}{2}\Lambda^2 & 
+\multicolumn{2}{l}{\ldots} &a\green{\epsilon_1}+\frac{3}{2}\Lambda^2 \\ 
+a\green{\epsilon_1}+\frac{3}{2}\Lambda^2 & a\green{\epsilon_3}+\Lambda^2 & & &\\
+\vdots&& \ddots\;\;\; &\multicolumn{2}{c}{\!\!\!\!(a\green{\epsilon_1}+\Lambda^2)_\nabla}\\
+ &\multicolumn{2}{c}{(a\green{\epsilon_1}+\Lambda^2)_\triangle} &  & \\
+  a\green{\epsilon_1}+\frac{3}{2}\Lambda^2& & & & a\green{\epsilon_3}+\Lambda^2 \\
+\end{pmatrix}
+&
+\ve{\cS}_6 =&\begin{pmatrix}\red{\frac{aR}{A}-is}-\frac{\Lambda^2}{2}R\\ \vdots\\
+\red{\frac{aR}{A}-is}-\frac{\Lambda^2}{2}R\end{pmatrix}
+&
+B'_6=&-\frac{i}{s}\left(\red{\frac{a\epsilon_1}{2}}+\frac{\Lambda^2}{4}\right)R^2
+\\
+\cM_7 =&
+\begin{pmatrix}
+a\green{\epsilon_3}+\frac{5}{2}\Lambda^2 & a\green{\epsilon_1}+\Lambda^2 & 
+\multicolumn{2}{l}{\ldots} &a\green{\epsilon_1}+\Lambda^2 \\ 
+a\green{\epsilon_1}+\Lambda^2 & a\green{\epsilon_3}+\frac{\Lambda^2}{2} & & &\\
+\vdots&& \ddots\;\;\; &\multicolumn{2}{c}{\!\!\!\!(a\green{\epsilon_1}+\frac{\Lambda^2}{2})_\nabla}\\
+ &\multicolumn{2}{c}{(a\green{\epsilon_1}+\frac{\Lambda^2}{2})_\triangle} &  & \\
+  a\green{\epsilon_1}+\Lambda^2& & & & a\green{\epsilon_3}+\frac{\Lambda^2}{2} \\
+\end{pmatrix}
+&
+\ve{\cS}_7 =&\begin{pmatrix}\red{\frac{aR}{A}-is}&+\frac{\Lambda^2}{2}R\\\red{\frac{aR}{A}-is}&\\ \vdots&\\
+\red{\frac{aR}{A}-is}&\end{pmatrix}
+&
+B'_7=&-\frac{i}{s}\left(\red{\frac{a\epsilon_1}{2}}+\frac{\Lambda^2}{4}\right)R^2
+\\
+&&&&B_k=&B'_k+\green{\underbrace{\left(\frac{R}{A+1}+\frac{A}{A+1}R'\right)}_{\stackrel{\hat{P}=\mathbb{1}}{\to}R-R'}}\\
+&\epsilon_1=
+  \begin{cases}
+   2             \\
+   \frac{A-1}{A} 
+  \end{cases}
+\epsilon_3=
+  \begin{cases}
+   4        & \text{if } \hat{P}=\mathbb{1} \\
+   \frac{3A-1}{A}        & \text{if } \hat{P}=\hat{P}_{A,A+1}
+  \end{cases}  
+  &&\multispan3{$\red{\text{red}}~=~0\;\;\text{if}\;\;\hat{P}=\mathbb{1}$\hfil}\\
+\end{align*}
+\newpage
+%
+These matrices enable the derivation of
+\begin{align}
+\bra\phi_A\hl\hat{V}_\text{\tiny A,A+1}\hl\hat{P}\left[\phi_A\psi\right]\ket=&~
+\sum_{k=1}^7A_k\left(\frac{(2\pi)^{A-1}}{\det\cM_k}\right)^{\frac{3}{2}}
+e^{-\alpha_k\ve{R}^2}\psi(\ve{R})\nonumber\\
+&~\red{-}\sum_{k=8}^{14}\frac{A}{A+1}(2\pi)^{-3}A_k
+\left(\frac{(2\pi)^A}{\det\cM_k\cdot\det\cM_{s,k}}\right)^{\frac{3}{2}}
+\int d^3\ve{R'}e^{-\alpha_k\ve{R}^2-\beta_k\ve{R'}^2-\gamma_k\ve{R}\cdot\ve{R'}}\psi(\ve{R'})
+\nonumber\\
+=&~(2\pi)^{\frac{3}{2}(A-1)}\sum_{k=1}^7A_k\int d^3\ve{R'}\left[
+\left(\det\cM_k^{\text{dir}}\right)^{-\frac{3}{2}}\drei{\ve{R}-\ve{R'}}
+e^{-\alpha_k^{\text{dir}}\ve{R'}^2}
+\right.\nonumber\\
+\red{-}&~\left.
+\frac{A}{A+1}(2\pi)^{-\frac{3}{2}}\left(\det\cM_k^{\text{ex}}\cdot
+\det\cM_{s,k}\right)^{-\frac{3}{2}}
+e^{-\alpha_k^{\text{ex}}\ve{R}^2-\beta_k^{\text{ex}}\ve{R'}^2-\gamma_k^{\text{ex}}\ve{R}\cdot\ve{R'}}
+\right]\psi(\ve{R'})
+\end{align}
+%
+\subsubsection{Interacting notes}\la{sec.int}
+We represent the microscopic, \ie, particle-particle interaction with properly
+renormalized two- and three-body contacts: Particles interact only if two or three
+of them occupy the same point in space. The intensity of the interaction depends
+on whether two or three particles collide:
+\[
+\hat{V}=C_0(\Lambda)\sum_{i<j}^X\ddrei{\vsp{i}-\vsp{j}}+
+D_1(\Lambda)\sum^X_{i<j<k\atop\text{\tiny cyclic}}\ddrei{\vsp{i}-\vsp{j}}\,
+\ddrei{\vsp{j}-\vsp{k}}\;\;.
+\la{eq.int}\]
+For $X\leq A$, the interaction yields stable, self-bound $X$-body ground states with
+totally symmetric spatial wave functions, because we investigate systems whose
+internal space is precisely $A$-dimensional.
+For $X=A+1$, we isolate the interaction of particle $A+1$ with the $A$-body fragment:
+\begin{align*}
+\hat{V}=\hat{V}_A+\green{\hat{V}_{A,A+1}}=&~
+\sum_{i<j}^A\delta_{i,j}+\green{\sum_{i}^{A-1}\delta_{i,A+1}+\delta_{A,A+1}}\\
+&+\sum_{i<j<k\atop\text{\tiny cyc}}^A\delta_{i,j,k}+\green{\sum_{i<j\atop\text{\tiny cyc}}^{A-1}\delta_{i,j,A+1}+\sum_{i\atop\text{\tiny cyc}}^{A-1}\delta_{i,A,A+1}}\\
+\hat{V}_{A,A+1}\stackrel{\scriptscriptstyle \langle\ldots\rangle}{\sim}&~
+\underbrace{(A-1)\,\delta_{1,A+1}+1\cdot\delta_{A,A+1}}_{\eqref{eq.v21},\eqref{eq.v22}}+\underbrace{2\cdot{A-1\choose 2}
+\delta_{1,2,A+1}}_{\Rightarrow\eqref{eq.v31}+\eqref{eq.v33}}+\underbrace{3\cdot(A-1)\,\delta_{1,A,A+1}}_{\eqref{eq.v32}+\eqref{eq.v34}+\eqref{eq.v35}}\;\;.
+\la{eq.clint}\end{align*}
+Matrix elements in the $\phi_A\psi$ basis as defined in Eqs.\eqref{eq.wfktphi}
+and~\eqref{eq.wfktpsi} are identical
+($\stackrel{\scriptscriptstyle \langle\ldots\rangle}{\sim}$) for left and right-hand-side
+operators.
+\newpage
+%\section*{Appendix: $F[2]B[2]$-RGM equation }
+\openup 2ex
+\begin{gather*}
+\intertext{\Large\centering Assumption of a tightly-bound, spatially-symmetric $A$-body core:}
+\phi_A:=e^{-\frac{a}{2}\sum_{i=1}^{\red{A}}\vcl{i}^2}=e^{-a\sum^{\red{A-1}}\vcl{i}^2-a\sum^{\red{A-1}}_{\red{i<j}}\vcl{i}\cdot\vcl{j}}
+\intertext{\Large\centering The contact theory:}
+\hat{V}=C_0(\Lambda)\sum_{i<j}^X\ddrei{\vsp{i}-\vsp{j}}+
+D_1(\Lambda)\sum^X_{i<j<k\atop\text{\tiny cyclic}}\ddrei{\vsp{i}-\vsp{j}}\,
+\ddrei{\vsp{j}-\vsp{k}}\\
+\intertext{\Large\centering Enter indistinguishability:}
+\hat{A}=\mathbb{1}-\hat{P}(\vsp{A}\leftrightarrow\vsp{A+1})
+\intertext{\Large\centering ``Freeze'' the core and extremize the action \wrt~the relative motion between
+the one particle outside of the core:}
+%
+\left(\hat{T}_{\ve{R}}-E_\text{rel}+\mathbb{N}^{-1}\bra\phi_A\hl\hat{V}\hl\phi_A\ket\right)\chi(\ve{R})\\
+-\mathbb{N}^{-1}\int d\ve{R}'\left[\bra\phi_A\hl\left(\hat{T}_{\ve{R}}-E_\text{rel}+\hat{V}\right)\hat{P}\lbrace\hl\phi_A\ket\ddrei{\ve{R}-\ve{R}'}\right]\chi(\ve{R}')=0\\
+\intertext{\Large\centering $\hat{V}=C_\Lambda\sum\limits_{i<A}\ddrei{\vsp{i}-\vsp{A+1}}$ and $\hat{P}=0$ \ie~direct 2-body contribution only:}
+\left(\hat{T}_{\ve{R}}-E_\text{rel}+C_\Lambda(A-1)~8\left(4+\left(\frac{A-1}{A}\right)a^{-1}\Lambda^2\right)^{-3/2}\cdot e^{-\frac{\Lambda^2}{4+A^{-1}(A-1)a^{-1}\Lambda^2}\ve{R}^2}\right)\chi(\ve{R})=0\\
+\downarrow\\
+-\frac{\hbar}{2m}\frac{A+1}{A}\partial_R^2+\left(\frac{\hbar}{2m}\frac{A+1}{A}\frac{l(l+1)}{R^2}+\frac{C_\Lambda(A-1)~8}{\left(4+\left(\frac{A-1}{A}\right)a^{-1}\Lambda^2\right)^{3/2}}\cdot e^{-\frac{\Lambda^2}{4+A^{-1}(A-1)a^{-1}\Lambda^2}\ve{R}^2}\right)\psi_{lm}(R)=0\\
+\Leftrightarrow-\frac{\hbar}{2m}\partial_R^2+\left(\frac{\hbar}{2m}\frac{l(l+1)}{R^2}+\frac{8~C_\Lambda A(A-1)(A+1)^{-1}}{\left(4+\left(\frac{A-1}{A}\right)a^{-1}\Lambda^2\right)^{3/2}}\cdot e^{-\frac{\Lambda^2}{4+A^{-1}(A-1)a^{-1}\Lambda^2}\ve{R}^2}\right)\psi_{lm}(R)=0\\
+\intertext{\scalebox{2}{\Large\centering \Large\centering with}}
+E_\text{relative}=\epsilon_A-E_\text{total}\;\;\;\text{and}\;\;\;\mathbb{N}=\bra\phi_A\hl\phi_A\ket
+\end{gather*}
+\newpage
+\begin{itemize}\itemsep25pt
+\item[]\Large\centering Assumption of a tightly-bound, spatially-symmetric $A$-body core:\vspace{1.cm}\\
+\scalebox{1.5}{$\phi_A:=e^{-\frac{a}{2}\sum_{i=1}^{\red{A}}\vcl{i}^2}=e^{-a\sum^{\red{A-1}}\vcl{i}^2-a\sum^{\red{A-1}}_{\red{i<j}}\vcl{i}\cdot\vcl{j}}$}
+
+\item[] \Large\centering The contact theory:\vspace{1.cm}\\
+\scalebox{1.2}{$\hat{V}=C_0(\Lambda)\sum_{i<j}^X\ddrei{\vsp{i}-\vsp{j}}+
+D_1(\Lambda)\sum^X_{i<j<k\atop\text{\tiny cyclic}}\ddrei{\vsp{i}-\vsp{j}}\,
+\ddrei{\vsp{j}-\vsp{k}}$}\\
+
+\item[] \Large\centering Enter indistinguishability:\vspace{1.cm}\\
+\scalebox{1.5}{$\hat{A}=\mathbb{1}-\hat{P}(\vsp{A}\leftrightarrow\vsp{A+1})$}
+
+\item[] \Large\centering ``Freeze'' the core and extremize the action \wrt~the relative motion between
+the one particle outside of the core:\vspace{1.cm}\\
+\scalebox{1.5}{$\left(\hat{T}_{\ve{R}}-E_\text{rel}+\mathbb{N}^{-1}\bra\phi_A\hl\hat{V}\hl\phi_A\ket\right)\chi(\ve{R})$}\\
+\scalebox{1.15}{$-\mathbb{N}^{-1}\int d\ve{R}'\left[\bra\phi_A\hl\left(\hat{T}_{\ve{R}}-E_\text{rel}+\hat{V}\right)\hat{P}\lbrace\hl\phi_A\ket\ddrei{\ve{R}-\ve{R}'}\right]\chi(\ve{R}')=0$}
+
+\item[] \Large\centering $\hat{V}=C_\Lambda\sum\limits_{i<A}\ddrei{\vsp{i}-\vsp{A+1}}$ and $\hat{P}=0$ \ie~direct 2-body contribution:\vspace{1.2cm}\\
+\scalebox{1.0}{$\left(\hat{T}_{\ve{R}}-E_\text{rel}+C_\Lambda(A-1)~8\left(4+\left(\frac{A-1}{A}\right)a^{-1}\Lambda^2\right)^{-3/2}\cdot e^{-\frac{\Lambda^2}{4+A^{-1}(A-1)a^{-1}\Lambda^2}\ve{R}^2}\right)\chi(\ve{R})=0$}\\
+\scalebox{1.15}{$\downarrow$}\\
+\scalebox{1.15}{$-\frac{\hbar}{2m}\frac{A+1}{A}\partial_R^2+\left(\frac{\hbar}{2m}\frac{A+1}{A}\frac{l(l+1)}{R^2}+\frac{C_\Lambda(A-1)~8}{\left(4+\left(\frac{A-1}{A}\right)a^{-1}\Lambda^2\right)^{3/2}}\cdot e^{-\frac{\Lambda^2}{4+A^{-1}(A-1)a^{-1}\Lambda^2}\ve{R}^2}\right)\psi_{lm}(R)=0$}\\
+\scalebox{1.5}{$\Leftrightarrow-\frac{\hbar}{2m}\partial_R^2+\left(\frac{\hbar}{2m}\frac{l(l+1)}{R^2}+\frac{8~C_\Lambda A(A-1)(A+1)^{-1}}{\left(4+\left(\frac{A-1}{A}\right)a^{-1}\Lambda^2\right)^{3/2}}\cdot e^{-\frac{\Lambda^2}{4+A^{-1}(A-1)a^{-1}\Lambda^2}\ve{R}^2}\right)\psi_{lm}(R)=0$}
+
+\item[]\Large\centering \Large\centering with\vspace{.2cm}\\
+\scalebox{1.5}{$E_\text{relative}=\epsilon_A-E_\text{total}\;\;\;\text{and}\;\;\;\mathbb{N}=\bra\phi_A\hl\phi_A\ket$}
+\end{itemize}
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{Thebibliography.bib}
+
+\end{document}

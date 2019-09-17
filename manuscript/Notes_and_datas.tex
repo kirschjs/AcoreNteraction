@@ -1,0 +1,343 @@
+\documentclass[aps,prd,twocolumn
+,tightenlines,letterpaper,
+%superscriptaddress,
+nofootinbib]{revtex4-1}
+
+\usepackage{amssymb,latexsym}
+\usepackage{amsmath,amsbsy,bbm}
+\usepackage{epsfig,bm,color}
+\usepackage{graphicx,comment}
+\usepackage[vcentermath]{youngtab}
+\usepackage{slashed}
+\usepackage{nicefrac}
+
+\unitlength=1mm
+
+\DeclareMathOperator{\st}{str}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Erfc}{Erfc}
+\DeclareMathOperator{\Erf}{Erf}
+\DeclareMathOperator{\Pf}{Pf}
+\DeclareMathOperator{\sign}{sign}
+
+\usepackage{dutchcal}
+\usepackage{calligra}
+
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scriptr}{\mathcalligra{r}\,}
+\newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
+
+
+\begin{document}
+
+\newcommand{\eftnopi}{\mbox{EFT$(\not \! \pi)$}}
+\newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand{\ecm}{\ensuremath{E_\text{\tiny cm}}}
+\newcommand{\ls}{\ve{L}\cdot\ve{S}}
+\newcommand{\ent}{~\widehat{=}~}
+
+\def\a{{\alpha}}
+\def\b{{\beta}}
+\def\d{{\delta}}
+\def\D{{\Delta}}
+\def\X{{\Xi}}
+\def\e{{\varepsilon}}
+\def\g{{\gamma}}
+\def\G{{\Gamma}}
+\def\k{{\kappa}}
+\def\l{{\lambda}}
+\def\L{{\Lambda}}
+\def\m{{\mu}}
+\def\n{{\nu}}
+\def\o{{\omega}}
+\def\O{{\Omega}}
+\def\S{{\Sigma}}
+\def\s{{\sigma}}
+\def\th{{\theta}}
+
+\def\ol#1{{\overline{#1}}}
+
+
+\def\Dslash{D\hskip-0.65em /}
+\def\Dtslash{\tilde{D} \hskip-0.65em /}
+
+\def\ie{{\it i.e.~}}
+\def\wrt{{\it w.r.t.~}}
+\def\eg{{\it e.g.~}}
+\def\he#1{{{}^#1\text{He}}}
+\def\li#1{{{}^#1\text{Li}}}
+\def\QCPT{{Q$\chi$PT}}
+\def\PQCPT{{PQ$\chi$PT}}
+\def\tr{\text{tr}}
+\def\str{\text{str}}
+\def\diag{\text{diag}}
+\def\order{{\mathcal O}}
+
+\def\cF{{\mathcal F}}
+\def\cG{{\mathcal G}}
+\def\cE{{\mathcal E}}
+\def\cS{{\mathcal S}}
+\def\cC{{\mathcal C}}
+\def\cB{{\mathcal B}}
+\def\cT{{\mathcal T}}
+\def\cQ{{\mathcal Q}}
+\def\cL{{\mathcal L}}
+\def\cO{{\mathcal O}}
+\def\cA{{\mathcal A}}
+\def\cQ{{\mathcal Q}}
+\def\cR{{\mathcal R}}
+\def\cH{{\mathcal H}}
+\def\cW{{\mathcal W}}
+\def\cM{{\mathcal M}}
+\def\cD{{\mathcal D}}
+\def\cZ{{\mathcal Z}}
+\def\cN{{\mathcal N}}
+\def\cP{{\mathcal P}}
+\def\cK{{\mathcal K}}
+\def\Qt{{\tilde{Q}}}
+\def\Dt{{\tilde{D}}}
+\def\St{{\tilde{\Sigma}}}
+\def\cBt{{\tilde{\mathcal{B}}}}
+\def\cDt{{\tilde{\mathcal{D}}}}
+\def\cTt{{\tilde{\mathcal{T}}}}
+\def\cMt{{\tilde{\mathcal{M}}}}
+\def\At{{\tilde{A}}}
+\def\cNt{{\tilde{\mathcal{N}}}}
+\def\cOt{{\tilde{\mathcal{O}}}}
+\def\cPt{{\tilde{\mathcal{P}}}}
+\def\cI{{\mathcal{I}}}
+\def\cJ{{\mathcal{J}}}
+
+\def\eqref#1{{(\ref{#1})}}
+
+\newenvironment{ecce}[1][Ecce]{\begin{trivlist}\scriptsize\color{blue}
+\item[\hskip \labelsep {\bfseries{\color{red} #1}}]}{\end{trivlist}}
+
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\textrm{\bfseries#1}}]}{\end{trivlist}}
+
+ \author{J.~Kirscher}
+ \author{L.~Contessi}
+%\email[]{$\texttt{kirschjs@web.de}$}
+\affiliation{
+$\mathcal{HUJI}$ (Humour University's Joke Institute)
+}
+
+ 
+\title{
+A nucleon contact theory for P-wave dominated nuclei
+} 
+
+\begin{abstract}
+We analyse \eftnopi~at leading order in few-nucleon systems which are
+characterized by an amplitude pole whose imaginary part is small relative
+\end{abstract}
+
+\pacs{12.34.Ab}
+ 
+\maketitle
+
+\section{What is a P-wave state?}
+First, the imaginary part of the pole location which characterises the state
+must be small compared with the energy difference to the lowest threshold
+at which the creation of particles which are not element of the theory
+becomes energetically possible. Second, the state cannot reside in a totally
+symmetric spatial configuration. \begin{ecce}I would like to include an explicit calculation
+which relates an $>2$-body wave function, in some relative-coordinate basis, to a single-particle
+basis which can be identified with a young tableaux. I think the technical term for that
+is an inverse {\it Talmi transformation}.\end{ecce}
+
+\begin{align*}
+\yng(4) &\qquad \he{4} & \text{no P-wave state}\\
+ &&{\exists}\lim_{\Lambda\to\infty}\eftnopi\\
+\yng(4,1) &\qquad \he{5} & \text{P-wave state}\\
+ &&\slashed{\exists}\lim_{\Lambda\to\infty}\eftnopi\\
+\yng(4,2) &\qquad \li{6} & \text{P-wave state}\\
+ &&\slashed{\exists}\vee{\exists}\lim_{\Lambda\to\infty}\eftnopi\\
+ \yng(2,1) &\qquad {}^3n & \text{P-wave tri-neutron state}\\
+ &&\slashed{\exists}\lim_{\Lambda\to\infty}\eftnopi^{\text{[we show]}}\\
+  \yng(2,2) &\qquad {}^4n & \text{P-wave tetra-neutron state}\\
+ &&\slashed{\exists}\lim_{\Lambda\to\infty}\eftnopi^{[\text{ref needed]}}\\
+\end{align*}
+
+For $\he{5}$, \eftnopi~cannot sustain anything but a free $\he{4}$-neutron
+continuum state because any contribution from the fifth particle vanishes
+in the zero-range limit. From the tableaux, that particle is in an odd partial
+wave, and matrix elements of those are zero for contact interaction which do
+not depend on the momentum. $\li{6}$, on the other hand, might be bound because
+of the additional non-zero contribution from the symmetric pair.
+
+In order for an unpaired nucleon to yield a pole structure which differs from
+that which is given by the ``paired'' part, one has to augment the interaction
+such that its zero-range limit is non-zero for the matrix element
+$$\left\langle~\yng(1,1)~\left\vert\hat{H}_\text{LO}~\right\vert~\yng(1,1)~\right\rangle\;\;.$$
+
+The additional term, $\hat{H}_\text{LO}=\hat{H}^{\slashed{\pi}}_\text{LO}+\delta\hat{H}$,
+must not obstruct, through its iteration, S-wave observables which \eftnopi~is
+devised to describe at leading order.
+
+The following structure satisfies these constraints if its coupling constants
+are renormalized properly (and I have, as of now, only a faint idea what that
+means and how to achieve it) with a set of operators of identical, minimal mass
+dimension:
+
+\section{${}^2n$-$n$ and $\he{5}$ with \eftnopi~and $\eftnopi^*$}
+First, one observes that the \eftnopi~induces an effective attraction between the neutron projectile
+and the di-neutron and $\he{4}$ target, respectively, which is non-zero even if $\Lambda\to\infty$.
+The pertinent phase shifts do clearly rule out the possibility of a resonance at low energy.
+
+If we invoke $\eftnopi^*$ and calibrate its LEC's to ???, a steep rise in the phase shifts below
+an energy at which the $\alpha$'s structure is resolved is stable in the limit $\Lambda\to\infty$.
+
+\section{On the effect of an enhanced 2-body interaction in an A-body system}
+
+Above, we showed results of the dependence of the dineutron-neutron and
+4-helium-neutron spectra on the zero-range limit of a momentum-independent
+2-body interaction. It remains to be shown that the found absence of any kind
+of pole of the amplitude is robust \wrt to the renormalization of the three
+interaction parameters. But, assuming that, \eg, a replacement of the deuteron
+binding energy with the triplet-S-wave $np$ scattering length as input to
+one of the LECs does not produce a pole in the P-wave structures considered
+above, the interaction {\it must} be augmented in order to represent a useful
+theory for the description of systems which fall into the $\he{5}$-class.
+
+\begin{definition}
+We assign all systems which
+exhibit correlated behaviour which can be observed at scales which are too
+small to resolve substructure of its constituting elements
+{\bf and} can only be adequately described by a spatial 
+configuration which is asymmetric under the exchange of all particles which
+occupy {\it different} single-particle states (``shell shuffling'')
+to the \underline{$\he{5}$-class}.
+\end{definition}
+
+As we are interested primarily in the description of $\he{5}$ itself, in-
+and outgoing states contain P-waves. Thus, we assume that the same interaction
+which is constrained in the 2-nucleon sector by P-wave data, namely \eftnopi~
+at next$^2$-to-leading order -- due
+to the large S-wave scales one set of momentum dependent operators is promoted
+over the other, $\ve{q}^2$ is next-to-leading order while $\ve{q}\cdot\ve{q}'$
+is next$^2$-to-leading order if understood as part of an amplitude -- is minimally
+needed.
+
+Is 2-body P-wave data correlated with $\he{5}$? We want to test this hypothesis
+by including the N$^2$LO operator structure in the LO \eftnopi~potential.
+Thereby, the two 2-body and the one 3-body contact interactions are iterated
+along a tensor, a spin-orbit, and a $\ve{r}^2$ operator.
+
+In a first empirical study, we were tempted to assess the dependence of the
+$\alpha$-neutron system on the iteration of solely the spin-orbit term.
+The pertinent phase shifts were found remarkably robust, and a significant change
+was only observed at coupling strengths were the 2-body sector developed a
+bound state in some P-wave channel (for \eftnopi-LO with $c_{LS}<0$, in the
+${}^2P_0$ channel).
+To understand this, consider the triton, a $J^\pi=\frac{1}{2}^+$ state, which
+has small, but non-zero overlap with a state in which both relative motions
+reside in P orbitals. Hence, the spin-orbit force affects the triton.
+This effect, however, was found also of significance for much stronger
+spin-orbit strengths, than those which bind the 2-body system. It is
+counter intuitive that a system with more pairs in an attractive configuration
+is more robust.
+
+To be concrete, consider the spin-orbit force in the 2-body system:
+
+$$c_{ls}\langle{}^3P_0\vert\ls\vert{}^3P_0\rangle=-2~c_{ls}\;\;.$$
+
+Once this attraction becomes large enough to form a pocket in the repulsive
+angular momentum well, the system develops, first a virtual or resonant, and
+from it eventually a bound-state pole.
+For another pole to emerge in the 3-nucleon amplitude, the pertinent matrix
+element is
+
+$$\left\langle\left[0^-\otimes \frac{1}{2}^+\right]^{\frac{1}{2}^+}\right\vert\ls\left\vert\left[0^-\otimes \frac{1}{2}^+\right]^{\frac{1}{2}^+}\right\rangle=-1~c_{ls}\;\;.$$
+
+In words, when increasing the spin-orbit force, the formation of a bound P-wave
+dimer does not stabilize the triton because the interaction is weaker between the
+dimer and the third nucleon and, from this rough estimate, must be twice as
+large to form a bound dimer between the $0^-$ neutron-proton and a neutron.
+At this point, it is also understandable how increasing the strength of a 2-body
+interaction does not necessarily stabilize any larger system. The interaction 
+between a specific $(SL)J$-dimer and the other parts of the system, here the third
+neutron might become repulsive. Here, this precludes the formation of a
+$J^\pi=\frac{3}{2}^+$ $nnp$ state via this mechanism.
+
+So how can the combination of spin-orbit, tensor, and $\ve{r}^2$ interaction
+yield an effect at some strength in systems of different size?
+If we would have singled out the tensor operator for the above exercise -- this
+is complicated because of the constraint of the invariant deuteron state but
+assuming that this is then taken into consideration with $\ve{r}^2$, we can
+consider
+$$c_{T}\langle{}^3P_0\vert Y_2\vert{}^3P_0\rangle=2~c_{T}\;\;,$$
+while it is zero for this specific dimer-neutron matrix element.
+The tensor can therefore be used to balance the effect of the spin-orbit term
+in the 2-body sector, while it is ineffectual in the 3-body case.
+
+\section{Search for the minimal nucleon-nucleon theory}
+We demand that the theory shall be constrained with $A\leq 4$-body data, and thereby
+is constructive in its prediction of a pole in the 5-body system which is within the
+convergence radius of the newly construed EFT.
+\paragraph{Operator structure}
+We postulate  
+\begin{align*}
+\hat{V}=&
+   \left[C_1^\Lambda~\hat{P}({}^1S_0) +            C_2^\Lambda~\hat{P}({}^3S_1)\right]~e^{-\frac{\Lambda^2}{4}r_{ij}^2}\\
+&+              D_0^\Lambda~\hat{P}(S=\nicefrac{1}{2})~e^{-\frac{\Lambda^2}{4}\left(r_{ij}^2+r_{ik}^2\right)}\\
+&+\left[C_3^\Lambda~\hat{P}({}^1S_0) +            C_4^\Lambda~\hat{P}({}^3S_1)\right]~\ve{r}^2~e^{-\frac{\Lambda^2}{4}r_{ij}^2}\\
+&+-\frac{i}{2}C_5~(\ve{r}\times\ve{\nabla})\cdot(\ve{\sigma}_1+\ve{\sigma}_2)~e^{-\frac{\Lambda^2}{4}r_{ij}^2}\\
+&+C_6~\left[\ve{\sigma}_1\cdot\ve{r}~\ve{\sigma}_2\cdot\ve{r}-\frac{1}{3}\ve{\sigma}_1\cdot\ve{\sigma}_2~\ve{r}^2\right]~e^{-\frac{\Lambda^2}{4}r_{ij}^2}
+\end{align*}
+as the minimal theory which predicts a P-wave state in the 5-body system, yields RG-invariant results
+for $A\leq 4$ observables which are represented by amplitude poles whose location is close enough
+to the respective threshold, that only particles which are either explicit DoF or resemble renormalization
+conditions, c.f., the deuteron, the triton, or the virtual $nn$ singlet, can be produced.
+\paragraph{Renormalization}
+In addition to the three \eftnopi-LO LECs come 4 constants which correlate to 4 independent $nn$ P-wave
+channels, and the phenomena which must be RG invariant are represented by the following list of observables:
+\begin{description}
+\item[structure-full channels]\mbox{}\vspace{5pt}\\ $\left\lbrace{}^1S_0,{}^3S_1,\epsilon\right\rbrace_{nn}$ and $\left\lbrace J^\pi=\frac{1}{2}^+\right\rbrace_{nnn}$
+\item[structure-empty channels]\mbox{}\vspace{5pt}\\
+$\left\lbrace{}^{1(3)}P_{1(0,1,2)}\right\rbrace_{nn}$ and $\left\lbrace J^\pi=\frac{1(3)}{2}^{-(\pm)}\right\rbrace_{nnn}$
+\end{description}
+Comments are in order. The interaction enables transition between S- and D-waves, and thus the
+deuteron is already at LO a superposition of to partial waves. The number of constraints exceeds the
+number of LEC's and hence the absence of a pole must be a consequence of the location of the included
+poles, and the structure of the interaction. A trivial example is the vanishing $nn$ P-wave phase shift
+at \eftnopi-LO. Before considering, \eg, why the augmented theory bears the chance to be ``well behaved''
+in channels where there must be no shallow poles, we discuss the mechanism which protects the  $nnn$
+$\nicefrac{3}{2}^+$ channel from sustaining a shallow pole in the zero-range limit of \eftnopi.
+
+In the $nnp$ system, total spin $\nicefrac{3}{2}^+\ent\yng(3)_s$ which cannot be occupied in a totally
+symmetric spatial state $\yng(3)_r$ because the corresponding iso-spin state would have to be anti-symmetric
+in all three pairs, which is impossible for $T=\frac{1}{2}$.
+So, our argument above applies here, too. In an arbitrary single-particle basis, the state can be expressed
+in terms of vectors with the permutation-group structure
+\begin{align}\label{eq.nnp-tripl}
+    \left\vert~(nnp)\nicefrac{3}{2}^+~\right\rangle=&\yng(3)_s\otimes\yng(2,1)_r\otimes\yng(2,1)_I~+\nonumber\\
+    &\yng(3)_s\otimes\yng(1,1,1)_r\otimes\yng(3)_I\;\;\;.
+\end{align}
+In the zero-range limit, matrix elements in this basis vanish for the interacting pair residing in an
+asymmetric configuration. What remains is an exchange interaction.
+Note that the positive parity does not preclude $\yng(1,1,1)_r$ or $\yng(2,1)_r$, because the single-particle
+shells which relate to the rows of the tableaux might be of either parity.
+
+To illustrate the potential failure of the augmented theory, we assume its LEC's to be calibrated
+to all the structure-full observables and three $nn$ P-waves. The latter we realize by demanding that
+a phase shift at some $\ecm<1~$MeV reproduces data. Thereby, a weak interaction is enforced.
+Whereas the momentum-independent contact terms vanish, matrix elements for an interacting asymmetric
+pair with the additional terms contribute
+
+
+\section{conclusion}
+Now we conjecture that this interaction produces non-trivial, \ie, not just projectile-target
+continuum amplitudes for: \begin{ecce}list of observables we deem amenable to this theory, \eg, $\li{6}$ and ${}^{16}$O\end{ecce} 
+
+
+
+
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{Thebibliography.bib}
+
+\end{document}
