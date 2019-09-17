@@ -5,7 +5,25 @@ import sys
 from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 import timeit
 from potcoeffs import *
-from LECs_interpolation import *
+
+###############################
+######## V LO pionless ########
+###############################
+lambdas = [
+    0.05, 0.1, 0.16, 0.2, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7,
+    0.75, 0.8, 0.9, 0.95, 1, 1.05, 1.1, 1.2, 1.5, 2, 3, 4, 6, 10
+]
+LeCofL = [
+    -1.552, -2.242, -3.440, -4.040, -6.397, -7.808, -9.310, -10.976, -12.782,
+    -14.726, -16.809, -19.032, -21.394, -23.894, -26.536, -32.234, -35.291,
+    -38.489, -41.824, -45.299, -52.666, -78.111, -131.646, -280.457, -484.921,
+    -1060.797, -2880.387
+]
+LeDofL = [
+    -0.324, -0.246, 0.019, 0.223, 1.207, 1.981, 2.828, 3.913, 5.209, 6.718,
+    8.468, 10.463, 12.734, 15.276, 18.137, 24.813, 28.664, 32.911, 37.527,
+    42.570, 53.971, 100.476, 232.413, 854.107, 2495.364, 16915.630, 756723.220
+]
 
 ###############################
 ######## Wave function ########
@@ -69,7 +87,7 @@ Sysem = "PJM"
 ############################
 if Sysem == "Pionless":
     # Physical system and benchmark
-    NState = 200  #Number of basys states
+    NState = 20  #Number of basys states
     order = 500  # Integration order
     m = 938.858
     mu = m / 2.
@@ -78,7 +96,7 @@ if Sysem == "Pionless":
     Rmax = 10  #Max R integration
     omegas = [1.0]
     L = 0
-    potargs = []
+    potargs = [MuOmegaSquare]
 
     def pot_local(r, argv):
         return -505.1703491 * np.exp(-4. * r**2)
@@ -139,81 +157,67 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
                              (r**2)) + (497.8) * np.exp(-0.6123 * (r**2))
         return Vvv
 
-
-
-
-
-
-
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 10  #Number of basys states
+    NState = 20  #Number of basys states
     Rmax = 15
-    order = 500
+    order = 550
     omegas = [
         0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
         0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.3
     ]
     L = 1
 
-    Lamb = 4.
     Ncore = 4  # number of core particles (capital A in docu)
-    
+    coreosci = 0.56  # oscillator parameter for the frozen core wave function
+
     mpi = '137'
     m = 938.858
     mu = Ncore * m / (Ncore + 1.)
     hbar = 197.327
     mh2 = hbar**2 / (2 * mu)
-    interaction = "Local"
 
-    coreosci = return_val(Lamb,"C1_D4","ABCD")  # oscillator parameter for the frozen core wave function
-    LeC = return_val(Lamb,"C1_D4","C")   # PiLess LO 2-body LEC
-    LeD = return_val(Lamb,"C1_D4","D")   # PiLess LO 3-body LEC
-    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
-    
-    print(" - PJM coefficients - ")
-    print("Lamb:     " + str(Lamb))
-    print("Ncore:    " + str(Ncore))
-    print("coreosci: " + str(coreosci))
-    print("LeC:      " + str(LeC))
-    print("LeD:      " + str(LeD))
-    print(" ")
-    print("Potential coefficients: ")
-    
+    interaction = "NonLocal"
+    lind = -3
+    Lamb = lambdas[lind]
+    LeC = LeCofL[lind]  # PiLess LO 2-body LEC
+    LeD = LeDofL[lind]  # PiLess LO 3-body LEC
 
-    
-    
-    print(" eta  : ", [eta1(potargs),eta2(potargs),eta3(potargs)])
-    print(" kappa: ", [kappa1(potargs),kappa2(potargs),kappa3(potargs)])
-    
-    print(" alfa : ", [alf1(potargs),alf2(potargs),alf3(potargs),alf4(potargs)])
-    print(" beta : ", [bet1(potargs),bet2(potargs),bet3(potargs),bet4(potargs)])
-    print(" gama : ", [gam1(potargs),gam2(potargs),gam3(potargs),gam4(potargs)])
-    print(" zeta : ", [zeta1(potargs),zeta2(potargs),zeta3(potargs),zeta4(potargs)])
-    
-    
-
-    
-    
     def pot_nonlocal(rl, rr, argv):
         ii = z = complex(0, 1)
 
-        VnEx = (ii**L) * (zeta1(argv) * (4 * alf1(argv)**2 * rr** 2 - 2 * alf1(argv) + bet1(argv)**2 * rl**2) * spherical_jn(L,ii * (-bet1(argv)) * rr * rl) * np.exp(alf1(argv) * rr**2 + gam1(argv) * rl**2))
-        
-        VnnEx = (ii**L) * (zeta2(argv) * spherical_jn(L, ii * (-bet2(argv)) * rr * rl) * np.exp(alf2(argv) * rr**2 + gam2(argv) * rl**2))
-        
-        VnnnArmEx = ( ii**L) * (zeta3(argv) * spherical_jn(L,ii * (-bet3(argv)) * rr * rl) * np.exp(alf3(argv) * rr**2 + gam3(argv) * rl**2))
-        
-        VnnnStarEx = (ii**L) * (zeta4(argv) * spherical_jn(L,ii * (-bet4(argv)) * rr * rl) * np.exp(alf4(argv) * rr**2 + gam4(argv) * rl**2))
+        VnEx = (ii**L) * (zeta1(argv) * (
+            4 * alf1(argv)**2 * rr**2 - 2 * alf1(argv) + bet1(argv)**2 * rl**2
+        ) * spherical_jn(L,
+                         ii * (bet1(argv)) * rr * rl
+                         ) * np.exp(-alf1(argv) * rr**2 - gam1(argv) * rl**2))
+        VnnEx = (ii**L) * (zeta2(argv) * spherical_jn(L,
+                                                      ii *
+                                                      (bet2(argv)) * rr * rl) *
+                           np.exp(-alf2(argv) * rr**2 - gam2(argv) * rl**2))
+        VnnnArmEx = (
+            ii**L) * (zeta3(argv) * spherical_jn(L,
+                                                 ii * (bet3(argv)) * rr * rl) *
+                      np.exp(-alf3(argv) * rr**2 - gam3(argv) * rl**2))
+        VnnnStarEx = (
+            ii**L) * (zeta4(argv) * spherical_jn(L,
+                                                 ii * (bet4(argv)) * rr * rl) *
+                      np.exp(-alf4(argv) * rr**2 - gam4(argv) * rl**2))
         # this function is high unstable for large r (it gives NaN but it should give 0.)
-        return np.nan_to_num(VnEx.real + VnnEx.real + VnnnArmEx.real + VnnnStarEx.real)
+        return (-1) * np.nan_to_num(
+            VnEx.real + VnnEx.real + VnnnArmEx.real + VnnnStarEx.real)
 
-    
-    
+    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+
     def pot_local(r, argv):
-        VnnDI = argv[3] * (argv[1] - 1) * eta1(argv) * np.exp(-kappa1(argv) * r**2)
-        VnnnDIarm = argv[4] * (argv[1] - 1) * (argv[1] - 2) * eta2(argv) * np.exp(-kappa2(argv) * r**2)
-        VnnnDIstar = argv[4] * (argv[1] - 1) * (argv[1] - 2) * eta3(argv) * np.exp(-kappa3(argv) * r**2)
+
+        VnnDI = argv[3] * (
+            argv[1] - 1) * eta1(argv) * np.exp(-kappa1(argv) * r**2)
+
+        VnnnDIarm = argv[4] * (argv[1] - 1) * (
+            argv[1] - 2) * eta2(argv) * np.exp(-kappa2(argv) * r**2)
+        VnnnDIstar = argv[4] * (argv[1] - 1) * (
+            argv[1] - 2) * eta3(argv) * np.exp(-kappa3(argv) * r**2)
         return VnnDI + VnnnDIarm + VnnnDIstar
 
 else:
@@ -224,7 +228,7 @@ if __name__ == '__main__':
     print("parallel: ", parallel)
     if parallel:
         p = Pool(Nprocessors)
-        print("Numbero fo CPU: ", cpu_count())
+        print("Number of CPU: ", cpu_count())
 
     print("")
     print("--- " + Sysem + "---")
@@ -286,12 +290,6 @@ if __name__ == '__main__':
             print(" >> NonLocal potential:  (",
                   timeit.default_timer() - start_time, " s )")
             start_time = timeit.default_timer()
-        #plt.plot(VlocRN)
-        #plt.show()
-        #exit()
-        #psiRN   = np.fromfunction(lambda x, y:  psi(t[x], y, L, nu)  , (order,NState), dtype=int)
-        #ddpsiRN = np.fromfunction(lambda x, y:  ddpsi(t[x], y, L, nu)  , (order,NState), dtype=int)
-        #VlocRN  = np.fromfunction(lambda x:  pot_local(t[x],[]) , order, dtype=int)
 
         print("Array creation time:",
               timeit.default_timer() - start_time2, " s")
@@ -329,6 +327,7 @@ if __name__ == '__main__':
                 Vl[j][i] = Vl[i][j]
                 K[j][i] = K[i][j]
                 U[j][i] = U[i][j]
+
         # Check unitarity:
         if np.sum(abs(np.eye(NState) - U)) > 0.1 * NState**2:
             print(" ")
@@ -343,7 +342,7 @@ if __name__ == '__main__':
             print(" ")
             continue
 
-        debug = True
+        debug = False
         if debug:
             print("Gauss scale: ", gauss_scale)
             print(" ")
@@ -400,22 +399,3 @@ if __name__ == '__main__':
         print("Parallel closing")
         p.close()
     quit()
-
-    # plotting wave function
-    xx = np.linspace(0, step * NState, NState)
-    plt.figure(figsize=(10, 8))
-    for i in range(len(z)):
-        y = []
-        y = np.append(y, vec[:, z[i]])
-        #y = np.append(y,0)
-        #y = np.insert(y,0,0)
-        plt.plot(xx, y, 'k--', lw=2, label="{} ".format(i))
-        #plt.plot(xx,Vc,color='r',alpha=0.2)
-        plt.xlabel('r', size=14)
-        plt.ylabel('$\psi$(r)', size=14)
-    #plt.ylim(-1,1)
-    plt.legend()
-    plt.title(
-        'normalized wavefunctions for a harmonic oscillator using finite difference method',
-        size=14)
-    #plt.show()
