@@ -129,6 +129,40 @@ elif Sysem == "Hiyama_lambda_alpha"  : # E = -3.12 MeV
         return Vvv
 
 
+elif Sysem == "RGM"  :
+    NState = 20     #Number of basys states
+    Rmax   = 30
+    order        = 500
+    m       = 938.858
+    mu      = m/2
+    hbar    = 197.327
+    mh2     = hbar**2/(2*mu)
+    omegas  = [0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.11,0.12,0.13,0.14,0.15,0.16,0.17,0.18,0.19,0.2,0.3]
+    #omegas  = [0.5]
+    L       = 0
+    interaction="NonLocal"
+    
+    
+    def pot_nonlocal(rl, rr, arguments):
+        ii = z = complex(0,1);
+        v1, a1, b1, c1 = -0.3706, -0.1808-0.4013, -0.1808-0.4013, (-0.1808+0.4013)*2
+        v2, a2, b2, c2 = -12.94 , -0.1808-0.9633, -0.1808-0.9633, (-0.1808+0.9633)*2
+        v3, a3, b3, c3 = -331.2 , -0.1808-2.930 , -0.1808-2.930 , (-0.1808+2.930 )*2
+        Vvv = (ii**L)*( v1 *spherical_jn(L,-ii*c1*rr*rl) *  np.exp( a1*rr**2 + b1*rl**2) +
+                       v2 *spherical_jn(L,-ii*c2*rr*rl) *  np.exp( a2*rr**2 + b2*rl**2) +
+                       v3 *spherical_jn(L,-ii*c3*rr*rl) *  np.exp( a3*rr**2 + b3*rl**2))
+                       # this function is high unstable for large r (it gives NaN but it should give 0.)
+        return np.nan_to_num(Vvv.real)
+    
+    
+    def pot_local(r, arguments):
+        Vvv =      ((-17.49) * np.exp(-0.2752*(r**2)) +
+                    (-127.0) * np.exp(-0.4559*(r**2)) +
+                    ( 497.8) * np.exp(-0.6123*(r**2)))
+        return Vvv
+
+
+
 else:
     print("ERROR: I do not know the system you want")
     quit()
