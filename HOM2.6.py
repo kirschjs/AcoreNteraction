@@ -186,25 +186,23 @@ elif Sysem == "PJM":
     def pot_nonlocal(rl, rr, argv):
         ii = z = complex(0, 1)
 
-        VnEx = (ii**L) * (zeta1(argv) * (
-            4 * alf1(argv)**2 * rr**2 - 2 * alf1(argv) + bet1(argv)**2 * rl**2
-        ) * spherical_jn(L,
-                         ii * (bet1(argv)) * rr * rl
-                         ) * np.exp(-alf1(argv) * rr**2 - gam1(argv) * rl**2))
-        VnnEx = (ii**L) * (zeta2(argv) * spherical_jn(L,
-                                                      ii *
-                                                      (bet2(argv)) * rr * rl) *
-                           np.exp(-alf2(argv) * rr**2 - gam2(argv) * rl**2))
-        VnnnArmEx = (
-            ii**L) * (zeta3(argv) * spherical_jn(L,
-                                                 ii * (bet3(argv)) * rr * rl) *
-                      np.exp(-alf3(argv) * rr**2 - gam3(argv) * rl**2))
-        VnnnStarEx = (
-            ii**L) * (zeta4(argv) * spherical_jn(L,
+        VnEx = (zeta1(argv) *
+                (4 * alf1(argv)**2 * rr**2 - 2 * alf1(argv) +
+                 bet1(argv)**2 * rl**2 + 4 * bet1(argv) * alf1(argv)) *
+                spherical_jn(L,
+                             ii * (bet1(argv)) * rr * rl) *
+                np.exp(-alf1(argv) * rr**2 - gam1(argv) * rl**2))
+        VnnEx = (zeta2(argv) * spherical_jn(L,
+                                            ii * (bet2(argv)) * rr * rl) *
+                 np.exp(-alf2(argv) * rr**2 - gam2(argv) * rl**2))
+        VnnnArmEx = (zeta3(argv) * spherical_jn(L,
+                                                ii * (bet3(argv)) * rr * rl) *
+                     np.exp(-alf3(argv) * rr**2 - gam3(argv) * rl**2))
+        VnnnStarEx = (zeta4(argv) * spherical_jn(L,
                                                  ii * (bet4(argv)) * rr * rl) *
                       np.exp(-alf4(argv) * rr**2 - gam4(argv) * rl**2))
         # this function is high unstable for large r (it gives NaN but it should give 0.)
-        return (-1) * np.nan_to_num(
+        return (-1) * (4. * np.pi * ii**L) * np.nan_to_num(
             VnEx.real + VnnEx.real + VnnnArmEx.real + VnnnStarEx.real)
 
     potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]

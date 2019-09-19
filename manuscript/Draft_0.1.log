@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.14)  16 SEP 2019 15:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.14)  19 SEP 2019 16:07
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -409,96 +409,93 @@ Underfull \hbox (badness 3601) in paragraph at lines 152--155
 \OT1/cmr/m/n/10 The in-te-gra-tion in [] yields a three-dimensional
  []
 
+
+Overfull \hbox (6.864pt too wide) detected at line 169
+[]
+ []
+
 <Graf/Lc-vs-N.pdf, id=29, 462.52798pt x 346.89601pt>
 File: Graf/Lc-vs-N.pdf Graphic file (type pdf)
 <use Graf/Lc-vs-N.pdf>
-Package pdftex.def Info: Graf/Lc-vs-N.pdf  used on input line 222.
+Package pdftex.def Info: Graf/Lc-vs-N.pdf  used on input line 224.
 (pdftex.def)             Requested size: 203.99689pt x 152.99994pt.
 <Graf/E3b15-thresholds.pdf, id=30, 462.52798pt x 346.89601pt>
 File: Graf/E3b15-thresholds.pdf Graphic file (type pdf)
 <use Graf/E3b15-thresholds.pdf>
-Package pdftex.def Info: Graf/E3b15-thresholds.pdf  used on input line 230.
+Package pdftex.def Info: Graf/E3b15-thresholds.pdf  used on input line 232.
 (pdftex.def)             Requested size: 203.99689pt x 152.99994pt.
-[2 <./Graf/Lc-vs-N.pdf>]
+[2]
 
 LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix]
- on input line 237.
+ on input line 239.
 
+! Undefined control sequence.
+<argument> ...legend}). $A\mprime =A-1, A\mmprime 
+                                                  =A-2, \ldots $. The coeffi...
+l.253 $\sumijk$}}
+                 
+? 
+! Emergency stop.
+<argument> ...legend}). $A\mprime =A-1, A\mmprime 
+                                                  =A-2, \ldots $. The coeffi...
+l.253 $\sumijk$}}
+                 
+End of file on the terminal!
 
-LaTeX Warning: Reference `tab.legend' on page 3 undefined on input line 249.
-
-
-LaTeX Warning: Reference `tab.legend' on page 3 undefined on input line 249.
-
-
-Overfull \hbox (22.56728pt too wide) in paragraph at lines 251--281
- []$[]$ 
- []
-
-
-Overfull \hbox (10.0pt too wide) in paragraph at lines 281--281
-[][] 
- []
-
-
-LaTeX Warning: Reference `Tab:scales' on page 3 undefined on input line 291.
-
-
-Overfull \hbox (112.82568pt too wide) in paragraph at lines 294--304
- []$ 
- []
-
-No file Draft_0.1.bbl.
-
-Package natbib Warning: There were undefined citations.
-
-[3 <./Graf/E3b15-thresholds.pdf>] [4] (./Draft_0.1.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+ 
 Here is how much of TeX's memory you used:
- 4815 strings out of 492982
- 61641 string characters out of 6134896
- 163565 words of memory out of 5000000
- 8274 multiletter control sequences out of 15000+600000
- 17124 words of font info for 65 fonts, out of 8000000 for 9000
+ 4789 strings out of 492982
+ 61347 string characters out of 6134896
+ 146565 words of memory out of 5000000
+ 8259 multiletter control sequences out of 15000+600000
+ 14874 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,13n,35p,1193b,399s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,13n,35p,916b,309s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
+words of memory out of 5000000
+ 8251 multiletter control sequences out of 15000+600000
+ 14600000
+ 14874 words of font info for 57 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 41i,13n,35p,295b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
+out of 5000000
+ 8280 multiletter control sequences out of 15000+600000
+ 16766 words of font info for 65 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 41i,13n,35p,1090b,387s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/bbold-type1/bbold10.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy9.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Draft_0.1.pdf (4 pages, 351907 bytes).
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Draft_0.1.pdf (4 pages, 360487 bytes).
 PDF statistics:
- 214 PDF objects out of 1000 (max. 8388607)
+ 215 PDF objects out of 1000 (max. 8388607)
  122 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)

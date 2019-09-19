@@ -154,18 +154,23 @@ The integration in \eqref{eq.rgm.eqom} yields a three-dimensional Schr\"odinger 
 non-local potential
 \begin{widetext}
 \be\label{eq.rgm.sglnonloc}
-\left(\ve{\nabla}_R^2-E\right)\psi(\ve{R})=\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi(\ve{R})+
-\sum_{n=1}^4\zeta_n\int\left\lbrace\mathcal{O}_ne^{-\alpha_n\ve{R}^2-\beta_n\ve{R}\cdot\ve{R}'
--\gamma_n\ve{R}'^2}\right\rbrace\psi(\ve{R}') d\ve{R}'\;\;.
+\left(-\frac{\hbar}{2\mu}\ve{\nabla}_R^2-E\right)\psi(\ve{R})+\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi(\ve{R})-
+\sum_{n=1}^4\zeta_n\int\left\lbrace\mathcal{O}_ne^{-\alpha_n\ve{R}^2-\beta_n\ve{R}\cdot\ve{R}'-\gamma_n\ve{R}'^2}\right\rbrace\psi(\ve{R}') d\ve{R}'=0\;\;.
 \ee
 \end{widetext}
-The coefficients $\alpha,\ldots,\kappa$ are functions of the number of core particles $A$,
-the core size $a$, the interaction regulator $\Lambda$, and the single-particle mass $m$,
-and 
-\be\la{eq.exop}
-\mathcal{O}_1=\ve{\nabla}_R^2\to\left(4\alpha_1^2\ve{R}^2+\beta_1^2\ve{R}'^2-2\alpha_1\right)\;\;,
-\ee
-while $\mathcal{O}_{2,3,4}=\mathbb{1}$.
+The coefficients $\alpha,\ldots,\kappa$ are functions of the number of
+core particles $A$,
+the core size $a$, the interaction regulator $\Lambda$,
+and the single-particle mass $m$, and 
+\begin{align}\la{eq.exop}
+\mathcal{O}_1=&~-\frac{\hbar}{2\mu}\ve{\nabla}_R^2-E\\
+\to&~-\frac{\hbar}{2\mu}\left(4\alpha_1^2\ve{R}^2+\beta_1^2\ve{R}'^2
++4\alpha_1\beta_1\ve{R}\cdot\ve{R}'-2\alpha_1\right)-E\;\;,\nonumber
+\end{align}
+while $\mathcal{O}_{2,3,4}=\mathbb{1}$. The sign ($+$) of the first sum -- the direct
+interaction -- is that of the microscopic LEC. In contrast, the second, non-local
+part reverts the sign. For example, the effect of an attractive 2-body potential
+becomes a repulsive contribution due to antisymmetrization in this term.
 
 A few comments are in order. Firstly, $\zeta_{1\ldots4}=0$ if $\mathcal{A}=\mathbb{1}$, \ie, the
 inter-cluster potential is local. The first non-local term encodes the so-called exchange interaction.
@@ -177,7 +182,6 @@ the formation of attractive and repulsive regions, and thereby the possibility t
 to the core. We postpone a detailed analysis of the sensitivity of the inter-cluster potential,
 for now, and continue with the discussion of the emerging spectrum of \eqref{eq.rgm.sglnonloc}.
 
-The latter we obtain, again, via the SVM.
 \section{results}
 
 Graphics P-wave binding, 
@@ -245,8 +249,10 @@ mass -> inf
 a Gaussian $A$-body core, characterized via the width $a$~\eqref{eq.rgm.corewfkt},
 and one {\it odd} particle (see \eqref{eq.rgm.sglnonloc}).
 The 2- and 3-body LECs $C^\Lambda_0$ and $D^\Lambda_1$ are
-calibrated to a 2- and 3-body symmetric bound state (see table~\ref{tab.legend}). $A\mprime=A-1$, and
-$\mathcal{O}_1=\ve{\nabla}_R^2$, while $\mathcal{O}_{2,3,4}=\mathbb{1}$.}}
+calibrated to a 2- and 3-body symmetric bound state (see table~\ref{tab.legend}).
+$A\mprime=A-1, A\mdprime=A-2, \ldots$. The coefficients $\eta_i,\zeta_i$ {\bf do}
+consider non-zero interacting pair and triplet contributions from $\sum_{i<A}$ and
+$\sum_{i<A\atop j<A-1}$ but {\bf not} $(-1)^{\mathfrak{p}}$.}}
 \small\centering
 \begin{tabular}{lc|ccc}
 \hline\hline
