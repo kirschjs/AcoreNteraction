@@ -6,3 +6,4 @@ fort.*
 SCRATCH
 tmp*
 *.aux
+*.log
