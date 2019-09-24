@@ -82,7 +82,7 @@ The system is thereby reduced to only three degrees of freedom, namely the relat
 between core and the odd particle. The respective equation of motion reads in terms of the effective
 mass $\mu$, the relative kinetic energy $E$ between core and odd particle:
 \be\label{eq.rgm.eqom}
-\int\left\lbrace~\phi^*_A\left(-\frac{\hbar}{2\mu}\ve{\nabla}_R^2-E+\mathcal{V}_{A,A+1}\right)
+\int\left\lbrace~\phi^*_A\left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E+\mathcal{V}_{A,A+1}\right)
 \mathcal{A}\left[\phi_A\psi(\ve{R})\right]\right\rbrace d\ve{r}_{1\ldots A}=0\;\;.
 \ee
 Antisymmetrization is required between two particles only, $\mathcal{A}=\mathbb{1}-P_{A,A+1}$, and the
@@ -96,7 +96,7 @@ The integration in \eqref{eq.rgm.eqom} yields a three-dimensional Schr\"odinger 
 non-local potential
 \begin{widetext}
 \be\label{eq.rgm.sglnonloc}
-\left(-\frac{\hbar}{2\mu}\ve{\nabla}_R^2-E\right)\psi(\ve{R})+\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi(\ve{R})-
+\left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\right)\psi(\ve{R})+\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi(\ve{R})-
 \sum_{n=1}^4\zeta_n\int\left\lbrace\mathcal{O}_ne^{-\alpha_n\ve{R}^2-\beta_n\ve{R}\cdot\ve{R}'-\gamma_n\ve{R}'^2}\right\rbrace\psi(\ve{R}') d\ve{R}'=0\;\;.
 \ee
 \end{widetext}
@@ -105,8 +105,8 @@ core particles $A$,
 the core size $a$, the interaction regulator $\Lambda$,
 and the single-particle mass $m$, and 
 \begin{align}\la{eq.exop}
-\mathcal{O}_1=&~-\frac{\hbar}{2\mu}\ve{\nabla}_R^2-E\\
-\to&~-\frac{\hbar}{2\mu}\left(4\alpha_1^2\ve{R}^2+\beta_1^2\ve{R}'^2
+\mathcal{O}_1=&~-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\\
+\to&~-\frac{\hbar^2}{2\mu}\left(4\alpha_1^2\ve{R}^2+\beta_1^2\ve{R}'^2
 +4\alpha_1\beta_1\ve{R}\cdot\ve{R}'-2\alpha_1\right)-E\;\;,\nonumber
 \end{align}
 while $\mathcal{O}_{2,3,4}=\mathbb{1}$. The sign ($+$) of the first sum -- the direct
@@ -134,7 +134,7 @@ R\int d^2\hat{\ve{R}}~Y^*_{lm}(\hat{\ve{R}})
 \ee
 from the left. The uncoupling of different partial waves becomes explicit when
 \be
-e^{-\gamma\ve{R}\cdot\ve{R}'}=4\pi\sum_{LM}i^Lj_L(i\gamma RR')Y^*_{LM}(\hat{\ve{R}})Y_{LM}(\hat{\ve{R}}')
+e^{-\beta\ve{R}\cdot\ve{R}'}=4\pi\sum_{LM}i^Lj_L(i\beta RR')Y^*_{LM}(\hat{\ve{R}})Y_{LM}(\hat{\ve{R}}')
 \ee
 is substituted. In the $n=1$ part, which encodes the exchange effect on the free
 Hamiltonian, we apply the Laplacian before making the above and following
@@ -147,21 +147,21 @@ Eq.(3.7.8) of~\cite{Edmonds}, we obtain the equation of motion for a single
 partial wave:
 \begin{widetext}
 \begin{gather}\label{eq.rgm.sglnonloc.pw}
-\left(-\frac{\hbar}{2\mu}\ve{\nabla}_R^2-E\right)\psi_{lm}(R)+
+\left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\right)\psi_{lm}(R)+
 \sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi_{lm}(R)\\
 -\sum_{n=\red{2}}^4\zeta_n\int\int
-(4\pi i^l)\cdot RR\mprime\cdot j_l(i\gamma_n RR')\cdot e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}~\psi(R\mprime)~d(R,R\mprime)\\
+(4\pi i^l)\cdot RR\mprime\cdot j_l(i\beta_n RR')\cdot e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}~\psi(R\mprime)~d(R,R\mprime)\\
 -(-E)\zeta_1\int\int
-(4\pi i^l)\cdot RR\mprime\cdot j_l(i\gamma_1 RR')\cdot e^{-\alpha_1\ve{R}^2-\gamma_1\ve{R}'^2}~\psi(R\mprime)~d(R,R\mprime)\\
--\left(-\frac{\hbar}{2\mu}\right)\zeta_1\int\int
+(4\pi i^l)\cdot RR\mprime\cdot j_l(i\beta_1 RR')\cdot e^{-\alpha_1\ve{R}^2-\gamma_1\ve{R}'^2}~\psi(R\mprime)~d(R,R\mprime)\\
+-\left(-\frac{\hbar^2}{2\mu}\right)\zeta_1\int\int
 (4\pi) RR\mprime\cdot e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}~\psi_{lm}(R\mprime)
 \cdot\Bigg\lbrace
-(4\alpha_1^2R^2+\beta_1^2R\mprime^2-2\alpha_1) i^l j_{l}(i\gamma_1 RR')\\
+(4\alpha_1^2R^2+\beta_1^2R\mprime^2-2\alpha_1) i^l j_{l}(i\beta_1 RR')\\
 +
 (4\alpha_1\beta_1)\cdot RR\mprime\cdot
- \left(i^{l-1} j_{l-1}(i\gamma_1 RR') (2l-3)
+ \left(i^{l-1} j_{l-1}(i\beta_1 RR') (2l-3)
  \threej{1}{l-1}{l}{0}{0}{0}^2+
- i^{l+1} j_{l+1}(i\gamma_1 RR') (2l-1)
+ i^{l+1} j_{l+1}(i\beta_1 RR') (2l-1)
  \threej{1}{l+1}{l}{0}{0}{0}^2\right)\Bigg\rbrace
 ~d(R,R\mprime)\\=0\;\;.
 \end{gather}

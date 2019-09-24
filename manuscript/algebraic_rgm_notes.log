@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.14)  20 SEP 2019 16:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.14)  24 SEP 2019 18:10
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -234,33 +234,23 @@ Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@ttwidth=\dimen116
 \SOUL@uldp=\dimen117
 \SOUL@ulht=\dimen118
-))
-Runaway argument?
-{\left [\,##1\,\otimes \,##2\,\right ]^{##3} \par \begin {document} \par \ETC.
-! File ended while scanning use of \@argdef.
-<inserted text> 
-                \par 
-<*> algebraic_rgm_notes.tex
-                           
-? 
-! Emergency stop.
-<inserted text> 
-                \par 
-<*> algebraic_rgm_notes.tex
-                           
-End of file on the terminal!
+)
+(./algebraic_rgm_notes.aux)
+\openout1 = `algebraic_rgm_notes.aux'.
 
- 
-Here is how much of TeX's memory you used:
- 3817 strings out of 492982
- 46206 string characters out of 6134896
- 125512 words of memory out of 5000000
- 7384 multiletter control sequences out of 15000+600000
- 3953 words of font info for 15 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 27i,0n,35p,269b,34s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
-lease update this document cla
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+Class revtex4 Info: Unrecognized array package. Please update this document cla
 ss! (Proceeding with fingers crossed.) on input line 48.
 Class revtex4 Info: Patching unrecognized longtable package. (Proceeding with f
 ingers crossed) on input line 48.
@@ -395,47 +385,43 @@ Underfull \hbox (badness 1629) in paragraph at lines 144--148
 ng Eq.(4.6.3) and
  []
 
-! Missing } inserted.
-<inserted text> 
-                }
-l.167 \end{gather}
-                  
-? 
-! Emergency stop.
-<inserted text> 
-                }
-l.167 \end{gather}
-                  
-End of file on the terminal!
 
- 
-Here is how much of TeX's memory you used:
- 4753 strings out of 492982
- 60787 string characters out of 6134896
- 151630 words of memory out of 5000000
- 8232 multiletter control sequences out of 15000+600000
- 13322 words of font info for 51 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 41i,13n,35p,1095b,162s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
-ack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
-endtempl...
-l.167 \end{align}
-                 
-End of file on the terminal!
+LaTeX Warning: Reference `tab.legend' on page 2 undefined on input line 185.
 
- 
+LaTeX Font Info:    Try loading font information for U+euf on input line 185.
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
+File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
+)
+
+LaTeX Warning: Reference `tab.legend' on page 2 undefined on input line 185.
+
+
+Overfull \hbox (22.56728pt too wide) in paragraph at lines 187--217
+ []$[]$ 
+ []
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 217--217
+[][] 
+ []
+
+(./algebraic_rgm_notes.bbl) [2] [3] (./algebraic_rgm_notes.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4746 strings out of 492982
- 60692 string characters out of 6134896
- 151466 words of memory out of 5000000
- 8225 multiletter control sequences out of 15000+600000
- 13322 words of font info for 51 fonts, out of 8000000 for 9000
+ 4796 strings out of 492982
+ 61477 string characters out of 6134896
+ 160630 words of memory out of 5000000
+ 8260 multiletter control sequences out of 15000+600000
+ 15050 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,15n,35p,286b,229s stack positions out of 5000i,500n,10000p,200000b,80000s
-!  ==> Fatal error occurred, no output PDF file produced!
-/share/texlive/t
+ 41i,14n,35p,1100b,389s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/bbold-type1/bbold10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texlive/texmf-dist/
@@ -459,7 +445,7 @@ cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/s
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on algebraic_rgm_notes.pdf (3 pages, 290231 bytes).
+Output written on algebraic_rgm_notes.pdf (3 pages, 290091 bytes).
 PDF statistics:
  130 PDF objects out of 1000 (max. 8388607)
  95 compressed objects within 1 object stream
