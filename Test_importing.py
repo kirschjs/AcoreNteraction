@@ -2,13 +2,19 @@ from LECs_interpolation import return_val
 import numpy as np
 import matplotlib.pyplot as plt
 
-x  = np.arange(0.1,10,0.1)
+x  = np.arange(0.1,5,0.1)
 
 
 print("C1_D4")
-plt.plot(x,return_val(x,"C1_D4","AB"))
+plt.plot(x,return_val(x,"C1_D4","D"))
 plt.show()
-		
+	
+plt.plot(x,return_val(x,"C1_D4","ABCD"))
+plt.show()		
+
+
+exit()
+
 print("C1_D3")
 plt.plot(x,return_val(x,"C1_D3","ABCD"))
 plt.show()		

@@ -12,7 +12,7 @@ def pol4(x, a, b, c,d,e):
 
 
 
-def return_val(lamb,data,var,rang=[0.1,20]):
+def return_val(lamb,data,var,rang=[0.1,20],speculative=False):
 	
 	L = C = D = AB = ABC = ABCD = ABCDE = ABCDEF = []
 	
@@ -879,15 +879,20 @@ def return_val(lamb,data,var,rang=[0.1,20]):
 	if len(Y)==0:
 		print("Sorry, we dont have the data you are looking for.")
 		return 1
-	popt, pcov = curve_fit(fun, X[mask],Y[mask] )
-	ics        = np.arange(rang[0],rang[1],rang[0])
-	if fun == pol4:
-		why        = fun(ics, popt[0], popt[1], popt[2], popt[3], popt[4]) 
-	else:	
-		why        = fun(ics, popt[0], popt[1], popt[2], popt[3]) 
-	f2 		   = interp1d(ics,why, kind='cubic')
+
+	if not speculative:
+        	f2            = interp1d(X[mask],Y[mask] , kind='cubic')
+	else:
+        	popt, pcov = curve_fit(fun, X[mask],Y[mask] )
+        	ics        = np.arange(rang[0],rang[1],rang[0])
+        	if fun == pol4:
+        		why        = fun(ics, popt[0], popt[1], popt[2], popt[3], popt[4])
+        	else:
+        		why        = fun(ics, popt[0], popt[1], popt[2], popt[3])
+        	f2 		   = interp1d(ics,why, kind='linear')
+
 	#plt.plot(X[mask],Y[mask],'ko',label="data")
-	return float(f2(lamb))
+	return f2(lamb)
 		
 		
 		

@@ -7,7 +7,7 @@ from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_cou
 from potcoeffs import *
 from LECs_interpolation import *
 from sympy.physics.wigner import clebsch_gordan
-
+import numpy.ma as ma
 
 ###############################
 ######## V LO pionless ########
@@ -76,7 +76,7 @@ def ddpsi(r, n, l, nu):
 #######################
 ### general options ###
 #######################
-
+pedantic = False
 states_print = 3  # How many energies do you want?
 
 # Parallel of this version not implemented
@@ -166,24 +166,24 @@ elif Sysem == "PJM":
     NState = 20  #Number of basys states
     Rmax = 15
     order = 200
-    omegas = [
-        0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-        0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.3
-    ]
+    omegas = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
+        0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.3]
+	
+	
     L = 1
-
-
 
 
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
     
-    Lamb = 0.1
+    Lamb = 0.5
     
     parametriz = "C1_D4"
     LeC      = return_val(Lamb, parametriz , "C")
     LeD      = return_val(Lamb, parametriz , "D")
     coreosci = return_val(Lamb, parametriz , "ABCD")
+	# for fitting and speculation over large cut-off or not calculated values
+    # coreosci = return_val(Lamb, parametriz , "ABCD",speculative=True)
     
     
     
@@ -198,8 +198,8 @@ elif Sysem == "PJM":
     hbar = 197.327
     mh2 = hbar**2 / (2 * mu)
 
-#    interaction = "NonLocal"
-    interaction = "Local"
+    interaction = "NonLocal"
+#    interaction = "Local"
 
     
 
@@ -260,7 +260,7 @@ elif Sysem == "PJM":
     print("kappa2  = " + str(kk2))
     print("kappa3  = " + str(kk3))
     print(" -- ")
-    print("clebsh  = "+str(clg_p2)+str(clg_m2))
+    print("clebsh  = "+str(clg_p2)+"  "+str(clg_m2))
     print(" -- ")
     
     
@@ -313,6 +313,7 @@ if __name__ == '__main__':
     print("Mass        : " + str(mu))
     print("hbar        : " + str(hbar))
     print("h^2/2m      : " + str(np.round(mh2, 3)))
+    print("")
 
     x, w = np.polynomial.legendre.leggauss(order)
     # Translate x values from the interval [-1, 1] to [a, b]
@@ -334,22 +335,22 @@ if __name__ == '__main__':
         Vl = np.zeros((NState, NState))
         U =  np.zeros((NState, NState))
         nu = mu * omega / (2 * hbar)
-        print("Omega       : " + str(omega))
-        print("nu          : " + str(np.round(nu, 3)))
-        print(" ")
+        if (pedantic):print("Omega       : " + str(omega))
+        if (pedantic):print("nu          : " + str(np.round(nu, 3)))
+        if (pedantic):print(" ")
 
 		
 		
-        rl = 0.75
-        rr = 1.00
+        #rl = 0.75
+        #rr = 1.00
 		
-        print("rl,rr,args:", rl, rr, potargs)
-        print("test nonlocal pot:", pot_nonlocal(rl, rr, potargs))
+        #print("rl,rr,args:", rl, rr, potargs)
+        #print("test nonlocal pot:", pot_nonlocal(rl, rr, potargs))
         #exit()
 		
 		
 		
-        print("Creation of integration array: ")
+        if (pedantic): print("Creation of integration array: ")
         start_time = timeit.default_timer()
         start_time2 = start_time
 
@@ -361,28 +362,24 @@ if __name__ == '__main__':
                 psiRN[x, y] = psi(t[x], y, L, nu)
                 ddpsiRN[x, y] = ddpsi(t[x], y, L, nu)
 
-        print(" >> Wave function: (",
-              timeit.default_timer() - start_time, " s )")
+        if (pedantic):print(" >> Wave function: (",timeit.default_timer() - start_time, " s )")
         start_time = timeit.default_timer()
         VlocRN[:] = pot_local(t[:], potargs)
-        print(" >> Local potential:  (",
-              timeit.default_timer() - start_time, " s )")
+        if (pedantic):print(" >> Local potential:  (",timeit.default_timer() - start_time, " s )")
         start_time = timeit.default_timer()
 
         if (interaction == "NonLocal"):
             VnolRN = np.fromfunction(
                 lambda x, y: pot_nonlocal(t[x], t[y], potargs), (order, order),
                 dtype=int)
-            print(" >> NonLocal potential:  (",
-                  timeit.default_timer() - start_time, " s )")
+            if (pedantic):print(" >> NonLocal potential:  (",timeit.default_timer() - start_time, " s )")
             start_time = timeit.default_timer()
 
-        print("Array creation time:",
-              timeit.default_timer() - start_time2, " s")
+        if (pedantic):print("Array creation time:", timeit.default_timer() - start_time2, " s")
         start_time = timeit.default_timer()
 
-        print(" ")
-        print("Array integration:")
+        if (pedantic):print(" ")
+        if (pedantic):print("Array integration:")
 
         for i in np.arange(NState):
             for j in np.arange(i + 1):
@@ -398,7 +395,7 @@ if __name__ == '__main__':
                             t[:] * VnolRN[k, :] * psiRN[:, j] * w[:]
                         ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
 
-        print("Integration time:", timeit.default_timer() - start_time, " s")
+        if (pedantic):print("Integration time:", timeit.default_timer() - start_time, " s")
         start_time = timeit.default_timer()
 
         K = -mh2 * K
@@ -461,27 +458,37 @@ if __name__ == '__main__':
                     np.savetxt(f, line, fmt='%.2f')
 
         # Diagonalize
-        print(" ")
-        print("Diagonalization:")
+        if (pedantic):print(" ")
+        if (pedantic):print("Diagonalization:")
         for i in np.arange(NState, NState + 1):
             #for i in np.arange(NState+1):
             val, vec = np.linalg.eig(H[:i, :i])
             z = np.argsort(val)
             z = z[0:states_print]
             energies = (val[z])
-            print("states: " + str(i) + "  Energies: " + str(energies))
-        print("Diagonalization time:",
+            if (pedantic):print("states: " + str(i) + "  Energies: " + str(energies))
+        if (pedantic):print("Diagonalization time:",
               timeit.default_timer() - start_time, " s")
-        print("--------------------------")
-        print(" ")
-        print(" ")
-        print(" ")
+        if (pedantic):print("--------------------------")
+        if (pedantic):print(" ")
+        if (pedantic):print(" ")
+        if (pedantic):print(" ")
         ene_omega.append(energies[0])
         val_omega.append(omega)
-    plt.plot(val_omega, ene_omega, 'ko', lw=2, label="{} ".format(i))
-    plt.show()
+		
+        print("nu: "+str(np.round(nu, 5)) + "  states: " + str(i) + "  Energies: " + str(energies))
+	
 
-    if parallel:
-        print("Parallel closing")
-        p.close()
-    quit()
+	
+	
+	
+ene_omega = np.array(ene_omega)
+val_omega = np.array(val_omega)
+plt.semilogx(val_omega[ene_omega<=0], ene_omega[ene_omega<=0], 'go', lw=2, label="{} ".format(i))
+plt.semilogx(val_omega[ene_omega>0], ene_omega[ene_omega>0], 'ko', lw=2, label="{} ".format(i))
+plt.show()
+
+if parallel:
+	print("Parallel closing")
+	p.close()
+quit()
