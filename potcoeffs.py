@@ -2,7 +2,7 @@ import numpy as np
 
 
 def eta1(argv):
-    return 8 / (4 + ((-1 + argv[1]) * argv[2]**2) / (argv[0] * argv[1]))**1.5
+    return argv[3] * (argv[1] - 1) * 8 / (4 + ((-1 + argv[1]) * argv[2]**2) / (argv[0] * argv[1]))**1.5
 
 
 def kappa1(argv):
@@ -11,11 +11,10 @@ def kappa1(argv):
 
 
 def eta2(argv):
-    return 64 * argv[0]**3 * (argv[1] /
+    return argv[4] * (argv[1] - 1) * (argv[1] - 2) * 64 * argv[0]**3 * (argv[1] /
                               (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
                                (-1 + 3 * argv[1]) * argv[2]**2 +
                                (-2 + argv[1]) * argv[2]**4))**1.5
-
 
 def kappa2(argv):
     return (2 * argv[0] * argv[1] * argv[2]**2 * (
@@ -25,7 +24,7 @@ def kappa2(argv):
 
 
 def eta3(argv):
-    return 64 / (((4 * argv[0] + argv[2]**2) * (4 * argv[0] * argv[1] +
+    return argv[4] * (argv[1] - 1) * (argv[1] - 2) * 64 / (((4 * argv[0] + argv[2]**2) * (4 * argv[0] * argv[1] +
                                                 (-2 + argv[1]) * argv[2]**2)) /
                  (argv[0]**2 * argv[1]))**1.5
 

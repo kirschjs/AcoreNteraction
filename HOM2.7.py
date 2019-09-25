@@ -1,10 +1,13 @@
 import numpy as np
-from scipy.special import eval_genlaguerre, iv, spherical_jn
 import matplotlib.pyplot as plt
 import sys
-from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 import timeit
+from scipy.special import eval_genlaguerre, iv, spherical_jn
+from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 from potcoeffs import *
+from LECs_interpolation import *
+from sympy.physics.wigner import clebsch_gordan
+
 
 ###############################
 ######## V LO pionless ########
@@ -157,19 +160,37 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
                              (r**2)) + (497.8) * np.exp(-0.6123 * (r**2))
         return Vvv
 
+
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
     NState = 20  #Number of basys states
     Rmax = 15
-    order = 550
+    order = 200
     omegas = [
         0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
         0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.3
     ]
     L = 1
 
+
+
+
+    # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
-    coreosci = 0.56  # oscillator parameter for the frozen core wave function
+    
+    Lamb = 0.1
+    
+    parametriz = "C1_D4"
+    LeC      = return_val(Lamb, parametriz , "C")
+    LeD      = return_val(Lamb, parametriz , "D")
+    coreosci = return_val(Lamb, parametriz , "ABCD")
+    
+    
+    
+    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+    
+    
+    
 
     mpi = '137'
     m = 938.858
@@ -177,45 +198,101 @@ elif Sysem == "PJM":
     hbar = 197.327
     mh2 = hbar**2 / (2 * mu)
 
-    interaction = "NonLocal"
-    lind = -3
-    Lamb = lambdas[lind]
-    LeC = LeCofL[lind]  # PiLess LO 2-body LEC
-    LeD = LeDofL[lind]  # PiLess LO 3-body LEC
+#    interaction = "NonLocal"
+    interaction = "Local"
 
+    
+
+    aa1 = alf1(potargs)
+    aa2 = alf2(potargs)
+    aa3 = alf3(potargs)
+    aa4 = alf4(potargs)
+    bb1 = bet1(potargs)
+    bb2 = bet2(potargs)
+    bb3 = bet3(potargs)
+    bb4 = bet4(potargs)
+    gg1 = gam1(potargs)
+    gg2 = gam2(potargs)
+    gg3 = gam3(potargs)
+    gg4 = gam4(potargs)
+    zz1 = zeta1(potargs)
+    zz2 = zeta2(potargs)
+    zz3 = zeta3(potargs)
+    zz4 = zeta4(potargs)
+    
+    nn1 = eta1(potargs)    
+    nn2 = eta2(potargs)    
+    nn3 = eta3(potargs)
+    kk1 = kappa1(potargs)
+    kk2 = kappa2(potargs)
+    kk3 = kappa3(potargs)
+    
+    clg_m2 = float(clebsch_gordan(1, L-1, L, 0, 0, 0))**2
+    clg_p2 = float(clebsch_gordan(1, L+1, L, 0, 0, 0))**2
+    
+    print(" - RGM potential -")
+    print("Lambda  = " + str(Lamb))
+    print("Ncore   = " + str(Ncore))
+    print("Rcore   = " + str(coreosci))
+    print("LEC 2b  = " + str(LeC))
+    print("LEC 3b  = " + str(LeD))
+    print(" -- ")
+    print("alpha1  = " + str(aa1))
+    print("alpha2  = " + str(aa2))
+    print("alpha3  = " + str(aa3))
+    print("alpha4  = " + str(aa4))
+    print("beta1   = " + str(bb1))
+    print("beta2   = " + str(bb2))
+    print("beta3   = " + str(bb3))
+    print("beta4   = " + str(bb4))
+    print("gamma1  = " + str(gg1))
+    print("gamma2  = " + str(gg2))
+    print("gamma3  = " + str(gg3))
+    print("gamma4  = " + str(gg4))
+    print("zeta1   = " + str(zz1))
+    print("zeta2   = " + str(zz2))
+    print("zeta3   = " + str(zz3))
+    print("zeta4   = " + str(zz4))
+    print("eta1    = " + str(nn1))
+    print("eta2    = " + str(nn2))
+    print("eta3    = " + str(nn3))
+    print("kappa1  = " + str(kk1))
+    print("kappa2  = " + str(kk2))
+    print("kappa3  = " + str(kk3))
+    print(" -- ")
+    print("clebsh  = "+str(clg_p2)+str(clg_m2))
+    print(" -- ")
+    
+    
+    
     def pot_nonlocal(rl, rr, argv):
-        ii = z = complex(0, 1)
-
-        VnEx = (zeta1(argv) *
-                (4 * alf1(argv)**2 * rr**2 - 2 * alf1(argv) +
-                 bet1(argv)**2 * rl**2 + 4 * bet1(argv) * alf1(argv)) *
-                spherical_jn(L,
-                             ii * (bet1(argv)) * rr * rl) *
-                np.exp(-alf1(argv) * rr**2 - gam1(argv) * rl**2))
-        VnnEx = (zeta2(argv) * spherical_jn(L,
-                                            ii * (bet2(argv)) * rr * rl) *
-                 np.exp(-alf2(argv) * rr**2 - gam2(argv) * rl**2))
-        VnnnArmEx = (zeta3(argv) * spherical_jn(L,
-                                                ii * (bet3(argv)) * rr * rl) *
-                     np.exp(-alf3(argv) * rr**2 - gam3(argv) * rl**2))
-        VnnnStarEx = (zeta4(argv) * spherical_jn(L,
-                                                 ii * (bet4(argv)) * rr * rl) *
-                      np.exp(-alf4(argv) * rr**2 - gam4(argv) * rl**2))
+        ii  = complex(0, 1)
+        rr2 = rr**2
+        rl2 = rl**2
+		
+        V1 = 4. * aa1 * bb1 *  rl * rr * (
+                      ii**(L-1) * spherical_jn(L-1,ii * bb1* rr * rl) * clg_m2 * (2*L-3) + 
+                      ii**(L+1) * spherical_jn(L+1,ii * bb1* rr * rl) * clg_p2 * (2*L-1) )
+        V1 = V1 + ii**L     * spherical_jn(L  ,ii * bb1* rr * rl) * (4.*aa1**2*rr2 -2*aa1 +bb1**2*rl2) 	
+        
+        V1 = V1 * mh2 * zz1 * np.exp( -aa1 * rr2 -gg1 * rl2)
+			
+		# this is simple (still missing (4 pi i^l ) RR')
+        V234      = (ii**L) * ((zz2 * spherical_jn(L,ii*bb2 *rr*rl) * np.exp(-aa2*rr2 -gg2*rl2))
+                             + (zz3 * spherical_jn(L,ii*bb3 *rr*rl) * np.exp(-aa3*rr2 -gg3*rl2))
+                             + (zz4 * spherical_jn(L,ii*bb4 *rr*rl) * np.exp(-aa4*rr2 -gg4*rl2)))
+			
         # this function is high unstable for large r (it gives NaN but it should give 0.)
-        return (-1) * (4. * np.pi * ii**L) * np.nan_to_num(
-            VnEx.real + VnnEx.real + VnnnArmEx.real + VnnnStarEx.real)
+        Vnl = 4. * np.pi * ( V1 - V234 )
 
-    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+        return np.nan_to_num(Vnl.real)
 
+	
     def pot_local(r, argv):
-
-        VnnDI = argv[3] * (
-            argv[1] - 1) * eta1(argv) * np.exp(-kappa1(argv) * r**2)
-
-        VnnnDIarm = argv[4] * (argv[1] - 1) * (
-            argv[1] - 2) * eta2(argv) * np.exp(-kappa2(argv) * r**2)
-        VnnnDIstar = argv[4] * (argv[1] - 1) * (
-            argv[1] - 2) * eta3(argv) * np.exp(-kappa3(argv) * r**2)
+        r2 = r**2
+        VnnDI       = nn1 * np.exp(-kk1 * r2)
+        VnnnDIarm   = nn2 * np.exp(-kk2 * r2)
+        VnnnDIstar  = nn3 * np.exp(-kk3 * r2)
         return VnnDI + VnnnDIarm + VnnnDIstar
 
 else:
@@ -251,16 +328,27 @@ if __name__ == '__main__':
         ###########################
         ### All vectors to zero ###
         ###########################
-        H = np.zeros((NState, NState))
-        K = np.zeros((NState, NState))
-        V = np.zeros((NState, NState))
+        H =  np.zeros((NState, NState))
+        K =  np.zeros((NState, NState))
+        V =  np.zeros((NState, NState))
         Vl = np.zeros((NState, NState))
-        U = np.zeros((NState, NState))
+        U =  np.zeros((NState, NState))
         nu = mu * omega / (2 * hbar)
         print("Omega       : " + str(omega))
         print("nu          : " + str(np.round(nu, 3)))
         print(" ")
 
+		
+		
+        rl = 0.75
+        rr = 1.00
+		
+        print("rl,rr,args:", rl, rr, potargs)
+        print("test nonlocal pot:", pot_nonlocal(rl, rr, potargs))
+        #exit()
+		
+		
+		
         print("Creation of integration array: ")
         start_time = timeit.default_timer()
         start_time2 = start_time
@@ -320,11 +408,11 @@ if __name__ == '__main__':
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
-                H[j][i] = H[i][j]
-                V[j][i] = V[i][j]
+                H[j][i]  = H[i][j]
+                V[j][i]  = V[i][j]
                 Vl[j][i] = Vl[i][j]
-                K[j][i] = K[i][j]
-                U[j][i] = U[i][j]
+                K[j][i]  = K[i][j]
+                U[j][i]  = U[i][j]
 
         # Check unitarity:
         if np.sum(abs(np.eye(NState) - U)) > 0.1 * NState**2:
