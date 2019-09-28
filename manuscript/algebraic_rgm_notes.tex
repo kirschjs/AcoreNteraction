@@ -86,12 +86,19 @@ mass $\mu$, the relative kinetic energy $E$ between core and odd particle:
 \mathcal{A}\left[\phi_A\psi(\ve{R})\right]\right\rbrace d\ve{r}_{1\ldots A}=0\;\;.
 \ee
 Antisymmetrization is required between two particles only, $\mathcal{A}=\mathbb{1}-P_{A,A+1}$, and the
-interaction term is given by
+interaction is effective, only if it involves the odd particle:
 \begin{align}
-\mathcal{V}_{A,A+1}=&~C_0(\Lambda)\sum_{i<j}^X\ddrei{\ve{r}_i-\ve{r}_j}\\
-&+D_1(\Lambda)\sum^X_{i<j<k\atop\text{\tiny cyclic}}\ddrei{\ve{r}_i-\ve{r}_j}\,
-\ddrei{\ve{r}_j-\ve{r}_k}\;\;.\nonumber
+\mathcal{V}_{A,A+1}=&~C_0(\Lambda)&\sum_{i}^{A-1}&\ddrei{\ve{r}_i-\ve{r}_{A+1}}\\
+&+D_1(\Lambda)&\sum^{A-1}_{i<j}&\left[\ddrei{\ve{r}_i-\ve{r}_j}\,
+\ddrei{\ve{r}_i-\ve{r}_{A+1}}\right.\\&&&\left.+\ddrei{\ve{r}_i-\ve{r}_{A+1}}\,
+\ddrei{\ve{r}_j-\ve{r}_{A+1}}\right]\;\;.\nonumber
 \end{align}
+The contribution from the identical copy of the $(A+1)^\text{\scriptsize th}$ particle -- without loss of generality
+identified with label $A$ -- interacting is excluded, because we anticipate its vanishing because of antisymmetrization.
+As in our calculations, the zero-range contact forces are smeared out in order to obtain regular solutions -- in contrast to, \eg,
+Bethe-Peierls~\cite{bethePeierls} boundary conditions -- this {\it a priori} exclusion introduces artefacts. We assume
+that those are insignificant relative to the other terms from the inter-fragment interaction.
+
 The integration in \eqref{eq.rgm.eqom} yields a three-dimensional Schr\"odinger equation with a
 non-local potential
 \begin{widetext}
