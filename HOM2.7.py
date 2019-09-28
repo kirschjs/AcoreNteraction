@@ -6,8 +6,13 @@ from scipy.special import eval_genlaguerre, iv, spherical_jn
 from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 from potcoeffs import *
 from LECs_interpolation import *
-from sympy.physics.wigner import clebsch_gordan
+from sympy import lambdify
+from sympy.abc import x
+from sympy.physics.quantum.cg import CG, Wigner3j
 import numpy.ma as ma
+
+#print('CG = ', CG(1, 0, 2, 0, 1, 0).doit(), '=? -Sqrt(2/5)')
+#print('3J = ', Wigner3j(3, 0, 2, 0, 3, 0).doit(), '=? Sqrt(4/105)')
 
 ###############################
 ######## V LO pionless ########
@@ -139,17 +144,17 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
     interaction = "NonLocal"
 
     def pot_nonlocal(rl, rr, argv):
-        ii = z = complex(0, 1)
+        z = 1j
         v1, a1, b1, c1 = -0.3706, -0.1808 - 0.4013, -0.1808 - 0.4013, (
             -0.1808 + 0.4013) * 2
         v2, a2, b2, c2 = -12.94, -0.1808 - 0.9633, -0.1808 - 0.9633, (
             -0.1808 + 0.9633) * 2
         v3, a3, b3, c3 = -331.2, -0.1808 - 2.930, -0.1808 - 2.930, (
             -0.1808 + 2.930) * 2
-        Vvv = (ii**L) * (v1 * spherical_jn(L, -ii * c1 * rr * rl) * np.exp(
+        Vvv = (1j**L) * (v1 * spherical_jn(L, -1j * c1 * rr * rl) * np.exp(
             a1 * rr**2 + b1 * rl**2) + v2 * spherical_jn(
-                L, -ii * c2 * rr * rl) * np.exp(a2 * rr**2 + b2 * rl**2) +
-                         v3 * spherical_jn(L, -ii * c3 * rr * rl
+                L, -1j * c2 * rr * rl) * np.exp(a2 * rr**2 + b2 * rl**2) +
+                         v3 * spherical_jn(L, -1j * c3 * rr * rl
                                            ) * np.exp(a3 * rr**2 + b3 * rl**2))
         # this function is high unstable for large r (it gives NaN but it should give 0.)
         return np.nan_to_num(Vvv.real)
@@ -160,37 +165,28 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
                              (r**2)) + (497.8) * np.exp(-0.6123 * (r**2))
         return Vvv
 
-
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
     NState = 20  #Number of basys states
     Rmax = 15
     order = 200
-    omegas = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12,
-        0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2, 0.3]
-	
-	
-    L = 1
+    omegas = np.linspace(0.01, 0.4, 30)
 
+    L = 0
 
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
-    
+
     Lamb = 0.5
-    
+
     parametriz = "C1_D4"
-    LeC      = return_val(Lamb, parametriz , "C")
-    LeD      = return_val(Lamb, parametriz , "D")
-    coreosci = return_val(Lamb, parametriz , "ABCD")
-	# for fitting and speculation over large cut-off or not calculated values
-    # coreosci = return_val(Lamb, parametriz , "ABCD",speculative=True)
-    
-    
-    
+    LeC = return_val(Lamb, parametriz, "C")
+    LeD = return_val(Lamb, parametriz, "D")
+    coreosci = return_val(Lamb, parametriz, "ABCD")
+    # for fitting and speculation over large cut-off or not calculated values
+    # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
+
     potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
-    
-    
-    
 
     mpi = '137'
     m = 938.858
@@ -199,9 +195,7 @@ elif Sysem == "PJM":
     mh2 = hbar**2 / (2 * mu)
 
     interaction = "NonLocal"
-#    interaction = "Local"
-
-    
+    #    interaction = "Local"
 
     aa1 = alf1(potargs)
     aa2 = alf2(potargs)
@@ -219,17 +213,21 @@ elif Sysem == "PJM":
     zz2 = zeta2(potargs)
     zz3 = zeta3(potargs)
     zz4 = zeta4(potargs)
-    
-    nn1 = eta1(potargs)    
-    nn2 = eta2(potargs)    
+
+    nn1 = eta1(potargs)
+    nn2 = eta2(potargs)
     nn3 = eta3(potargs)
     kk1 = kappa1(potargs)
     kk2 = kappa2(potargs)
     kk3 = kappa3(potargs)
-    
-    clg_m2 = float(clebsch_gordan(1, L-1, L, 0, 0, 0))**2
-    clg_p2 = float(clebsch_gordan(1, L+1, L, 0, 0, 0))**2
-    
+
+    # this might overdo it but the sympy expressions
+    # were handled erroneously before
+    w3j_m2 = (Wigner3j(1, L - 1, L, 0, 0, 0).doit())**2
+    w3j_p2 = (Wigner3j(1, L + 1, L, 0, 0, 0).doit())**2
+    wigm = 0 if (w3j_m2 == 0) else float(w3j_m2.evalf())
+    wigp = 0 if (w3j_p2 == 0) else float(w3j_p2.evalf())
+
     print(" - RGM potential -")
     print("Lambda  = " + str(Lamb))
     print("Ncore   = " + str(Ncore))
@@ -260,43 +258,46 @@ elif Sysem == "PJM":
     print("kappa2  = " + str(kk2))
     print("kappa3  = " + str(kk3))
     print(" -- ")
-    print("clebsh  = "+str(clg_p2)+"  "+str(clg_m2))
+    print("W3J\'s  = " + str(w3j_p2) + "  " + str(w3j_m2))
     print(" -- ")
-    
-    
-    
+
     def pot_nonlocal(rl, rr, argv):
-        ii  = complex(0, 1)
+
         rr2 = rr**2
         rl2 = rl**2
-		
-        V1 = 4. * aa1 * bb1 *  rl * rr * (
-                      ii**(L-1) * spherical_jn(L-1,ii * bb1* rr * rl) * clg_m2 * (2*L-3) + 
-                      ii**(L+1) * spherical_jn(L+1,ii * bb1* rr * rl) * clg_p2 * (2*L-1) )
-        V1 = V1 + ii**L     * spherical_jn(L  ,ii * bb1* rr * rl) * (4.*aa1**2*rr2 -2*aa1 +bb1**2*rl2) 	
-        
-        V1 = V1 * mh2 * zz1 * np.exp( -aa1 * rr2 -gg1 * rl2)
-			
-		# this is simple (still missing (4 pi i^l ) RR')
-        V234      = (ii**L) * ((zz2 * spherical_jn(L,ii*bb2 *rr*rl) * np.exp(-aa2*rr2 -gg2*rl2))
-                             + (zz3 * spherical_jn(L,ii*bb3 *rr*rl) * np.exp(-aa3*rr2 -gg3*rl2))
-                             + (zz4 * spherical_jn(L,ii*bb4 *rr*rl) * np.exp(-aa4*rr2 -gg4*rl2)))
-			
+
+        V1 = mh2 * zz1 * (
+            4. * np.pi * rr * rl) * np.exp(-aa1 * rr2 - gg1 * rl2) * (
+                4. * aa1 * bb1 * rl * rr *
+                (1j**(L - 1) * spherical_jn(L - 1, 1j * bb1 * rr * rl) * wigm *
+                 (2 * L - 3) + 1j**
+                 (L + 1) * spherical_jn(L + 1, 1j * bb1 * rr * rl) * wigp *
+                 (2 * L - 1)) +
+                (4. * aa1**2 * rr2 - 2 * aa1 + bb1**2 * rl2
+                 ) * 1j**L * spherical_jn(L, 1j * bb1 * rr * rl))
+
+        # this is simple (still missing (4 pi i^l ) RR')
+        V234 = (4. * np.pi) * rr * rl * (
+            (zz2 * 1j**L * spherical_jn(L, 1j * bb2 * rr * rl
+                                        ) * np.exp(-aa2 * rr2 - gg2 * rl2)) +
+            (zz3 * 1j**L * spherical_jn(L, 1j * bb3 * rr * rl
+                                        ) * np.exp(-aa3 * rr2 - gg3 * rl2)) +
+            (zz4 * 1j**L * spherical_jn(L, 1j * bb4 * rr * rl
+                                        ) * np.exp(-aa4 * rr2 - gg4 * rl2)))
+
         # this function is high unstable for large r (it gives NaN but it should give 0.)
-        Vnl = 4. * np.pi * ( V1 - V234 )
+        Vnl = np.real(-V1 + V234)
+        return np.nan_to_num(Vnl)
 
-        return np.nan_to_num(Vnl.real)
-
-	
     def pot_local(r, argv):
         r2 = r**2
-        VnnDI       = nn1 * np.exp(-kk1 * r2)
-        VnnnDIarm   = nn2 * np.exp(-kk2 * r2)
-        VnnnDIstar  = nn3 * np.exp(-kk3 * r2)
+        VnnDI = nn1 * np.exp(-kk1 * r2)
+        VnnnDIarm = nn2 * np.exp(-kk2 * r2)
+        VnnnDIstar = nn3 * np.exp(-kk3 * r2)
         return VnnDI + VnnnDIarm + VnnnDIstar
 
 else:
-    print("ERROR: I do not know the system you want")
+    print("ERROR: I do not know the sysem you want")
     quit()
 
 if __name__ == '__main__':
@@ -329,27 +330,23 @@ if __name__ == '__main__':
         ###########################
         ### All vectors to zero ###
         ###########################
-        H =  np.zeros((NState, NState))
-        K =  np.zeros((NState, NState))
-        V =  np.zeros((NState, NState))
+        H = np.zeros((NState, NState))
+        K = np.zeros((NState, NState))
+        V = np.zeros((NState, NState))
         Vl = np.zeros((NState, NState))
-        U =  np.zeros((NState, NState))
+        U = np.zeros((NState, NState))
         nu = mu * omega / (2 * hbar)
-        if (pedantic):print("Omega       : " + str(omega))
-        if (pedantic):print("nu          : " + str(np.round(nu, 3)))
-        if (pedantic):print(" ")
+        if (pedantic): print("Omega       : " + str(omega))
+        if (pedantic): print("nu          : " + str(np.round(nu, 3)))
+        if (pedantic): print(" ")
 
-		
-		
         #rl = 0.75
         #rr = 1.00
-		
+
         #print("rl,rr,args:", rl, rr, potargs)
         #print("test nonlocal pot:", pot_nonlocal(rl, rr, potargs))
         #exit()
-		
-		
-		
+
         if (pedantic): print("Creation of integration array: ")
         start_time = timeit.default_timer()
         start_time2 = start_time
@@ -362,24 +359,32 @@ if __name__ == '__main__':
                 psiRN[x, y] = psi(t[x], y, L, nu)
                 ddpsiRN[x, y] = ddpsi(t[x], y, L, nu)
 
-        if (pedantic):print(" >> Wave function: (",timeit.default_timer() - start_time, " s )")
+        if (pedantic):
+            print(" >> Wave function: (",
+                  timeit.default_timer() - start_time, " s )")
         start_time = timeit.default_timer()
         VlocRN[:] = pot_local(t[:], potargs)
-        if (pedantic):print(" >> Local potential:  (",timeit.default_timer() - start_time, " s )")
+        if (pedantic):
+            print(" >> Local potential:  (",
+                  timeit.default_timer() - start_time, " s )")
         start_time = timeit.default_timer()
 
         if (interaction == "NonLocal"):
             VnolRN = np.fromfunction(
                 lambda x, y: pot_nonlocal(t[x], t[y], potargs), (order, order),
                 dtype=int)
-            if (pedantic):print(" >> NonLocal potential:  (",timeit.default_timer() - start_time, " s )")
+            if (pedantic):
+                print(" >> NonLocal potential:  (",
+                      timeit.default_timer() - start_time, " s )")
             start_time = timeit.default_timer()
 
-        if (pedantic):print("Array creation time:", timeit.default_timer() - start_time2, " s")
+        if (pedantic):
+            print("Array creation time:",
+                  timeit.default_timer() - start_time2, " s")
         start_time = timeit.default_timer()
 
-        if (pedantic):print(" ")
-        if (pedantic):print("Array integration:")
+        if (pedantic): print(" ")
+        if (pedantic): print("Array integration:")
 
         for i in np.arange(NState):
             for j in np.arange(i + 1):
@@ -395,7 +400,9 @@ if __name__ == '__main__':
                             t[:] * VnolRN[k, :] * psiRN[:, j] * w[:]
                         ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
 
-        if (pedantic):print("Integration time:", timeit.default_timer() - start_time, " s")
+        if (pedantic):
+            print("Integration time:",
+                  timeit.default_timer() - start_time, " s")
         start_time = timeit.default_timer()
 
         K = -mh2 * K
@@ -405,11 +412,11 @@ if __name__ == '__main__':
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
-                H[j][i]  = H[i][j]
-                V[j][i]  = V[i][j]
+                H[j][i] = H[i][j]
+                V[j][i] = V[i][j]
                 Vl[j][i] = Vl[i][j]
-                K[j][i]  = K[i][j]
-                U[j][i]  = U[i][j]
+                K[j][i] = K[i][j]
+                U[j][i] = U[i][j]
 
         # Check unitarity:
         if np.sum(abs(np.eye(NState) - U)) > 0.1 * NState**2:
@@ -458,37 +465,46 @@ if __name__ == '__main__':
                     np.savetxt(f, line, fmt='%.2f')
 
         # Diagonalize
-        if (pedantic):print(" ")
-        if (pedantic):print("Diagonalization:")
+        if (pedantic): print(" ")
+        if (pedantic): print("Diagonalization:")
         for i in np.arange(NState, NState + 1):
             #for i in np.arange(NState+1):
             val, vec = np.linalg.eig(H[:i, :i])
             z = np.argsort(val)
             z = z[0:states_print]
             energies = (val[z])
-            if (pedantic):print("states: " + str(i) + "  Energies: " + str(energies))
-        if (pedantic):print("Diagonalization time:",
-              timeit.default_timer() - start_time, " s")
-        if (pedantic):print("--------------------------")
-        if (pedantic):print(" ")
-        if (pedantic):print(" ")
-        if (pedantic):print(" ")
+            if (pedantic):
+                print("states: " + str(i) + "  Energies: " + str(energies))
+        if (pedantic):
+            print("Diagonalization time:",
+                  timeit.default_timer() - start_time, " s")
+        if (pedantic): print("--------------------------")
+        if (pedantic): print(" ")
+        if (pedantic): print(" ")
+        if (pedantic): print(" ")
         ene_omega.append(energies[0])
         val_omega.append(omega)
-		
-        print("nu: "+str(np.round(nu, 5)) + "  states: " + str(i) + "  Energies: " + str(energies))
-	
 
-	
-	
-	
+        print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
+              "  Energies: " + str(energies))
+
 ene_omega = np.array(ene_omega)
 val_omega = np.array(val_omega)
-plt.semilogx(val_omega[ene_omega<=0], ene_omega[ene_omega<=0], 'go', lw=2, label="{} ".format(i))
-plt.semilogx(val_omega[ene_omega>0], ene_omega[ene_omega>0], 'ko', lw=2, label="{} ".format(i))
+plt.semilogx(
+    val_omega[ene_omega <= 0],
+    ene_omega[ene_omega <= 0],
+    'go',
+    lw=2,
+    label="{} ".format(i))
+plt.semilogx(
+    val_omega[ene_omega > 0],
+    ene_omega[ene_omega > 0],
+    'ko',
+    lw=2,
+    label="{} ".format(i))
 plt.show()
 
 if parallel:
-	print("Parallel closing")
-	p.close()
+    print("Parallel closing")
+    p.close()
 quit()

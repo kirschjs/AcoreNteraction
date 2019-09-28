@@ -43,6 +43,7 @@
    #1 & #2 & #3 \\
    #4 & #5 & #6 
   \end{pmatrix}}
+\newcommand{\lam}[1]{\mbox{\ensuremath{\Lambda=#1\,\text{fm}^{-1}}}}   
 %=============================================================================
 
 \begin{document}
@@ -82,25 +83,31 @@ The system is thereby reduced to only three degrees of freedom, namely the relat
 between core and the odd particle. The respective equation of motion reads in terms of the effective
 mass $\mu$, the relative kinetic energy $E$ between core and odd particle:
 \be\label{eq.rgm.eqom}
-\int\left\lbrace~\phi^*_A\left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E+\mathcal{V}_{A,A+1}\right)
+\int\left\lbrace~\phi^*_A\left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E+\mathcal{V}\right)
 \mathcal{A}\left[\phi_A\psi(\ve{R})\right]\right\rbrace d\ve{r}_{1\ldots A}=0\;\;.
 \ee
-Antisymmetrization is required between two particles only, $\mathcal{A}=\mathbb{1}-P_{A,A+1}$, and the
-interaction is effective, only if it involves the odd particle:
+Antisymmetrization is required between two particles only, 
+$\mathcal{A}=\mathbb{1}-P_{A,A+1}$, 
+and the interaction is effective, only if it involves the odd particle:
 \begin{align}
-\mathcal{V}_{A,A+1}=&~C_0(\Lambda)&\sum_{i}^{A-1}&\ddrei{\ve{r}_i-\ve{r}_{A+1}}\\
-&+D_1(\Lambda)&\sum^{A-1}_{i<j}&\left[\ddrei{\ve{r}_i-\ve{r}_j}\,
-\ddrei{\ve{r}_i-\ve{r}_{A+1}}\right.\\&&&\left.+\ddrei{\ve{r}_i-\ve{r}_{A+1}}\,
-\ddrei{\ve{r}_j-\ve{r}_{A+1}}\right]\;\;.\nonumber
+\mathcal{V}=&~C_0(\Lambda)\,\sum_{i}^{A-1}\,\ddrei{\ve{r}_i-\ve{r}_{A+1}}\\
+&+D_1(\Lambda)\,\sum^{A-1}_{i<j}\,\left[\ddrei{\ve{r}_i-\ve{r}_j}\,
+\ddrei{\ve{r}_i-\ve{r}_{A+1}}\right.\\&\qquad\qquad\left.+
+\,\ddrei{\ve{r}_i-\ve{r}_{A+1}}\,
+\ddrei{\ve{r}_j-\ve{r}_{A+1}}\right]\;\,.
 \end{align}
-The contribution from the identical copy of the $(A+1)^\text{\scriptsize th}$ particle -- without loss of generality
-identified with label $A$ -- interacting is excluded, because we anticipate its vanishing because of antisymmetrization.
-As in our calculations, the zero-range contact forces are smeared out in order to obtain regular solutions -- in contrast to, \eg,
-Bethe-Peierls~\cite{bethePeierls} boundary conditions -- this {\it a priori} exclusion introduces artefacts. We assume
-that those are insignificant relative to the other terms from the inter-fragment interaction.
+The contribution from the identical copy of the $(A+1)^\text{\scriptsize th}$ particle
+-- without loss of generality identified with label $A$ -- interacting is excluded, 
+because we anticipate its vanishing because of antisymmetrization.
+As in our calculations, the zero-range contact forces are smeared out in order to 
+obtain regular solutions -- in contrast to, \eg,
+Bethe-Peierls~\cite{bethePeierls} boundary conditions 
+-- this {\it a priori} exclusion introduces artefacts. We assume
+that those are insignificant relative to the other terms from 
+the inter-fragment interaction.
 
-The integration in \eqref{eq.rgm.eqom} yields a three-dimensional Schr\"odinger equation with a
-non-local potential
+The integration in \eqref{eq.rgm.eqom} yields a three-dimensional 
+Schr\"odinger equation with a non-local potential
 \begin{widetext}
 \be\label{eq.rgm.sglnonloc}
 \left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\right)\psi(\ve{R})+\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi(\ve{R})-
@@ -173,6 +180,31 @@ partial wave:
 ~d(R,R\mprime)\\=0\;\;.
 \end{gather}
 \end{widetext}
+
+\paragraph{Example: 5-body system}
+In the following, we analyse features of the effective interaction for the
+specific case of four internal degrees of freedom and a system of five particles
+with identical masses. With the numerical values as given in table~\ref{tab.constants},
+this example pertains to nuclear physics as described in leading order with the
+pionless effective field theory.
+
+\begin{table}
+\be\la{tab.constants}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.4}
+\begin{array}{c|c|c}
+\texttt{constant}&\texttt{N\{constant\}}&\texttt{[constant]}\\
+\hline
+m_N       & 938    & \text{MeV}       \\
+a         & 0.56   & \text{fm}^{-2}   \\
+\alpha_1  &        & \text{fm}^{-2}   \\
+\beta_1  &        & \text{fm}^{-2}   \\
+\gamma_1  &        & \text{fm}^{-2}   \\
+\hline
+\end{array}
+\ee
+\caption{Numerical values of certain constants for $\lam{4}$ and $A=4$.}
+\end{table}
 
 \newpage
 
