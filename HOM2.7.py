@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import timeit
+import scipy
 from scipy.special import eval_genlaguerre, iv, spherical_jn
 from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 from potcoeffs import *
@@ -167,12 +168,12 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
 
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 20  #Number of basys states
+    NState = 200  #Number of basys states
     Rmax = 15
     order = 200
     omegas = np.linspace(0.01, 0.4, 30)
 
-    L = 0
+    L = 1
 
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
@@ -261,6 +262,18 @@ elif Sysem == "PJM":
     print("W3J\'s  = " + str(w3j_p2) + "  " + str(w3j_m2))
     print(" -- ")
 
+    def exchange_kernel(rl, rr, argv):
+
+        rr2 = rr**2
+        rl2 = rl**2
+
+        Vex = -(4. * np.pi) * rr * rl * ((zz1 * 1j**L * spherical_jn(
+            L, 1j * bb1 * rr * rl) * np.exp(-aa1 * rr2 - gg1 * rl2)))
+
+        # the diagonal norm matrix is added below with the opposite sign
+        # see algebraic_rgm_notes Eq.(13)
+        return np.nan_to_num(np.real(V1ex))
+
     def pot_nonlocal(rl, rr, argv):
 
         rr2 = rr**2
@@ -323,18 +336,21 @@ if __name__ == '__main__':
     t = 0.5 * (x + 1) * (b - a) + a
     gauss_scale = 0.5 * (b - a)
 
-    val_omega = []
-    ene_omega = []
+    val_omega_noKex = []
+    ene_omega_noKex = []
+    val_omega_Kex = []
+    ene_omega_Kex = []
     for omega in omegas:
 
         ###########################
         ### All vectors to zero ###
         ###########################
         H = np.zeros((NState, NState))
-        K = np.zeros((NState, NState))
-        V = np.zeros((NState, NState))
-        Vl = np.zeros((NState, NState))
+        Kin = np.zeros((NState, NState))
+        Vnonloc = np.zeros((NState, NState))
+        Vloc = np.zeros((NState, NState))
         U = np.zeros((NState, NState))
+        Uex = np.zeros((NState, NState))
         nu = mu * omega / (2 * hbar)
         if (pedantic): print("Omega       : " + str(omega))
         if (pedantic): print("nu          : " + str(np.round(nu, 3)))
@@ -370,6 +386,10 @@ if __name__ == '__main__':
         start_time = timeit.default_timer()
 
         if (interaction == "NonLocal"):
+            VexRN = np.fromfunction(
+                lambda x, y: exchange_kernel(t[x], t[y], potargs),
+                (order, order),
+                dtype=int)
             VnolRN = np.fromfunction(
                 lambda x, y: pot_nonlocal(t[x], t[y], potargs), (order, order),
                 dtype=int)
@@ -383,20 +403,24 @@ if __name__ == '__main__':
                   timeit.default_timer() - start_time2, " s")
         start_time = timeit.default_timer()
 
-        if (pedantic): print(" ")
+        if (pedantic): print("C1_D4")
         if (pedantic): print("Array integration:")
 
         for i in np.arange(NState):
             for j in np.arange(i + 1):
                 U[i][j] = np.sum(
                     psiRN[:, i] * psiRN[:, j] * w[:]) * gauss_scale
-                K[i][j] = np.sum(
+                Kin[i][j] = np.sum(
                     psiRN[:, i] * ddpsiRN[:, j] * w[:]) * gauss_scale
-                Vl[i][j] = np.sum(
+                Vloc[i][j] = np.sum(
                     psiRN[:, i] * VlocRN[:] * psiRN[:, j] * w[:]) * gauss_scale
                 if (interaction == "NonLocal"):
                     for k in range(order):
-                        V[i][j] = V[i][j] + 4. * np.pi * np.sum(
+                        Uex[i][j] = Uex[i][j] + np.sum(
+                            t[:] * VexRN[k, :] * psiRN[:, j] * w[:]
+                        ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
+                    for k in range(order):
+                        Vnonloc[i][j] = Vnonloc[i][j] + np.sum(
                             t[:] * VnolRN[k, :] * psiRN[:, j] * w[:]
                         ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
 
@@ -405,25 +429,27 @@ if __name__ == '__main__':
                   timeit.default_timer() - start_time, " s")
         start_time = timeit.default_timer()
 
-        K = -mh2 * K
-        H = V + Vl + K
-        V = V
-        Vl = Vl
+        Kin = -mh2 * Kin
+        H = Vloc + Vnonloc + Kin
+        Vnonloc = Vnonloc
+        Vloc = Vloc
+        Kex = U + Uex
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
                 H[j][i] = H[i][j]
-                V[j][i] = V[i][j]
-                Vl[j][i] = Vl[i][j]
-                K[j][i] = K[i][j]
+                Vnonloc[j][i] = Vnonloc[i][j]
+                Vloc[j][i] = Vloc[i][j]
+                Kin[j][i] = Kin[i][j]
                 U[j][i] = U[i][j]
+                Kex[j][i] = Kex[i][j]
 
-        # Check unitarity:
+        # Check if basis orthonormal:
         if np.sum(abs(np.eye(NState) - U)) > 0.1 * NState**2:
             print(" ")
             print("WARNING: omega = ", omega)
-            print("   >>  unitarity condition not satisfied: ")
-            print("   >>  average difference with unity matrix:",
+            print("   >>  basis not sufficiently orthonormal: ")
+            print("   >>  average deviation from unit matrix:",
                   np.round(np.sum(abs(np.eye(NState) - U)) / NState**2, 2))
             #print(np.round(U,2))
             print("--------------------------")
@@ -438,35 +464,27 @@ if __name__ == '__main__':
             print(" ")
             print("U: ")
             print(np.round(U, 2))
-            print("Vl: ")
-            print(np.around(Vl, 2))
-            print("V:  ")
-            print(np.around(V, 2))
-            print("K: ")
-            print(np.around(K))
+            print("Kex: ")
+            print(np.round(Kex, 2))
+            print("Vloc: ")
+            print(np.around(Vloc, 2))
+            print("Vnonloc:  ")
+            print(np.around(Vnonloc, 2))
+            print("Kin: ")
+            print(np.around(Kin))
             print("H: ")
             print(np.around(H))
 
-            mat = np.matrix(U)
-            with open('Unity.txt', 'w') as f:
-                for line in mat:
-                    np.savetxt(f, line, fmt='%.2f')
-            mat = np.matrix(V)
-            with open('Poten.txt', 'w') as f:
-                for line in mat:
-                    np.savetxt(f, line, fmt='%.2f')
-            mat = np.matrix(K)
-            with open('Kinet.txt', 'w') as f:
-                for line in mat:
-                    np.savetxt(f, line, fmt='%.2f')
-            mat = np.matrix(H)
-            with open('Hamil.txt', 'w') as f:
-                for line in mat:
-                    np.savetxt(f, line, fmt='%.2f')
+            np.savetxt('Unit_loc.txt', np.matrix(U), fmt='%12.4f')
+            np.savetxt('Unit_ex.txt', np.matrix(Kex), fmt='%12.4f')
+            np.savetxt('V_loc.txt', np.matrix(Vloc), fmt='%12.4f')
+            np.savetxt('V_nonloc.txt', np.matrix(Vnonloc), fmt='%12.4f')
+            np.savetxt('E_kin.txt', np.matrix(Kin), fmt='%12.4f')
+            np.savetxt('Hamiltonian.txt', np.matrix(H), fmt='%12.4f')
 
-        # Diagonalize
+        # Diagonalize without exchange kernel
         if (pedantic): print(" ")
-        if (pedantic): print("Diagonalization:")
+        print("Diagonalization (Kex = 0):")
         for i in np.arange(NState, NState + 1):
             #for i in np.arange(NState+1):
             val, vec = np.linalg.eig(H[:i, :i])
@@ -482,23 +500,64 @@ if __name__ == '__main__':
         if (pedantic): print(" ")
         if (pedantic): print(" ")
         if (pedantic): print(" ")
-        ene_omega.append(energies[0])
-        val_omega.append(omega)
+        ene_omega_noKex.append(energies[0])
+        val_omega_noKex.append(omega)
 
         print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
               "  Energies: " + str(energies))
 
-ene_omega = np.array(ene_omega)
-val_omega = np.array(val_omega)
+        # Diagonalize with Kex, i.e., solve gen. EV
+        if (pedantic): print(" ")
+        print("Diagonalization with KeX:")
+        for i in np.arange(NState, NState + 1):
+            #for i in np.arange(NState+1):
+            val, vec = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
+            z = np.argsort(val)
+            z = z[0:states_print]
+            energies = (val[z])
+            if (pedantic):
+                print("states: " + str(i) + "  Energies: " + str(energies))
+        if (pedantic):
+            print("Diagonalization time:",
+                  timeit.default_timer() - start_time, " s")
+        if (pedantic): print("--------------------------")
+        if (pedantic): print(" ")
+        if (pedantic): print(" ")
+        if (pedantic): print(" ")
+        ene_omega_Kex.append(energies[0])
+        val_omega_Kex.append(omega)
+
+        print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
+              "  Energies: " + str(energies))
+
+ene_omega_noKex = np.array(ene_omega_noKex)
+val_omega_noKex = np.array(val_omega_noKex)
+
+ene_omega_Kex = np.array(ene_omega_Kex)
+val_omega_Kex = np.array(val_omega_Kex)
+
 plt.semilogx(
-    val_omega[ene_omega <= 0],
-    ene_omega[ene_omega <= 0],
+    val_omega_noKex[ene_omega_noKex <= 0],
+    ene_omega_noKex[ene_omega_noKex <= 0],
     'go',
     lw=2,
     label="{} ".format(i))
 plt.semilogx(
-    val_omega[ene_omega > 0],
-    ene_omega[ene_omega > 0],
+    val_omega_noKex[ene_omega_noKex > 0],
+    ene_omega_noKex[ene_omega_noKex > 0],
+    'ko',
+    lw=2,
+    label="{} ".format(i))
+
+plt.semilogx(
+    val_omega_Kex[ene_omega_Kex <= 0],
+    ene_omega_Kex[ene_omega_Kex <= 0],
+    'go',
+    lw=2,
+    label="{} ".format(i))
+plt.semilogx(
+    val_omega_Kex[ene_omega_Kex > 0],
+    ene_omega_Kex[ene_omega_Kex > 0],
     'ko',
     lw=2,
     label="{} ".format(i))
