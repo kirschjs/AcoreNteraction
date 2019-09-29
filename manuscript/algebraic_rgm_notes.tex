@@ -160,26 +160,44 @@ with $\ve{r}_m=\sqrt{\frac{4\pi}{3}}rY_{1,m}(\hat{\ve{r}})$. Using Eq.(4.6.3) an
 Eq.(3.7.8) of~\cite{Edmonds}, we obtain the equation of motion for a single
 partial wave:
 \begin{widetext}
-\begin{gather}\label{eq.rgm.sglnonloc.pw}
+\begin{subequations}
+\begin{gather}
 \left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\right)\psi_{lm}(R)+
-\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi_{lm}(R)\\
+\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi_{lm}(R)\la{eq.rgm.sglnonloc.pw.t}\\
 -\sum_{n=\red{2}}^4\zeta_n\int\int
-(4\pi i^l)\cdot RR\mprime\cdot j_l(i\beta_n RR')\cdot e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}~\psi(R\mprime)~d(R,R\mprime)\\
--(-E)\zeta_1\int\int
-(4\pi i^l)\cdot RR\mprime\cdot j_l(i\beta_1 RR')\cdot e^{-\alpha_1\ve{R}^2-\gamma_1\ve{R}'^2}~\psi(R\mprime)~d(R,R\mprime)\\
+(4\pi i^l)\cdot RR\mprime\cdot j_l(i\beta_n RR')\cdot 
+e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}~\psi(R\mprime)~d(R,R\mprime)\la{eq.rgm.sglnonloc.pw.noloc}\\
 -\left(-\frac{\hbar^2}{2\mu}\right)\zeta_1\int\int
 (4\pi) RR\mprime\cdot e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}~\psi_{lm}(R\mprime)
 \cdot\Bigg\lbrace
-(4\alpha_1^2R^2+\beta_1^2R\mprime^2-2\alpha_1) i^l j_{l}(i\beta_1 RR')\\
+(4\alpha_1^2R^2+\beta_1^2R\mprime^2-2\alpha_1) i^l j_{l}(i\beta_1 RR')\nonumber\\
 +
 (4\alpha_1\beta_1)\cdot RR\mprime\cdot
  \left(i^{l-1} j_{l-1}(i\beta_1 RR') (2l-3)
  \threej{1}{l-1}{l}{0}{0}{0}^2+
  i^{l+1} j_{l+1}(i\beta_1 RR') (2l-1)
  \threej{1}{l+1}{l}{0}{0}{0}^2\right)\Bigg\rbrace
-~d(R,R\mprime)\\=0\;\;.
+~d(R,R\mprime)\la{eq.rgm.sglnonloc.pw.tex}\\
+-(-E)\zeta_1\int\int
+(4\pi i^l)\cdot RR\mprime\cdot j_l(i\beta_1 RR')\cdot
+ e^{-\alpha_1\ve{R}^2-\gamma_1\ve{R}'^2}~\psi(R\mprime)~d(R,R\mprime)\la{eq.rgm.sglnonloc.pw.Eex}\\
+ =0\;\;.\nonumber
 \end{gather}
+\end{subequations}
 \end{widetext}
+This equation defines a generalized Eigenvalue problem
+\be\la{eq.rgm.gev}
+\int dR\mprime~\hat{\mathcal{D}}_{RR\mprime}~\psi_{lm}(R\mprime)=
+E\int dR\mprime\,\left(\delta_{RR\mprime}+\hat{\mathcal{K}}_{RR\mprime}\right)
+\psi_{lm}(R\mprime)
+\ee
+whose solution we expand in a finite set of harmonic oscillator
+functions\footnote{
+$\phi_{nl\nu}(R)=N_{nl\nu}R^{l+1}e^{-\nu R^2}L_{n}^{l+1/2}(2\nu R^2)$
+in terms of a normalizing constant $N_{nl\nu}=
+\left(\left(\frac{2\nu^3}{\pi}\right)^{1/2}\cdot\frac{2^{2l+n+3}n!\nu^l}{(2n+2l+1)!!}\right)^{1/2}$ and generalized
+Laguerre polynomials $L_n^m(x)$.
+}.
 
 \paragraph{Example: 5-body system}
 In the following, we analyse features of the effective interaction for the
