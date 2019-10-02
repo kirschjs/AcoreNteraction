@@ -168,29 +168,30 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
 
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 200  #Number of basys states
+    NState = 15  #Number of basys states
     Rmax = 15
     order = 200
-    omegas = np.linspace(0.01, 0.4, 30)
+    omegas = np.linspace(0.1, 0.4, 20)
 
     L = 1
 
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
 
-    Lamb = 0.5
+    Lamb = 0.12
 
     parametriz = "C1_D4"
     LeC = return_val(Lamb, parametriz, "C")
     LeD = return_val(Lamb, parametriz, "D")
-    coreosci = return_val(Lamb, parametriz, "ABCD")
+    #coreosci = return_val(Lamb, parametriz, "ABCD")
+    coreosci = 1.5
     # for fitting and speculation over large cut-off or not calculated values
     # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
 
     potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
     mpi = '137'
-    m = 938.858
+    m = 938.12
     mu = Ncore * m / (Ncore + 1.)
     hbar = 197.327
     mh2 = hbar**2 / (2 * mu)
@@ -267,7 +268,7 @@ elif Sysem == "PJM":
         rr2 = rr**2
         rl2 = rl**2
 
-        Vex = -(4. * np.pi) * rr * rl * ((zz1 * 1j**L * spherical_jn(
+        V1ex = -(4. * np.pi) * rr * rl * ((zz1 * 1j**L * spherical_jn(
             L, 1j * bb1 * rr * rl) * np.exp(-aa1 * rr2 - gg1 * rl2)))
 
         # the diagonal norm matrix is added below with the opposite sign
@@ -290,7 +291,7 @@ elif Sysem == "PJM":
                  ) * 1j**L * spherical_jn(L, 1j * bb1 * rr * rl))
 
         # this is simple (still missing (4 pi i^l ) RR')
-        V234 = (4. * np.pi) * rr * rl * (
+        V234 = -(4. * np.pi) * rr * rl * (
             (zz2 * 1j**L * spherical_jn(L, 1j * bb2 * rr * rl
                                         ) * np.exp(-aa2 * rr2 - gg2 * rl2)) +
             (zz3 * 1j**L * spherical_jn(L, 1j * bb3 * rr * rl
@@ -299,8 +300,8 @@ elif Sysem == "PJM":
                                         ) * np.exp(-aa4 * rr2 - gg4 * rl2)))
 
         # this function is high unstable for large r (it gives NaN but it should give 0.)
-        Vnl = np.real(-V1 + V234)
-        return np.nan_to_num(Vnl)
+        Vnl = np.real(V1 + V234)
+        return np.nan_to_num(-Vnl)
 
     def pot_local(r, argv):
         r2 = r**2
@@ -336,8 +337,6 @@ if __name__ == '__main__':
     t = 0.5 * (x + 1) * (b - a) + a
     gauss_scale = 0.5 * (b - a)
 
-    val_omega_noKex = []
-    ene_omega_noKex = []
     val_omega_Kex = []
     ene_omega_Kex = []
     for omega in omegas:
@@ -431,8 +430,6 @@ if __name__ == '__main__':
 
         Kin = -mh2 * Kin
         H = Vloc + Vnonloc + Kin
-        Vnonloc = Vnonloc
-        Vloc = Vloc
         Kex = U + Uex
 
         for i in np.arange(NState):
@@ -482,33 +479,9 @@ if __name__ == '__main__':
             np.savetxt('E_kin.txt', np.matrix(Kin), fmt='%12.4f')
             np.savetxt('Hamiltonian.txt', np.matrix(H), fmt='%12.4f')
 
-        # Diagonalize without exchange kernel
-        if (pedantic): print(" ")
-        print("Diagonalization (Kex = 0):")
-        for i in np.arange(NState, NState + 1):
-            #for i in np.arange(NState+1):
-            val, vec = np.linalg.eig(H[:i, :i])
-            z = np.argsort(val)
-            z = z[0:states_print]
-            energies = (val[z])
-            if (pedantic):
-                print("states: " + str(i) + "  Energies: " + str(energies))
-        if (pedantic):
-            print("Diagonalization time:",
-                  timeit.default_timer() - start_time, " s")
-        if (pedantic): print("--------------------------")
-        if (pedantic): print(" ")
-        if (pedantic): print(" ")
-        if (pedantic): print(" ")
-        ene_omega_noKex.append(energies[0])
-        val_omega_noKex.append(omega)
-
-        print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
-              "  Energies: " + str(energies))
-
         # Diagonalize with Kex, i.e., solve gen. EV
         if (pedantic): print(" ")
-        print("Diagonalization with KeX:")
+
         for i in np.arange(NState, NState + 1):
             #for i in np.arange(NState+1):
             val, vec = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
@@ -530,37 +503,13 @@ if __name__ == '__main__':
         print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
               "  Energies: " + str(energies))
 
-ene_omega_noKex = np.array(ene_omega_noKex)
-val_omega_noKex = np.array(val_omega_noKex)
-
 ene_omega_Kex = np.array(ene_omega_Kex)
 val_omega_Kex = np.array(val_omega_Kex)
 
-plt.semilogx(
-    val_omega_noKex[ene_omega_noKex <= 0],
-    ene_omega_noKex[ene_omega_noKex <= 0],
-    'go',
-    lw=2,
-    label="{} ".format(i))
-plt.semilogx(
-    val_omega_noKex[ene_omega_noKex > 0],
-    ene_omega_noKex[ene_omega_noKex > 0],
-    'ko',
-    lw=2,
-    label="{} ".format(i))
+ene_omega_Kex
 
-plt.semilogx(
-    val_omega_Kex[ene_omega_Kex <= 0],
-    ene_omega_Kex[ene_omega_Kex <= 0],
-    'go',
-    lw=2,
-    label="{} ".format(i))
-plt.semilogx(
-    val_omega_Kex[ene_omega_Kex > 0],
-    ene_omega_Kex[ene_omega_Kex > 0],
-    'ko',
-    lw=2,
-    label="{} ".format(i))
+plt.plot(val_omega_Kex, ene_omega_Kex, '-', lw=2, label="{} ".format(i))
+
 plt.show()
 
 if parallel:

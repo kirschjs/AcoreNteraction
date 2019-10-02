@@ -1,8 +1,11 @@
 import numpy as np
 
+# potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+
 
 def eta1(argv):
-    return argv[3] * (argv[1] - 1) * 8 / (4 + ((-1 + argv[1]) * argv[2]**2) / (argv[0] * argv[1]))**1.5
+    return argv[3] * (argv[1] - 1) * 8 / (4 + ((-1 + argv[1]) * argv[2]**2) /
+                                          (argv[0] * argv[1]))**1.5
 
 
 def kappa1(argv):
@@ -11,10 +14,11 @@ def kappa1(argv):
 
 
 def eta2(argv):
-    return argv[4] * (argv[1] - 1) * (argv[1] - 2) * 64 * argv[0]**3 * (argv[1] /
-                              (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
-                               (-1 + 3 * argv[1]) * argv[2]**2 +
-                               (-2 + argv[1]) * argv[2]**4))**1.5
+    return argv[4] * 0.5 * (argv[1] - 1) * (argv[1] - 2) * 64 * argv[0]**3 * (
+        argv[1] / (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
+                   (-1 + 3 * argv[1]) * argv[2]**2 +
+                   (-2 + argv[1]) * argv[2]**4))**1.5
+
 
 def kappa2(argv):
     return (2 * argv[0] * argv[1] * argv[2]**2 * (
@@ -24,9 +28,13 @@ def kappa2(argv):
 
 
 def eta3(argv):
-    return argv[4] * (argv[1] - 1) * (argv[1] - 2) * 64 / (((4 * argv[0] + argv[2]**2) * (4 * argv[0] * argv[1] +
-                                                (-2 + argv[1]) * argv[2]**2)) /
-                 (argv[0]**2 * argv[1]))**1.5
+    return argv[4] * 0.5 * (argv[1] - 1) * (argv[1] - 2) * 64 / (
+        ((4 * argv[0] + argv[2]**2) *
+         (4 * argv[0] * argv[1] +
+          (-2 + argv[1]) * argv[2]**2)) / (argv[0]**2 * argv[1]))**1.5
+
+
+# potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
 
 def kappa3(argv):
@@ -41,7 +49,7 @@ def zeta1(argv):
 
 def alf1(argv):
     return (argv[0] * (argv[1] + argv[1]**3)) / (2. * (-1 + argv[1]) *
-                                          (1 + argv[1])**2)
+                                                 (1 + argv[1])**2)
 
 
 def bet1(argv):
@@ -50,14 +58,18 @@ def bet1(argv):
 
 def gam1(argv):
     return (argv[0] * (argv[1] + argv[1]**3)) / (2. * (-1 + argv[1]) *
-                                          (1 + argv[1])**2)
+                                                 (1 + argv[1])**2)
+
+
+# potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
 
 def zeta2(argv):
-    return 8 / (np.pi**1.5 * (((1 + argv[1])**2 *
-                               (4 * argv[0] * (-1 + argv[1]) +
-                                (-2 + argv[1]) * argv[2]**2)) /
-                              (argv[0]**2 * argv[1]**3))**1.5)
+    return argv[3] * 8 * (-1 + argv[1]) / (np.pi**1.5 *
+                                           (((1 + argv[1])**2 *
+                                             (4 * argv[0] * (-1 + argv[1]) +
+                                              (-2 + argv[1]) * argv[2]**2)) /
+                                            (argv[0]**2 * argv[1]**3))**1.5)
 
 
 def alf2(argv):
@@ -83,13 +95,16 @@ def gam2(argv):
                                     (-2 + argv[1]) * argv[2]**2))
 
 
+# potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+
+
 def zeta3(argv):
-    return (64 *
-            (argv[0] * argv[1])**4.5) / (np.pi**1.5 * (1 + argv[1])**3 *
-                                         (16 * argv[0]**2 *
-                                          (-1 + argv[1]) + 4 * argv[0] *
-                                          (-4 + 3 * argv[1]) * argv[2]**2 +
-                                          (-3 + argv[1]) * argv[2]**4)**1.5)
+    return (argv[4] * 0.5 * (64 * (-1 + argv[1]) * (-2 + argv[1]) *
+                             (argv[0] * argv[1])**4.5) /
+            (np.pi**1.5 * (1 + argv[1])**3 *
+             (16 * argv[0]**2 * (-1 + argv[1]) + 4 * argv[0] *
+              (-4 + 3 * argv[1]) * argv[2]**2 +
+              (-3 + argv[1]) * argv[2]**4)**1.5))
 
 
 def alf3(argv):
@@ -123,11 +138,15 @@ def gam3(argv):
                   (-3 + argv[1]) * argv[2]**4))
 
 
+# potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+
+
 def zeta4(argv):
-    return 64 / (np.pi**1.5 * (((1 + argv[1])**2 * (4 * argv[0] + argv[2]**2) *
-                                (4 * argv[0] * (-1 + argv[1]) +
-                                 (-3 + argv[1]) * argv[2]**2)) /
-                               (argv[0]**3 * argv[1]**3))**1.5)
+    return argv[4] * 0.5 * 64 * (-1 + argv[1]) * (-2 + argv[1]) / (
+        np.pi**1.5 * (((1 + argv[1])**2 * (4 * argv[0] + argv[2]**2) *
+                       (4 * argv[0] * (-1 + argv[1]) +
+                        (-3 + argv[1]) * argv[2]**2)) /
+                      (argv[0]**3 * argv[1]**3))**1.5)
 
 
 def alf4(argv):
