@@ -83,7 +83,7 @@ def ddpsi(r, n, l, nu):
 ### general options ###
 #######################
 pedantic = False
-states_print = 3  # How many energies do you want?
+states_print = 2  # How many energies do you want?
 
 # Parallel of this version not implemented
 parallel = False  # Do you want trallel version?
@@ -168,23 +168,23 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
 
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 15  #Number of basys states
-    Rmax = 15
+    NState = 20  #Number of basys states
+    Rmax = 20
     order = 200
-    omegas = np.linspace(0.1, 0.4, 20)
+    omegas = np.linspace(0.1, 21.4, 5)
 
     L = 1
 
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
 
-    Lamb = 0.12
+    Lamb = 4.0
 
     parametriz = "C1_D4"
     LeC = return_val(Lamb, parametriz, "C")
     LeD = return_val(Lamb, parametriz, "D")
     #coreosci = return_val(Lamb, parametriz, "ABCD")
-    coreosci = 1.5
+    coreosci = 2.0
     # for fitting and speculation over large cut-off or not calculated values
     # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
 
@@ -233,7 +233,7 @@ elif Sysem == "PJM":
     print(" - RGM potential -")
     print("Lambda  = " + str(Lamb))
     print("Ncore   = " + str(Ncore))
-    print("Rcore   = " + str(coreosci))
+    print("a core  = " + str(coreosci))
     print("LEC 2b  = " + str(LeC))
     print("LEC 3b  = " + str(LeD))
     print(" -- ")
@@ -268,8 +268,12 @@ elif Sysem == "PJM":
         rr2 = rr**2
         rl2 = rl**2
 
-        V1ex = -(4. * np.pi) * rr * rl * ((zz1 * 1j**L * spherical_jn(
-            L, 1j * bb1 * rr * rl) * np.exp(-aa1 * rr2 - gg1 * rl2)))
+        # (-) b/c this term goes to the RHS of Eq.(12)
+        V1ex = -(4. * np.pi * 1j**L) * rr * rl * ((zz1 * np.nan_to_num(
+            spherical_jn(L, 1j * bb1 * rr * rl),
+            nan=0.0,
+            posinf=0.0,
+            neginf=0.0) * np.exp(-aa1 * rr2 - gg1 * rl2)))
 
         # the diagonal norm matrix is added below with the opposite sign
         # see algebraic_rgm_notes Eq.(13)
@@ -283,25 +287,45 @@ elif Sysem == "PJM":
         V1 = mh2 * zz1 * (
             4. * np.pi * rr * rl) * np.exp(-aa1 * rr2 - gg1 * rl2) * (
                 4. * aa1 * bb1 * rl * rr *
-                (1j**(L - 1) * spherical_jn(L - 1, 1j * bb1 * rr * rl) * wigm *
-                 (2 * L - 3) + 1j**
-                 (L + 1) * spherical_jn(L + 1, 1j * bb1 * rr * rl) * wigp *
-                 (2 * L - 1)) +
+                (1j**
+                 (L - 1) * np.nan_to_num(
+                     spherical_jn(L - 1, 1j * bb1 * rr * rl),
+                     nan=0.0,
+                     posinf=0.0,
+                     neginf=0.0) * wigm * (2 * L - 3) + 1j**
+                 (L + 1) * np.nan_to_num(
+                     spherical_jn(L + 1, 1j * bb1 * rr * rl),
+                     nan=0.0,
+                     posinf=0.0,
+                     neginf=0.0) * wigp * (2 * L - 1)) +
                 (4. * aa1**2 * rr2 - 2 * aa1 + bb1**2 * rl2
-                 ) * 1j**L * spherical_jn(L, 1j * bb1 * rr * rl))
+                 ) * 1j**L * np.nan_to_num(
+                     spherical_jn(L, 1j * bb1 * rr * rl),
+                     nan=0.0,
+                     posinf=0.0,
+                     neginf=0.0))
 
         # this is simple (still missing (4 pi i^l ) RR')
-        V234 = -(4. * np.pi) * rr * rl * (
-            (zz2 * 1j**L * spherical_jn(L, 1j * bb2 * rr * rl
-                                        ) * np.exp(-aa2 * rr2 - gg2 * rl2)) +
-            (zz3 * 1j**L * spherical_jn(L, 1j * bb3 * rr * rl
-                                        ) * np.exp(-aa3 * rr2 - gg3 * rl2)) +
-            (zz4 * 1j**L * spherical_jn(L, 1j * bb4 * rr * rl
-                                        ) * np.exp(-aa4 * rr2 - gg4 * rl2)))
+        V234 = -(4. * np.pi * 1j**L) * rr * rl * (
+            (zz2 * np.nan_to_num(
+                spherical_jn(L, 1j * bb2 * rr * rl),
+                nan=0.0,
+                posinf=0.0,
+                neginf=0.0) * np.exp(-aa2 * rr2 - gg2 * rl2)) +
+            (zz3 * np.nan_to_num(
+                spherical_jn(L, 1j * bb3 * rr * rl),
+                nan=0.0,
+                posinf=0.0,
+                neginf=0.0) * np.exp(-aa3 * rr2 - gg3 * rl2)) +
+            (zz4 * np.nan_to_num(
+                spherical_jn(L, 1j * bb4 * rr * rl),
+                nan=0.0,
+                posinf=0.0,
+                neginf=0.0) * np.exp(-aa4 * rr2 - gg4 * rl2)))
 
         # this function is high unstable for large r (it gives NaN but it should give 0.)
         Vnl = np.real(V1 + V234)
-        return np.nan_to_num(-Vnl)
+        return np.nan_to_num(Vnl)
 
     def pot_local(r, argv):
         r2 = r**2
@@ -429,8 +453,9 @@ if __name__ == '__main__':
         start_time = timeit.default_timer()
 
         Kin = -mh2 * Kin
+
         H = Vloc + Vnonloc + Kin
-        Kex = U + Uex
+        Kex = U - Uex
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
@@ -484,12 +509,19 @@ if __name__ == '__main__':
 
         for i in np.arange(NState, NState + 1):
             #for i in np.arange(NState+1):
-            val, vec = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
-            z = np.argsort(val)
-            z = z[0:states_print]
-            energies = (val[z])
+            valn, vecn = scipy.linalg.eig(H[:i, :i])
+            valg, vecg = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
+            zg = np.argsort(valg)
+            zg = zg[0:states_print]
+            zn = np.argsort(valn)
+            zn = zn[0:states_print]
+            energiesn = (valg[zn])
+            energiesg = (valg[zg])
+
             if (pedantic):
-                print("states: " + str(i) + "  Energies: " + str(energies))
+                print("states: " + str(i) + "  Energies(g): " +
+                      str(energiesg) + "  Energies(n): " + str(energiesn))
+
         if (pedantic):
             print("Diagonalization time:",
                   timeit.default_timer() - start_time, " s")
@@ -497,11 +529,15 @@ if __name__ == '__main__':
         if (pedantic): print(" ")
         if (pedantic): print(" ")
         if (pedantic): print(" ")
-        ene_omega_Kex.append(energies[0])
+        ene_omega_Kex.append(energiesg[0])
         val_omega_Kex.append(omega)
 
         print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
-              "  Energies: " + str(energies))
+              "  Energies(g): " + str(energiesg))
+        print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
+              "  Energies(n): " + str(energiesn))
+
+exit()
 
 ene_omega_Kex = np.array(ene_omega_Kex)
 val_omega_Kex = np.array(val_omega_Kex)

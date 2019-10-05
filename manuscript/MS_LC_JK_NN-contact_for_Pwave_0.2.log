@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.12.17)  5 AUG 2019 11:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.14)  5 OCT 2019 12:32
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
 **MS_LC_JK_NN-contact_for_Pwave_0.2.tex
 (./MS_LC_JK_NN-contact_for_Pwave_0.2.tex
 LaTeX2e <2017-04-15>
-Babel <3.18> and hyphenation patterns for 34 language(s) loaded.
-(/usr/share/texmf/tex/latex/revtex/tex/latex/revtex/revtex4-1.cls
+Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/revtex/revtex4-1.cls
 Document Class: revtex4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revt
 ex4/ for documentation)
  Copyright (c) 2009 The American Physical Society.
@@ -66,7 +66,7 @@ Class revtex4-1 Info: Overriding \@vspace, \@vspacer, \@no@pgbk, \@newline, and
 \widetext@top=\box39
 \widetext@bot=\box40
 Class revtex4-1 Info: Selecting society aps on input line 7542.
-(/usr/share/texmf/tex/latex/revtex/tex/latex/revtex/aps4-1.rtx
+(/usr/share/texlive/texmf-dist/tex/latex/revtex/aps4-1.rtx
 File: aps4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ for docu
 mentation)
 Class revtex4-1 Info: RevTeX society APS selected on input line 31.
@@ -74,7 +74,7 @@ Class revtex4-1 Info: RevTeX society APS selected on input line 31.
 Class revtex4-1 Info: Selecting journal prd on input line 7544.
 Class revtex4-1 Info: APS journal PRD selected on input line 7545.
 
-(/usr/share/texmf/tex/latex/revtex/tex/latex/revtex/aps11pt4-1.rtx
+(/usr/share/texlive/texmf-dist/tex/latex/revtex/aps11pt4-1.rtx
 File: aps11pt4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ for 
 documentation)
 Class revtex4-1 Info: RevTeX pointsize 11pt selected on input line 30.
@@ -95,7 +95,7 @@ LaTeX Info: Redefining \cite on input line 694.
 )
 Class revtex4-1 Info: Repairing natbib's \BibitemShut on input line 7549.
 
-(/usr/share/texmf/tex/latex/revtex/tex/latex/revtex/revsymb4-1.sty
+(/usr/share/texlive/texmf-dist/tex/latex/revtex/revsymb4-1.sty
 Package: revsymb4-1 2010/07/25/20:33:00 4.1r (http://publish.aps.org/revtex4/ f
 or documentation)
 LaTeX Info: Redefining \REV@mathfrak on input line 119.
@@ -843,7 +843,7 @@ Class revtex4-1 Info: cite was not loaded (OK!) on input line 70.
 Class revtex4-1 Info: mcite was not loaded (OK!) on input line 70.
 Class revtex4-1 Info: multicol was not loaded (OK!) on input line 70.
 
-(./MS_LC_JK_NN-contact_for_Pwave_0.2.aux)
+No file MS_LC_JK_NN-contact_for_Pwave_0.2.aux.
 \openout1 = `MS_LC_JK_NN-contact_for_Pwave_0.2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
@@ -862,7 +862,6 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
 LaTeX Font Info:    ... okay on input line 70.
 \AtBeginShipoutBox=\box55
 Package hyperref Info: Link coloring OFF on input line 70.
-
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -1226,6 +1225,9 @@ LaTeX Font Info:    Font shape `U/dutchcal/b/n' will be
 LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix]
  on input line 429.
 
+
+LaTeX Warning: Reference `eq.rgm2' on page 4 undefined on input line 475.
+
 [4]
 
 LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix]
@@ -1242,12 +1244,27 @@ LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix]
  on input line 504.
 
 
+LaTeX Warning: Reference `eq.rgm2' on page 6 undefined on input line 511.
+
+
+LaTeX Warning: Reference `eq.v2' on page 6 undefined on input line 512.
+
+
+LaTeX Warning: Reference `eq.v3' on page 6 undefined on input line 512.
+
+
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 515.
 
 
 Overfull \hbox (5.31905pt too wide) detected at line 542
 []
  []
+
+
+LaTeX Warning: Reference `eq.exkernel' on page 6 undefined on input line 543.
+
+
+LaTeX Warning: Reference `sec.int' on page 6 undefined on input line 548.
 
 
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 576.
@@ -1397,6 +1414,9 @@ LaTeX Font Warning: Command \tiny invalid in math mode on input line 587.
 LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix]
  on input line 588.
 
+
+LaTeX Warning: Reference `eq.expot' on page 7 undefined on input line 590.
+
 [7]
 
 LaTeX Warning: A float is stuck (cannot be placed); try class option [floatfix]
@@ -1425,6 +1445,54 @@ LaTeX Font Warning: Command \tiny invalid in math mode on input line 735.
 
 
 LaTeX Font Warning: Command \tiny invalid in math mode on input line 736.
+
+
+LaTeX Warning: Reference `eq.v21' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v22' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v31' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v33' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v32' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v34' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v35' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v21' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v22' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v31' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v33' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v32' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v34' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.v35' on page 9 undefined on input line 749.
+
+
+LaTeX Warning: Reference `eq.wfktphi' on page 9 undefined on input line 750.
+
+
+LaTeX Warning: Reference `eq.wfktpsi' on page 9 undefined on input line 751.
 
 [9]
 
@@ -1532,14 +1600,21 @@ ot changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.28pt have occured.
 
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right .
+
+
  ) 
 Here is how much of TeX's memory you used:
- 30235 strings out of 494296
- 713848 string characters out of 6166515
- 1034497 words of memory out of 5000000
- 33070 multiletter control sequences out of 15000+600000
+ 30233 strings out of 492982
+ 713736 string characters out of 6134896
+ 1036527 words of memory out of 5000000
+ 33149 multiletter control sequences out of 15000+600000
  39284 words of font info for 158 fonts, out of 8000000 for 9000
- 309 hyphenation exceptions out of 8191
+ 1141 hyphenation exceptions out of 8191
  62i,23n,100p,750b,2272s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{section*.3-footnote.\\protect\040$\\relax\040*$} 
 has been referenced but does not exist, replaced by a fixed one
@@ -1555,41 +1630,42 @@ ts/type1/public/cjhebrew/cjheblsm.pfb></usr/share/texlive/texmf-dist/fonts/type
 /public/amsfonts/cmextra/cmbsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-extra/cmex8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cmextra/cmmib6.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti
-8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on MS_LC_JK_NN-contact_for_Pwave_0.2.pdf (14 pages, 439862 bytes
+nts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/c
+mex8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmib10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cmextra/cmmib6.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cmextra/cmmib8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
+2.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on MS_LC_JK_NN-contact_for_Pwave_0.2.pdf (14 pages, 446570 bytes
 ).
 PDF statistics:
- 378 PDF objects out of 1000 (max. 8388607)
- 308 compressed objects within 4 object streams
+ 358 PDF objects out of 1000 (max. 8388607)
+ 295 compressed objects within 3 object streams
  76 named destinations out of 1000 (max. 500000)
  85 words of extra memory for PDF output out of 10000 (max. 10000000)
 
