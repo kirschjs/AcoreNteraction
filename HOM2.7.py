@@ -170,10 +170,10 @@ elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
     NState = 30  #Number of basys states
     Rmax = 30
-    order = 300
+    order = 350
     omegas = np.linspace(0.1, 1.9, 15)
 
-    L = 1
+    L = 0
 
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
@@ -438,12 +438,12 @@ if __name__ == '__main__':
                 if (interaction == "NonLocal"):
                     for k in range(order):
                         Uex[i][j] = Uex[i][j] + np.sum(
-                            t[:] * VexRN[k, :] * psiRN[:, j] * w[:]
-                        ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
+                            VexRN[k, :] * psiRN[:, j] * w[:]
+                        ) * psiRN[k, i] * w[k] * gauss_scale**2
                     for k in range(order):
                         Vnonloc[i][j] = Vnonloc[i][j] + np.sum(
-                            t[:] * VnolRN[k, :] * psiRN[:, j] * w[:]
-                        ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
+                            VnolRN[k, :] * psiRN[:, j] * w[:]
+                        ) * psiRN[k, i] * w[k] * gauss_scale**2
 
         if (pedantic):
             print("Integration time:",
