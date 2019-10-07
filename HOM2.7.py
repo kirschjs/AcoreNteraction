@@ -168,33 +168,33 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
 
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 20  #Number of basys states
-    Rmax = 20
-    order = 200
-    omegas = np.linspace(0.1, 21.4, 5)
+    NState = 30  #Number of basys states
+    Rmax = 30
+    order = 300
+    omegas = np.linspace(0.1, 1.9, 15)
 
     L = 1
 
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
 
-    Lamb = 4.0
+    Lamb = 8.0
 
     parametriz = "C1_D4"
     LeC = return_val(Lamb, parametriz, "C")
     LeD = return_val(Lamb, parametriz, "D")
     #coreosci = return_val(Lamb, parametriz, "ABCD")
-    coreosci = 2.0
+    coreosci = 0.60
     # for fitting and speculation over large cut-off or not calculated values
     # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
-
-    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
     mpi = '137'
     m = 938.12
     mu = Ncore * m / (Ncore + 1.)
     hbar = 197.327
     mh2 = hbar**2 / (2 * mu)
+
+    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
     interaction = "NonLocal"
     #    interaction = "Local"
@@ -275,8 +275,6 @@ elif Sysem == "PJM":
             posinf=0.0,
             neginf=0.0) * np.exp(-aa1 * rr2 - gg1 * rl2)))
 
-        # the diagonal norm matrix is added below with the opposite sign
-        # see algebraic_rgm_notes Eq.(13)
         return np.nan_to_num(np.real(V1ex))
 
     def pot_nonlocal(rl, rr, argv):
@@ -284,26 +282,26 @@ elif Sysem == "PJM":
         rr2 = rr**2
         rl2 = rl**2
 
-        V1 = mh2 * zz1 * (
+        V1 = -mh2 * zz1 * (
             4. * np.pi * rr * rl) * np.exp(-aa1 * rr2 - gg1 * rl2) * (
                 4. * aa1 * bb1 * rl * rr *
-                (1j**
-                 (L - 1) * np.nan_to_num(
-                     spherical_jn(L - 1, 1j * bb1 * rr * rl),
-                     nan=0.0,
-                     posinf=0.0,
-                     neginf=0.0) * wigm * (2 * L - 3) + 1j**
-                 (L + 1) * np.nan_to_num(
-                     spherical_jn(L + 1, 1j * bb1 * rr * rl),
-                     nan=0.0,
-                     posinf=0.0,
-                     neginf=0.0) * wigp * (2 * L - 1)) +
-                (4. * aa1**2 * rr2 - 2 * aa1 + bb1**2 * rl2
-                 ) * 1j**L * np.nan_to_num(
-                     spherical_jn(L, 1j * bb1 * rr * rl),
-                     nan=0.0,
-                     posinf=0.0,
-                     neginf=0.0))
+                ((1j**
+                  (L - 1) * np.nan_to_num(
+                      spherical_jn(L - 1, 1j * bb1 * rr * rl),
+                      nan=0.0,
+                      posinf=0.0,
+                      neginf=0.0) * wigm * (2 * L - 3) + 1j**
+                  (L + 1) * np.nan_to_num(
+                      spherical_jn(L + 1, 1j * bb1 * rr * rl),
+                      nan=0.0,
+                      posinf=0.0,
+                      neginf=0.0) * wigp * (2 * L - 1)) +
+                 (-4. * aa1**2 * rr2 + 2 * aa1 - bb1**2 * rl2 + L *
+                  (L + 1) / rr2) * 1j**L * np.nan_to_num(
+                      spherical_jn(L, 1j * bb1 * rr * rl),
+                      nan=0.0,
+                      posinf=0.0,
+                      neginf=0.0)))
 
         # this is simple (still missing (4 pi i^l ) RR')
         V234 = -(4. * np.pi * 1j**L) * rr * rl * (
@@ -455,7 +453,7 @@ if __name__ == '__main__':
         Kin = -mh2 * Kin
 
         H = Vloc + Vnonloc + Kin
-        Kex = U - Uex
+        Kex = U + Uex
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
@@ -496,6 +494,8 @@ if __name__ == '__main__':
             print(np.around(Kin))
             print("H: ")
             print(np.around(H))
+            print("Vloc/Vnonloc: ")
+            print(np.around(Vloc / Vnonloc, 3))
 
             np.savetxt('Unit_loc.txt', np.matrix(U), fmt='%12.4f')
             np.savetxt('Unit_ex.txt', np.matrix(Kex), fmt='%12.4f')
