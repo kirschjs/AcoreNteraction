@@ -170,6 +170,7 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
         return Vvv
 
 elif Sysem == "PJM":
+
     # Prague-Jerusalem-Manchester effective A-1 interaction
     NState = 30  #Number of basys states
     Rmax = 30
@@ -342,7 +343,7 @@ elif Sysem == "PJM1":
     NState = 15  #Number of basys states
     Rmax = 20
     order = 350
-    omegas = np.linspace(0.1, 0.3, 5)
+    omegas = np.linspace(0.01, 0.9, 5)
 
     L = 1
 
@@ -372,14 +373,14 @@ elif Sysem == "PJM1":
         rl2 = rl**2
 
         V234 = 0.
-        for v in [vRGM2, vRGM3, vRGM4]:
+        for v in [vRGM2]:  #, vRGM3, vRGM4]:
             V234 += (1j**L) * (v[0] * np.nan_to_num(
                 spherical_jn(L, 1j * v[2] * rr * rl),
                 nan=0.0,
                 posinf=0.0,
                 neginf=0.0) * np.exp(v[1] * rr**2 + v[3] * rl**2))
 
-        return np.nan_to_num(V234.real)
+        return np.nan_to_num(10 * V234.real)
 
     def pot_local(r, argv):
         r2 = r**2
@@ -506,7 +507,7 @@ if __name__ == '__main__':
         start_time = timeit.default_timer()
 
         Kin = -mh2 * Kin
-        H = Vloc + 0.0 * Vnonloc + Kin
+        H = 0.0 * Vloc + Vnonloc + Kin
         #H = Vnonloc + Kin
         Kex = U + Uex
 

@@ -12,6 +12,10 @@
 \usepackage[dvipsnames]{xcolor} 
 \usepackage{soul}
 %=============================================================================
+\def\cM{{\widehat{M}}}
+\newcommand{\sube}{_\text{\tiny EX}}
+\newcommand{\subd}{_\text{\tiny D}}
+\def\cS{{\mathcal S}}
 \newcommand*{\mprime}{^{\prime}\mkern-1.2mu}
 \newcommand*{\mdprime}{^{\prime\prime}\mkern-1.2mu}
 \newcommand*{\mtprime}{^{\prime\prime\prime}\mkern-1.2mu}
@@ -33,6 +37,7 @@
 \newcommand{\half}{\frac{1}{2}}
 \newcommand{\eg}{\textit{e.g.}\;}
 \newcommand{\ie}{\textit{i.e.}\;}
+\newcommand{\wrt}{\textit{wrt.}\;}
 \newcommand{\etc}{\textit{etc.}\;}
 \newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
 \newcommand{\ddrei}[1]{\delta_{\tiny \Lambda}^{(3)}\!\big(#1\big)}
@@ -230,9 +235,30 @@ Eq.~\eqref{eq.rgm.sglnonloc.pw} for $\lam{4}$, $A=4$, $m_N=938~$MeV, $a=0.56~$fm
 
 \newpage
 
+\section{Appendix: Inter-cluster Potential}
+Consider two compound systems, whose relative motion is much slower compared with the
+motion of the particles within each of these fragments. Within an arbitrarily small
+time interval, the probability of a given particle to interact/hit/overlap with another
+particle is then enhanced for the partner belonging to the same compound.
+\[P_{dt}(\text{intra})\gg P_{dt}(\text{inter})\]
+or
+\[\text{\#(internal collisions)}\gg\text{\#(inter-cluster collisions)}\;\;.\]
+The relative motion of particles within each cluster is then decoupled from, {\it one}, the
+relative motion \wrt~the other cluster(s), {\it and two}, the internal motion
+in those. In turn, the internal structure affects cluster-relative motion.
+This reasoning underlies the single-channel resonating-group approximation and
+also foreshadows the non-hermitian character of the effective interaction.
+
+\begin{gather}
+\cM\subd=\begin{pmatrix}4a & & & \\ & 4a & &\multicolumn{2}{l}{\!\!\!\!(2a)_\nabla}\\
+ \multicolumn{2}{c}{(2a)_\triangle} & \ddots & \\ & & & & 4a \\\end{pmatrix}
+\;\;;\;\;\ve{\cS}\subd =\ve{0}\;\;;\;\;B\subd =(R-R')
+\end{gather}
+
+\newpage
+
 \begin{widetext}
 \begin{turnpage}
-\section{Appendix: Inter-cluster Potential}
 \begin{table}
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{2.4}
@@ -279,7 +305,6 @@ $\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-2 A+3\right) \Lambda ^2\right)
 \end{turnpage}
 \end{widetext}
 \newpage
-
 
 \bibliographystyle{unsrt}
 \bibliography{Thebibliography.bib}
