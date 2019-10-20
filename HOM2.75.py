@@ -80,7 +80,7 @@ def ddpsi(r, n, l, nu):
 ### general options ###
 #######################
 pedantic = False
-states_print = 2  # How many energies do you want?
+states_print = 3  # How many energies do you want?
 
 # Parallel of this version not implemented
 parallel = False  # Do you want trallel version?
@@ -171,10 +171,10 @@ elif Sysem == "Hiyama_lambda_alpha":
 
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 50  #Number of basys states
+    NState = 20  #Number of basys states
     Rmax = 20
     order = 500
-    omegas = np.linspace(0.1, 4.2, 10)
+    omegas = np.linspace(0.05, 4.2, 10)
     #omegas = [1.5]
 
     L = 0
@@ -182,13 +182,13 @@ elif Sysem == "PJM":
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
 
-    Lamb = 4.0
+    Lamb = 6.0
 
     parametriz = "C1_D4"
     LeC = return_val(Lamb, parametriz, "C")
     LeD = return_val(Lamb, parametriz, "D")
     #coreosci = return_val(Lamb, parametriz, "ABCD")
-    coreosci = 0.6
+    coreosci = 2.4
     # for fitting and speculation over large cut-off or not calculated values
     # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
 
@@ -200,8 +200,8 @@ elif Sysem == "PJM":
 
     potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
-    interaction = "Local"
-    energydepen = False
+    interaction = "NonLocal"
+    energydepen = True
 
     aa1 = alf1(potargs)
     aa2 = alf2(potargs)
@@ -529,7 +529,7 @@ if __name__ == '__main__':
             print(" ")
             continue
 
-        debug = True
+        debug = False
         if debug:
             print("Gauss scale: ", gauss_scale)
             print(" ")
@@ -572,13 +572,14 @@ if __name__ == '__main__':
         else:
             for i in np.arange(NState, NState + 1):
                 #for i in np.arange(NState+1):
+                #valn, vecn = scipy.linalg.eig(H[:i, :i], np.eye(NState))
                 valn, vecn = scipy.linalg.eig(H[:i, :i])
                 valg, vecg = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
                 zg = np.argsort(valg)
                 zg = zg[0:states_print]
                 zn = np.argsort(valn)
                 zn = zn[0:states_print]
-                energiesn = (valg[zn])
+                energiesn = (valn[zn])
                 energiesg = (valg[zg])
 
                 if (pedantic):
@@ -603,11 +604,14 @@ if __name__ == '__main__':
 ene_omega_Kex = np.array(np.real(ene_omega_Kex))
 ene_omega_Kdi = np.array(np.real(ene_omega_Kdi))
 
+plt.title(r'$L=%d$ ; $a=%4.4f$ ; $\Lambda=%2.2f$ ; $A=%d$' % (L, coreosci,
+                                                              Lamb, Ncore))
+
 plt.plot(
     omegas, ene_omega_Kex, 'b-', lw=2, label=r'$RHS=E(1-K_{ex})$ (exchange)')
 plt.plot(omegas, ene_omega_Kdi, 'r-', lw=2, label=r'$RHS=E$ (direct)')
 
-plt.legend(loc='bottom right', numpoints=1, fontsize=12)
+plt.legend(loc='best', numpoints=1, fontsize=12)
 
 plt.show()
 
