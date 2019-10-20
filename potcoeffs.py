@@ -21,10 +21,10 @@ def eta2(argv):
 
 
 def kappa2(argv):
-    return (2 * argv[0] * argv[1] * argv[2]**2 * (
-        2 * argv[0] + argv[2]**2)) / (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
-                                      (-1 + 3 * argv[1]) * argv[2]**2 +
-                                      (-2 + argv[1]) * argv[2]**4)
+    return (2 * argv[0] * argv[1] * argv[2]**2 + 4 * argv[0]**2 * argv[1]
+            ) * argv[2]**2 / (16 * argv[0]**2 * argv[1] + 4 * argv[0] *
+                              (-1 + 3 * argv[1]) * argv[2]**2 +
+                              (-2 + argv[1]) * argv[2]**4)
 
 
 def eta3(argv):
@@ -34,12 +34,12 @@ def eta3(argv):
           (-2 + argv[1]) * argv[2]**2)) / (argv[0]**2 * argv[1]))**1.5
 
 
-# potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
-
-
 def kappa3(argv):
     return (2 * argv[0] * argv[1] * argv[2]**2) / (4 * argv[0] * argv[1] +
                                                    (-2 + argv[1]) * argv[2]**2)
+
+
+# potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
 
 def zeta1(argv):

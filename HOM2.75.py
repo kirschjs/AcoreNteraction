@@ -86,7 +86,7 @@ states_print = 2  # How many energies do you want?
 parallel = False  # Do you want trallel version?
 Nprocessors = 6  # Number of processors
 
-Sysem = "PJM1"
+Sysem = "PJM"
 
 ############################
 ### Potential definition ###
@@ -108,7 +108,7 @@ if Sysem == "Pionless":
         return -505.1703491 * np.exp(-4. * r**2)
 
     interaction = "Local"
-    energydepen = False
+    energydepen = True
 
 elif Sysem == "HObenchmark":
     # HO  benchmark
@@ -125,9 +125,9 @@ elif Sysem == "HObenchmark":
     interaction = "Local"
     energydepen = False
 
-elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
-
+elif Sysem == "Hiyama_lambda_alpha":
     # Hyama non local benchmark
+    # E = -3.12 MeV
     NState = 28  #Number of basys states
     Rmax = 25
     order = 500
@@ -170,26 +170,25 @@ elif Sysem == "Hiyama_lambda_alpha":  # E = -3.12 MeV
         return Vvv
 
 elif Sysem == "PJM":
-
     # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 30  #Number of basys states
-    Rmax = 30
-    order = 350
-    #omegas = np.linspace(0.1, 1.9, 15)
-    omegas = [1.5]
+    NState = 50  #Number of basys states
+    Rmax = 20
+    order = 500
+    omegas = np.linspace(0.1, 4.2, 10)
+    #omegas = [1.5]
 
     L = 0
 
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
 
-    Lamb = 0.12
+    Lamb = 4.0
 
     parametriz = "C1_D4"
     LeC = return_val(Lamb, parametriz, "C")
     LeD = return_val(Lamb, parametriz, "D")
-    coreosci = return_val(Lamb, parametriz, "ABCD")
-    #coreosci = 0.60
+    #coreosci = return_val(Lamb, parametriz, "ABCD")
+    coreosci = 0.6
     # for fitting and speculation over large cut-off or not calculated values
     # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
 
@@ -201,7 +200,6 @@ elif Sysem == "PJM":
 
     potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
-    interaction = "NonLocal"
     interaction = "Local"
     energydepen = False
 
@@ -275,7 +273,7 @@ elif Sysem == "PJM":
         rl2 = rl**2
 
         # (-) b/c this term goes to the RHS of Eq.(12)
-        V1ex = -(4. * np.pi * 1j**L) * rr * rl * ((zz1 * np.nan_to_num(
+        V1ex = -(1j**L) * ((zz1 * np.nan_to_num(
             spherical_jn(L, 1j * bb1 * rr * rl),
             nan=0.0,
             posinf=0.0,
@@ -288,48 +286,45 @@ elif Sysem == "PJM":
         rr2 = rr**2
         rl2 = rl**2
 
-        V1 = -mh2 * zz1 * (
-            4. * np.pi * rr * rl) * np.exp(-aa1 * rr2 - gg1 * rl2) * (
-                4. * aa1 * bb1 * rl * rr *
-                ((1j**
-                  (L - 1) * np.nan_to_num(
-                      spherical_jn(L - 1, 1j * bb1 * rr * rl),
-                      nan=0.0,
-                      posinf=0.0,
-                      neginf=0.0) * wigm * (2 * L - 3) + 1j**
-                  (L + 1) * np.nan_to_num(
-                      spherical_jn(L + 1, 1j * bb1 * rr * rl),
-                      nan=0.0,
-                      posinf=0.0,
-                      neginf=0.0) * wigp * (2 * L - 1)) +
-                 (-4. * aa1**2 * rr2 + 2 * aa1 - bb1**2 * rl2 + L *
-                  (L + 1) / rr2) * 1j**L * np.nan_to_num(
-                      spherical_jn(L, 1j * bb1 * rr * rl),
-                      nan=0.0,
-                      posinf=0.0,
-                      neginf=0.0)))
+        V1 = -mh2 * zz1 * np.exp(-aa1 * rr2 - gg1 * rl2) * (
+            4. * aa1 * bb1 * rl * rr *
+            ((1j**
+              (L - 1) * np.nan_to_num(
+                  spherical_jn(L - 1, 1j * bb1 * rr * rl),
+                  nan=0.0,
+                  posinf=0.0,
+                  neginf=0.0) * wigm * (2 * L - 3) + 1j**
+              (L + 1) * np.nan_to_num(
+                  spherical_jn(L + 1, 1j * bb1 * rr * rl),
+                  nan=0.0,
+                  posinf=0.0,
+                  neginf=0.0) * wigp * (2 * L - 1)) +
+             (-4. * aa1**2 * rr2 + 2 * aa1 - bb1**2 * rl2 + L *
+              (L + 1) / rr2) * 1j**L * np.nan_to_num(
+                  spherical_jn(L, 1j * bb1 * rr * rl),
+                  nan=0.0,
+                  posinf=0.0,
+                  neginf=0.0)))
 
         # this is simple (still missing (4 pi i^l ) RR')
-        V234 = -(4. * np.pi * 1j**L) * rr * rl * (
-            (zz2 * np.nan_to_num(
-                spherical_jn(L, 1j * bb2 * rr * rl),
-                nan=0.0,
-                posinf=0.0,
-                neginf=0.0) * np.exp(-aa2 * rr2 - gg2 * rl2)) +
-            (zz3 * np.nan_to_num(
-                spherical_jn(L, 1j * bb3 * rr * rl),
-                nan=0.0,
-                posinf=0.0,
-                neginf=0.0) * np.exp(-aa3 * rr2 - gg3 * rl2)) +
-            (zz4 * np.nan_to_num(
-                spherical_jn(L, 1j * bb4 * rr * rl),
-                nan=0.0,
-                posinf=0.0,
-                neginf=0.0) * np.exp(-aa4 * rr2 - gg4 * rl2)))
+        V234 = -(1j**L) * ((zz2 * np.nan_to_num(
+            spherical_jn(L, 1j * bb2 * rr * rl),
+            nan=0.0,
+            posinf=0.0,
+            neginf=0.0) * np.exp(-aa2 * rr2 - gg2 * rl2)) +
+                           (zz3 * np.nan_to_num(
+                               spherical_jn(L, 1j * bb3 * rr * rl),
+                               nan=0.0,
+                               posinf=0.0,
+                               neginf=0.0) * np.exp(-aa3 * rr2 - gg3 * rl2)) +
+                           (zz4 * np.nan_to_num(
+                               spherical_jn(L, 1j * bb4 * rr * rl),
+                               nan=0.0,
+                               posinf=0.0,
+                               neginf=0.0) * np.exp(-aa4 * rr2 - gg4 * rl2)))
 
         # this function is high unstable for large r (it gives NaN but it should give 0.)
-        Vnl = np.real(V1 + V234)
-        return np.nan_to_num(Vnl)
+        return np.nan_to_num(np.real(V1 + V234))
 
     def pot_local(r, argv):
         r2 = r**2
@@ -416,8 +411,8 @@ if __name__ == '__main__':
     t = 0.5 * (x + 1) * (b - a) + a
     gauss_scale = 0.5 * (b - a)
 
-    val_omega_Kex = []
     ene_omega_Kex = []
+    ene_omega_Kdi = []
     for omega in omegas:
 
         ###########################
@@ -452,7 +447,7 @@ if __name__ == '__main__':
             print(" >> Wave function: (",
                   timeit.default_timer() - start_time, " s )")
         start_time = timeit.default_timer()
-        VlocRN[:] = pot_local(t[:], potargs) + mh2 * L * (L + 1) / t[:]**2
+        VlocRN[:] = pot_local(t[:], potargs)
         if (pedantic):
             print(" >> Local potential:  (",
                   timeit.default_timer() - start_time, " s )")
@@ -491,9 +486,9 @@ if __name__ == '__main__':
                     psiRN[:, i] * VlocRN[:] * psiRN[:, j] * w[:]) * gauss_scale
                 if (interaction == "NonLocal"):
                     for k in range(order):
-                        Uex[i][j] = Uex[i][j] + np.sum(
-                            VexRN[k, :] * psiRN[:, j] * w[:]
-                        ) * psiRN[k, i] * w[k] * gauss_scale**2
+                        Uex[i][j] = Uex[i][j] + 4. * np.pi * np.sum(
+                            t[:] * VexRN[k, :] * psiRN[:, j] * w[:]
+                        ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
                     for k in range(order):
                         #Vnonloc[i][j] = Vnonloc[i][j] +
                         #np.sum(VnolRN[k, :] * psiRN[:, j] * w[:]) * psiRN[k, i] * w[k] * gauss_scale**2
@@ -507,9 +502,9 @@ if __name__ == '__main__':
         start_time = timeit.default_timer()
 
         Kin = -mh2 * Kin
-        H = 0.0 * Vloc + Vnonloc + Kin
+        H = Vloc + Vnonloc + Kin
         #H = Vnonloc + Kin
-        Kex = U + Uex
+        Kex = U + Uex if energydepen else U
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
@@ -534,7 +529,7 @@ if __name__ == '__main__':
             print(" ")
             continue
 
-        debug = False
+        debug = True
         if debug:
             print("Gauss scale: ", gauss_scale)
             print(" ")
@@ -550,8 +545,8 @@ if __name__ == '__main__':
             print(np.around(Kin))
             print("H: ")
             print(np.around(H))
-            print("Vloc/Vnonloc: ")
-            print(np.around(Vloc / Vnonloc, 3))
+            #print("Vloc/Vnonloc: ")
+            #print(np.around(Vloc / Vnonloc, 3))
 
             np.savetxt('Unit_loc.txt', np.matrix(U), fmt='%12.4f')
             np.savetxt('Unit_ex.txt', np.matrix(Kex), fmt='%12.4f')
@@ -559,6 +554,7 @@ if __name__ == '__main__':
             np.savetxt('V_nonloc.txt', np.matrix(Vnonloc), fmt='%12.4f')
             np.savetxt('E_kin.txt', np.matrix(Kin), fmt='%12.4f')
             np.savetxt('Hamiltonian.txt', np.matrix(H), fmt='%12.4f')
+            exit()
 
         # Diagonalize with Kex, i.e., solve gen. EV
         if (pedantic):
@@ -597,21 +593,21 @@ if __name__ == '__main__':
         if (pedantic): print(" ")
         if (pedantic): print(" ")
         ene_omega_Kex.append(energiesg[0])
-        val_omega_Kex.append(omega)
+        ene_omega_Kdi.append(energiesn[0])
 
         print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
               "  Energies(g): " + str(energiesg))
         print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
               "  Energies(n): " + str(energiesn))
 
-exit()
+ene_omega_Kex = np.array(np.real(ene_omega_Kex))
+ene_omega_Kdi = np.array(np.real(ene_omega_Kdi))
 
-ene_omega_Kex = np.array(ene_omega_Kex)
-val_omega_Kex = np.array(val_omega_Kex)
+plt.plot(
+    omegas, ene_omega_Kex, 'b-', lw=2, label=r'$RHS=E(1-K_{ex})$ (exchange)')
+plt.plot(omegas, ene_omega_Kdi, 'r-', lw=2, label=r'$RHS=E$ (direct)')
 
-ene_omega_Kex
-
-plt.plot(val_omega_Kex, ene_omega_Kex, '-', lw=2, label="{} ".format(i))
+plt.legend(loc='bottom right', numpoints=1, fontsize=12)
 
 plt.show()
 
