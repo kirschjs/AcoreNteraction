@@ -172,7 +172,7 @@ elif Sysem == "Hiyama_lambda_alpha":
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
     NState = 20  #Number of basys states
-    Rmax = 20
+    Rmax = 60
     order = 500
     omegas = np.linspace(0.05, 4.2, 10)
     #omegas = [1.5]
@@ -182,13 +182,14 @@ elif Sysem == "PJM":
     # ----- change this to change system ------
     Ncore = 4  # number of core particles (capital A in docu)
 
-    Lamb = 6.0
+    Lamb = 4.0
 
     parametriz = "C1_D4"
     LeC = return_val(Lamb, parametriz, "C")
     LeD = return_val(Lamb, parametriz, "D")
-    #coreosci = return_val(Lamb, parametriz, "ABCD")
-    coreosci = 2.4
+    coreosciLength = return_val(Lamb, parametriz, "ABCD")
+
+    coreosci = (2. * coreosciLength**2)**(-1)
     # for fitting and speculation over large cut-off or not calculated values
     # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
 
@@ -447,7 +448,7 @@ if __name__ == '__main__':
             print(" >> Wave function: (",
                   timeit.default_timer() - start_time, " s )")
         start_time = timeit.default_timer()
-        VlocRN[:] = pot_local(t[:], potargs)
+        VlocRN[:] = pot_local(t[:], potargs) + mh2 * L * (L + 1) / t[:]**2
         if (pedantic):
             print(" >> Local potential:  (",
                   timeit.default_timer() - start_time, " s )")
@@ -504,7 +505,9 @@ if __name__ == '__main__':
         Kin = -mh2 * Kin
         H = Vloc + Vnonloc + Kin
         #H = Vnonloc + Kin
-        Kex = U + Uex if energydepen else U
+        Kex = U + 0.065 * Uex if energydepen else U
+
+        print('condition number of H:', np.linalg.cond(H))
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
