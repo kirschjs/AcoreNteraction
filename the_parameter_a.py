@@ -9,7 +9,10 @@ from matplotlib.collections import LineCollection
 
 
 def fita(AA, plot=False):
-    Arange = np.arange(3, 15)
+
+    Amax = 70
+    order = 5
+    Arange = np.arange(3, Amax)
 
     def func(x, pars):
         a, b, c = pars
@@ -31,7 +34,7 @@ def fita(AA, plot=False):
 
     def constrt(pars):
         #print(polyval(xx, np.polyder(pars)))
-        return polyval(xx, polyder(pars, m=2))
+        return polyval(Arange, polyder(pars, m=2))
 
     colors = [
         '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b',
@@ -58,18 +61,19 @@ def fita(AA, plot=False):
 
     con1t = {'type': 'ineq', 'fun': constrt}
     rest = minimize(
-        residt, [.3, 1, 5],
+        residt, [.3, 1, 5, 3, 5, 1],
         method='cobyla',
         options={'maxiter': 50000},
         constraints=con1t)
 
-    print(res)
-    print(rest)
+    #print(res)
+    #print(rest)
 
     a1 = func(AA, res.x)
-    print('a(%d) = %4.4f fm^-2' % (AA, a1))
+    #print('a(%d) = %4.4f fm^-2' % (AA, a1))
     a2 = polyval(AA, rest.x)
-    print('a(%d) = %4.4f fm^-2' % (AA, a2))
+
+    #print('a(%d) = %4.4f fm^-2' % (AA, a2))
 
     def acritf(aa):
         rr = Rcore[aa - 2] if (aa < 7) else 3.4
@@ -86,8 +90,8 @@ def fita(AA, plot=False):
         ax1.plot(Arange, func(Arange, res.x), label='fit*')
         ax1.plot(Arange, [acritf(aa) for aa in Arange], label='Osci r2')
         ax1.legend(loc=0)
-        ax2.plot(xx, constrt(rest.x), label='slope')
+        ax2.plot(Arange, constrt(rest.x), label='slope')
         ax2.legend(loc=0)
         plt.show()
         exit()
-    return ame
+    return a2  #ame
