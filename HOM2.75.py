@@ -7,6 +7,7 @@ from scipy.special import eval_genlaguerre, iv, spherical_jn
 from multiprocessing import Lock, Process, Queue, current_process, Pool, cpu_count
 from potcoeffs import *
 from LECs_interpolation import *
+from the_parameter_a import *
 from sympy import lambdify
 from sympy.abc import x
 from sympy.physics.quantum.cg import CG, Wigner3j
@@ -172,24 +173,24 @@ elif Sysem == "Hiyama_lambda_alpha":
 elif Sysem == "PJM":
     # Prague-Jerusalem-Manchester effective A-1 interaction
     NState = 20  #Number of basys states
-    Rmax = 60
-    order = 500
-    omegas = np.linspace(0.05, 4.2, 10)
+    Rmax = 20
+    order = 300
+    omegas = np.linspace(0.05, 0.5, 10)
     #omegas = [1.5]
 
-    L = 0
+    L = 1
 
     # ----- change this to change system ------
-    Ncore = 4  # number of core particles (capital A in docu)
+    Ncore = 6  # number of core particles (capital A in docu)
 
-    Lamb = 4.0
+    Lamb = 1.2
 
     parametriz = "C1_D4"
     LeC = return_val(Lamb, parametriz, "C")
     LeD = return_val(Lamb, parametriz, "D")
-    coreosciLength = return_val(Lamb, parametriz, "ABCD")
 
-    coreosci = (2. * coreosciLength**2)**(-1)
+    coreosci = 1. * fita(Ncore, plot=False)
+
     # for fitting and speculation over large cut-off or not calculated values
     # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
 
@@ -201,8 +202,8 @@ elif Sysem == "PJM":
 
     potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
-    interaction = "NonLocal"
-    energydepen = True
+    interaction = "Local"
+    energydepen = False
 
     aa1 = alf1(potargs)
     aa2 = alf2(potargs)
@@ -239,34 +240,35 @@ elif Sysem == "PJM":
     print("Lambda  = " + str(Lamb))
     print("Ncore   = " + str(Ncore))
     print("a core  = " + str(coreosci))
-    print("LEC 2b  = " + str(LeC))
-    print("LEC 3b  = " + str(LeD))
-    print(" -- ")
-    print("alpha1  = " + str(aa1))
-    print("alpha2  = " + str(aa2))
-    print("alpha3  = " + str(aa3))
-    print("alpha4  = " + str(aa4))
-    print("beta1   = " + str(bb1))
-    print("beta2   = " + str(bb2))
-    print("beta3   = " + str(bb3))
-    print("beta4   = " + str(bb4))
-    print("gamma1  = " + str(gg1))
-    print("gamma2  = " + str(gg2))
-    print("gamma3  = " + str(gg3))
-    print("gamma4  = " + str(gg4))
-    print("zeta1   = " + str(zz1))
-    print("zeta2   = " + str(zz2))
-    print("zeta3   = " + str(zz3))
-    print("zeta4   = " + str(zz4))
-    print("eta1    = " + str(nn1))
-    print("eta2    = " + str(nn2))
-    print("eta3    = " + str(nn3))
-    print("kappa1  = " + str(kk1))
-    print("kappa2  = " + str(kk2))
-    print("kappa3  = " + str(kk3))
-    print(" -- ")
-    print("W3J\'s  = " + str(w3j_p2) + "  " + str(w3j_m2))
-    print(" -- ")
+    if pedantic:
+        print("LEC 2b  = " + str(LeC))
+        print("LEC 3b  = " + str(LeD))
+        print(" -- ")
+        print("alpha1  = " + str(aa1))
+        print("alpha2  = " + str(aa2))
+        print("alpha3  = " + str(aa3))
+        print("alpha4  = " + str(aa4))
+        print("beta1   = " + str(bb1))
+        print("beta2   = " + str(bb2))
+        print("beta3   = " + str(bb3))
+        print("beta4   = " + str(bb4))
+        print("gamma1  = " + str(gg1))
+        print("gamma2  = " + str(gg2))
+        print("gamma3  = " + str(gg3))
+        print("gamma4  = " + str(gg4))
+        print("zeta1   = " + str(zz1))
+        print("zeta2   = " + str(zz2))
+        print("zeta3   = " + str(zz3))
+        print("zeta4   = " + str(zz4))
+        print("eta1    = " + str(nn1))
+        print("eta2    = " + str(nn2))
+        print("eta3    = " + str(nn3))
+        print("kappa1  = " + str(kk1))
+        print("kappa2  = " + str(kk2))
+        print("kappa3  = " + str(kk3))
+        print(" -- ")
+        print("W3J\'s  = " + str(w3j_p2) + "  " + str(w3j_m2))
+        print(" -- ")
 
     def exchange_kernel(rl, rr, argv):
 
@@ -390,20 +392,21 @@ else:
     quit()
 
 if __name__ == '__main__':
-    print("parallel: ", parallel)
     if parallel:
         p = Pool(Nprocessors)
         print("Number of CPU: ", cpu_count())
 
-    print("")
-    print("--- " + Sysem + "---")
-    print("# of states : " + str(NState))
-    print("Max R       : " + str(Rmax))
-    print("Gauss order : " + str(order))
-    print("Mass        : " + str(mu))
-    print("hbar        : " + str(hbar))
-    print("h^2/2m      : " + str(np.round(mh2, 3)))
-    print("")
+    if pedantic:
+        print("")
+        print("parallel: ", parallel)
+        print("--- " + Sysem + "---")
+        print("# of states : " + str(NState))
+        print("Max R       : " + str(Rmax))
+        print("Gauss order : " + str(order))
+        print("Mass        : " + str(mu))
+        print("hbar        : " + str(hbar))
+        print("h^2/2m      : " + str(np.round(mh2, 3)))
+        print("")
 
     x, w = np.polynomial.legendre.leggauss(order)
     # Translate x values from the interval [-1, 1] to [a, b]
@@ -505,9 +508,7 @@ if __name__ == '__main__':
         Kin = -mh2 * Kin
         H = Vloc + Vnonloc + Kin
         #H = Vnonloc + Kin
-        Kex = U + 0.065 * Uex if energydepen else U
-
-        print('condition number of H:', np.linalg.cond(H))
+        Kex = U + Uex if energydepen else U
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
@@ -534,6 +535,7 @@ if __name__ == '__main__':
 
         debug = False
         if debug:
+            print('condition number of H:', np.linalg.cond(H))
             print("Gauss scale: ", gauss_scale)
             print(" ")
             print("U: ")
@@ -572,17 +574,17 @@ if __name__ == '__main__':
                 zn = zn[0:states_print]
                 energiesn = (valg[zn])
                 energiesg = (valg[zg])
+                valn, vecn = scipy.linalg.eig(H[:i, :i])
+                zn = np.argsort(valn)
+                zn = zn[0:states_print]
+                energiesn = (valn[zn])
         else:
             for i in np.arange(NState, NState + 1):
                 #for i in np.arange(NState+1):
                 #valn, vecn = scipy.linalg.eig(H[:i, :i], np.eye(NState))
-                valn, vecn = scipy.linalg.eig(H[:i, :i])
                 valg, vecg = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
                 zg = np.argsort(valg)
                 zg = zg[0:states_print]
-                zn = np.argsort(valn)
-                zn = zn[0:states_print]
-                energiesn = (valn[zn])
                 energiesg = (valg[zg])
 
                 if (pedantic):
@@ -596,23 +598,29 @@ if __name__ == '__main__':
         if (pedantic): print(" ")
         if (pedantic): print(" ")
         if (pedantic): print(" ")
-        ene_omega_Kex.append(energiesg[0])
-        ene_omega_Kdi.append(energiesn[0])
+        if (pedantic):
+            ene_omega_Kdi.append(energiesn[0])
+            print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
+                  "  Energies(n): " + str(energiesn))
 
+        ene_omega_Kex.append(energiesg[0])
         print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
               "  Energies(g): " + str(energiesg))
-        print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
-              "  Energies(n): " + str(energiesn))
+        if energiesg[0] < 0:
+            print('  A  Lambda        a    B(A+1)\n%3d %7.2f %8.4f %9.4f' %
+                  (Ncore, Lamb, coreosci, np.real(energiesg[0])))
+        #    exit()
 
-ene_omega_Kex = np.array(np.real(ene_omega_Kex))
-ene_omega_Kdi = np.array(np.real(ene_omega_Kdi))
+if (pedantic):
+    ene_omega_Kex = np.array(np.real(ene_omega_Kex))
+    ene_omega_Kdi = np.array(np.real(ene_omega_Kdi))
+    plt.plot(omegas, ene_omega_Kdi, 'r-', lw=2, label=r'$RHS=E$ (direct)')
 
 plt.title(r'$L=%d$ ; $a=%4.4f$ ; $\Lambda=%2.2f$ ; $A=%d$' % (L, coreosci,
                                                               Lamb, Ncore))
 
 plt.plot(
     omegas, ene_omega_Kex, 'b-', lw=2, label=r'$RHS=E(1-K_{ex})$ (exchange)')
-plt.plot(omegas, ene_omega_Kdi, 'r-', lw=2, label=r'$RHS=E$ (direct)')
 
 plt.legend(loc='best', numpoints=1, fontsize=12)
 
