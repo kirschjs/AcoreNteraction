@@ -1,22 +1,11 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 from numpy.polynomial.polynomial import polyval, polyder
 
 
-def polinv(x, a, b, c, d):
-    return a + b / x + c / x**2 + d / x**3
-
-
-def pol(x, a, b, c, d):
-    return a + b * x + c * x**2 + d * x**3
-
-
-def pol4(x, a, b, c, d, e):
-    return a + b * x + c * x**2 + d * x**3 + e * x**4
-
-
-def return_val(lamb, data, var, rang=[0.1, 20], speculative=False):
+def return_val(lamb, data, var, polord=3, plot=False):
 
     L = C = D = AB = ABC = ABCD = ABCDE = ABCDEF = []
 
@@ -213,7 +202,7 @@ def return_val(lamb, data, var, rang=[0.1, 20], speculative=False):
         return 1
 
     X = np.array(L).astype(np.double)
-    fun = polinv
+
     if (var == "AB"):
         Y = np.array(AB).astype(np.double)
     elif (var == "ABC"):
@@ -226,10 +215,8 @@ def return_val(lamb, data, var, rang=[0.1, 20], speculative=False):
         Y = np.array(ABCDEF).astype(np.double)
     elif (var == "C"):
         Y = np.array(Cc).astype(np.double)
-        fun = pol
     elif (var == "D"):
         Y = np.array(Dd).astype(np.double)
-        fun = pol4
     else:
         print(str(var) + " is not a valid observable or lec.")
         print(" >> You can ask for C D AB ABC ABCD ABCDE or ABCDEF")
@@ -240,25 +227,42 @@ def return_val(lamb, data, var, rang=[0.1, 20], speculative=False):
         print("Sorry, we dont have the data you are looking for.")
         return 1
 
-    def funct(x, pars):
-        a = pars
-        return polyval(x, a)
-
     def residt(pars):
         return ((Y - polyval(X, pars))**2).sum()
 
     def constrt(pars):
-        return -polyval(rang, polyder(pars, m=1))
+        return np.sign(Y[-1]) * polyval(lamb, polyder(pars, m=1))
 
     con1t = {'type': 'ineq', 'fun': constrt}
     rest = minimize(
-        residt, [3, 5, 1],
+        residt,
+        np.random.rand(polord),
         method='cobyla',
         options={'maxiter': 50000},
         constraints=con1t)
 
+    fitdat = polyval(lamb, rest.x)
+
     plt.plot(X[mask], Y[mask], 'ko', label="data")
-    plt.plot(rang, polyval(rang, rest.x), label='fit')
-    plt.show()
-    exit()
-    return f2(lamb)
+    plt.plot(lamb, fitdat, label='fit')
+    plt.legend(loc='best', numpoints=1, fontsize=12)
+    plt.xlabel(r'$\Lambda\,[fm^{-1}]$', fontsize=12)
+    plt.ylabel(r'$%s\,[MeV]$' % var, fontsize=12)
+    strFile = 'Le%s_fit.pdf' % var
+    if os.path.isfile(strFile):
+        os.remove(strFile)
+    plt.savefig(strFile)
+    strFile = 'Le%s_fit.dat' % var
+    if os.path.isfile(strFile):
+        os.remove(strFile)
+    s = ''
+    for n in range(len(lamb)):
+        s += '%4.4f   %12.4f\n' % (float(lamb[n]), float(fitdat[n]))
+    with open(strFile, 'a') as outfile:
+        outfile.write(s)
+
+    if plot:
+        plt.show()
+    plt.clf()
+
+    return rest
