@@ -13,6 +13,9 @@ from sympy.abc import x
 from sympy.physics.quantum.cg import CG, Wigner3j
 import numpy.ma as ma
 
+from joblib import Parallel, delayed
+import multiprocessing
+
 ###############################
 ######## Wave function ########
 ###############################
@@ -75,7 +78,7 @@ Lc = []
 
 # define the range of core numbers
 Amin = 2
-Amax = 40
+Amax = 7
 cores = range(Amin, Amax)
 
 Lrel = 1
@@ -83,7 +86,7 @@ Lrel = 1
 # fixes the size of this S-wave core
 # [2] : volume formula [1] : polynomial with + powers [0] : polynomial with +/- powers
 coreoscis = fita(cores, order=3, orderp=1, plot=0)[2]
-
+print(coreoscis)
 # select a cutoff range in which the critical value is sought
 Lmin = 0.1
 Lmax = 10.0
@@ -97,10 +100,10 @@ LeCmodel, Lrangefit, LeCdata = return_val(
 LeDmodel, Lrangefit, LeDdata = return_val(
     Lrange, parametriz, "D", polord=7, plot=0)
 
-NState = 25
-Rmax = 55
+NState = 40
+Rmax = 60
 order = 350
-omegas = np.linspace(0.015, 0.1, 4)
+omegas = np.linspace(0.02, 0.1, 4)
 
 interaction = "NonLocal"
 energydepen = True
@@ -115,8 +118,8 @@ for Ncore in cores:
         nL = 0
         Lamb = Lrange[0]
     else:
-        nL = max(0, nL - 7)
-        Lamb = Lrange[nL]
+        nL = 0
+        Lamb = Lrange[0]  #Lc[-1][1]
 
     while (stable):
         #omegas = [1.5]
@@ -128,7 +131,7 @@ for Ncore in cores:
             LeC = LeCdata[nL]  #polyval(Lamb, LeCmodel.x)
             LeD = LeCdata[nL]  #polyval(Lamb, LeDmodel.x)
 
-        coreosci = 0.01 * Ncore**(1. / 3.)  #coreoscis[Ncore - Amin]
+        coreosci = .24 * coreoscis[Ncore - Amin]
 
         mu = Ncore * m / (Ncore + 1.)
         mh2 = hbar**2 / (2 * mu)
@@ -417,8 +420,8 @@ for Ncore in cores:
             continue
         else:
             nL += 1
-            Lamb = Lrange[nL]
             if nL >= len(Lrange):
                 print(Lc)
                 exit()
+            Lamb = Lrange[nL]
     print(Lc)

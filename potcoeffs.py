@@ -1,4 +1,5 @@
 import numpy as np
+MeVfm = 197.3161329
 
 # potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
 
@@ -99,12 +100,15 @@ def gam2(argv):
 
 
 def zeta3(argv):
-    return (argv[4] * 0.5 * (64 * (-1 + argv[1]) * (-2 + argv[1]) *
-                             (argv[0] * argv[1])**4.5) /
-            (np.pi**1.5 * (1 + argv[1])**3 *
-             (16 * argv[0]**2 * (-1 + argv[1]) + 4 * argv[0] *
-              (-4 + 3 * argv[1]) * argv[2]**2 +
-              (-3 + argv[1]) * argv[2]**4)**1.5))
+    if argv[1] < 3:
+        return 0.0
+    else:
+        return (argv[4] * 0.5 * (64 * (-1 + argv[1]) * (-2 + argv[1]) *
+                                 (argv[0] * argv[1])**4.5) /
+                (np.pi**1.5 * (1 + argv[1])**3 *
+                 (16 * argv[0]**2 * (-1 + argv[1]) + 4 * argv[0] *
+                  (-4 + 3 * argv[1]) * argv[2]**2 +
+                  (-3 + argv[1]) * argv[2]**4)**1.5))
 
 
 def alf3(argv):
@@ -142,11 +146,14 @@ def gam3(argv):
 
 
 def zeta4(argv):
-    return argv[4] * 0.5 * 64 * (-1 + argv[1]) * (-2 + argv[1]) / (
-        np.pi**1.5 * (((1 + argv[1])**2 * (4 * argv[0] + argv[2]**2) *
-                       (4 * argv[0] * (-1 + argv[1]) +
-                        (-3 + argv[1]) * argv[2]**2)) /
-                      (argv[0]**3 * argv[1]**3))**1.5)
+    if argv[1] < 3:
+        return 0.0
+    else:
+        return argv[4] * 0.5 * 64 * (-1 + argv[1]) * (-2 + argv[1]) / (
+            np.pi**1.5 * (((1 + argv[1])**2 * (4 * argv[0] + argv[2]**2) *
+                           (4 * argv[0] * (-1 + argv[1]) +
+                            (-3 + argv[1]) * argv[2]**2)) /
+                          (argv[0]**3 * argv[1]**3))**1.5)
 
 
 def alf4(argv):

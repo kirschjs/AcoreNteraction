@@ -61,7 +61,7 @@ def ddpsi(r, n, l, nu):
 #######################
 ### general options ###
 #######################
-pedantic = 1
+pedantic = 0
 states_print = 3  # How many energies do you want?
 
 mpi = '137'
@@ -74,11 +74,10 @@ hbar = 197.327
 Lc = []
 
 # define the range of core numbers
-Amin = 2
-Amax = 40
+Amin = 7
+Amax = 28
 cores = range(Amin, Amax)
 
-Lrel = 1
 # for each core number, determine an oscillator strength which
 # fixes the size of this S-wave core
 # [2] : volume formula [1] : polynomial with + powers [0] : polynomial with +/- powers
@@ -86,24 +85,13 @@ coreoscis = fita(cores, order=3, orderp=1, plot=0)[2]
 
 # select a cutoff range in which the critical value is sought
 Lmin = 0.1
-Lmax = 10.0
-dL = 0.1
+Lmax = 28.0
+dL = 0.5
 Lrange = np.arange(Lmin, Lmax, dL)
 
-parametriz = "C1_D4_opt"
-LeCmodel, Lrangefit, LeCdata = return_val(
-    Lrange, parametriz, "C", polord=3, plot=0)
-
-LeDmodel, Lrangefit, LeDdata = return_val(
-    Lrange, parametriz, "D", polord=7, plot=0)
-
-NState = 25
-Rmax = 55
-order = 350
-omegas = np.linspace(0.015, 0.1, 4)
-
-interaction = "NonLocal"
-energydepen = True
+parametriz = "C1_D4"
+LeCmodel = return_val(Lrange, parametriz, "C", polord=3, plot=0)
+LeDmodel = return_val(Lrange, parametriz, "D", polord=8, plot=0)
 
 for Ncore in cores:
 
@@ -112,28 +100,31 @@ for Ncore in cores:
     stable = True
 
     if Lc == []:
-        nL = 0
-        Lamb = Lrange[0]
+        Lamb = 0.2
     else:
-        nL = max(0, nL - 7)
-        Lamb = Lrange[nL]
+        Lamb = 0.99 * Lc[-1][1]
 
     while (stable):
+        NState = 20
+        Rmax = 150
+        order = 350
+        omegas = np.linspace(0.05, 0.25, 4)
         #omegas = [1.5]
-        la = ('%-4.2f' % Lamb)[:4]
-        try:
-            LeC = lec_list_oneMEVopt[la][0]
-            LeD = lec_list_oneMEVopt[la][1]
-        except:
-            LeC = LeCdata[nL]  #polyval(Lamb, LeCmodel.x)
-            LeD = LeCdata[nL]  #polyval(Lamb, LeDmodel.x)
 
-        coreosci = 0.01 * Ncore**(1. / 3.)  #coreoscis[Ncore - Amin]
+        L = 0
+
+        LeC = polyval(Lamb, LeCmodel.x)
+        LeD = polyval(Lamb, LeDmodel.x)
+
+        coreosci = coreoscis[Ncore - Amin]
 
         mu = Ncore * m / (Ncore + 1.)
         mh2 = hbar**2 / (2 * mu)
 
         potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+
+        interaction = "NonLocal"
+        energydepen = True
 
         aa1 = alf1(potargs)
         aa2 = alf2(potargs)
@@ -161,41 +152,42 @@ for Ncore in cores:
 
         # this might overdo it but the sympy expressions
         # were handled erroneously before
-        w3j_m2 = (Wigner3j(1, Lrel - 1, Lrel, 0, 0, 0).doit())**2
-        w3j_p2 = (Wigner3j(1, Lrel + 1, Lrel, 0, 0, 0).doit())**2
+        w3j_m2 = (Wigner3j(1, L - 1, L, 0, 0, 0).doit())**2
+        w3j_p2 = (Wigner3j(1, L + 1, L, 0, 0, 0).doit())**2
         wigm = 0 if (w3j_m2 == 0) else float(w3j_m2.evalf())
         wigp = 0 if (w3j_p2 == 0) else float(w3j_p2.evalf())
 
+        print("Lambda  = %2.2f  A = %d\n" % (Lamb, Ncore))
+        print("a core  = %4.4f\n" % coreosci)
+        print("LEC 2b = %+6.4e   LEC 3b  = %+6.4e\n" % (LeC, LeD))
+        print('            1            2            3            4')
+        print("alpha  = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (aa1, aa2, aa3,
+                                                                 aa4))
+        print("beta   = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (bb1, bb2, bb3,
+                                                                 bb4))
+        print("gamma  = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (gg1, gg2, gg3,
+                                                                 gg4))
+        print("kappa  = %+6.4e    %+6.4e    %+6.4e\n" % (kk1, kk2, kk3))
+        print("eta    = %+6.4e    %+6.4e    %+6.4e" % (nn1, nn2, nn3))
+        print("zeta   = %+6.4e    %+6.4e    %+6.4e    %+6.4e\n" % (zz1, zz2,
+                                                                   zz3, zz4))
         if pedantic:
-            print("Lambda  = %2.2f  A = %d\n" % (Lamb, Ncore))
-            print("a core  = %4.4f\n" % coreosci)
-            print("LEC 2b = %+6.4e   LEC 3b  = %+6.4e\n" % (LeC, LeD))
-            print('            1            2            3            4')
-            print("alpha  = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (aa1, aa2,
-                                                                     aa3, aa4))
-            print("beta   = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (bb1, bb2,
-                                                                     bb3, bb4))
-            print("gamma  = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (gg1, gg2,
-                                                                     gg3, gg4))
-            print("kappa  = %+6.4e    %+6.4e    %+6.4e\n" % (kk1, kk2, kk3))
-            print("eta    = %+6.4e    %+6.4e    %+6.4e" % (nn1, nn2, nn3))
-            print("zeta   = %+6.4e    %+6.4e    %+6.4e    %+6.4e\n" %
-                  (zz1, zz2, zz3, zz4))
+            print("W3J\'s  = " + str(w3j_p2) + "  " + str(w3j_m2))
 
         def exchange_kernel(rl, rr, argv):
 
             rr2 = rr**2
             rl2 = rl**2
 
-            # this term goes to the RHS of Eq.(12)
-            V1ex = (1j**Lrel) * ((zz1 * np.nan_to_num(
-                spherical_jn(Lrel, 1j * bb1 * rr * rl),
-                nan=0.0,
-                posinf=1.0,
+            # (-) b/c this term goes to the RHS of Eq.(12)
+            V1ex = -(1j**L) * ((zz1 * np.nan_to_num(
+                spherical_jn(L, 1j * bb1 * rr * rl),
+                nan=-1.0,
+                posinf=+1.0,
                 neginf=-1.0) * np.nan_to_num(
                     np.exp(-aa1 * rr2 - gg1 * rl2),
-                    nan=0.0,
-                    posinf=1.0,
+                    nan=-1.0,
+                    posinf=+1.0,
                     neginf=-1.0)))
 
             return np.nan_to_num(np.real(V1ex))
@@ -207,55 +199,45 @@ for Ncore in cores:
 
             V1 = -mh2 * zz1 * np.nan_to_num(
                 np.exp(-aa1 * rr2 - gg1 * rl2),
-                nan=0.0,
-                posinf=1.0,
+                nan=-1.0,
+                posinf=+1.0,
                 neginf=-1.0) * (4. * aa1 * bb1 * rl * rr * (
-                    (1j**(Lrel - 1) * np.nan_to_num(
-                        spherical_jn(Lrel - 1, 1j * bb1 * rr * rl),
-                        nan=0.0,
-                        posinf=1.0,
-                        neginf=-1.0) * wigm * (2 * Lrel - 3) + 1j**
-                     (Lrel + 1) * np.nan_to_num(
-                         spherical_jn(Lrel + 1, 1j * bb1 * rr * rl),
-                         nan=0.0,
-                         posinf=1.0,
-                         neginf=-1.0) * wigp * (2 * Lrel - 1)) +
-                    (-4. * aa1**2 * rr2 + 2 * aa1 - bb1**2 * rl2 + Lrel *
-                     (Lrel + 1) / rr2) * 1j**Lrel * np.nan_to_num(
-                         spherical_jn(Lrel, 1j * bb1 * rr * rl),
-                         nan=0.0,
-                         posinf=1.0,
+                    (-4. * aa1**2 * rr2 + 2 * aa1 - bb1**2 * rl2 + L *
+                     (L + 1) / rr2) * 1j**L * np.nan_to_num(
+                         spherical_jn(L, 1j * bb1 * rr * rl),
+                         nan=-1.0,
+                         posinf=+1.0,
                          neginf=-1.0)))
 
             # this is simple (still missing (4 pi i^l ) RR')
-            V234 = -(1j**Lrel) * ((zz2 * np.nan_to_num(
-                spherical_jn(Lrel, 1j * bb2 * rr * rl),
-                nan=0.0,
-                posinf=1.0,
+            V234 = -(1j**L) * ((zz2 * np.nan_to_num(
+                spherical_jn(L, 1j * bb2 * rr * rl),
+                nan=-1.0,
+                posinf=+1.0,
                 neginf=-1.0) * np.nan_to_num(
                     np.exp(-aa2 * rr2 - gg2 * rl2),
-                    nan=0.0,
-                    posinf=1.0,
+                    nan=-1.0,
+                    posinf=+1.0,
                     neginf=-1.0)) + (zz3 * np.nan_to_num(
-                        spherical_jn(Lrel, 1j * bb3 * rr * rl),
-                        nan=0.0,
-                        posinf=1.0,
+                        spherical_jn(L, 1j * bb3 * rr * rl),
+                        nan=-1.0,
+                        posinf=+1.0,
                         neginf=-1.0) * np.nan_to_num(
                             np.exp(-aa3 * rr2 - gg3 * rl2),
-                            nan=0.0,
-                            posinf=1.0,
+                            nan=-1.0,
+                            posinf=+1.0,
                             neginf=-1.0)) + (zz4 * np.nan_to_num(
-                                spherical_jn(Lrel, 1j * bb4 * rr * rl),
-                                nan=0.0,
-                                posinf=1.0,
+                                spherical_jn(L, 1j * bb4 * rr * rl),
+                                nan=-1.0,
+                                posinf=+1.0,
                                 neginf=-1.0) * np.nan_to_num(
                                     np.exp(-aa4 * rr2 - gg4 * rl2),
-                                    nan=0.0,
-                                    posinf=1.0,
+                                    nan=-1.0,
+                                    posinf=+1.0,
                                     neginf=-1.0)))
 
             # this function is high unstable for large r (it gives NaN but it should give 0.)
-            return np.nan_to_num(np.real(+V1 + V234))
+            return np.nan_to_num(np.real(V1 - V234))
 
         def pot_local(r, argv):
             r2 = r**2
@@ -288,6 +270,13 @@ for Ncore in cores:
             U = np.zeros((NState, NState))
             Uex = np.zeros((NState, NState))
             nu = mu * omega / (2 * hbar)
+            if (pedantic): print("Omega       : " + str(omega))
+            if (pedantic): print("nu          : " + str(np.round(nu, 3)))
+            if (pedantic): print(" ")
+
+            if (pedantic): print("Creation of integration array: ")
+            start_time = timeit.default_timer()
+            start_time2 = start_time
 
             psiRN = np.zeros((order, NState))
             ddpsiRN = np.zeros([order, NState])
@@ -296,11 +285,18 @@ for Ncore in cores:
 
             for y in range(NState):
                 for x in range(order):
-                    psiRN[x, y] = psi(t[x], y, Lrel, nu)
-                    ddpsiRN[x, y] = ddpsi(t[x], y, Lrel, nu)
+                    psiRN[x, y] = psi(t[x], y, L, nu)
+                    ddpsiRN[x, y] = ddpsi(t[x], y, L, nu)
 
-            VlocRN[:] = pot_local(t[:],
-                                  potargs) + mh2 * Lrel * (Lrel + 1) / t[:]**2
+            if (pedantic):
+                print(" >> Wave function: (",
+                      timeit.default_timer() - start_time, " s )")
+            start_time = timeit.default_timer()
+            VlocRN[:] = pot_local(t[:], potargs) + mh2 * L * (L + 1) / t[:]**2
+            if (pedantic):
+                print(" >> Local potential:  (",
+                      timeit.default_timer() - start_time, " s )")
+            start_time = timeit.default_timer()
 
             if (interaction == "NonLocal"):
                 if energydepen:
@@ -314,6 +310,17 @@ for Ncore in cores:
                     dtype=int)
                 #print("Vnonlocal(0.33 , 0.75)= ",pot_nonlocal(0.33 , 0.75,potargs) )
                 #stop()
+                if (pedantic):
+                    print(" >> NonLocal potential:  (",
+                          timeit.default_timer() - start_time, " s )")
+                start_time = timeit.default_timer()
+
+            if (pedantic):
+                print("Array creation time:",
+                      timeit.default_timer() - start_time2, " s")
+            start_time = timeit.default_timer()
+
+            if (pedantic): print("Array integration:")
 
             for i in np.arange(NState):
                 for j in np.arange(i + 1):
@@ -336,9 +343,15 @@ for Ncore in cores:
                                     t[:] * VnolRN[k, :] * psiRN[:, j] * w[:]
                                 ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
 
+            if (pedantic):
+                print("Integration time:",
+                      timeit.default_timer() - start_time, " s")
+            start_time = timeit.default_timer()
+
             Kin = -mh2 * Kin
             H = Vloc + Vnonloc + Kin
-            Kex = U - Uex if energydepen else U
+            #H = Vnonloc + Kin
+            Kex = U + Uex if energydepen else U
 
             for i in np.arange(NState):
                 for j in np.arange(0, i):
@@ -363,30 +376,25 @@ for Ncore in cores:
                 print(" ")
                 continue
 
-            for i in np.arange(NState, NState + 1):
-                #for i in np.arange(NState+1):
-                #valn, vecn = scipy.linalg.eig(H[:i, :i], np.eye(NState))
-                valg, vecg = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
-                zg = np.argsort(valg)
-                zg = zg[0:states_print]
-                energiesg = (valg[zg])
-                # calculate eigensystem of the exchange kernel
-                valga, vecga = scipy.linalg.eig(Kex[:i, :i])
-                zga = np.argsort(valga)
-                energiesga = (valga[zga])
-
-            ene_omega_Kex.append(energiesg[0])
-            print('A = %d  L = %2.2f  omega = %2.2f' % (Ncore, Lamb, omega))
-            for n in range(int(min(1, len(valga)))):
-                print(energiesga[n], '  ', energiesg[n])
-
-            if energiesg[0] < 0:
-                print(
-                    '  A  Lambda        a    B(A+1)\n%3d %7.2f %8.4f %9.4f\n-----------------------------------'
-                    % (Ncore, Lamb, coreosci, np.real(energiesg[0])))
-                stable = True
-
-            if pedantic:
+            debug = 1
+            if debug:
+                print('condition number of H:', np.linalg.cond(H))
+                print("Gauss scale: ", gauss_scale)
+                print(" ")
+                print("U: ")
+                print(np.round(U, 2))
+                print("Kex: ")
+                print(np.round(Kex, 2))
+                print("Vloc: ")
+                print(np.around(Vloc, 2))
+                print("Vnonloc:  ")
+                print(np.around(Vnonloc, 2))
+                print("Kin: ")
+                print(np.around(Kin))
+                print("H: ")
+                print(np.around(H))
+                #print("Vloc/Vnonloc: ")
+                #print(np.around(Vloc / Vnonloc, 3))
 
                 for compo in [
                         'Unit_loc', 'Unit_ex', 'V_loc', 'V_nonloc', 'E_kin',
@@ -402,23 +410,40 @@ for Ncore in cores:
                 np.savetxt('E_kin.txt', np.matrix(Kin), fmt='%12.4f')
                 np.savetxt('Hamiltonian.txt', np.matrix(H), fmt='%12.4f')
 
-                if os.path.isfile('KexEV.dat'):
-                    os.remove('KexEV.dat')
-                np.savetxt('KexEV.dat', valga, fmt='%12.4f')
-                if os.path.isfile('HEV.dat'):
-                    os.remove('HEV.dat')
-                np.savetxt('HEV.dat', valg, fmt='%12.4f')
+            for i in np.arange(NState, NState + 1):
+                #for i in np.arange(NState+1):
+                #valn, vecn = scipy.linalg.eig(H[:i, :i], np.eye(NState))
+                valgh, vecgh = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
+                # calculate eigensystem of the exchange kernel
+                valga, vecga = scipy.linalg.eig(Kex[:i, :i])
+                zg = np.argsort(valgh)
+                zg = zg[0:states_print]
+                energiesg = (valgh[zg])
 
-            if stable:
+            if os.path.isfile('KexEV.dat'):
+                os.remove('KexEV.dat')
+            np.savetxt('KexEV.dat', valga, fmt='%12.4f')
+            if os.path.isfile('HEV.dat'):
+                os.remove('HEV.dat')
+            np.savetxt('HEV.dat', valgh, fmt='%12.4f')
+
+            ene_omega_Kex.append(energiesg[0])
+            print('A = %d  L = %2.2f  ' % (Ncore,
+                                           Lamb) + "  E: " + str(energiesg))
+            if energiesg[0] < 0:
+                print(
+                    '  A  Lambda        a    B(A+1)\n%3d %7.2f %8.4f %9.4f\n-----------------------------------'
+                    % (Ncore, Lamb, coreosci, np.real(energiesg[0])))
+                stable = True
                 break
-
+        if debug:
+            exit()
         if stable != True:
             Lc.append([Ncore, Lamb])
             continue
         else:
-            nL += 1
-            Lamb = Lrange[nL]
-            if nL >= len(Lrange):
+            Lamb += dL
+            if Lamb > Lmax:
                 print(Lc)
                 exit()
     print(Lc)

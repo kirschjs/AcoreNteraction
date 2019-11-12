@@ -104,13 +104,12 @@ def fita(AA, order=2, orderp=1, plot=False):
     def acritf(aa):
 
         zet = Rcore[-1] / Acore[-1]**(1. / 3.)
-
         rr = Rcore[aa - 2] if (aa < 7) else zet * aa**(1. / 3.)
-
         # return result in volume approximation for core numbers for which no
         # microscopic data is available
         a = heuriger * rr**(-2) * 1.5 * (aa - 1)**2 / aa if (
             aa > 6) else acrit[aa - 2]
+
         return a
 
     ame = [acritf(int(aa)) for aa in Arange]
