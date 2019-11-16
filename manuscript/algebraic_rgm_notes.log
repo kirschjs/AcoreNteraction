@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.14)  1 NOV 2019 18:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2019.9.14)  15 NOV 2019 18:10
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -235,29 +235,37 @@ Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@uldp=\dimen117
 \SOUL@ulht=\dimen118
 )
-(./algebraic_rgm_notes.aux)
-\openout1 = `algebraic_rgm_notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-Class revtex4 Info: Unrecognized array package. Please update this document cla
-ss! (Proceeding with fingers crossed.) on input line 52.
-Class revtex4 Info: Patching unrecognized longtable package. (Proceeding with f
-ingers crossed) on input line 52.
-Class revtex4 Info: cite was not loaded (OK!) on input line 52.
-Class revtex4 Info: multicol was not loaded (OK!) on input line 52.
+! LaTeX Error: Command \ve already defined.
+               Or name \end... illegal, see p.192 of the manual.
 
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.46 ...mand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+                                                  
+? 
+! Emergency stop.
+ ...                                              
+                                                  
+l.46 ...mand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+                                                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+ 
+Here is how much of TeX's memory you used:
+ 3823 strings out of 492982
+ 46417 string characters out of 6134896
+ 121185 words of memory out of 5000000
+ 7389 multiletter control sequences out of 15000+600000
+ 3953 words of font info for 15 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 27i,0n,35p,236b,34s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
+se/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count110
 \scratchdimen=\dimen119
@@ -326,12 +334,12 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 61.
+LaTeX Font Info:    Try loading font information for U+msa on input line 64.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 61.
+LaTeX Font Info:    Try loading font information for U+msb on input line 64.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -339,128 +347,172 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 Class revtex4 Warning: Assuming \noaffiliation for JK.
 
-LaTeX Font Info:    Try loading font information for U+bbold on input line 93.
+LaTeX Font Info:    Try loading font information for U+bbold on input line 96.
 (/usr/share/texlive/texmf-dist/tex/latex/bbold/Ubbold.fd)
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 101.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 104.
 
 
-Underfull \hbox (badness 1221) in paragraph at lines 112--114
+Underfull \hbox (badness 1221) in paragraph at lines 115--117
 []\OT1/cmr/m/n/10 The in-te-gra-tion in [] yields a three-dimensional
  []
 
 
-Overfull \hbox (6.864pt too wide) detected at line 128
+Overfull \hbox (6.864pt too wide) detected at line 131
 []
  []
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 1629) in paragraph at lines 162--166
+Underfull \hbox (badness 1629) in paragraph at lines 165--169
 \OT1/cmr/m/n/10 with $[][] = []\OML/cmm/m/it/10 rY[]\OT1/cmr/m/n/10 ([])$. Us-i
 ng Eq.(4.6.3) and
  []
 
 [2] [3]
 
-LaTeX Warning: Reference `tab.legend' on page 4 undefined on input line 272.
+LaTeX Warning: Reference `tab.legend' on page 4 undefined on input line 275.
 
 
 Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 272.
+(amsmath)                 on input line 275.
 
-LaTeX Font Info:    Try loading font information for U+euf on input line 272.
+LaTeX Font Info:    Try loading font information for U+euf on input line 275.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
 File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
 )
 
-LaTeX Warning: Reference `tab.legend' on page 4 undefined on input line 272.
+LaTeX Warning: Reference `tab.legend' on page 4 undefined on input line 275.
 
 
-Overfull \hbox (22.56728pt too wide) in paragraph at lines 274--307
+Overfull \hbox (22.56728pt too wide) in paragraph at lines 277--310
  []$[]$ 
  []
 
 
-Overfull \hbox (274.0pt too wide) in paragraph at lines 307--307
+Overfull \hbox (274.0pt too wide) in paragraph at lines 310--310
 [][] 
  []
 
-(./algebraic_rgm_notes.bbl) [4] [5] (./algebraic_rgm_notes.aux)
 
-LaTeX Warning: There were undefined references.
+LaTeX Warning: Command \r invalid in math mode on input line 335.
 
- ) 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.335 \end{align}
+                 
+? 
+! Emergency stop.
+<inserted text> 
+                $
+l.335 \end{align}
+                 
+End of file on the terminal!
+
+ 
 Here is how much of TeX's memory you used:
- 4824 strings out of 492982
- 61809 string characters out of 6134896
- 157804 words of memory out of 5000000
- 8284 multiletter control sequences out of 15000+600000
- 16478 words of font info for 64 fonts, out of 8000000 for 9000
+ 4809 strings out of 492982
+ 61460 string characters out of 6134896
+ 157870 words of memory out of 5000000
+ 8274 multiletter control sequences out of 15000+600000
+ 16950 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,16n,35p,1112b,371s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/bbold-type1/bbold10.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbsy10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cmextra/cmex7.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on algebraic_rgm_notes.pdf (5 pages, 338620 bytes).
+ 41i,16n,35p,1107b,371s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
+0s
+!  ==> Fatal error occurred, no output PDF file produced!
+on page 4 undefined on input line 2
+75.
+
+
+LaTeX Warning: Reference `tab.legend' on page 4 undefined on input line 275.
+
+
+Overfull \hbox (22.56728pt too wide) in paragraph at lines 277--310
+ []$[]$ 
+ []
+
+
+Overfull \hbox (274.0pt too wide) in paragraph at lines 310--310
+[][] 
+ []
+
+
+LaTeX Warning: Command \r invalid in math mode on input line 335.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.335 \end{align}
+                 
+? 
+! Emergency stop.
+<inserted text> 
+                $
+l.335 \end{align}
+                 
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 4798 strings out of 492982
+ 61281 string characters out of 6134896
+ 157581 words of memory out of 5000000
+ 8263 multiletter control sequences out of 15000+600000
+ 16950 words of font info for 66 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 41i,16n,35p,286b,375s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
+0s
+!  ==> Fatal error occurred, no output PDF file produced!
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/euler/eufm10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/euler/eufm7.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/symbols/msbm10.pfb>
+Output written on algebraic_rgm_notes.pdf (5 pages, 349427 bytes).
 PDF statistics:
- 153 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
+ 161 PDF objects out of 1000 (max. 8388607)
+ 117 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -30,6 +30,9 @@
 \newcommand{\la}{\label} 
 \newcommand{\be}{\begin{equation}} 
 \newcommand{\ee}{\end{equation}} 
+\newcommand{\vcl}[1]{\ensuremath{\bar{\boldsymbol{r}}_\text{\tiny #1}}}
+\newcommand{\cl}[1]{\ensuremath{\bar{r}_\text{\tiny #1}}}
+\newcommand{\vsp}[1]{\ensuremath{\boldsymbol{r}}_\text{\tiny #1}}
 \newcommand{\rvec}{{\bs{r}}} 
 \newcommand{\xvec}{{\bs{x}}} 
 \newcommand{\sgmvec}{\ensuremath{\boldsymbol{\sigma}}} 
@@ -308,6 +311,31 @@ $\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-2 A+3\right) \Lambda ^2\right)
 \end{turnpage}
 \end{widetext}
 \newpage
+
+\section{Appendix: The core wave function}
+Our ansatz for an $A$-boson system in its ground state
+(symmetric in space \wrt particle exchange) is
+\be
+\phi_A:=e^{-\frac{a}{2}\sum_{i=1}^{\red{A}}\vcl{i}^2}=e^{-a\sum^{\red{A-1}}\vcl{i}^2-a\sum^{\red{A-1}}_{\red{i<j}}\vcl{i}\cdot\vcl{j}}\la{eq.wfktphi}\;\;.
+\ee
+Instead of single-particle coordinates, the usage of cluster coordinates identifies
+the centre of mass as the origin of a ``harmonic'', effective potential, in which the
+particles reside in their independent-particle/mean-field ground state. All observables
+of the system in this state depend thus on a single
+parameter, the (oscillator) width $a$. The root-mean-square radius, in particular, relates to
+$a$ via
+\begin{align}
+\mathfrak{r}^2=&\frac{\int\limits_{\mathbb{R}^{3(A-1)}}d(\vcl{1},\ldots,\vcl{\red{A-1}})~
+\sum_{i=1}^{\red{A-1}}\vcl{i}^2\phi_A^2}
+{\int\limits_{\mathbb{R}^{3(A-1)}}d(\vcl{1},\ldots,\vcl{\red{A-1}})~\phi_A^2}\\
+=&\frac{3}{2}\cdot\frac{(A-1)^2}{A}\cdot a^{-1}\stackrel{A\gg 1}{=}
+\frac{3}{2}\cdot A\cdot a^{-1}\\
+=&r^2_0\cdot A^{\frac{2}{3}}\;\;.
+\end{align}
+The last line employs the assumption that the radius grows proportional to the volume of
+$A$ spheres, \ie, $\propto A^{\frac{1}{3}}$. By ``SVM measuring'' $r_0$ for some $A$, we
+implicitly relate the parameters of the theory, namely, the cutoff $\lambda$, the mass $m_N$, and
+the LECs/few-body renormalization conditions to $a$.
 
 \bibliographystyle{unsrt}
 \bibliography{Thebibliography.bib}

@@ -74,7 +74,7 @@ hbar = 197.327
 Lc = []
 
 # define the range of core numbers
-Amin = 2
+Amin = 6
 Amax = 40
 cores = range(Amin, Amax)
 
