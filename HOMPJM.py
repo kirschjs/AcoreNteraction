@@ -74,8 +74,8 @@ hbar = 197.327
 Lc = []
 
 # define the range of core numbers
-Amin = 6
-Amax = 40
+Amin = 7
+Amax = 8
 cores = range(Amin, Amax)
 
 Lrel = 1
@@ -128,7 +128,7 @@ for Ncore in cores:
             LeC = LeCdata[nL]  #polyval(Lamb, LeCmodel.x)
             LeD = LeCdata[nL]  #polyval(Lamb, LeDmodel.x)
 
-        coreosci = 0.01 * Ncore**(1. / 3.)  #coreoscis[Ncore - Amin]
+        coreosci = 0.5  #0.01 * Ncore**(1. / 3.)  #coreoscis[Ncore - Amin]
 
         mu = Ncore * m / (Ncore + 1.)
         mh2 = hbar**2 / (2 * mu)
