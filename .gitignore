@@ -7,3 +7,5 @@ SCRATCH
 tmp*
 *.aux
 *.log
+*.out
+*.pyc
