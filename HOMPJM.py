@@ -57,133 +57,12 @@ def ddpsi(r, n, l, nu):
          ) * eval_genlaguerre(n, l + 0.5, 2 * nu * r**2))
     return N * ddpsi
 
+###  Interaction ###
 
-#######################
-### general options ###
-#######################
-pedantic = 1
-states_print = 3  # How many energies do you want?
 
-mpi = '137'
-m = 938.12
-hbar = 197.327
-
-# Prague-Jerusalem-Manchester effective A-1 interaction
-
-# array which holds the critical Lambdas
-Lc = []
-
-# define the range of core numbers
-Amin = 2
-Amax = 40
-cores = range(Amin, Amax)
-
-Lrel = 1
-# for each core number, determine an oscillator strength which
-# fixes the size of this S-wave core
-# [2] : volume formula [1] : polynomial with + powers [0] : polynomial with +/- powers
-coreoscis = fita(cores, order=3, orderp=1, plot=0)[2]
-
-# select a cutoff range in which the critical value is sought
-Lmin = 0.1
-Lmax = 10.0
-dL = 0.1
-Lrange = np.arange(Lmin, Lmax, dL)
-
-parametriz = "C1_D4_opt"
-LeCmodel, Lrangefit, LeCdata = return_val(
-    Lrange, parametriz, "C", polord=3, plot=0)
-
-LeDmodel, Lrangefit, LeDdata = return_val(
-    Lrange, parametriz, "D", polord=7, plot=0)
-
-NState = 25
-Rmax = 55
-order = 350
-omegas = np.linspace(0.015, 0.1, 4)
-
-interaction = "NonLocal"
-energydepen = True
-
-for Ncore in cores:
-
-    # assume that lc is larger for a larger core, and thus begin searching
-    # for an unstable system from the lc of the Ncore-1 value
-    stable = True
-
-    if Lc == []:
-        nL = 0
-        Lamb = Lrange[0]
-    else:
-        nL = max(0, nL - 7)
-        Lamb = Lrange[nL]
-
-    while (stable):
-        #omegas = [1.5]
-        la = ('%-4.2f' % Lamb)[:4]
-        try:
-            LeC = lec_list_oneMEVopt[la][0]
-            LeD = lec_list_oneMEVopt[la][1]
-        except:
-            LeC = LeCdata[nL]  #polyval(Lamb, LeCmodel.x)
-            LeD = LeCdata[nL]  #polyval(Lamb, LeDmodel.x)
-
-        coreosci = 0.01 * Ncore**(1. / 3.)  #coreoscis[Ncore - Amin]
-
-        mu = Ncore * m / (Ncore + 1.)
-        mh2 = hbar**2 / (2 * mu)
-
-        potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
-
-        aa1 = alf1(potargs)
-        aa2 = alf2(potargs)
-        aa3 = alf3(potargs)
-        aa4 = alf4(potargs)
-        bb1 = bet1(potargs)
-        bb2 = bet2(potargs)
-        bb3 = bet3(potargs)
-        bb4 = bet4(potargs)
-        gg1 = gam1(potargs)
-        gg2 = gam2(potargs)
-        gg3 = gam3(potargs)
-        gg4 = gam4(potargs)
-        zz1 = zeta1(potargs)
-        zz2 = zeta2(potargs)
-        zz3 = zeta3(potargs)
-        zz4 = zeta4(potargs)
-
-        nn1 = eta1(potargs)
-        nn2 = eta2(potargs)
-        nn3 = eta3(potargs)
-        kk1 = kappa1(potargs)
-        kk2 = kappa2(potargs)
-        kk3 = kappa3(potargs)
-
-        # this might overdo it but the sympy expressions
-        # were handled erroneously before
-        w3j_m2 = (Wigner3j(1, Lrel - 1, Lrel, 0, 0, 0).doit())**2
-        w3j_p2 = (Wigner3j(1, Lrel + 1, Lrel, 0, 0, 0).doit())**2
-        wigm = 0 if (w3j_m2 == 0) else float(w3j_m2.evalf())
-        wigp = 0 if (w3j_p2 == 0) else float(w3j_p2.evalf())
-
-        if pedantic:
-            print("Lambda  = %2.2f  A = %d\n" % (Lamb, Ncore))
-            print("a core  = %4.4f\n" % coreosci)
-            print("LEC 2b = %+6.4e   LEC 3b  = %+6.4e\n" % (LeC, LeD))
-            print('            1            2            3            4')
-            print("alpha  = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (aa1, aa2,
-                                                                     aa3, aa4))
-            print("beta   = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (bb1, bb2,
-                                                                     bb3, bb4))
-            print("gamma  = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (gg1, gg2,
-                                                                     gg3, gg4))
-            print("kappa  = %+6.4e    %+6.4e    %+6.4e\n" % (kk1, kk2, kk3))
-            print("eta    = %+6.4e    %+6.4e    %+6.4e" % (nn1, nn2, nn3))
-            print("zeta   = %+6.4e    %+6.4e    %+6.4e    %+6.4e\n" %
-                  (zz1, zz2, zz3, zz4))
-
-        def exchange_kernel(rl, rr, argv):
-
+# *****************************************************
+def exchange_kernel(rl, rr, argv):
+            #return 0
             rr2 = rr**2
             rl2 = rl**2
 
@@ -200,8 +79,8 @@ for Ncore in cores:
 
             return np.nan_to_num(np.real(V1ex))
 
-        def pot_nonlocal(rl, rr, argv):
-
+def pot_nonlocal(rl, rr, argv):
+            #return 0
             rr2 = rr**2
             rl2 = rl**2
 
@@ -257,12 +136,174 @@ for Ncore in cores:
             # this function is high unstable for large r (it gives NaN but it should give 0.)
             return np.nan_to_num(np.real(+V1 + V234))
 
-        def pot_local(r, argv):
+def pot_local(r, argv):
             r2 = r**2
-            VnnDI = nn1 * np.exp(-kk1 * r2)
-            VnnnDIarm = nn2 * np.exp(-kk2 * r2)
+            VnnDI      = nn1 * np.exp(-kk1 * r2)
+            VnnnDIarm  = nn2 * np.exp(-kk2 * r2)
             VnnnDIstar = nn3 * np.exp(-kk3 * r2)
             return VnnDI + VnnnDIarm + VnnnDIstar
+# *****************************************************
+
+
+
+
+
+
+#######################
+### general options ###
+#######################
+
+
+
+if False:
+    Aradius_modifyer = 0.033
+    interaction = "NonLocal"
+    energydepen = True
+
+else:
+    Aradius_modifyer = 0.08
+    interaction = "Local"
+    energydepen = False
+
+pedantic     = 0
+
+
+NState = 25
+Rmax   = 55
+order  = 350
+omegas = np.linspace(0.015, 0.1, 4)
+
+#states_print = 3  # How many energies do you want?
+Lrel = 1          # Momento angolare
+
+# physical system
+mpi  = '137'
+m    = 938.12
+hbar = 197.327
+
+
+# Prague-Jerusalem-Manchester effective A-1 interaction
+# array which holds the critical Lambdas
+Lc = []
+
+
+# define the range of core numbers
+Amin = 20
+Amax = 60
+cores = range(Amin, Amax)
+
+
+# for each core number, determine an oscillator strength which
+# fixes the size of this S-wave core
+# [2] : volume formula [1] : polynomial with + powers [0] : polynomial with +/- powers
+
+#this is not used and i dont know why
+# coreoscis = fita(cores, order=3, orderp=1, plot=0)[2]
+
+# select a cutoff range in which the critical value is sought
+Lmin = 0.1
+Lmax = 10.0
+dL   = 0.1
+Lrange = np.arange(Lmin, Lmax, dL)
+
+
+
+
+parametriz = "C1_D4_opt"
+LeCmodel, Lrangefit, LeCdata = return_val(
+    Lrange, parametriz, "C", polord=3, plot=0)
+LeDmodel, Lrangefit, LeDdata = return_val(
+    Lrange, parametriz, "D", polord=7, plot=0)
+
+
+
+
+
+
+
+
+
+for Ncore in cores:
+    
+    print("\n\n=========== A Core " + str(Ncore) + " ============")
+
+    # assume that lc is larger for a larger core, and thus begin searching
+    # for an unstable system from the lc of the Ncore-1 value
+    stable = True
+
+    if Lc == []:
+        nL = 0
+        Lamb = Lrange[0]
+    else:
+        nL = max(0, nL - 7)
+        Lamb = Lrange[nL]
+
+    while (stable):
+        #omegas = [1.5]
+        la = ('%-4.2f' % Lamb)[:4]
+        try:
+            LeC = lec_list_oneMEVopt[la][0]
+            LeD = lec_list_oneMEVopt[la][1]
+        except:
+            LeC = LeCdata[nL]  #polyval(Lamb, LeCmodel.x)
+            LeD = LeCdata[nL]  #polyval(Lamb, LeDmodel.x)
+
+			
+			
+        coreosci = Aradius_modifyer * Ncore**(1. / 3.)  #coreoscis[Ncore - Amin]
+        coreosci = Aradius_modifyer * Ncore**(-4./15.)  #coreoscis[Ncore - Amin]
+
+        mu  = Ncore * m / (Ncore + 1.)
+        mh2 = hbar**2 / (2 * mu)
+        potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
+
+		
+		
+        aa1 = alf1(potargs)
+        aa2 = alf2(potargs)
+        aa3 = alf3(potargs)
+        aa4 = alf4(potargs)
+        bb1 = bet1(potargs)
+        bb2 = bet2(potargs)
+        bb3 = bet3(potargs)
+        bb4 = bet4(potargs)
+        gg1 = gam1(potargs)
+        gg2 = gam2(potargs)
+        gg3 = gam3(potargs)
+        gg4 = gam4(potargs)
+        zz1 = zeta1(potargs)
+        zz2 = zeta2(potargs)
+        zz3 = zeta3(potargs)
+        zz4 = zeta4(potargs)
+        nn1 = eta1(potargs)
+        nn2 = eta2(potargs)
+        nn3 = eta3(potargs)
+        kk1 = kappa1(potargs)
+        kk2 = kappa2(potargs)
+        kk3 = kappa3(potargs)
+
+        # this might overdo it but the sympy expressions
+        # were handled erroneously before
+        w3j_m2 = (Wigner3j(1, Lrel - 1, Lrel, 0, 0, 0).doit())**2
+        w3j_p2 = (Wigner3j(1, Lrel + 1, Lrel, 0, 0, 0).doit())**2
+        wigm = 0 if (w3j_m2 == 0) else float(w3j_m2.evalf())
+        wigp = 0 if (w3j_p2 == 0) else float(w3j_p2.evalf())
+
+        if pedantic:
+            print("Lambda  = %2.2f  A = %d\n" % (Lamb, Ncore))
+            print("a core  = %4.4f\n" % coreosci)
+            print("LEC 2b = %+6.4e   LEC 3b  = %+6.4e\n" % (LeC, LeD))
+            print('            1              2              3              4')
+            print("alpha  = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (aa1, aa2,  aa3, aa4))
+            print("beta   = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (bb1, bb2,  bb3, bb4))
+            print("gamma  = %+6.4e    %+6.4e    %+6.4e    %+6.4e" % (gg1, gg2,  gg3, gg4))
+            print("kappa  = %+6.4e    %+6.4e    %+6.4e" % (kk1, kk2, kk3))
+            print("eta    = %+6.4e    %+6.4e    %+6.4e" % (nn1, nn2, nn3))
+            print("zeta   = %+6.4e    %+6.4e    %+6.4e    %+6.4e\n" %(zz1, zz2, zz3, zz4))
+
+            
+            
+            
 
         x, w = np.polynomial.legendre.leggauss(order)
         # Translate x values from the interval [-1, 1] to [a, b]
@@ -281,19 +322,22 @@ for Ncore in cores:
             ###########################
             ### All vectors to zero ###
             ###########################
-            H = np.zeros((NState, NState))
-            Kin = np.zeros((NState, NState))
+            H       = np.zeros((NState, NState))
+            Hloc    = np.zeros((NState, NState))
+            Kin     = np.zeros((NState, NState))
             Vnonloc = np.zeros((NState, NState))
-            Vloc = np.zeros((NState, NState))
-            U = np.zeros((NState, NState))
-            Uex = np.zeros((NState, NState))
-            nu = mu * omega / (2 * hbar)
+            Vloc    = np.zeros((NState, NState))
+            U       = np.zeros((NState, NState))
+            Uex     = np.zeros((NState, NState))
+            nu      = mu * omega / (2 * hbar)
 
-            psiRN = np.zeros((order, NState))
+            psiRN   = np.zeros((order, NState))
             ddpsiRN = np.zeros([order, NState])
-            VlocRN = np.zeros(order)
-            VexRN = np.zeros((order, order))
+            VlocRN  = np.zeros(order)
+            VexRN   = np.zeros((order, order))
 
+			
+			
             for y in range(NState):
                 for x in range(order):
                     psiRN[x, y] = psi(t[x], y, Lrel, nu)
@@ -336,19 +380,77 @@ for Ncore in cores:
                                     t[:] * VnolRN[k, :] * psiRN[:, j] * w[:]
                                 ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
 
+						
+						
+            for i in np.arange(NState):
+                for j in np.arange(0, i):
+                    #H[j][i] = H[i][j]
+                    #Kex[j][i] = Kex[i][j]
+                    Vnonloc[j][i] = Vnonloc[i][j]
+                    Vloc[j][i]    = Vloc[i][j]
+                    Kin[j][i]     = Kin[i][j]
+                    U[j][i]       = U[i][j]
+					
+			# Nonlocale
             Kin = -mh2 * Kin
             H = Vloc + Vnonloc + Kin
             Kex = U - Uex if energydepen else U
+			# Locale
+            Hloc = Vloc + Kin
+			
+            
+            #for i in range(8):
+            #        print(np.round(H[i]-Hloc[i],2))
+            #for i in range(8):
+            #        print(np.round(Kex[i],2))
+            #print(" ")
+            
 
-            for i in np.arange(NState):
-                for j in np.arange(0, i):
-                    H[j][i] = H[i][j]
-                    Vnonloc[j][i] = Vnonloc[i][j]
-                    Vloc[j][i] = Vloc[i][j]
-                    Kin[j][i] = Kin[i][j]
-                    U[j][i] = U[i][j]
-                    Kex[j][i] = Kex[i][j]
 
+			
+			
+            # Do you want to clculate all the reduced matrix elements.
+            # It is enough the last one usually so the loop can run np.arange(NState, NState + 1)
+            if True:
+                #for i in np.arange(NState+1):
+                #valn, vecn = scipy.linalg.eig(H[:i, :i], np.eye(NState))
+				
+                valg, vecg = scipy.linalg.eig(H[: , : ], Kex[:, :])
+                zg = np.argsort(valg)
+                energiesg = (valg[zg])
+				
+				# only local energy
+                valgl, vecgl = scipy.linalg.eig(Hloc[:, :], np.identity(NState))
+                zgl = np.argsort(valgl)
+                energiesgl = (valg[zgl])
+				
+                # calculate eigensystem of the exchange kernel
+                valga, vecga = scipy.linalg.eig(Kex[:, :])
+                zga = np.argsort(valga)
+                energiesga = (valga[zga])
+			
+        
+            else:
+              for i in np.arange(5,NState+1):
+                #valn, vecn = scipy.linalg.eig(H[:i, :i], np.eye(NState))
+				
+                valg, vecg = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
+                zg = np.argsort(valg)
+                energiesg = (valg[zg])
+                print(i, energiesg[0])
+				
+				# only local energy
+                valgl, vecgl = scipy.linalg.eig(Hloc[:i, :i], np.identity(i))
+                zgl = np.argsort(valgl)
+                energiesgl = (valg[zgl])
+				
+                # calculate eigensystem of the exchange kernel
+                valga, vecga = scipy.linalg.eig(Kex[:i, :i])
+                zga = np.argsort(valga)
+                energiesga = (valga[zga])			
+			
+			
+			
             # Check if basis orthonormal:
             if np.sum(abs(np.eye(NState) - U)) > 0.1 * NState**2:
                 print(" ")
@@ -363,31 +465,21 @@ for Ncore in cores:
                 print(" ")
                 continue
 
-            for i in np.arange(NState, NState + 1):
-                #for i in np.arange(NState+1):
-                #valn, vecn = scipy.linalg.eig(H[:i, :i], np.eye(NState))
-                valg, vecg = scipy.linalg.eig(H[:i, :i], Kex[:i, :i])
-                zg = np.argsort(valg)
-                zg = zg[0:states_print]
-                energiesg = (valg[zg])
-                # calculate eigensystem of the exchange kernel
-                valga, vecga = scipy.linalg.eig(Kex[:i, :i])
-                zga = np.argsort(valga)
-                energiesga = (valga[zga])
+
 
             ene_omega_Kex.append(energiesg[0])
-            print('A = %d  L = %2.2f  omega = %2.2f' % (Ncore, Lamb, omega))
-            for n in range(int(min(1, len(valga)))):
-                print(energiesga[n], '  ', energiesg[n])
+            print('A = %d  L = %2.2f  omega = %2.2f  energy = %2.2f Locale energy = %2.2f  First excited state energy = %2.2f ' % (Ncore, Lamb, omega, energiesg[0], energiesgl[0], energiesg[1]))
+            #for n in range(int(min(1, len(valga)))):
+            #    print("Energia:" + str(energiesga[n]) + '  ' + str(energiesg[n]))
+                
 
             if energiesg[0] < 0:
-                print(
-                    '  A  Lambda        a    B(A+1)\n%3d %7.2f %8.4f %9.4f\n-----------------------------------'
-                    % (Ncore, Lamb, coreosci, np.real(energiesg[0])))
+               # print(
+               #     ' still bound!  A  Lambda        a    B(A+1)%3d %7.2f %8.4f %9.4f\n-----------------------------------'
+               #     % (Ncore, Lamb, coreosci, np.real(energiesg[1])))
                 stable = True
 
             if pedantic:
-
                 for compo in [
                         'Unit_loc', 'Unit_ex', 'V_loc', 'V_nonloc', 'E_kin',
                         'Hamiltonian'
@@ -395,12 +487,12 @@ for Ncore in cores:
                     strFile = compo + '.txt'
                     if os.path.isfile(strFile):
                         os.remove(strFile)
-                np.savetxt('Unit_loc.txt', np.matrix(U), fmt='%12.4f')
-                np.savetxt('Unit_ex.txt', np.matrix(Kex), fmt='%12.4f')
-                np.savetxt('V_loc.txt', np.matrix(Vloc), fmt='%12.4f')
-                np.savetxt('V_nonloc.txt', np.matrix(Vnonloc), fmt='%12.4f')
-                np.savetxt('E_kin.txt', np.matrix(Kin), fmt='%12.4f')
-                np.savetxt('Hamiltonian.txt', np.matrix(H), fmt='%12.4f')
+                np.savetxt('Unit_loc.txt',    np.matrix(U),       fmt='%12.4f')
+                np.savetxt('Unit_ex.txt',     np.matrix(Kex),     fmt='%12.4f')
+                np.savetxt('V_loc.txt',       np.matrix(Vloc),    fmt='%12.4f')
+                np.savetxt('V_nonloc.txt',    np.matrix(Vnonloc), fmt='%12.4f')
+                np.savetxt('E_kin.txt',       np.matrix(Kin),     fmt='%12.4f')
+                np.savetxt('Hamiltonian.txt', np.matrix(H),       fmt='%12.4f')
 
                 if os.path.isfile('KexEV.dat'):
                     os.remove('KexEV.dat')
@@ -413,12 +505,16 @@ for Ncore in cores:
                 break
 
         if stable != True:
+            print("GOOD: I found the critical lambda for A = " + str( Ncore) + " + 1 particles L = [" + str(Lrange[nL-1]) + " - " + str(Lrange[nL]) + "]")
             Lc.append([Ncore, Lamb])
             continue
         else:
             nL += 1
             Lamb = Lrange[nL]
             if nL >= len(Lrange):
+                print("ERROR: cut-off too big. I dont know what are the LECs for it! ")
                 print(Lc)
                 exit()
-    print(Lc)
+    print ("A", "Lc")		
+    for i in range(len(Lc)):
+     print(Lc[i][0], Lc[i][1])
