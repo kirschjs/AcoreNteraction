@@ -67,7 +67,8 @@ def fita(AA, order=2, orderp=1, plot=False):
         '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'
     ]
 
-    datadir = "/home/kirscher/kette_repo/AcoreNteraction/"
+    #datadir = "/home/kirscher/kette_repo/AcoreNteraction/"
+    datadir = ""
     data_rad = [line for line in open(datadir + 'lc4_from_rgm_3-30.dat')][1:]
 
     Acore = np.array([int(line.strip().split()[0]) for line in data_rad])
