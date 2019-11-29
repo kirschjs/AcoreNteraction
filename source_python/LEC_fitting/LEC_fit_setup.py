@@ -12,7 +12,7 @@ BINpath = home + '/kette_repo/source/seriell/eft_sandkasten/'
 tni = 1
 
 mpii = '137'
-Lrange = np.arange(0.1, 10., 0.05)
+Lrange = np.arange(6.4, 10., 0.05)
 
 # 'reduce' , 'bdg' , 'over' , 'QUA' , 'plot' , 'scatt'
 cal = ['OBLU', 'bdg', 'QUA', 'plot', 'scatt']
@@ -27,7 +27,7 @@ cal = ['bdg', 'QUA']
 cal = ['bdg', 'QUA', 'reduce']
 cal = ['bdg', 'QUA', 'fit']
 
-energy2fit = 1.5
+energy2fit = 4.0
 
 dbg = 0
 
@@ -61,5 +61,5 @@ sizeFrag = 15
 maxCoef = 1000
 minCoef = 200
 ncycl = 300
-maxDiff = 0.05
+maxDiff = 0.01
 delPcyc = 2

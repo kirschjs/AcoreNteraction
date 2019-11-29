@@ -182,7 +182,8 @@ def reduce_2n(w2rels,
             nbr_cycles=ncycl,
             max_diff=maxd,
             ord=0,
-            dr2executable=bridge.BINpath + 'DR2END_' + bridge.mpii + '.exe')
+            dr2executable=LEC_fit_setup.BINpath + 'DR2END_' +
+            LEC_fit_setup.mpii + '.exe')
         os.system('cp ' + 'INEN ' + 'INEN_' + ch)
 
         mm_s = rrgm_functions.get_reduced_width_set(

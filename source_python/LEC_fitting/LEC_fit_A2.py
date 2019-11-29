@@ -12,8 +12,8 @@ from two_particle_functions import *
 chs = {
     # DEUTERON
     #'np-3SD1': [1, 1, [2, 10], [], [], 'SD', 'blue', sizeFrag, 1.0],
-    'np-3S1': [1, 1, [2], [], [], 'S', 'blue', sizeFrag, 1.21],
-    'np-1S0': [0, 0, [1], [], [], 'S', 'red', sizeFrag, 1.32],
+    'np-3S1': [1, 1, [2], [], [], 'S', 'blue', sizeFrag, 0.91],
+    'np-1S0': [0, 0, [1], [], [], 'S', 'red', sizeFrag, 1.12],
     #'np-1P1': [1, 0, [8], [], [], 'P', 'gray', sizeFrag, 1.0],
     #'np-3P0': [0, 1, [9], [], [], 'P', 'red', sizeFrag, 0.95],
     #'np-3P1': [1, 1, [9], [], [], 'P', 'green', sizeFrag, 0.98],
@@ -31,7 +31,7 @@ chs = {
     #'pp-3P2': [2, 1, 12, [], [], 'P', 'blue']
 }
 
-scale = 1.3
+scale = 0.992
 addw = 10
 
 plo = 0
@@ -57,12 +57,8 @@ for lam in Lrange:
     phasSeum = [np.zeros(anze) for n in range(anzs)]
     pots = 'pot_nn_%02d' % int(float(la))
     valinter = False
-    optlist = False
-    try:
-        lec_list = lec_list_oneMEVopt[mpii]
-        optlist = True
-    except:
-        lec_list = lec_list_oneMEV[mpii]
+
+    lec_list = lec_list_unitary_scatt
 
     try:
         cloW = lec_list[la][0]

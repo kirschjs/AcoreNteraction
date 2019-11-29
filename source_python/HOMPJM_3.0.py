@@ -146,15 +146,15 @@ def pot_local(r, argv):
 ### general options ###
 #######################
 
-Aradius_modifyer = 0.015
+Aradius_modifyer = 0.0006q
 interaction = "NonLocal"
 
 pedantic = 0
 
 # select a cutoff range in which the critical value is sought
-Lmin = 4.3
+Lmin = 1.3
 Lmax = 9.9
-dL = 0.1
+dL = 0.2
 Lrange = np.arange(Lmin, Lmax, dL)
 
 NState = 35
@@ -175,8 +175,8 @@ hbar = 197.327
 Lc = []
 
 # define the range of core numbers
-Amin = 85
-Amax = 185
+Amin = 15
+Amax = 18
 cores = range(Amin, Amax)
 
 # for each core number, determine an oscillator strength which

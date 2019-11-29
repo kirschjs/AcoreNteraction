@@ -92,9 +92,9 @@ if dbg: print('3N basis structure: ', typ)
 parit = 1  # 0/1 = +/-
 optLECs = {}
 
-for lam in Lrange:
-    print('L = %2.2f' % (lam))
-    la = ('%-4.2f' % lam)[:4]
+for num_lam in range(len(Lrange)):
+    print('L = %2.2f' % (Lrange[num_lam]))
+    la = ('%-4.2f' % Lrange[num_lam])[:4]
     n2path = home + '/kette_repo/sim_par/nucleus/2n/' + la + '/'
     n3path = home + '/kette_repo/sim_par/nucleus/3N/' + la + '/'
 
@@ -119,13 +119,9 @@ for lam in Lrange:
         coeff3 = np.array([0, 0., 1.])
         pots3 = 'pot_nnn_%02d' % int(float(la))
 
-        try:
-            lec_list = lec_list_one_three[mpii]
-            if lec_list[la][-1] == 0.0:
-                lec_list = lec_list_one_three[mpii]
-        except:
-            lec_list = lec_list_one_three[mpii]
+        lec_list = lec_list_unitary_scatt
 
+        opt2bdyLEC = lec_list[la][0]
         try:
             d0 = lec_list[la][-1]
         except:
@@ -135,7 +131,7 @@ for lam in Lrange:
             y = xy[:, 1]
             z = np.polyfit(x, y, 12)
             p = np.poly1d(z)
-            d0 = p(lam)
+            d0 = p(Lrange[num_lam])
             print('>>> interpolated LECs for this cutoff: d0 = %4.4f MeV' % d0)
 
         prep_pot_file_3N(lam3=la, ps3=pots3, d10=d0)
@@ -143,14 +139,14 @@ for lam in Lrange:
     pots = n2path + 'pot_nn_%02d' % int(float(la))
 
     #[0,1]->[a,b]
-    scal_up = 1.4
-    scal_do = 0.8
+    scal_up = 1.3
+    scal_do = 0.9
     csca_rel = np.random.random(len(basis)) * (scal_up - scal_do) + scal_do
 
     if dbg: print('Scaling factors (w_rel): ', csca_rel)
 
     w3rt = [
-        wid_gen(add=2, ths=[1e-5, 2e2, 0.2], w0=w120, sca=csca_rel[i])
+        wid_gen(add=4, ths=[1e-5, 2e2, 0.2], w0=w120, sca=csca_rel[i])
         for i in range(len(basis))
     ]
 
@@ -340,8 +336,8 @@ for lam in Lrange:
                 phaout='PHAOUT', ch=[1, 1], meth=1, th_shift='')
 
             params = '# L=%2.1f fm^-1  e=%4.3f  beta=%3.2f  dma=%d  size(1S0)=%d  adapt_w=%2.1f  %s B(3,jj)=%3.1f MeV' % (
-                lam, epsi, beta, len(rw_per_dist), size2Frag, adapt_weight,
-                typ, b3jj)
+                Lrange[num_lam], epsi, beta, len(rw_per_dist), size2Frag,
+                adapt_weight, typ, b3jj)
             write_phases(
                 phases, filename='../ph_2n-n.dat', append=0, comment=params)
             plot_phases(phase_file='../ph_2n-n.dat')
@@ -359,20 +355,13 @@ for lam in Lrange:
             return abs(float(E_0) + fitb)
 
         print('>>> commencing fit...')
-        try:
-            opt2bdyLEC = lec_list_one_three[mpii][la][0]
-        except:
-            print(optLECs)
-            print(
-                '3-body calibration without optimised 2-body system not allowed.'
-            )
-            exit()
 
-        fac = 1.001
+        laold = ('%-4.2f' % (Lrange[num_lam] + 0.05))[:4]
+        fac = 1.002
         ft_lo = fmin(fitti, fac, args=(energy2fit, 0, 1), disp=False)
         res_lo = fitti(ft_lo[0], 0.0, 0, 0)
-        print('L = %2.2f:  %12.4f yields B(3)= %8.4f' % (lam, d0 * ft_lo[0],
-                                                         res_lo))
+        print('L = %2.2f:  %12.4f yields B(3)= %8.4f' %
+              (Lrange[num_lam], d0 * ft_lo[0], res_lo))
         optLECs[la] = [opt2bdyLEC, d0 * ft_lo[0]]
         print(optLECs)
 
