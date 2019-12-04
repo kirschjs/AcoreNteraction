@@ -146,15 +146,15 @@ def pot_local(r, argv):
 ### general options ###
 #######################
 
-Aradius_modifyer = 0.0006q
-interaction = "NonLocal"
+Aradius_modifyer = 0.025
+interaction = "Local"
 
 pedantic = 0
 
 # select a cutoff range in which the critical value is sought
-Lmin = 1.3
+Lmin = 1.
 Lmax = 9.9
-dL = 0.2
+dL = 0.1
 Lrange = np.arange(Lmin, Lmax, dL)
 
 NState = 35
@@ -175,8 +175,8 @@ hbar = 197.327
 Lc = []
 
 # define the range of core numbers
-Amin = 15
-Amax = 18
+Amin = 7
+Amax = 28
 cores = range(Amin, Amax)
 
 # for each core number, determine an oscillator strength which
@@ -186,7 +186,8 @@ cores = range(Amin, Amax)
 #this is not used and i dont know why
 # coreoscis = fita(cores, order=3, orderp=1, plot=0)[2]
 
-parametriz = "C1_D3"
+parametriz = "C0_D3_unit_bnd"
+lec_list = lec_list_unitary_bnd
 LeCmodel, Lrangefit, LeCdata = return_val(
     Lrange, parametriz, "C", polord=3, plot=0)
 LeDmodel, Lrangefit, LeDdata = return_val(
@@ -211,11 +212,13 @@ for Ncore in cores:
         #omegas = [1.5]
         la = ('%-4.2f' % Lamb)[:4]
         try:
-            LeC = lec_list_one_three[la][0]
-            LeD = lec_list_one_three[la][1]
+            LeC = lec_list[la][0]
+            LeD = lec_list[la][1]
         except:
-            LeC = LeCdata[nL]  #polyval(Lamb, LeCmodel.x)
-            LeD = LeCdata[nL]  #polyval(Lamb, LeDmodel.x)
+            print(
+                'LECs not fitted for this cutoff.\n Use (unreliable) LECmodel fit.'
+            )
+            exit()
 
         coreosci = Aradius_modifyer * Ncore**(1. / 3.
                                               )  #coreoscis[Ncore - Amin]

@@ -1,0 +1,16 @@
+It is shown that a fermionic system composed of one more particle than accessible
+internal(spin) degrees of freedom, with a rotationally invariant(S-wave) interaction
+of one two- and one three-body term, is cannot sustain a bound state if the range/support
+of the interaction is below a minimal threshold.
+
+This critical range is found to converge to its minimum, as a function of the particle number,
+more rapidly for larger ratios between a three- and a two-body binding energy which
+renormalize the interaction.
+For the nuclear four-flavour system, we find $r_\text{effective}\simulleq XXX$~fm
+which constrains the class of contact effective field theories useful for the
+description of larger nuclei.
+
+For $A<9$ equal, nuclear-mass particles, $A$-body calculations are employed. For $A>8$,
+the dependence of an effective interaction between, one, an $(A-1)$-body, spatially
+symmetric bound state, and two, a single corpuscle on the two- and three-body
+interaction parameters is derived.
