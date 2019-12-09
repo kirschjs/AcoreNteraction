@@ -146,21 +146,23 @@ def pot_local(r, argv):
 ### general options ###
 #######################
 
-Aradius_modifyer = 0.025
+Aradius_modifyer_fac = 0.04
+
+Aradius_modifyer_exp = 0.54
 interaction = "Local"
 
 pedantic = 0
 
 # select a cutoff range in which the critical value is sought
-Lmin = 1.
+Lmin = 0.9
 Lmax = 9.9
 dL = 0.1
 Lrange = np.arange(Lmin, Lmax, dL)
 
-NState = 35
-Rmax = 55
-order = 400
-omegas = np.linspace(0.0015, 0.05, 10)
+NState = 25
+Rmax = 25
+order = 300
+omegas = np.linspace(0.05, 0.2, 4)
 
 #states_print = 3  # How many energies do you want?
 Lrel = 1  # Momento angolare
@@ -175,8 +177,8 @@ hbar = 197.327
 Lc = []
 
 # define the range of core numbers
-Amin = 7
-Amax = 28
+Amin = 4
+Amax = 120
 cores = range(Amin, Amax)
 
 # for each core number, determine an oscillator strength which
@@ -186,8 +188,8 @@ cores = range(Amin, Amax)
 #this is not used and i dont know why
 # coreoscis = fita(cores, order=3, orderp=1, plot=0)[2]
 
-parametriz = "C0_D3_unit_bnd"
-lec_list = lec_list_unitary_bnd
+parametriz = "C0_D4_unit_scatt"
+lec_list = lec_list_unitary_scatt
 LeCmodel, Lrangefit, LeCdata = return_val(
     Lrange, parametriz, "C", polord=3, plot=0)
 LeDmodel, Lrangefit, LeDdata = return_val(
@@ -200,6 +202,7 @@ for Ncore in cores:
     # assume that lc is larger for a larger core, and thus begin searching
     # for an unstable system from the lc of the Ncore-1 value
     stable = True
+    unstable = not stable
 
     if Lc == []:
         nL = 0
@@ -220,8 +223,8 @@ for Ncore in cores:
             )
             exit()
 
-        coreosci = Aradius_modifyer * Ncore**(1. / 3.
-                                              )  #coreoscis[Ncore - Amin]
+        coreosci = Aradius_modifyer_fac * Ncore**(
+            (1. + Aradius_modifyer_exp) / 3.)  #coreoscis[Ncore - Amin]
         #coreosci = Aradius_modifyer * Ncore**(-4. / 15.)  #coreoscis[Ncore - Amin]
 
         mu = Ncore * m / (Ncore + 1.)
@@ -281,7 +284,8 @@ for Ncore in cores:
         t = 0.5 * (x + 1) * (b - a) + a
         gauss_scale = 0.5 * (b - a)
 
-        stable = False
+        stable = True
+        unstable = not stable
 
         for omega in omegas:
 
@@ -335,7 +339,7 @@ for Ncore in cores:
                             Uex[i][j] = Uex[i][j] + 4. * np.pi * np.sum(
                                 t[:] * VexRN[k, :] * psiRN[:, j] * w[:]
                             ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
-                        for k in range(order):
+                            #for k in range(order):
                             #Vnonloc[i][j] = Vnonloc[i][j] +
                             #np.sum(VnolRN[k, :] * psiRN[:, j] * w[:]) * psiRN[k, i] * w[k] * gauss_scale**2
                             Vnonloc[i][
@@ -352,9 +356,9 @@ for Ncore in cores:
                     Uex[j][i] = Uex[i][j]
 
             Kin = -mh2 * Kin
-            H = Kin + Vloc + 1.0 * Vnonloc
+            H = Kin + Vloc + 1. * Vnonloc
             Hloc = Kin + Vloc
-            Norm = U - 1.0 * Uex
+            Norm = U - 1. * Uex
 
             valnonloc, vecnonloc = scipy.linalg.eig(H[:, :], Norm[:, :])
             zg = np.argsort(valnonloc)
@@ -393,17 +397,15 @@ for Ncore in cores:
                 continue
 
             print(
-                'A = %d: L = %2.2f , a_core = %2.2f , omega = %2.2f , E(0) = %2.2f , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f'
-                % (Ncore, Lamb, coreosci, omega, energiesnonloc[0],
-                   energiesloc[0], LeC, LeD))
-            #for n in range(int(min(1, len(valga)))):
-            #    print("Energia:" + str(energiesga[n]) + '  ' + str(energiesg[n]))
+                'A = %d: L = %2.2f , a_core = %2.2f , omega = %2.2f , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f'
+                % (Ncore, Lamb, coreosci, omega, np.real(energiesnonloc[0]),
+                   np.imag(energiesnonloc[0]), np.real(energiesloc[0]), LeC,
+                   LeD))
 
-            if energiesnonloc[0] < 0:
-                # print(
-                #     ' still bound!  A  Lambda        a    B(A+1)%3d %7.2f %8.4f %9.4f\n-----------------------------------'
-                #     % (Ncore, Lamb, coreosci, np.real(energiesg[1])))
-                stable = True
+            stable = True if energiesnonloc[0] < 0 else False
+            unstable = not stable
+
+            np.savetxt('KexEV.dat', valexkernel, fmt='%12.4f')
 
             if pedantic:
                 for compo in [
@@ -422,7 +424,6 @@ for Ncore in cores:
 
                 if os.path.isfile('KexEV.dat'):
                     os.remove('KexEV.dat')
-                np.savetxt('KexEV.dat', valexkernel, fmt='%12.4f')
                 if os.path.isfile('HEV.dat'):
                     os.remove('HEV.dat')
                 np.savetxt('HEV.dat', valnonloc, fmt='%12.4f')
@@ -430,7 +431,7 @@ for Ncore in cores:
             if stable:
                 break
 
-        if stable != True:
+        if unstable:
             print("GOOD: I found the critical lambda for A = " + str(Ncore) +
                   " + 1 particles L = [" + str(Lrange[nL - 1]) + " - " +
                   str(Lrange[nL]) + "]")

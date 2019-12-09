@@ -1,0 +1,208 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      7790,        198]
+NotebookOptionsPosition[      6654,        171]
+NotebookOutlinePosition[      6987,        186]
+CellTagsIndexPosition[      6944,        183]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"coreosci", "[", 
+   RowBox[{"A_", ",", "r0_", ",", "eps_"}], "]"}], ":=", 
+  RowBox[{"r0", " ", 
+   RowBox[{"A", "^", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"1", "+", "eps"}], ")"}], "/", "3"}], ")"}]}]}]}]], "Input",
+ CellChangeTimes->{{3.784876358954411*^9, 3.7848764191346703`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"34994085-3e7b-4513-8a6d-e8544ae567ac"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Animate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"coreosci", "[", 
+      RowBox[{"AA", ",", "rr", ",", "ep"}], "]"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"AA", ",", "3", ",", "20"}], "}"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"rr", ",", "0.001", ",", "0.04"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"ep", ",", 
+     RowBox[{"-", "5"}], ",", "5"}], "}"}], ",", 
+   RowBox[{"AnimationRunning", "\[Rule]", "False"}]}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.784876426738781*^9, 3.784876561858026*^9}, {
+  3.784876592332336*^9, 3.7848766011245213`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"e9cf7a8b-7251-40c7-b0b6-af4a21242735"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`ep$$ = -0.9749999999999996, \
+$CellContext`rr$$ = 0.001, Typeset`show$$ = True, Typeset`bookmarkList$$ = {},
+     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`rr$$], 0.001, 0.04}, {
+      Hold[$CellContext`ep$$], -5, 5}}, Typeset`size$$ = {360., {99., 106.}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    True, $CellContext`rr$13729$$ = 0, $CellContext`ep$13730$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`ep$$ = -5, $CellContext`rr$$ = 0.001}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`rr$$, $CellContext`rr$13729$$, 0], 
+        Hold[$CellContext`ep$$, $CellContext`ep$13730$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> Plot[
+        $CellContext`coreosci[$CellContext`AA, $CellContext`rr$$, \
+$CellContext`ep$$], {$CellContext`AA, 3, 20}], 
+      "Specifications" :> {{$CellContext`rr$$, 0.001, 0.04, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}, {$CellContext`ep$$, -5, 5, AnimationRunning -> 
+         False, AppearanceElements -> {
+          "ProgressSlider", "PlayPauseButton", "FasterSlowerButtons", 
+           "DirectionButton"}}}, 
+      "Options" :> {
+       ControlType -> Animator, AppearanceElements -> None, DefaultBaseStyle -> 
+        "Animate", DefaultLabelStyle -> "AnimateLabel", SynchronousUpdating -> 
+        True, ShrinkingDelay -> 10.}, "DefaultOptions" :> {}],
+     ImageSizeCache->{407., {147., 154.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Animate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.784876562708098*^9, 3.784876602323616*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"16878ed9-a647-4478-92da-27e7c36a1428"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"coreosci", "[", 
+  RowBox[{"4", ",", "0.00315", ",", "0.0"}], "]"}]], "Input",
+ CellChangeTimes->{{3.784877165679051*^9, 3.7848771817291117`*^9}, {
+  3.7848774602193203`*^9, 3.78487746449723*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"8f56a155-06a9-493b-b57b-201da59fc2ec"],
+
+Cell[BoxData["0.005000313313699828`"], "Output",
+ CellChangeTimes->{3.7848771821935167`*^9, 3.784877465192648*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"506605c9-fc32-42da-825b-7f0b109b3afd"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"epp", "[", 
+   RowBox[{"ro_", ",", "ao_", ",", "ko_"}], "]"}], ":=", 
+  RowBox[{"Solve", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"ro", " ", 
+      RowBox[{"ao", "^", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"1", "+", "x"}], ")"}], "/", "3"}], ")"}]}]}], "==", "ko"}],
+     ",", "x"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.784877017948724*^9, 3.784877025438487*^9}, {
+  3.7848770820658607`*^9, 3.784877147132567*^9}, {3.784877187459959*^9, 
+  3.784877256952764*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"070572d6-837d-4d43-83f3-cfe96d37ba2a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"epp", "[", 
+  RowBox[{"0.00245", ",", "4", ",", "0.00500031"}], "]"}]], "Input",
+ CellChangeTimes->{{3.784877264085874*^9, 3.784877266304003*^9}, {
+   3.784877441092126*^9, 3.784877479181481*^9}, {3.784877510155815*^9, 
+   3.784877510492083*^9}, 3.7848776631685543`*^9},
+ CellLabel->"In[11]:=",ExpressionUUID->"c816c71f-329a-4d9d-ac3a-266f9de295df"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Solve","ifun",
+   "\"Inverse functions are being used by \
+\\!\\(\\*RowBox[{\\\"Solve\\\"}]\\), so some solutions may not be found; use \
+Reduce for complete solution information.\"",2,11,8,22010514486425574436,
+   "Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.7848774798270187`*^9, 3.7848775111946993`*^9, 
+  3.784877665988812*^9},
+ CellLabel->
+  "During evaluation of \
+In[11]:=",ExpressionUUID->"c819e5bb-0c28-4ffb-bc65-f709b487d67f"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{"x", "\[Rule]", "0.5438536849689598`"}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.784877479830824*^9, 3.784877511198875*^9, 
+  3.784877665992918*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"db5e8b25-4e92-4d4f-9377-d511c3e144af"]
+}, Open  ]]
+},
+WindowSize->{960, 1031},
+WindowMargins->{{Automatic, 0}, {0, Automatic}},
+FrontEndVersion->"12.0 for Linux x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 427, 11, 31, "Input",ExpressionUUID->"34994085-3e7b-4513-8a6d-e8544ae567ac"],
+Cell[CellGroupData[{
+Cell[1010, 35, 744, 18, 78, "Input",ExpressionUUID->"e9cf7a8b-7251-40c7-b0b6-af4a21242735"],
+Cell[1757, 55, 2523, 47, 320, "Output",ExpressionUUID->"16878ed9-a647-4478-92da-27e7c36a1428"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4317, 107, 298, 5, 31, "Input",ExpressionUUID->"8f56a155-06a9-493b-b57b-201da59fc2ec"],
+Cell[4618, 114, 192, 2, 35, "Output",ExpressionUUID->"506605c9-fc32-42da-825b-7f0b109b3afd"]
+}, Open  ]],
+Cell[4825, 119, 625, 17, 31, "Input",ExpressionUUID->"070572d6-837d-4d43-83f3-cfe96d37ba2a"],
+Cell[CellGroupData[{
+Cell[5475, 140, 373, 6, 31, "Input",ExpressionUUID->"c816c71f-329a-4d9d-ac3a-266f9de295df"],
+Cell[5851, 148, 495, 12, 23, "Message",ExpressionUUID->"c819e5bb-0c28-4ffb-bc65-f709b487d67f"],
+Cell[6349, 162, 289, 6, 92, "Output",ExpressionUUID->"db5e8b25-4e92-4d4f-9377-d511c3e144af"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

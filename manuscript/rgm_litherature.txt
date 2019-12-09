@@ -1,0 +1,17 @@
+Monopole and quadrupole polarization effects on the α-particle description of 8 Be     A. Sytcheva, F. Arickx, and J. Broeckhove V. S. Vasilevsky
+
+Scattering of universal fermionic clusters in the resonating group method              Pascal Naidon1, Shimpei Endo2, and Antonio M. García-García
+
+Systematic investigation of scattering problems with the resonating-group method       D.R.Thompson, M.Lemere, Y.C.Tang
+
+Microscopic origin of the parity and spin-orbit interactions between 13C and 12C       D.Baye, P.Descouvemont
+
+Microscopic three-cluster study of light exotic nuclei                                 P.Descouvemont
+
+Study of He'+He4 and H'+He' Systems with the Resonating-Group Method                   R.E. Brown, Y.C. Tang
+
+Cluster Representations of Nuclei                                                      Karl Wildermuth and Walter McClure
+
+Dynamics of two-cluster systems in phase space                                         Yu.A. Lashko, G.F. Filippov, V.S. Vasilevsky
+
+The structure of the resonating group equation                                         T.Fliessbach, H.Walliser

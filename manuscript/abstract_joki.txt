@@ -1,16 +1,25 @@
-It is shown that a fermionic system composed of one more particle than accessible
-internal(spin) degrees of freedom, with a rotationally invariant(S-wave) interaction
-of one two- and one three-body term, is cannot sustain a bound state if the range/support
-of the interaction is below a minimal threshold.
+It is shown that a fermionic system composed which interacts solely via one flavour-independent,
+rotationally invariant(S-wave) two- and and one three-body regularized contact, and which
+comprises one more particle than accessible internal(spin) degrees of freedom
+cannot sustain a bound state if the range/support of the interaction is below a certain threshold.
 
-This critical range is found to converge to its minimum, as a function of the particle number,
+This critical range is found to converge (as a function of particle number) to a minimum
 more rapidly for larger ratios between a three- and a two-body binding energy which
-renormalize the interaction.
-For the nuclear four-flavour system, we find $r_\text{effective}\simulleq XXX$~fm
-which constrains the class of contact effective field theories useful for the
-description of larger nuclei.
+characterize the system.
+For the nuclear four-flavour system, the result $r_\text{effective}\simulleq XXX$~fm
+provides a constraint for contact effective field theories of larger nuclei.
+In support of the development of such theories, the effect of a finite, residual
+interaction in odd-parity two-body partial waves is found to dominate over
+that stemming from higher even-parity two-body partial waves on the viability
+to bind the $A<XXX$-body system.
 
-For $A<9$ equal, nuclear-mass particles, $A$-body calculations are employed. For $A>8$,
-the dependence of an effective interaction between, one, an $(A-1)$-body, spatially
-symmetric bound state, and two, a single corpuscle on the two- and three-body
-interaction parameters is derived.
+Results for these $A<9$ equal, nuclear-mass systems are obtained in microscopic $A$-body calculations.
+For $A>8$, the dependence of an effective interaction between, (i), an $(A-1)$-body, spatially
+symmetric bound state, and (ii), a single corpuscle, on the two- and three-body
+interaction parameters is derived (single-channel, two-cluster Resonating Group).
+Thereby, the minimal critical binding range of the microscopic interaction is determined for a ration
+between the system-defining two- and three-body binding energies ranging from the unitary limit with
+vanishing two-body bound state, to the experimental triton-deuteron value. The result allows for the
+conjecture of a vanishing range in the large-flavour limit, which means, not even an infinite-range
+interaction is capable to bind a fermion to a sea of equal-mass particles in which one copy of it
+is embedded.
