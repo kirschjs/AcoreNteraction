@@ -146,14 +146,19 @@ def pot_local(r, argv):
 ### general options ###
 #######################
 
+# core_osci = fac * Ncore^((1. + exp) / 3.)
 Aradius_modifyer_fac = 0.04
 
-Aradius_modifyer_exp = 0.54
-interaction = "Local"
+# =0 means A^1/3
+Aradius_modifyer_exp = 0.0
+
+# "Local", "NonLocal", or  "NonLocal+Local"
+interaction = "NonLocal"
 
 pedantic = 0
 
 # select a cutoff range in which the critical value is sought
+# for all A > 3 start the search for some L > 0.9 for L <~ 0.5, the larger systems are also unstable
 Lmin = 0.9
 Lmax = 9.9
 dL = 0.1
@@ -172,7 +177,6 @@ mpi = '137'
 m = 938.12
 hbar = 197.327
 
-# Prague-Jerusalem-Manchester effective A-1 interaction
 # array which holds the critical Lambdas
 Lc = []
 
@@ -181,38 +185,33 @@ Amin = 4
 Amax = 120
 cores = range(Amin, Amax)
 
-# for each core number, determine an oscillator strength which
-# fixes the size of this S-wave core
-# [2] : volume formula [1] : polynomial with + powers [0] : polynomial with +/- powers
-
-#this is not used and i dont know why
-# coreoscis = fita(cores, order=3, orderp=1, plot=0)[2]
-
-parametriz = "C0_D4_unit_scatt"
+# select LEC set from the lists in <LECs_interpolation_constr.py>
+#                         B2      B3
+# lec_list_unitary_bnd    +0      4
+# lec_list_unitary_scatt  -0      4
+# lec_list_one_four       +1      4
+# lec_list_one_three      +1      3
+# lec_list_one_onefive    +1    1.5
 lec_list = lec_list_unitary_scatt
-LeCmodel, Lrangefit, LeCdata = return_val(
-    Lrange, parametriz, "C", polord=3, plot=0)
-LeDmodel, Lrangefit, LeDdata = return_val(
-    Lrange, parametriz, "D", polord=7, plot=0)
 
 for Ncore in cores:
 
     print("\n\n=========== A Core " + str(Ncore) + " ============")
 
-    # assume that lc is larger for a larger core, and thus begin searching
-    # for an unstable system from the lc of the Ncore-1 value
-    stable = True
-    unstable = not stable
-
     if Lc == []:
         nL = 0
         Lamb = Lrange[0]
     else:
+        # assume that lc is larger for a larger core, and thus begin searching
+        # for an unstable system from the lc of the Ncore-4 value
         nL = max(0, nL - 4)
         Lamb = Lrange[nL]
 
+    stable = True
+    unstable = not stable
+
     while (stable):
-        #omegas = [1.5]
+
         la = ('%-4.2f' % Lamb)[:4]
         try:
             LeC = lec_list[la][0]
@@ -223,9 +222,8 @@ for Ncore in cores:
             )
             exit()
 
-        coreosci = Aradius_modifyer_fac * Ncore**(
-            (1. + Aradius_modifyer_exp) / 3.)  #coreoscis[Ncore - Amin]
-        #coreosci = Aradius_modifyer * Ncore**(-4. / 15.)  #coreoscis[Ncore - Amin]
+        coreosci = Aradius_modifyer_fac * Ncore**((
+            1. + Aradius_modifyer_exp) / 3.)
 
         mu = Ncore * m / (Ncore + 1.)
         mh2 = hbar**2 / (2 * mu)
@@ -287,6 +285,8 @@ for Ncore in cores:
         stable = True
         unstable = not stable
 
+        # for each set of interaction parameters A,Lambda,core_osci
+        # the Hamiltonian is diagonalized for the chose range of basis oscillator widths
         for omega in omegas:
 
             ###########################
@@ -323,17 +323,20 @@ for Ncore in cores:
                     lambda x, y: pot_nonlocal(t[x], t[y], potargs),
                     (order, order),
                     dtype=int)
-                #print("Vnonlocal(0.33 , 0.75)= ",pot_nonlocal(0.33 , 0.75,potargs) )
-                #stop()
 
+            # fill the lower triangular matrices only and exploit the symmetry
+            # ECCE: I reduced the calculation to one loop
             for i in np.arange(NState):
                 for j in np.arange(i + 1):
                     U[i][j] = np.sum(
                         psiRN[:, i] * psiRN[:, j] * w[:]) * gauss_scale
+                    U[j][i] = U[i][j]
                     Kin[i][j] = np.sum(
                         psiRN[:, i] * ddpsiRN[:, j] * w[:]) * gauss_scale
+                    Kin[j][i] = Kin[i][j]
                     Vloc[i][j] = np.sum(psiRN[:, i] * VlocRN[:] * psiRN[:, j] *
                                         w[:]) * gauss_scale
+                    Vloc[j][i] = Vloc[i][j]
                     if (interaction == "NonLocal"):
                         for k in range(order):
                             Uex[i][j] = Uex[i][j] + 4. * np.pi * np.sum(
@@ -346,19 +349,13 @@ for Ncore in cores:
                                 j] = Vnonloc[i][j] + 4. * np.pi * np.sum(
                                     t[:] * VnolRN[k, :] * psiRN[:, j] * w[:]
                                 ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
-
-            for i in np.arange(NState):
-                for j in np.arange(0, i):
-                    Vnonloc[j][i] = Vnonloc[i][j]
-                    Vloc[j][i] = Vloc[i][j]
-                    Kin[j][i] = Kin[i][j]
-                    U[j][i] = U[i][j]
-                    Uex[j][i] = Uex[i][j]
+                        Vnonloc[j][i] = Vnonloc[i][j]
+                        Uex[j][i] = Uex[i][j]
 
             Kin = -mh2 * Kin
-            H = Kin + Vloc + 1. * Vnonloc
+            H = Kin + Vloc + Vnonloc
             Hloc = Kin + Vloc
-            Norm = U - 1. * Uex
+            Norm = U - Uex
 
             valnonloc, vecnonloc = scipy.linalg.eig(H[:, :], Norm[:, :])
             zg = np.argsort(valnonloc)
@@ -366,11 +363,11 @@ for Ncore in cores:
             # calculate this only if interaction is non-local, because if it is local,
             # the above will yield that without modification
             # ecce! non-local => energy-dep
-            if interaction == 'NonLocal':
+            if interaction == 'NonLocal+Local':
                 valloc, vecloc = scipy.linalg.eig(Hloc[:, :], U[:, :])
                 zg = np.argsort(valloc)
                 energiesloc = (valloc[zg])
-            else:
+            elif interaction == 'Local':
                 energiesloc = energiesnonloc
 
             # calculate eigensystem of the exchange kernel
@@ -378,9 +375,23 @@ for Ncore in cores:
             # signatures are negative or complex eigenvalues in this kernel
             # ecce! the energy eigenvalues might still be negative and real
             # (peciliarity of generalized EV problems)
-            valexkernel, vecexkernel = scipy.linalg.eig(Norm[:, :])
-            zg = np.argsort(valexkernel)
-            energiesexkernel = (valexkernel[zg])
+            if pedantic:
+                valexkernel, vecexkernel = scipy.linalg.eig(Norm[:, :])
+                zg = np.argsort(valexkernel)
+                energiesexkernel = (valexkernel[zg])
+
+            if interaction == 'NonLocal':
+                print(
+                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %2.2f , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f'
+                    % (Ncore, Lamb, coreosci,
+                       omega, np.real(energiesnonloc[0]),
+                       np.imag(energiesnonloc[0]), LeC, LeD))
+            else:
+                print(
+                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %2.2f , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f'
+                    % (Ncore, Lamb, coreosci, omega,
+                       np.real(energiesnonloc[0]), np.imag(energiesnonloc[0]),
+                       np.real(energiesloc[0]), LeC, LeD))
 
             # Check if basis orthonormal:
             if np.sum(abs(np.eye(NState) - U)) > 0.1 * NState**2:
@@ -396,16 +407,8 @@ for Ncore in cores:
                 print(" ")
                 continue
 
-            print(
-                'A = %d: L = %2.2f , a_core = %2.2f , omega = %2.2f , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f'
-                % (Ncore, Lamb, coreosci, omega, np.real(energiesnonloc[0]),
-                   np.imag(energiesnonloc[0]), np.real(energiesloc[0]), LeC,
-                   LeD))
-
             stable = True if energiesnonloc[0] < 0 else False
             unstable = not stable
-
-            np.savetxt('KexEV.dat', valexkernel, fmt='%12.4f')
 
             if pedantic:
                 for compo in [
@@ -415,6 +418,7 @@ for Ncore in cores:
                     strFile = compo + '.txt'
                     if os.path.isfile(strFile):
                         os.remove(strFile)
+                np.savetxt('KexEV.dat', valexkernel, fmt='%12.4f')
                 np.savetxt('Unit_loc.txt', np.matrix(U), fmt='%12.4f')
                 np.savetxt('Unit_ex.txt', np.matrix(Norm), fmt='%12.4f')
                 np.savetxt('V_loc.txt', np.matrix(Vloc), fmt='%12.4f')
