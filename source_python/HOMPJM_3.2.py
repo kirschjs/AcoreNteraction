@@ -149,10 +149,6 @@ def pot_local(r, argv):
 Aradius_modifyer = 0.025
 interaction = "Local"
 
-
-
-
-
 pedantic = 0
 
 # select a cutoff range in which the critical value is sought
@@ -160,9 +156,9 @@ Lmin = 0.1
 Lmax = 9.9
 dL = 0.1
 
-NState = 35
-Rmax = 55
-order = 400
+NState = 20
+Rmax = 150
+order = 2000
 
 Lrel = 1  # Momento angolare
 
@@ -178,10 +174,6 @@ Lc = []
 Amin = 2
 Amax = 150
 
-
-
-
-
 #aumenta rcore e aumenti Lc
 # Lc4 = 0.6
 #name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="13L", lec_list_one_three,  0.02, "Local"
@@ -191,17 +183,14 @@ Amax = 150
 #name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="14L", lec_list_one_four,  0.02, "Local"
 #name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="14", lec_list_one_four,  0.00044, "NonLocal"
 
-
 # Lc15 = 0.9
 #name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="1115L", lec_list_one_onefive,  0.009,0., "Local"
 #name, lec_list, Aradius_modifyer, interaction ="1115", lec_list_one_onefive,  0.000412, "Local+NonLocal"
 
-
 # Lc0 = 0.7
 #name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="04L", lec_list_unitary_scatt,  1.432,0., "Local"
-name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="04L", lec_list_unitary_scatt,  1.432,0., "Local"
-  #name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="04", lec_list_unitary_scatt,  0.000414, "NonLocal"
-
+name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "04L", lec_list_unitary_scatt, 1.432, 0., "Local"
+#name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="04", lec_list_unitary_scatt,  0.000414, "NonLocal"
 
 print(name, Aradius_modifyer)
 
@@ -211,16 +200,18 @@ Amax = 21
 Lmin = 2.
 Lmax = 2.1
 
-
-
-
-
-cores  = range(Amin, Amax)
+cores = range(Amin, Amax)
 Lrange = np.arange(Lmin, Lmax, dL)
 #omegas = np.linspace(0.0015, 0.05, 10)
-omegas = [0.0009,0.001,0.0007,0.0007,0.0011,0.002,0.005,0.0001,0.0002,0.0005,0.0007,0.007,0.01,0.02,0.05,0.07,0.1] #np.linspace(0.0015, 0.05, 10)
-omegas = [1E-12, 1E-11, 0.0000000001,0.000000001, 0.00000001,0.0000001,0.000001,0.00001,0.0009,0.001,0.0007,0.0007,0.0011,0.002,0.005,0.0001,0.0002,0.0005,0.0007,0.007,0.01,0.02,0.05,0.07,0.1] #np.linspace(0.0015, 0.05, 10)
-
+omegas = [
+    0.9, 0.001, 0.0007, 0.0007, 0.0011, 0.002, 0.005, 0.0001, 0.0002, 0.0005,
+    0.0007, 0.007, 0.01, 0.02, 0.05, 0.07, 0.1
+]  #np.linspace(0.0015, 0.05, 10)
+omegas = [
+    1E-3, 1E-11, 0.0000000001, 0.000000001, 0.00000001, 0.0000001, 0.000001,
+    0.00001, 0.0009, 0.001, 0.0007, 0.0007, 0.0011, 0.002, 0.005, 0.0001,
+    0.0002, 0.0005, 0.0007, 0.007, 0.01, 0.02, 0.05, 0.07, 0.1
+]  #np.linspace(0.0015, 0.05, 10)
 
 # for each core number, determine an oscillator strength which
 # fixes the size of this S-wave core
@@ -242,7 +233,7 @@ for Ncore in cores:
         # assume that lc is larger for a larger core, and thus begin searching
         # for an unstable system from the lc of the Ncore-4 value
         nL = max(0, nL - 4)
-        nL = 0 #max(0, nL - 4)
+        nL = 0  #max(0, nL - 4)
         Lamb = Lrange[nL]
 
     stable = True
@@ -395,6 +386,15 @@ for Ncore in cores:
             Hloc = Kin + Vloc
             Norm = U - Uex
 
+            try:
+                np.linalg.cholesky(Norm)
+            except np.linalg.linalg.LinAlgError as err:
+                print(
+                    'Norm matrix singular and/or not positive definite for omega = %e\n Increasing omega...'
+                    % omega)
+                exit()
+                continue
+
             valnonloc, vecnonloc = scipy.linalg.eig(H[:, :], Norm[:, :])
             zg = np.argsort(valnonloc)
             energiesnonloc = (valnonloc[zg])
@@ -420,13 +420,13 @@ for Ncore in cores:
 
             if interaction == 'NonLocal':
                 print(
-                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %2.2f , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f'
+                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f'
                     % (Ncore, Lamb, coreosci,
                        omega, np.real(energiesnonloc[0]),
                        np.imag(energiesnonloc[0]), LeC, LeD))
             else:
                 print(
-                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %2.2f , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f'
+                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f'
                     % (Ncore, Lamb, coreosci, omega,
                        np.real(energiesnonloc[0]), np.imag(energiesnonloc[0]),
                        np.real(energiesloc[0]), LeC, LeD))
@@ -445,10 +445,6 @@ for Ncore in cores:
                 print(" ")
                 continue
 
-            print(
-                'A = %d: L = %2.2f , a_core = %2.10f , omega = %2.10f , E(0) = %2.6f , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f'
-                % (Ncore, Lamb, coreosci, omega, energiesnonloc[0],
-                   energiesloc[0], LeC, LeD))
             #for n in range(int(min(1, len(valga)))):
             #    print("Energia:" + str(energiesga[n]) + '  ' + str(energiesg[n]))
 

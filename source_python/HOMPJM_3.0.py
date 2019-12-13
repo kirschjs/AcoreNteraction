@@ -147,7 +147,7 @@ def pot_local(r, argv):
 #######################
 
 # core_osci = fac * Ncore^((1. + exp) / 3.)
-Aradius_modifyer_fac = 0.04
+Aradius_modifyer_fac = 1.9
 
 # =0 means A^1/3
 Aradius_modifyer_exp = 0.0
@@ -155,7 +155,7 @@ Aradius_modifyer_exp = 0.0
 # "Local", "NonLocal", or  "NonLocal+Local"
 interaction = "NonLocal"
 
-pedantic = 0
+pedantic = 1
 
 # select a cutoff range in which the critical value is sought
 # for all A > 3 start the search for some L > 0.9 for L <~ 0.5, the larger systems are also unstable
@@ -379,6 +379,8 @@ for Ncore in cores:
                 valexkernel, vecexkernel = scipy.linalg.eig(Norm[:, :])
                 zg = np.argsort(valexkernel)
                 energiesexkernel = (valexkernel[zg])
+                np.savetxt('KexEV.dat', valexkernel, fmt='%12.4f')
+                print('EV(zg) of Norm:', energiesexkernel)
 
             if interaction == 'NonLocal':
                 print(
@@ -418,7 +420,6 @@ for Ncore in cores:
                     strFile = compo + '.txt'
                     if os.path.isfile(strFile):
                         os.remove(strFile)
-                np.savetxt('KexEV.dat', valexkernel, fmt='%12.4f')
                 np.savetxt('Unit_loc.txt', np.matrix(U), fmt='%12.4f')
                 np.savetxt('Unit_ex.txt', np.matrix(Norm), fmt='%12.4f')
                 np.savetxt('V_loc.txt', np.matrix(Vloc), fmt='%12.4f')
