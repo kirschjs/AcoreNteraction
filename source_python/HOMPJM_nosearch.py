@@ -146,11 +146,11 @@ def pot_local(r, argv):
 ### general options ###
 #######################
 
-pedantic = 0
+pedantic = 1
 
-NState = 20
-Rmax = 150
-order = 2000
+NState = 28
+Rmax = 120
+order = 600
 
 Lrel = 1  # Momento angolare
 
@@ -165,7 +165,7 @@ Lc = []
 #aumenta rcore e aumenti Lc
 # Lc4 = 0.6
 #name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="13L", lec_list_one_three,  0.02, "Local"
-name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "13", lec_list_one_three, 0.00044, 0., "NonLocal"
+name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "13", lec_list_one_three, 0.02, 0., "NonLocal"
 
 # Lc3 = 0.65
 #name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="14L", lec_list_one_four,  0.02, "Local"
@@ -186,21 +186,13 @@ Amin = 20
 Amax = 21
 
 Lmin = 2.
-Lmax = 2.1
-dL = 0.1
+Lmax = 5.
+dL = 2.5
 
 cores = range(Amin, Amax)
 Lrange = np.arange(Lmin, Lmax, dL)
-#omegas = np.linspace(0.0015, 0.05, 10)
-omegas = [
-    0.9, 0.001, 0.0007, 0.0007, 0.0011, 0.002, 0.005, 0.0001, 0.0002, 0.0005,
-    0.0007, 0.007, 0.01, 0.02, 0.05, 0.07, 0.1
-]  #np.linspace(0.0015, 0.05, 10)
-omegas = [
-    1E-3, 1E-11, 0.0000000001, 0.000000001, 0.00000001, 0.0000001, 0.000001,
-    0.00001, 0.0009, 0.001, 0.0007, 0.0007, 0.0011, 0.002, 0.005, 0.0001,
-    0.0002, 0.0005, 0.0007, 0.007, 0.01, 0.02, 0.05, 0.07, 0.1
-]  #np.linspace(0.0015, 0.05, 10)
+
+omegas = np.arange(0.0005, 1.0, 0.03)
 
 # for each core number, determine an oscillator strength which
 # fixes the size of this S-wave core
@@ -211,24 +203,13 @@ omegas = [
 #LeDmodel, Lrangefit, LeDdata = return_val(
 #    Lrange, parametriz, "D", polord=7, plot=0)
 
+resu = []
+
 for Ncore in cores:
 
     print("\n\n=========== A Core " + str(Ncore) + " ============")
 
-    if Lc == []:
-        nL = 0
-        Lamb = Lrange[0]
-    else:
-        # assume that lc is larger for a larger core, and thus begin searching
-        # for an unstable system from the lc of the Ncore-4 value
-        nL = max(0, nL - 4)
-        nL = 0  #max(0, nL - 4)
-        Lamb = Lrange[nL]
-
-    stable = True
-    unstable = not stable
-
-    while (stable):
+    for Lamb in Lrange:
 
         la = ('%-4.2f' % Lamb)[:4]
         try:
@@ -300,9 +281,6 @@ for Ncore in cores:
         t = 0.5 * (x + 1) * (b - a) + a
         gauss_scale = 0.5 * (b - a)
 
-        stable = True
-        unstable = not stable
-
         # for each set of interaction parameters A,Lambda,core_osci
         # the Hamiltonian is diagonalized for the chose range of basis oscillator widths
         for omega in omegas:
@@ -371,18 +349,16 @@ for Ncore in cores:
                         Uex[j][i] = Uex[i][j]
 
             Kin = -mh2 * Kin
-            H = Kin + Vloc + Vnonloc
+            H = Kin + Vloc + 0.05 * Vnonloc
             Hloc = Kin + Vloc
-            Norm = U - Uex
+            Norm = U - 0.05 * Uex
 
+            posdef = True
             try:
                 np.linalg.cholesky(Norm)
             except np.linalg.linalg.LinAlgError as err:
-                print(
-                    'Norm matrix singular and/or not positive definite for omega = %e\n Increasing omega...'
-                    % omega)
-                exit()
-                continue
+                posdef = False
+            posd = '+ definite' if posdef else 'ERROR'
 
             valnonloc, vecnonloc = scipy.linalg.eig(H[:, :], Norm[:, :])
             zg = np.argsort(valnonloc)
@@ -409,16 +385,26 @@ for Ncore in cores:
 
             if interaction == 'NonLocal':
                 print(
-                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f'
+                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f, NORM = %s'
                     % (Ncore, Lamb, coreosci,
                        omega, np.real(energiesnonloc[0]),
-                       np.imag(energiesnonloc[0]), LeC, LeD))
+                       np.imag(energiesnonloc[0]), LeC, LeD, posd))
+                resu.append(
+                    np.array([
+                        Ncore, Lamb, coreosci, omega, energiesnonloc[0], LeC,
+                        LeD
+                    ]))
             else:
                 print(
-                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f'
+                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f, NORM = %s'
                     % (Ncore, Lamb, coreosci, omega,
                        np.real(energiesnonloc[0]), np.imag(energiesnonloc[0]),
-                       np.real(energiesloc[0]), LeC, LeD))
+                       np.real(energiesloc[0]), LeC, LeD, posd))
+                resu.append(
+                    np.array([
+                        Ncore, Lamb, coreosci, omega, energiesnonloc[0], LeC,
+                        LeD
+                    ]))
 
             # Check if basis orthonormal:
             if np.sum(abs(np.eye(NState) - U)) > 0.1 * NState**2:
@@ -434,15 +420,6 @@ for Ncore in cores:
                 print(" ")
                 continue
 
-            #for n in range(int(min(1, len(valga)))):
-            #    print("Energia:" + str(energiesga[n]) + '  ' + str(energiesg[n]))
-
-            if (energiesnonloc[0] < 0) and (energiesnonloc[0] > -100):
-                stable = True
-            else:
-                stable = False
-            unstable = not stable
-
             if pedantic:
                 for compo in [
                         'Unit_loc', 'Unit_ex', 'V_loc', 'V_nonloc', 'E_kin',
@@ -451,7 +428,6 @@ for Ncore in cores:
                     strFile = compo + '.txt'
                     if os.path.isfile(strFile):
                         os.remove(strFile)
-                np.savetxt('KexEV.dat', valexkernel, fmt='%12.4f')
                 np.savetxt('Unit_loc.txt', np.matrix(U), fmt='%12.4f')
                 np.savetxt('Unit_ex.txt', np.matrix(Norm), fmt='%12.4f')
                 np.savetxt('V_loc.txt', np.matrix(Vloc), fmt='%12.4f')
@@ -461,34 +437,41 @@ for Ncore in cores:
 
                 if os.path.isfile('KexEV.dat'):
                     os.remove('KexEV.dat')
+                np.savetxt('KexEV.dat', valexkernel, fmt='%12.4f')
                 if os.path.isfile('HEV.dat'):
                     os.remove('HEV.dat')
                 np.savetxt('HEV.dat', valnonloc, fmt='%12.4f')
 
-            if stable:
-                break
+f = plt.figure(figsize=(18, 12))
+f.suptitle(r'', fontsize=14)
 
-        if unstable:
-            print("GOOD: I found the critical lambda for A = " + str(Ncore) +
-                  " + 1 particles L = [" + str(Lrange[nL - 1]) + " - " +
-                  str(Lrange[nL]) + "]")
-            Lc.append([Ncore, Lamb])
-            continue
-        else:
-            nL += 1
-            if nL >= len(Lrange):
-                nL -= 1
-                Lamb = Lrange[nL]
-                print(
-                    "ERROR: cut-off too big. I dont know what are the LECs for it! "
-                )
-                print(Lc)
+ax1 = f.add_subplot(111)
 
-                Lc.append([Ncore, Lamb])
-                break
-                exit()
-            Lamb = Lrange[nL]
+ax1.set_xlabel(r'$\omega$ [fm$^{-2}$]', fontsize=12)
+ax1.set_ylabel(r'$E_0$ [MeV]', fontsize=12)
 
-    print('Ncore      lc    conf:', name)
-    for i in range(len(Lc)):
-        print('%5d   %4.3f' % (int(Lc[i][0]), float(Lc[i][1])))
+for nbrC in range(len(cores)):
+    for ll in range(len(Lrange)):
+
+        xx = [
+            np.array(resu)[:, 3][ee]
+            for ee in range(len(np.array(resu)[:, 3]))
+            if ((np.array(resu)[:, 0][ee] == cores[nbrC]) &
+                (np.array(resu)[:, 1][ee] == Lrange[ll]))
+        ]
+
+        yy = [
+            np.array(resu)[:, 4][ee]
+            for ee in range(len(np.array(resu)[:, 4]))
+            if ((np.array(resu)[:, 0][ee] == cores[nbrC]) &
+                (np.array(resu)[:, 1][ee] == Lrange[ll]))
+        ]
+
+        ax1.plot(xx, yy, label=r'A=%d  L=%4.3f' % (cores[nbrC], Lrange[ll]))
+
+plt.legend(loc='best')
+
+strFile = 'testNL.pdf'
+if os.path.isfile(strFile):
+    os.remove(strFile)
+plt.savefig(strFile)
