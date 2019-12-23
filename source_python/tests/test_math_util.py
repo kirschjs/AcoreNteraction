@@ -7,7 +7,7 @@ import pytest
 # This is a horrible hack and should never, ever (!) leave this file. Replace ASAP.
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-from HOMPJM_benchmark_pots import log_fact
+from kette.math_util import log_fact
 
 
 def test_log_fact_integer():
