@@ -448,8 +448,8 @@ if __name__ == '__main__':
                 ddpsiRN[x, y] = ddpsi(t[x], y, L, nu)
 
         if (pedantic):
-            print(" >> Wave function: (",
-                  timeit.default_timer() - start_time, " s )")
+            print(" >> Wave function: (", timeit.default_timer() - start_time,
+                  " s )")
         start_time = timeit.default_timer()
         VlocRN[:] = pot_local(t[:], potargs) + mh2 * L * (L + 1) / t[:]**2
         if (pedantic):
@@ -474,8 +474,8 @@ if __name__ == '__main__':
             start_time = timeit.default_timer()
 
         if (pedantic):
-            print("Array creation time:",
-                  timeit.default_timer() - start_time2, " s")
+            print("Array creation time:", timeit.default_timer() - start_time2,
+                  " s")
         start_time = timeit.default_timer()
 
         if (pedantic): print("Array integration:")
@@ -501,8 +501,8 @@ if __name__ == '__main__':
                         ) * psiRN[k, i] * t[k] * w[k] * gauss_scale**2
 
         if (pedantic):
-            print("Integration time:",
-                  timeit.default_timer() - start_time, " s")
+            print("Integration time:", timeit.default_timer() - start_time,
+                  " s")
         start_time = timeit.default_timer()
 
         Kin = -mh2 * Kin
@@ -592,8 +592,8 @@ if __name__ == '__main__':
                           str(energiesg) + "  Energies(n): " + str(energiesn))
 
         if (pedantic):
-            print("Diagonalization time:",
-                  timeit.default_timer() - start_time, " s")
+            print("Diagonalization time:", timeit.default_timer() - start_time,
+                  " s")
         if (pedantic): print("--------------------------")
         if (pedantic): print(" ")
         if (pedantic): print(" ")

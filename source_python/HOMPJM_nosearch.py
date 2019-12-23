@@ -13,9 +13,7 @@ from sympy.abc import x
 from sympy.physics.quantum.cg import CG, Wigner3j
 import numpy.ma as ma
 
-###############################
-######## Wave function ########
-###############################
+# what is done and (!) why?
 
 
 def log_d_fact(n):
@@ -146,9 +144,9 @@ def pot_local(r, argv):
 ### general options ###
 #######################
 
-pedantic = 1
+pedantic = 0
 
-NState = 28
+NState = 20
 Rmax = 120
 order = 600
 
@@ -158,9 +156,6 @@ Lrel = 1  # Momento angolare
 mpi = '137'
 m = 938.12
 hbar = 197.327
-
-# array which holds the critical Lambdas
-Lc = []
 
 #aumenta rcore e aumenti Lc
 # Lc4 = 0.6
@@ -190,18 +185,9 @@ Lmax = 5.
 dL = 2.5
 
 cores = range(Amin, Amax)
-Lrange = np.arange(Lmin, Lmax, dL)
+Lrange = [3.0]  #np.arange(Lmin, Lmax, dL)
 
-omegas = np.arange(0.0005, 1.0, 0.03)
-
-# for each core number, determine an oscillator strength which
-# fixes the size of this S-wave core
-# [2] : volume formula [1] : polynomial with + powers [0] : polynomial with +/- powers
-
-#LeCmodel, Lrangefit, LeCdata = return_val(
-#    Lrange, parametriz, "C", polord=3, plot=0)
-#LeDmodel, Lrangefit, LeDdata = return_val(
-#    Lrange, parametriz, "D", polord=7, plot=0)
+omegas = np.arange(0.0005, 0.07, 0.01)
 
 resu = []
 
@@ -227,7 +213,6 @@ for Ncore in cores:
         mu = Ncore * m / (Ncore + 1.)
         mh2 = hbar**2 / (2 * mu)
         potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
-
         aa1 = alf1(potargs)
         aa2 = alf2(potargs)
         aa3 = alf3(potargs)
@@ -285,9 +270,7 @@ for Ncore in cores:
         # the Hamiltonian is diagonalized for the chose range of basis oscillator widths
         for omega in omegas:
 
-            ###########################
-            ### All vectors to zero ###
-            ###########################
+            # Initialize vectors to zero.
             H = np.zeros((NState, NState))
             Hloc = np.zeros((NState, NState))
             Kin = np.zeros((NState, NState))
@@ -295,12 +278,12 @@ for Ncore in cores:
             Vloc = np.zeros((NState, NState))
             U = np.zeros((NState, NState))
             Uex = np.zeros((NState, NState))
-            nu = mu * omega / (2 * hbar)
-
             psiRN = np.zeros((order, NState))
             ddpsiRN = np.zeros([order, NState])
             VlocRN = np.zeros(order)
             VexRN = np.zeros((order, order))
+
+            nu = mu * omega / (2 * hbar)
 
             for y in range(NState):
                 for x in range(order):
@@ -469,7 +452,7 @@ for nbrC in range(len(cores)):
 
         ax1.plot(xx, yy, label=r'A=%d  L=%4.3f' % (cores[nbrC], Lrange[ll]))
 
-plt.legend(loc='best')
+plt.legend(loc='best', fontsize=24)
 
 strFile = 'testNL.pdf'
 if os.path.isfile(strFile):
