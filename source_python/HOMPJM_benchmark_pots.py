@@ -80,21 +80,21 @@ def ddpsi(r, n, l, nu):
 #######################
 ### general options ###
 #######################
-pedantic = False
+pedantic = True
 states_print = 3  # How many energies do you want?
 
 # Parallel of this version not implemented
 parallel = False  # Do you want trallel version?
 Nprocessors = 6  # Number of processors
 
-Sysem = "PJM"
+Sysem = "Hiyama_lambda_alpha"
 
 ############################
 ### Potential definition ###
 ############################
 if Sysem == "Pionless":
     # Physical system and benchmark
-    NState = 250  #Number of basys states
+    NState = 25  #Number of basys states
     order = 500  # Integration order
     m = 938.858
     mu = m / 2.
@@ -169,223 +169,6 @@ elif Sysem == "Hiyama_lambda_alpha":
             -127.0) * np.exp(-0.4559 *
                              (r**2)) + (497.8) * np.exp(-0.6123 * (r**2))
         return Vvv
-
-elif Sysem == "PJM":
-    # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 20  #Number of basys states
-    Rmax = 20
-    order = 300
-    omegas = np.linspace(0.05, 0.5, 10)
-    #omegas = [1.5]
-
-    L = 1
-
-    # ----- change this to change system ------
-    Ncore = 6  # number of core particles (capital A in docu)
-
-    Lamb = 1.2
-
-    parametriz = "C1_D4"
-    LeC = return_val(Lamb, parametriz, "C")
-    LeD = return_val(Lamb, parametriz, "D")
-
-    coreosci = 1. * fita(Ncore, plot=False)
-
-    # for fitting and speculation over large cut-off or not calculated values
-    # core osci = return_val(Lamb, parametriz , "ABCD",speculative=True)
-
-    mpi = '137'
-    m = 938.12
-    mu = Ncore * m / (Ncore + 1.)
-    hbar = 197.327
-    mh2 = hbar**2 / (2 * mu)
-
-    potargs = [coreosci, Ncore, float(Lamb), LeC, LeD]
-
-    interaction = "Local"
-    energydepen = False
-
-    aa1 = alf1(potargs)
-    aa2 = alf2(potargs)
-    aa3 = alf3(potargs)
-    aa4 = alf4(potargs)
-    bb1 = bet1(potargs)
-    bb2 = bet2(potargs)
-    bb3 = bet3(potargs)
-    bb4 = bet4(potargs)
-    gg1 = gam1(potargs)
-    gg2 = gam2(potargs)
-    gg3 = gam3(potargs)
-    gg4 = gam4(potargs)
-    zz1 = zeta1(potargs)
-    zz2 = zeta2(potargs)
-    zz3 = zeta3(potargs)
-    zz4 = zeta4(potargs)
-
-    nn1 = eta1(potargs)
-    nn2 = eta2(potargs)
-    nn3 = eta3(potargs)
-    kk1 = kappa1(potargs)
-    kk2 = kappa2(potargs)
-    kk3 = kappa3(potargs)
-
-    # this might overdo it but the sympy expressions
-    # were handled erroneously before
-    w3j_m2 = (Wigner3j(1, L - 1, L, 0, 0, 0).doit())**2
-    w3j_p2 = (Wigner3j(1, L + 1, L, 0, 0, 0).doit())**2
-    wigm = 0 if (w3j_m2 == 0) else float(w3j_m2.evalf())
-    wigp = 0 if (w3j_p2 == 0) else float(w3j_p2.evalf())
-
-    print(" - RGM potential -")
-    print("Lambda  = " + str(Lamb))
-    print("Ncore   = " + str(Ncore))
-    print("a core  = " + str(coreosci))
-    if pedantic:
-        print("LEC 2b  = " + str(LeC))
-        print("LEC 3b  = " + str(LeD))
-        print(" -- ")
-        print("alpha1  = " + str(aa1))
-        print("alpha2  = " + str(aa2))
-        print("alpha3  = " + str(aa3))
-        print("alpha4  = " + str(aa4))
-        print("beta1   = " + str(bb1))
-        print("beta2   = " + str(bb2))
-        print("beta3   = " + str(bb3))
-        print("beta4   = " + str(bb4))
-        print("gamma1  = " + str(gg1))
-        print("gamma2  = " + str(gg2))
-        print("gamma3  = " + str(gg3))
-        print("gamma4  = " + str(gg4))
-        print("zeta1   = " + str(zz1))
-        print("zeta2   = " + str(zz2))
-        print("zeta3   = " + str(zz3))
-        print("zeta4   = " + str(zz4))
-        print("eta1    = " + str(nn1))
-        print("eta2    = " + str(nn2))
-        print("eta3    = " + str(nn3))
-        print("kappa1  = " + str(kk1))
-        print("kappa2  = " + str(kk2))
-        print("kappa3  = " + str(kk3))
-        print(" -- ")
-        print("W3J\'s  = " + str(w3j_p2) + "  " + str(w3j_m2))
-        print(" -- ")
-
-    def exchange_kernel(rl, rr, argv):
-
-        rr2 = rr**2
-        rl2 = rl**2
-
-        # (-) b/c this term goes to the RHS of Eq.(12)
-        V1ex = -(1j**L) * ((zz1 * np.nan_to_num(
-            spherical_jn(L, 1j * bb1 * rr * rl),
-            nan=0.0,
-            posinf=0.0,
-            neginf=0.0) * np.exp(-aa1 * rr2 - gg1 * rl2)))
-
-        return np.nan_to_num(np.real(V1ex))
-
-    def pot_nonlocal(rl, rr, argv):
-
-        rr2 = rr**2
-        rl2 = rl**2
-
-        V1 = -mh2 * zz1 * np.exp(-aa1 * rr2 - gg1 * rl2) * (
-            4. * aa1 * bb1 * rl * rr *
-            ((1j**
-              (L - 1) * np.nan_to_num(
-                  spherical_jn(L - 1, 1j * bb1 * rr * rl),
-                  nan=0.0,
-                  posinf=0.0,
-                  neginf=0.0) * wigm * (2 * L - 3) + 1j**
-              (L + 1) * np.nan_to_num(
-                  spherical_jn(L + 1, 1j * bb1 * rr * rl),
-                  nan=0.0,
-                  posinf=0.0,
-                  neginf=0.0) * wigp * (2 * L - 1)) +
-             (-4. * aa1**2 * rr2 + 2 * aa1 - bb1**2 * rl2 + L *
-              (L + 1) / rr2) * 1j**L * np.nan_to_num(
-                  spherical_jn(L, 1j * bb1 * rr * rl),
-                  nan=0.0,
-                  posinf=0.0,
-                  neginf=0.0)))
-
-        # this is simple (still missing (4 pi i^l ) RR')
-        V234 = -(1j**L) * ((zz2 * np.nan_to_num(
-            spherical_jn(L, 1j * bb2 * rr * rl),
-            nan=0.0,
-            posinf=0.0,
-            neginf=0.0) * np.exp(-aa2 * rr2 - gg2 * rl2)) +
-                           (zz3 * np.nan_to_num(
-                               spherical_jn(L, 1j * bb3 * rr * rl),
-                               nan=0.0,
-                               posinf=0.0,
-                               neginf=0.0) * np.exp(-aa3 * rr2 - gg3 * rl2)) +
-                           (zz4 * np.nan_to_num(
-                               spherical_jn(L, 1j * bb4 * rr * rl),
-                               nan=0.0,
-                               posinf=0.0,
-                               neginf=0.0) * np.exp(-aa4 * rr2 - gg4 * rl2)))
-
-        # this function is high unstable for large r (it gives NaN but it should give 0.)
-        return np.nan_to_num(np.real(V1 + V234))
-
-    def pot_local(r, argv):
-        r2 = r**2
-        VnnDI = nn1 * np.exp(-kk1 * r2)
-        VnnnDIarm = nn2 * np.exp(-kk2 * r2)
-        VnnnDIstar = nn3 * np.exp(-kk3 * r2)
-        return VnnDI + VnnnDIarm + VnnnDIstar
-
-elif Sysem == "PJM1":
-    # Prague-Jerusalem-Manchester effective A-1 interaction
-    NState = 15  #Number of basys states
-    Rmax = 20
-    order = 350
-    omegas = np.linspace(0.01, 0.9, 5)
-
-    L = 1
-
-    Ncore = 4
-    m = 938.12
-    mu = Ncore * m / (Ncore + 1.)
-    hbar = 197.327
-    mh2 = hbar**2 / (2 * mu)
-
-    potargs = [0, 0, 0, 0, 0]
-
-    interaction = "NonLocal"
-    #interaction = "Local"
-    energydepen = False
-
-    vRGMl2 = [-7.9372, -0.0035935]
-    vRGMl3 = [-0.4989, -0.0035935]
-    vRGMl4 = [-0.5011, -0.0071913]
-
-    vRGM2 = [-2.0648, -0.684089, -0.680, -0.642044]
-    vRGM3 = [-0.1298, -0.684089, -0.680, -0.642044]
-    vRGM4 = [-0.1304, -0.688185, -0.680, -0.644092]
-
-    def pot_nonlocal(rl, rr, argv):
-
-        rr2 = rr**2
-        rl2 = rl**2
-
-        V234 = 0.
-        for v in [vRGM2]:  #, vRGM3, vRGM4]:
-            V234 += (1j**L) * (v[0] * np.nan_to_num(
-                spherical_jn(L, 1j * v[2] * rr * rl),
-                nan=0.0,
-                posinf=0.0,
-                neginf=0.0) * np.exp(v[1] * rr**2 + v[3] * rl**2))
-
-        return np.nan_to_num(10 * V234.real)
-
-    def pot_local(r, argv):
-        r2 = r**2
-        Vnn = 0.
-        for v in [vRGMl2, vRGMl3, vRGMl4]:
-            Vnn += v[0] * np.exp(v[1] * r2)
-        return Vnn
 
 else:
     print("ERROR: I do not know the sysem you want")
@@ -507,8 +290,6 @@ if __name__ == '__main__':
 
         Kin = -mh2 * Kin
         H = Vloc + Vnonloc + Kin
-        #H = Vnonloc + Kin
-        Kex = U + Uex if energydepen else U
 
         for i in np.arange(NState):
             for j in np.arange(0, i):
@@ -517,7 +298,6 @@ if __name__ == '__main__':
                 Vloc[j][i] = Vloc[i][j]
                 Kin[j][i] = Kin[i][j]
                 U[j][i] = U[i][j]
-                Kex[j][i] = Kex[i][j]
 
         # Check if basis orthonormal:
         if np.sum(abs(np.eye(NState) - U)) > 0.1 * NState**2:
@@ -540,8 +320,6 @@ if __name__ == '__main__':
             print(" ")
             print("U: ")
             print(np.round(U, 2))
-            print("Kex: ")
-            print(np.round(Kex, 2))
             print("Vloc: ")
             print(np.around(Vloc, 2))
             print("Vnonloc:  ")
@@ -554,7 +332,6 @@ if __name__ == '__main__':
             #print(np.around(Vloc / Vnonloc, 3))
 
             np.savetxt('Unit_loc.txt', np.matrix(U), fmt='%12.4f')
-            np.savetxt('Unit_ex.txt', np.matrix(Kex), fmt='%12.4f')
             np.savetxt('V_loc.txt', np.matrix(Vloc), fmt='%12.4f')
             np.savetxt('V_nonloc.txt', np.matrix(Vnonloc), fmt='%12.4f')
             np.savetxt('E_kin.txt', np.matrix(Kin), fmt='%12.4f')
@@ -594,39 +371,3 @@ if __name__ == '__main__':
         if (pedantic):
             print("Diagonalization time:", timeit.default_timer() - start_time,
                   " s")
-        if (pedantic): print("--------------------------")
-        if (pedantic): print(" ")
-        if (pedantic): print(" ")
-        if (pedantic): print(" ")
-        if (pedantic):
-            ene_omega_Kdi.append(energiesn[0])
-            print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
-                  "  Energies(n): " + str(energiesn))
-
-        ene_omega_Kex.append(energiesg[0])
-        print("nu: " + str(np.round(nu, 5)) + "  states: " + str(i) +
-              "  Energies(g): " + str(energiesg))
-        if energiesg[0] < 0:
-            print('  A  Lambda        a    B(A+1)\n%3d %7.2f %8.4f %9.4f' %
-                  (Ncore, Lamb, coreosci, np.real(energiesg[0])))
-        #    exit()
-
-if (pedantic):
-    ene_omega_Kex = np.array(np.real(ene_omega_Kex))
-    ene_omega_Kdi = np.array(np.real(ene_omega_Kdi))
-    plt.plot(omegas, ene_omega_Kdi, 'r-', lw=2, label=r'$RHS=E$ (direct)')
-
-plt.title(r'$L=%d$ ; $a=%4.4f$ ; $\Lambda=%2.2f$ ; $A=%d$' % (L, coreosci,
-                                                              Lamb, Ncore))
-
-plt.plot(
-    omegas, ene_omega_Kex, 'b-', lw=2, label=r'$RHS=E(1-K_{ex})$ (exchange)')
-
-plt.legend(loc='best', numpoints=1, fontsize=12)
-
-plt.show()
-
-if parallel:
-    print("Parallel closing")
-    p.close()
-quit()
