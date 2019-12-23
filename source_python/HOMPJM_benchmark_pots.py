@@ -45,10 +45,20 @@ def log_d_fact(n):
 
 
 def log_fact(n):
-    if n <= 0:
-        return 0
-    else:
-        return np.log(n) + log_fact(n - 1)
+    """Calculates `ln(n!)` by adding `ln(n) + ln(n-1) + ...`
+    """
+    # TODO: Consider benchmarking vs naive implementation of `np.log(...)`.
+    if n < 0:
+        raise ValueError('Factorial not defined for negative numbers')
+    if not isinstance(n, int):
+        raise ValueError('Factorial only defined for integral values')
+
+    result = 0
+    while n > 0:
+        result += np.log(n)
+        n -= 1
+
+    return result
 
 
 def psi(r, n, l, nu):
