@@ -48,6 +48,8 @@ def log_d_fact(n):
 
 def log_fact(n):
     """Calculates `ln(n!)` by adding `ln(n) + ln(n-1) + ...`
+
+    Raises `ValueError` if non-integral or negative values are passed.
     """
     # TODO: Consider benchmarking vs naive implementation of `np.log(...)`.
     if n < 0:
