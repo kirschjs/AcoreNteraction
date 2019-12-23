@@ -38,10 +38,12 @@ LeDofL = [
 
 
 def log_d_fact(n):
+    """Calculates `ln(n!!)` by adding `ln(n) + ln(n-2) + ln(n-4) + ...`
+    """
     if n <= 0:
         return 0
-    else:
-        return np.log(n) + log_d_fact(n - 2)
+
+    return np.log(n) + log_d_fact(n - 2)
 
 
 def log_fact(n):
