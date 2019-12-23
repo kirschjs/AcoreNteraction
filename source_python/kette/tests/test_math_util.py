@@ -1,13 +1,7 @@
-import os
-import sys
-
 import numpy as np
 import pytest
 
-# This is a horrible hack and should never, ever (!) leave this file. Replace ASAP.
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-from kette.math_util import log_fact
+from ..math_util import log_fact
 
 
 def test_log_fact_integer():
