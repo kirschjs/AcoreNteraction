@@ -13,7 +13,7 @@ def log_fact(n):
         raise ValueError('Factorial only defined for integral values')
 
     result = 0
-    while n > 0:
+    while n > 1:
         result += np.log(n)
         n -= 1
 
