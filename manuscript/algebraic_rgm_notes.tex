@@ -50,6 +50,9 @@
    #4 & #5 & #6 
   \end{pmatrix}}
 \newcommand{\lam}[1]{\mbox{\ensuremath{\Lambda=#1\,\text{fm}^{-1}}}}   
+\usepackage{pifont}
+\renewcommand\thefootnote{\ding{\numexpr171+\value{footnote}}}
+\let\endtitlepage\relax
 %=============================================================================
 
 \begin{document}
@@ -238,6 +241,60 @@ Eq.~\eqref{eq.rgm.sglnonloc.pw} for $\lam{4}$, $A=4$, $m_N=938~$MeV, $a=0.56~$fm
 
 \newpage
 
+
+\section{Appendix: The core wave function}
+Our ansatz for an $A$-boson system in its ground state
+(symmetric in space \wrt particle exchange) is
+\be
+\phi_A:=e^{-\frac{a}{2}\sum_{i=1}^{\red{A}}\vcl{i}^2}=e^{-a\sum^{\red{A-1}}\vcl{i}^2-a\sum^{\red{A-1}}_{\red{i<j}}\vcl{i}\cdot\vcl{j}}\la{eq.wfktphi}\;\;.
+\ee
+Instead of single-particle coordinates, the usage of cluster coordinates identifies
+the centre of mass as the origin of a ``harmonic'', effective potential, in which the
+particles reside in their independent-particle/mean-field ground state. All observables
+of the system in this state depend thus on a single
+parameter, the (oscillator) width $a$. The root-mean-square radius, in particular, relates to
+$a$ via
+\begin{align}
+\mathfrak{r}^2=&\frac{\int\limits_{\mathbb{R}^{3(A-1)}}d(\vcl{1},\ldots,\vcl{\red{A-1}})~
+\sum_{i=1}^{\red{A-1}}\vcl{i}^2\phi_A^2}
+{\int\limits_{\mathbb{R}^{3(A-1)}}d(\vcl{1},\ldots,\vcl{\red{A-1}})~\phi_A^2}\label{eq.rms}\\
+=&\frac{3}{2}\cdot\frac{(A-1)^2}{A}\cdot a^{-1}\stackrel{A\gg 1}{=}
+\frac{3}{2}\cdot A\cdot a^{-1}\;\;.
+%=&r^2_0\cdot A^{\frac{2}{3}}
+\end{align}
+We assume the correlation between the radius $\mathfrak{r}$ and the ground-state wave function of the
+$3$-nucleon system, to hold for any spatially symmetric $A$-boson system. However, the functional
+relation, $\mathfrak{r}=f\left[A,B(3),B(2)\right]$, is unknown (to the best of our knowledge).
+
+The numerical results obtained for $B(3)=1.5,3,4~$MeV at $B(2)=1~$MeV yield an almost
+linear increase: $\mathfrak{r}\propto A$ for $A=3\ldots6$. The rate of this increase is
+independent of $B(3)$, while its starting point is set by $B(3)$ -- the $\mathfrak{r}$
+curve for some $B(3)$ is parallel and above all curves of smaller $B(3)$.
+
+\begin{figure}[h] 
+\centering 
+\includegraphics[width=0.5\textwidth,angle=0]{../source_python/rms_radii.pdf} 
+\caption{Root-mean-square radii (defined in \eqref{eq.rms}) of a bound, $A$-boson system
+for various 3-body constraints at fixed $B(2)=1~$MeV and \lam{2}.}
+\label{fig.rms}
+\end{figure}
+
+Assuming instead $A$-incompressible spheres deformed into a large sphere yields
+$V=\frac{4}{3}\pi \mathfrak{r}^3\propto A$ and a slower with $A$ growth of the systems.
+
+For an appropriate parametrization of the core wave function we use the numerical values
+for $A=6$ at \lam{2}: $a=\frac{25}{4}~\mathfrak{r}^{-2}=0.15$\footnote{$\mathfrak{r}(A=6,B(3)=1.5$) was calculated at \lam{1}
+due to numerical hindrances at larger cutoffs. The converged value is expected to be significantly smaller, as
+suggested by the outlier in Fig.\ref{fig.rms}.}$,0.65,0.90~$fm$^{-2}$.
+
+$$
+a=\left\lbrace
+\begin{array}{cl} \frac{3}{2~r_{\text{drop}}}A^{2/3}  & \text{liquid drop}\\ 
+                  \frac{3}{2~r_{\text{chain}}}A^{-1}  & \text{linear chain}
+\end{array}\right.
+$$
+
+\newpage
 \section{Appendix: Inter-cluster Potential}
 Consider two compound systems, whose relative motion is much slower compared with the
 motion of the particles within each of these fragments. Within an arbitrarily small
@@ -310,44 +367,8 @@ $\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-2 A+3\right) \Lambda ^2\right)
 \end{table}
 \end{turnpage}
 \end{widetext}
+
 \newpage
-
-\section{Appendix: The core wave function}
-Our ansatz for an $A$-boson system in its ground state
-(symmetric in space \wrt particle exchange) is
-\be
-\phi_A:=e^{-\frac{a}{2}\sum_{i=1}^{\red{A}}\vcl{i}^2}=e^{-a\sum^{\red{A-1}}\vcl{i}^2-a\sum^{\red{A-1}}_{\red{i<j}}\vcl{i}\cdot\vcl{j}}\la{eq.wfktphi}\;\;.
-\ee
-Instead of single-particle coordinates, the usage of cluster coordinates identifies
-the centre of mass as the origin of a ``harmonic'', effective potential, in which the
-particles reside in their independent-particle/mean-field ground state. All observables
-of the system in this state depend thus on a single
-parameter, the (oscillator) width $a$. The root-mean-square radius, in particular, relates to
-$a$ via
-\begin{align}
-\mathfrak{r}^2=&\frac{\int\limits_{\mathbb{R}^{3(A-1)}}d(\vcl{1},\ldots,\vcl{\red{A-1}})~
-\sum_{i=1}^{\red{A-1}}\vcl{i}^2\phi_A^2}
-{\int\limits_{\mathbb{R}^{3(A-1)}}d(\vcl{1},\ldots,\vcl{\red{A-1}})~\phi_A^2}\\
-=&\frac{3}{2}\cdot\frac{(A-1)^2}{A}\cdot a^{-1}\stackrel{A\gg 1}{=}
-\frac{3}{2}\cdot A\cdot a^{-1}\;\;.
-%=&r^2_0\cdot A^{\frac{2}{3}}
-\end{align}
-We assume the correlation between the radius $\mathfrak{r}$ and the ground-state wave function of the
-$3$-nucleon system, to hold for any spatially symmetric $A$-boson system. However, the functional
-relation, $\mathfrak{r}=f\left[A,B(3),B(2)\right]$, is unknown (to the best of our knowledge).
-
-We employ the assumption of a radius which grows almost proportional to the volume of
-$A$ spheres, \ie, $\propto A^{\frac{1}{3}+\delta_V}$.
-With the parameter $\delta_V$, deviations from the liquid-drop approximation are allowed,
-$$
-\delta_V\left\lbrace
-\begin{array}{cl} >0 & \text{faster than voluminous growth}\\ 
-                 <0 & \text{less than volume growth}
-\end{array}\right.
-$$
-By ``SVM measuring'' $r_0$ for some $A$, we
-implicitly relate the parameters of the theory, namely, the cutoff $\lambda$, the mass $m_N$, and
-the LECs/few-body renormalization conditions to $a$.
 
 \bibliographystyle{unsrt}
 \bibliography{Thebibliography.bib}

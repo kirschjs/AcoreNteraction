@@ -150,8 +150,8 @@ def pot_local(r, argv):
 pedantic = 0
 
 NState = 20
-Rmax = 120
-order = 600
+Rmax = 90
+order = 400
 
 Lrel = 1  # Momento angolare
 
@@ -181,15 +181,15 @@ name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction, zet = "
 Amin = 20
 Amax = 21
 
-Lmin = 3.5
-Lmax = 9.5
-dL = 2.5
+Lmin = 0.5
+Lmax = 0.7
+dL = 0.05
 
-cores = [20]  #range(Amin, Amax)
-Lrange = np.arange(Lmin, Lmax, dL)
+cores = [6, 9]  #range(Amin, Amax)
+Lrange = [3.0, 9.0]  #np.arange(Lmin, Lmax, dL)
 
-omegas = np.arange(0.05, 0.14, 0.025)
-Aradius_modifyer_fac = np.arange(0.001, 0.01, 0.002)
+omegas = np.linspace(0.001, 0.15, 5)
+Aradius_modifyer_fac = [.1]  #np.linspace(0.1, 0.2, 2)
 
 resu = []
 
@@ -211,7 +211,7 @@ for Ncore in cores:
 
         for rad_fac in Aradius_modifyer_fac:
 
-            coreosci = rad_fac * Ncore**((1. + Aradius_modifyer_exp) / 3.)
+            coreosci = rad_fac * Ncore**(-1)
 
             mu = Ncore * m / (Ncore + 1.)
             mh2 = hbar**2 / (2 * mu)
@@ -295,8 +295,7 @@ for Ncore in cores:
                         psiRN[x, y] = psi(t[x], y, Lrel, nu)
                         ddpsiRN[x, y] = ddpsi(t[x], y, Lrel, nu)
 
-                VlocRN[:] = pot_local(
-                    t[:], potargs) + mh2 * Lrel * (Lrel + 1) / t[:]**2
+                VlocRN[:] = pot_local(t[:], potargs)
 
                 if (interaction == "NonLocal"):
                     VexRN = np.fromfunction(
@@ -312,15 +311,21 @@ for Ncore in cores:
                 # ECCE: I reduced the calculation to one loop
                 for i in np.arange(NState):
                     for j in np.arange(i + 1):
+
                         U[i][j] = np.sum(
                             psiRN[:, i] * psiRN[:, j] * w[:]) * gauss_scale
                         U[j][i] = U[i][j]
-                        Kin[i][j] = np.sum(
-                            psiRN[:, i] * ddpsiRN[:, j] * w[:]) * gauss_scale
+
+                        Kin[i][j] = np.sum(psiRN[:, i] *
+                                           (ddpsiRN[:, j] + Lrel *
+                                            (Lrel + 1) / t[:]**2 * psiRN[:, j]
+                                            ) * w[:]) * gauss_scale
                         Kin[j][i] = Kin[i][j]
+
                         Vloc[i][j] = np.sum(psiRN[:, i] * VlocRN[:] *
                                             psiRN[:, j] * w[:]) * gauss_scale
                         Vloc[j][i] = Vloc[i][j]
+
                         if (interaction == "NonLocal"):
                             for k in range(order):
                                 Uex[i][j] = Uex[i][j] + 4. * np.pi * np.sum(
@@ -371,10 +376,11 @@ for Ncore in cores:
 
                 if interaction == 'NonLocal':
                     print(
-                        'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f, NORM = %s'
+                        'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f, NORM = %s, rms(core) = %4.4f'
                         % (Ncore, Lamb, coreosci, omega,
                            np.real(energiesnonloc[0]),
-                           np.imag(energiesnonloc[0]), LeC, LeD, posd))
+                           np.imag(energiesnonloc[0]), LeC, LeD, posd,
+                           np.sqrt(1.5 * (Ncore - 1)**2 / (Ncore * coreosci))))
                     resu.append(
                         np.array([
                             Ncore, Lamb, rad_fac, omega, energiesnonloc[0],
@@ -416,7 +422,9 @@ for Ncore in cores:
                         'V_loc_%s' % suff,
                         'V_nonloc_%s' % suff,
                         'E_kin_%s' % suff,
-                        'Hamiltonian_%s' % suff
+                        'KexEV_%s' % suff,
+                        'Hamiltonian_%s' % suff,
+                        'HEV_%s' % suff
                 ]:
                     strFile = compo + '.txt'
                     if os.path.isfile(strFile):
@@ -432,24 +440,20 @@ for Ncore in cores:
                 np.savetxt('E_kin_%s.txt' % suff, np.matrix(Kin), fmt='%12.4f')
                 np.savetxt(
                     'Hamiltonian_%s.txt' % suff, np.matrix(H), fmt='%12.4f')
-                if os.path.isfile('KexEV_%s.dat' % suff):
-                    os.remove('KexEV_%s.dat' % suff)
-                np.savetxt('KexEV_%s.dat' % suff, valexkernel, fmt='%12.4f')
-                if os.path.isfile('HEV_%s.dat' % suff):
-                    os.remove('HEV_%s.dat' % suff)
-                np.savetxt('HEV_%s.dat' % suff, valnonloc, fmt='%12.4f')
+                np.savetxt('KexEV_%s.txt' % suff, valexkernel, fmt='%12.4f')
+                np.savetxt('HEV_%s.txt' % suff, valnonloc, fmt='%12.4f')
 
-f = plt.figure(figsize=(18, 12))
-f.subplots_adjust(left=0.05, right=0.8, bottom=0.1, top=0.82)
+f = plt.figure(figsize=(20, 14))
+f.subplots_adjust(left=0.125, right=0.8, bottom=0.125, top=0.85)
 f.suptitle(
     r'$\zeta\,H^\Lambda_{non-local}\;\;\;;\zeta=%4.4f\;\;\;;\;\;\;c_{radius}\in[%4.4f\,,\,%4.4f]$'
     % (zet, Aradius_modifyer_fac[0], Aradius_modifyer_fac[-1]),
-    fontsize=14)
+    fontsize=40)
 
 ax1 = f.add_subplot(111)
 
-ax1.set_xlabel(r'$\omega$ [fm$^{-2}$]', fontsize=12)
-ax1.set_ylabel(r'$E_0$ [MeV]', fontsize=12)
+ax1.set_xlabel(r'$\omega$ [fm$^{-2}$]', fontsize=28, labelpad=20)
+ax1.set_ylabel(r'$E_0$ [MeV]', fontsize=28, labelpad=20)
 
 for nbrC in range(len(cores)):
     for ll in range(len(Lrange)):
@@ -477,8 +481,10 @@ for nbrC in range(len(cores)):
                 label=r'A=%d  L=%4.3f' % (cores[nbrC], Lrange[ll]),
                 linewidth=4)
 
-            name = r'A=%d  L=%4.3f  c=%4.3f' % (cores[nbrC], Lrange[ll],
-                                                Aradius_modifyer_fac[cc])
+            name = r'$A=%d \;;\; L=%4.1f \;;\; \mathfrak{r}(A)=%4.2f$' % (
+                cores[nbrC], Lrange[ll],
+                np.sqrt(1.5 * (cores[nbrC] - 1)**2 / (
+                    cores[nbrC] * Aradius_modifyer_fac[cc] / cores[nbrC])))
 
             y = np.real(yy[-1])
 
@@ -489,11 +495,14 @@ for nbrC in range(len(cores)):
                 color=ax1.lines[-1].get_color(),
                 xycoords=ax1.get_yaxis_transform(),
                 textcoords="offset points",
-                size=12,
+                size=19,
                 va="center")
 
 #plt.legend(loc='best', fontsize=24)
-secundo = 3
+plt.xticks(omegas, fontsize=40, rotation=0)
+ax1.tick_params(axis='both', which='major', pad=15)
+plt.yticks(fontsize=40, rotation=0)
+secundo = 2
 strFile = 'testNL_%d.pdf' % secundo
 if os.path.isfile(strFile):
     os.remove(strFile)

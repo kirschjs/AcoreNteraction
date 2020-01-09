@@ -9,6 +9,7 @@ tmp*
 *.log
 *.out
 *.pyc
+*.txt
 
 # from pytest:
 .cache
