@@ -29,10 +29,12 @@
 \newcommand{\green}[1]{\textcolor{green}{#1}} 
 \newcommand{\blue}[1]{\textcolor{blue}{#1}} 
 
-\newcommand{\eg}{\textit{e.g.}\;}
-\newcommand{\ie}{\textit{i.e.}\;}
+\newcommand{\wrt}{\textit{wrt.}~}
+\newcommand{\eg}{\textit{e.g.}~}
+\newcommand{\ie}{\textit{i.e.}~}
 \newcommand{\eftnopi}{\mbox{EFT$(\not \! \pi)$}}
 \newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand{\rms}[1]{\ensuremath{\langle r(#1)\rangle}}
 \newcommand{\ls}{\ve{L}\cdot\ve{S}}
 %\newcommand{\be}{\begin{equation}}
 %\newcommand{\ee}{\end{equation}}
@@ -224,30 +226,132 @@ All the three-body calculations have been performed using SVM.
 \caption{}
 \end{figure} 
 
-Defining an effective theory as in equation \ref{eq:hamiltonian} with $C_0$ and $D_0$ fitted to reproduce the two- and three-body energies defined in table \ref{tab:configurations}, the energy of varius P-wave systems are calculated.
+The $A$-boson ground states of a theory characterized via a Hamiltonian of type \eqref{eq:hamiltonian}
+has been numerically analysed in detail (see \eg~ \cite{}).
+We recover the same qualitative behaviour of the energy $B(A)$ and rms radii $\rms{A}$ of those states here for $A\in[2,6]$
+employing an $A$-body SVM method: the states are spatially totally symmetric, they are bound with respect to the
+$B(A-1)$ threshold, the convergence rate of $B(A)$ and $\rms{A}$ (within the considered cutoff range
+$\Lambda\in[0.1,14]~\text{fm}^{-1}$) increases with $B(3)/B(2)$, \ie, closer to the 2-body unitarity limit, the bosonic
+ground states become less sensitive with respect to details of the two- and three-body interactions.
+
+Subsequently, one particle was added to these $A$-boson systems, not only with the same mass as the others, but also 
+flavour-equal to one of them.
+The identity of two of the $A+1\in[3,7]$ particles was enforced on the SVM basis states which where totally
+antisymmetric with an $A$-dimensional internal space. For $2+1$ particles, \eg, the spin-up/down states of a neutron suffice,
+while for $4+1$, the spin and isospin formalism can be invoked.
+
+With this implementation of the statistical nature of the particles, the SVM evaluations yield $B(A+1)<0$, \ie, no bound 
+states,
+{\bf if} the spatial component of the variational basis states was constrained to
+a total orbital angular momentum $L_\text{total}=0$.
+Although, this can be proven analytically\footnote{} for contact interactions,
+finite interaction ranges, \ie, $\forall\Lambda<\infty$, especially for $\Lambda\ll 1~\text{fm}^{-1}$, such 
+bound states cannot be ruled out, {\it a priori} because: one, a state with $L_\text{total}=0$ has non-zero overlap with 
+mixed-symmetry states (as they are enforced by the internal wave-function component), and two, the finite range allows for 
+non-zero matrix elements of the interaction even if two particles reside in different orbitals.
+However, the results demonstrate the smallness of such transitions for reasonable ranges,
+which are necessary for the binding.
+
+If the spatial component of the variational basis is projected onto $L_\text{total}=1$, the eigenvalue spectrum of
+the $A+1\in[3,7]$ particle systems contains a negative value ($B(A+1)$; if not noted otherwise, this notation
+implies $L_\text{total}=1$) for $\Lambda\approx0.1~\text{fm}^{-1}$.
+In prose, if the regularized interaction provides enough attraction beyond a repulsive region in which an effective
+angular momentum barrier drives the particles apart, the system's ground state is bound.
+In order to assess the universal character of such a stable bound state with mixed symmetry -- is $B(A+1)$ correlated
+with $B(2,3)\neq f(\Lambda)$ by renormalizing the coupling strengths in \eqref{eq:hamiltonian} -- the cutoff
+is varied: $\Lambda\in[0.1,14]~\text{fm}^{-1}$.
+
+With increasing cutoff, \ie, decreasing interaction range, \ie, approaching the contact limit, $B(A+1)$ is found to decrease
+and vanish for some critical value $\Lambda_c$ which increases linearly with $A$ (see fig.~\ref{fig:RGM}).
+The more particles in the bosonic ground-state core, the shorter-ranged the microscopic two- and three-body interaction
+has to be in order not to stabilize the $A+1$ mixed-symmetry state.
+As $\Lambda_c(A=2-6)$ are arguably small relative to a scale above which the nuclear contact theory (\eftnopi) would
+be useful, the result implies: the absence of $L=1$, $S=1/2$, $A+1$-body bound states in an $A$-flavour theory
+is a consequence of flavour-independent contact interactions which are renormalized to one bound dimer and one trimer. 
+
+Strictly speaking, our results presented thus far support this conclusion about the universal instability of the $A+1$
+body state only for $A=2-6$. In order to gain insight whether the linear dependence of the critical range holds for
+$A>6$, we employ a single-channel, effective two-fragments resonating-group approximation. This approximation
+turns the $A+1$ body problem into a tow-body problem between a frozen core and one of the original particles of
+the few-body problem. What makes this seemingly drastic simplification appropriate is the halo character of the problem,
+namely, the increasingly large gap $\lim_{\Lambda\to\infty}\left[B(A)-B(A-1)\right]=\infty$, which does not
+allow for excitations of the bosonic core induced by the $A+1$-th particle if the energy of the latter
+does not exceed the scale set by this gap. It is helpful to consider this treatment as a generalization of the
+time-honoured description of the 5-nucleon system around the Nucleon-$\alpha$ threshold.
+
+However, this method does not model the core as point-like but retains its finite size while assuming
+an independent motion of the core particles. This independence allows for a representation of the core by
+its $A$-body ground state as found in the absence of the $A+1$-th particle. As this state was shown
+to be spherically symmetric with $L_\text{total}=0$, we choose to retain only one component of an harmonic-oscillator (HO)
+Slater-determinant expansion, \ie, a product of four single-particle HO ground-state orbitals.
+The $A+1$-body Schr\"odinger equation reduces to its 2-body form by disregarding variations of this wave function
+while minimizing the corresponding functional only \wrt~the component which describes the relative motion.
+Thereby, the effect of the antisymmetrization between two of the particles has to be considered and can be studies
+in its effect by considering various version of the effective 2-body equation.
+
+We detail the parametrization of these various components of the core-particle interaction with the
+microscopic coupling strengths $C_0$, $D_0$, the single-particle mass $m$, and the regulator parameter $\Lambda$
+elsewhere. It is customary to present the effective potential as three term in the equation:
+The direct potential, which averages the interaction of the orbiter with the core particles. This interaction is
+local and resembles the character of the two-particle interaction for the fragment-relative coordinate. It does not
+consider the statistical properties of the particles.
+These properties lead to the non-local exchange interaction, whose energy-dependent part is conventionally dubbed
+exchange kernel.
+
+With this method, it was practical to assess the dependence of the $A+1$-body spectrum for the $A$-flavour theory
+as a function of $B(2,3)$ and $\Lambda$.
+
+
+
+Defining an effective theory as in equation \ref{eq:hamiltonian} with $C_0$ and $D_0$ fitted to reproduce the two- and 
+three-body energies defined in table \ref{tab:configurations}, the energy of varius P-wave systems are calculated.
 Using SVM the ground state energies of up to $A+1=$ 7 isomassive fermions with $A \le $6 flavors are calculated.
 The same is done up to $A+1\sim$60 $A$-flavour fermionic systems using resonating group method (RGM).
 In the case of $A$ \textit{different} fermions the ground state is spatially symmetric.
-No spin dependence is included in our model, therefore, those systems behaves as if composed of bosons (it is boson-like) and are equivalent to the case discussed in \cite{manybosons}.
-Convergence of the ground state energy of bosonic-like system with respect to the cut-off is observed for all the theory input used in this work.
+No spin dependence is included in our model, therefore, those systems behaves as if composed of bosons (it is boson-like) 
+and are equivalent to the case discussed in \cite{manybosons}.
+Convergence of the ground state energy of bosonic-like system with respect to the cut-off is observed for all the theory 
+input used in this work.
 We observe and increasing of the ground state binding with the number of particles. 
-The point radius $\langle r^2 \rangle$ has been calculated for $A\le6$, for a number of systems too small to extrapolate the behavior for large $A$, however, we expect it to behave as $A^{1/3}$ as predicted by the neutron drop model and observed in  \cite{manybosons}.
+The point radius $\langle r^2 \rangle$ has been calculated for $A\le6$, for a number of systems too small to extrapolate the 
+behavior for large $A$, however, we expect it to behave as $A^{1/3}$ as predicted by the neutron drop model and observed in  
+\cite{manybosons}.
 
-Adding an extra fermion with the same flavor as one in core to the system, we observe the groundstate wavefunction to be spatially asymmetric, and with angular momentum L=1.
-However, this state remains stable only for small cut-off after which the systems breaks in the symmetric core and the extra fermion.
+Adding an extra fermion with the same flavor as one in core to the system, we observe the groundstate wavefunction to be 
+spatially asymmetric, and with angular momentum L=1.
+However, this state remains stable only for small cut-off after which the systems breaks in the symmetric core and the extra 
+fermion.
 This is a common behaviour of all the systems and input configurations considered.
-In figure \ref{fig:treshold}, are compared the ground-state energy of the $A\le 6$  bosonic-like fermionic system and the L=1 $A$+1 bindings for $B_3=3$ and $4$ MeV.
-For each number of particles a critical cut-off $\Lambda_c^A$, corresponding to the cut-off in which the $A+1$ state becomes unstable, exists.
-For larger cut-offs, the ground-state energy coincide with the one of the $A-$fermion systems and the system breaks in a $A-$particles symmetric subsystem and a free fermion.
-The result for $A^2B$ fermions is in agreement with the one found by Kartavtsev et al. \cite{Kartavtsev_2007} in the particular case in which the fermions are isomassive.
+In figure \ref{fig:treshold}, are compared the ground-state energy of the $A\le 6$  bosonic-like fermionic system and the 
+L=1 $A$+1 bindings for $B_3=3$ and $4$ MeV.
+For each number of particles a critical cut-off $\Lambda_c^A$, corresponding to the cut-off in which the $A+1$ state becomes 
+unstable, exists.
+For larger cut-offs, the ground-state energy coincide with the one of the $A-$fermion systems and the system breaks in a $A-$
+particles symmetric subsystem and a free fermion.
+The result for $A^2B$ fermions is in agreement with the one found by Kartavtsev et al. \cite{Kartavtsev_2007} in the 
+particular case in which the fermions are isomassive.
 
-
-\begin{figure}[h] 
-\centering 
-\includegraphics[width=0.8\textwidth]{./local2} 
-\caption{Critical cut-off behaviour with the number of particle in the spatially symmetric core when one extra fermion with the same flavour as one in the core is added. Red dots refer to SVM few-body calculation, the blue ones to the RGM result.}
+\begin{figure}
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\includegraphics[width=0.9\textwidth]{./local2}
+\caption{}
 \label{fig:RGM}
-\end{figure} 
+\end{subfigure}
+    \hfill
+\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\includegraphics[width=0.9\textwidth]{./local_large} 
+\caption{}        
+\label{fig:RGM2}
+\end{subfigure}
+\caption{Dependence of the critical cutoff ($\lambda_c$) on the number of core particles ($A$).
+Red dots in (a) mark SVM few-body calculations.
+All other curves represent results obtained within a single-channel resonating-group method.
+In (b), the effect of a change in the ratio between two- and three-boson binding energies on $\lambda_c$ is shown.
+For $B(2)=0$, the respective scattering length $\to\infty$.}
+\end{figure}
 
 \textbf{Larger systems} are not accessible with ab-initio few-body methods like SVM. 
 For this purpose an extension of resonating group method (RGM) \cite{PhysRev.52.1083,Naidon_2016} has been developed.
