@@ -39,6 +39,8 @@
 %\newcommand{\be}{\begin{equation}}
 %\newcommand{\ee}{\end{equation}}
 \newcommand{\la}{\label}
+\newcommand{\figref}[1]{fig.~\ref{#1}}
+\newcommand{\tabref}[1]{table~\ref{#1}}
 
 \begin{document}
 
@@ -166,7 +168,7 @@ Therefore, we require the theory to give a good qualitative description of the q
 The theory has two degrees of freedom, the two- and the three-body LECs, that are fitted on few-body observables.  
 The two-body LECs are fitted on small but finite two-body binding $B_2=1$ MeV equivalent to $a_0\approx6.7$ fm in the limit of large cut-off, to the nuclear binding $B_2=2.22$ MeV and to the unitary limit $B_2\rightarrow0$.
 The fit has been performed using a precise variational diagonalization method in case of finite binding and using the Numerov method in the unitary limit.
-The three-body LEC is fitted to reproduce one shallow three-body bound state with binding $B_3=3$, $4$, $8.48$, $1$ MeV as on view in table  \ref{tab:configurations}.
+The three-body LEC is fitted to reproduce one shallow three-body bound state with binding $B_3=3$, $4$, $8.48$, $1$ MeV as on view in \tabref{tab:configurations}.
 The three-body binding breaks the universality of the theory, therefore, we expect the theory behavior to be more dependent on the choice of the three-body binding than to the choice of the two-body scattering length or to the particle mass.
 All the three-body calculations have been performed using SVM.
 
@@ -213,7 +215,7 @@ All the three-body calculations have been performed using SVM.
     \begin{subfigure}[t]{0.45\textwidth}
         \centering
         \includegraphics[width=\linewidth]{./p-systems-vs-l} 
-        \caption{Colors online. Ground-state energy behaviour of $A$ (solid line) and $A+1$ (dashed line) $A-$flavours fermionic system with respect to the cut-off used. The blue line represent the theory fitted on the configuration A3 and the red represent the A4 one (see table \ref{tab:configurations} and text for the configuration specifics). }
+        \caption{Colors online. Ground-state energy behaviour of $A$ (solid line) and $A+1$ (dashed line) $A-$flavours fermionic system with respect to the cut-off used. The blue line represent the theory fitted on the configuration A3 and the red represent the A4 one (see \tabref{tab:configurations} and text for the configuration specifics). }
         \label{fig:treshold}
     \end{subfigure}
     \hfill
@@ -262,32 +264,34 @@ with $B(2,3)\neq f(\Lambda)$ by renormalizing the coupling strengths in \eqref{e
 is varied: $\Lambda\in[0.1,14]~\text{fm}^{-1}$.
 
 With increasing cutoff, \ie, decreasing interaction range, \ie, approaching the contact limit, $B(A+1)$ is found to decrease
-and vanish for some critical value $\Lambda_c$ which increases linearly with $A$ (see fig.~\ref{fig:RGM}).
+and vanish for some critical value $\Lambda_c$ which increases linearly with $A$ (see \figref{fig:RGM1}).
 The more particles in the bosonic ground-state core, the shorter-ranged the microscopic two- and three-body interaction
 has to be in order not to stabilize the $A+1$ mixed-symmetry state.
 As $\Lambda_c(A=2-6)$ are arguably small relative to a scale above which the nuclear contact theory (\eftnopi) would
 be useful, the result implies: the absence of $L=1$, $S=1/2$, $A+1$-body bound states in an $A$-flavour theory
 is a consequence of flavour-independent contact interactions which are renormalized to one bound dimer and one trimer. 
 
-Strictly speaking, our results presented thus far support this conclusion about the universal instability of the $A+1$
+Strictly speaking, the results presented thus far support this conclusion about the universal instability of the $A+1$
 body state only for $A=2-6$. In order to gain insight whether the linear dependence of the critical range holds for
 $A>6$, we employ a single-channel, effective two-fragments resonating-group approximation. This approximation
-turns the $A+1$ body problem into a tow-body problem between a frozen core and one of the original particles of
+turns the $A+1$ body problem into a tow-body problem between a ``frozen'' core and one of the original particles of
 the few-body problem. What makes this seemingly drastic simplification appropriate is the halo character of the problem,
 namely, the increasingly large gap $\lim_{\Lambda\to\infty}\left[B(A)-B(A-1)\right]=\infty$, which does not
 allow for excitations of the bosonic core induced by the $A+1$-th particle if the energy of the latter
 does not exceed the scale set by this gap. It is helpful to consider this treatment as a generalization of the
 time-honoured description of the 5-nucleon system around the Nucleon-$\alpha$ threshold.
 
-However, this method does not model the core as point-like but retains its finite size while assuming
-an independent motion of the core particles. This independence allows for a representation of the core by
-its $A$-body ground state as found in the absence of the $A+1$-th particle. As this state was shown
+However, the RGM method does not model the core as point-like but retains its finite. It assumes
+an independent motion of the core particles but takes into account (anti)symmetrization.
+The independent motion allows for a representation of the core by
+its $A$-body ground state as it exists in the absence of the $A+1$-th particle.
+As this state was shown
 to be spherically symmetric with $L_\text{total}=0$, we choose to retain only one component of an harmonic-oscillator (HO)
 Slater-determinant expansion, \ie, a product of four single-particle HO ground-state orbitals.
 The $A+1$-body Schr\"odinger equation reduces to its 2-body form by disregarding variations of this wave function
 while minimizing the corresponding functional only \wrt~the component which describes the relative motion.
-Thereby, the effect of the antisymmetrization between two of the particles has to be considered and can be studies
-in its effect by considering various version of the effective 2-body equation.
+In this course, the effect of the antisymmetrization between two of the particles has to be considered and is reflected
+in isolated components of the effective 2-body potential.
 
 We detail the parametrization of these various components of the core-particle interaction with the
 microscopic coupling strengths $C_0$, $D_0$, the single-particle mass $m$, and the regulator parameter $\Lambda$
@@ -295,16 +299,20 @@ elsewhere. It is customary to present the effective potential as three term in t
 The direct potential, which averages the interaction of the orbiter with the core particles. This interaction is
 local and resembles the character of the two-particle interaction for the fragment-relative coordinate. It does not
 consider the statistical properties of the particles.
-These properties lead to the non-local exchange interaction, whose energy-dependent part is conventionally dubbed
-exchange kernel.
+These properties lead to the non-local exchange interaction which contains an energy-dependent part which
+is conventionally called the exchange kernel.
 
-With this method, it was practical to assess the dependence of the $A+1$-body spectrum for the $A$-flavour theory
-as a function of $B(2,3)$ and $\Lambda$.
+We shall discuss the case which disregards the exchange of the orbiter with one of the core constituents (local
+approximation) before the results which employ the antisymmetrization \wrt~this pair in the RGM equation.
+In both cases, the conjectures are presented before substantiating them with the data in \figref{fig:RGM}.
+
+Any non-relativistic system of $A+1$ particles with identical masses and an $A$-dimensional internal flavour space
+whose dynamics is 
 
 
 
 Defining an effective theory as in equation \ref{eq:hamiltonian} with $C_0$ and $D_0$ fitted to reproduce the two- and 
-three-body energies defined in table \ref{tab:configurations}, the energy of varius P-wave systems are calculated.
+three-body energies defined in \tabref{tab:configurations}, the energy of varius P-wave systems are calculated.
 Using SVM the ground state energies of up to $A+1=$ 7 isomassive fermions with $A \le $6 flavors are calculated.
 The same is done up to $A+1\sim$60 $A$-flavour fermionic systems using resonating group method (RGM).
 In the case of $A$ \textit{different} fermions the ground state is spatially symmetric.
@@ -322,7 +330,7 @@ spatially asymmetric, and with angular momentum L=1.
 However, this state remains stable only for small cut-off after which the systems breaks in the symmetric core and the extra 
 fermion.
 This is a common behaviour of all the systems and input configurations considered.
-In figure \ref{fig:treshold}, are compared the ground-state energy of the $A\le 6$  bosonic-like fermionic system and the 
+In \figref{fig:treshold}, are compared the ground-state energy of the $A\le 6$  bosonic-like fermionic system and the 
 L=1 $A$+1 bindings for $B_3=3$ and $4$ MeV.
 For each number of particles a critical cut-off $\Lambda_c^A$, corresponding to the cut-off in which the $A+1$ state becomes 
 unstable, exists.
@@ -337,7 +345,7 @@ particular case in which the fermions are isomassive.
 \centering
 \includegraphics[width=0.9\textwidth]{./local2}
 \caption{}
-\label{fig:RGM}
+\label{fig:RGM1}
 \end{subfigure}
     \hfill
 \begin{subfigure}[t]{0.49\textwidth}
@@ -351,6 +359,7 @@ Red dots in (a) mark SVM few-body calculations.
 All other curves represent results obtained within a single-channel resonating-group method.
 In (b), the effect of a change in the ratio between two- and three-boson binding energies on $\lambda_c$ is shown.
 For $B(2)=0$, the respective scattering length $\to\infty$.}
+\label{fig:RGM}
 \end{figure}
 
 \textbf{Larger systems} are not accessible with ab-initio few-body methods like SVM. 
@@ -360,7 +369,7 @@ In principle this permits to reduce a complex many-body calculation in a simpler
 The derivation is done assuming that the wave function of the core is frozen to be the harmonic oscillator (HO) Hartree Fock (HF) ground state with respect to the system center of mass.
 The oscillator parameter is fixed to reproduce the HO ground state point radius $\sqrt{\langle r^2 \rangle} \propto A^{1/3}$.
 $\alpha$ is fitted to reproduce the $\Lambda_c^{3\le A \le 6}$ from SVM calculations.
-In figure \ref{fig:RGM} is shown the behavior for $A \le 60$ using RGM with local approximation for different configuration of the theory. 
+In \figref{fig:RGM} is shown the behavior for $A \le 60$ using RGM with local approximation for different configuration of the theory. 
 We observe an increasing of $\Lambda_c^A$ with $A$, remaining finite for all the systems considered.
 In one hand, this means that adding more particles in the spatially symmetric core of the system, the P-wave states becomes more stable and for any $r_0$ there is a minimal $A$ after which it stabilize (see equation \ref{eq:philips_effr} for $\Lambda\Leftrightarrow r_0$ correspondence).
 On the other one, there is always a $\Lambda_c^A$ for which the P-wave state becomes unstable and in the contact limit all P-wave systems decay in the symmetric core and one particle.
@@ -399,14 +408,14 @@ Total L & $r_c$ [fm]& $r_c$ [fm]\\
 \textbf{The nuclear case} is studied fitting the two-body energy to the deuterium binding $B_2=2.22$ MeV and $B_3$ to the $B(^3He)=8.48$ MeV ground state. 
 No spin dependence is included in the interaction, therefore, spin singlet dibaryon (e.g. the dineutron) results as bound as the deuterium.
 However, nuclear physics do not hardly break spin symmetry and we expect our result to be qualitatively accurate.
-We observe the same instability pattern shown in figure \ref{fig:treshold} for all the A+1 systems with $A\le 4$.
+We observe the same instability pattern shown in \figref{fig:treshold} for all the A+1 systems with $A\le 4$.
 However, in the nuclear case, none of these systems are expected to be stable. 
 More interesting is $^6$Li, which is expected to have a stable bound-state with L=1.
-Our calculations show (see figure \ref{fig:nuclear}) that this state stability is supported only for a limited range of cut-off and the system breaks in a deuterium and an alpha particle.
+Our calculations show (see \figref{fig:nuclear}) that this state stability is supported only for a limited range of cut-off and the system breaks in a deuterium and an alpha particle.
 The calculation for $^8$Be leads to similar results and an instability with respect to alpha decay.
 Studying the spectrum of the $A^2B^2CD$ system ($^6$Li if fitted on nuclear observable), more than one state appear to be stable for very small $\Lambda$.
 All those states becomes unstable for large $\Lambda$. 
-Studying the order of the states and the order of disappearance (see table \ref{tab:levelorder}), it well represent the expected one for the physical $^6$Li despite the oversimplified interaction used.
+Studying the order of the states and the order of disappearance (see \tabref{tab:levelorder}), it well represent the expected one for the physical $^6$Li despite the oversimplified interaction used.
 
 Inspecting the scale of the critical cut-off with respect to the other present in the theory it can be argued that $\Lambda_c$ for $^6$Li is of the same order  as the pionmass breaking scale $\Lambda_c\sim1.5$ fm$^{-1} \approx300$ MeV.
 In EFT the cut-off of the theory should be pushed to be much larger that the expected breaking scale in order to be able to define the powercounting.
@@ -429,7 +438,7 @@ In other words, finite range interaction does not only describe a finite and lar
 Both this contributions are expected to enter only subleading in the system description but contribute to the stabilization of P-wave systems at low cut-off.
 To study which partial waves mostly contribute to the system binding we project the four-flavor system in asymmetric spinorial state.
 This forces the spatial part to be symmetrical, (even total angular momentum). 
-We observe a great reduction of $\Lambda_c^A$ (shown in figure \ref{fig:Sprojection}) which indicates that residual odd angular momentums play a fundamental role in the system stability.
+We observe a great reduction of $\Lambda_c^A$ (shown in \figref{fig:Sprojection}) which indicates that residual odd angular momentums play a fundamental role in the system stability.
 The residual binding is due to S-wave effective range and large even angular momentum (L=2) contributions.
 This observation does not prove that a P-wave interaction will stabilize P-wave states above $\Lambda_c^A$, but suggests that it might help to extend contact EFT to multi-fermionic systems.
 
