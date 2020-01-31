@@ -311,6 +311,34 @@ $\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-2 A+3\right) \Lambda ^2\right)
 \end{turnpage}
 \end{widetext}
 \newpage
+\section{Appendix: }
+
+The normalized radial wave function corresponding to the state ($nl$) in a 
+{\it three-dimensional isotropic oscillator potential} has the form
+\begin{widetext}
+\begin{align*}
+\phi_{nl}(r)=&\;C_{nl}~e^{-\frac{\alpha^2}{2}r^2}~r^l~F\big[1-n,l+\frac{3}{2};\alpha^2r^2\big]\\
+=&\;C_{nl}~e^{-\frac{\alpha^2}{2}r^2}~r^l~
+\left(1+\frac{(1-n)}{(l+\frac{3}{2})}\cdot\frac{\alpha^2r^2}{1!}
++\frac{(1-n)(2-n)}{(l+\frac{3}{2})(l+\frac{5}{2})}\cdot\frac{(\alpha^2r^2)^2}{2!}
++\frac{(1-n)(2-n)(3-n)}{(l+\frac{3}{2})(l+\frac{5}{2})(l+\frac{7}{2})}\cdot\frac{(\alpha^2r^2)^3}{3!}+\ldots\right)\\
+\stackrel{l=0}{=}&\;C_{n}~e^{-\frac{\alpha^2}{2}r^2}~
+\left(1+\frac{(1-n)}{(\frac{3}{2})}\cdot\frac{\alpha^2r^2}{1!}
++\frac{(1-n)(2-n)}{(\frac{3}{2})(\frac{5}{2})}\cdot\frac{(\alpha^2r^2)^2}{2!}
++\frac{(1-n)(2-n)(3-n)}{(\frac{3}{2})(\frac{5}{2})(\frac{7}{2})}\cdot\frac{(\alpha^2r^2)^3}{3!}+\ldots\right)\\
+=&\;e^{-\frac{\alpha^2}{2}r^2}\sum_{i=1}^n(-)^{i+1}~r^{2(i-1)}
+\end{align*}
+\end{widetext}
+with $n=\red{1},2,3,\ldots$, $l\geq 0$, and normalization $C_{nl}=\frac{1}{\Gamma(l+3/2)}\sqrt{\frac{2\Gamma(1+n+1/2)}{\Gamma(n)}}\sqrt{(M\omega/\hbar)^{l+3/2}}$. The part of the function in brackets
+is $>0$ at $r=0$, and intersects the $x$ axis $n-1$ times before diverging with $(-)^{n+1}~r^{2(n-1)}$.
+
+Systems with more particles than accessible internal states require a spatial state with mixed symmetry, \ie, at least one
+particle has to reside in a state which is different from the one the others are in, \eg, $A$ core particles in a
+$n=l=0$ state, and one particle in an $n\neq0$ but still $l=0$ state. Matrix elements of contact interaction between
+such configurations are zero, and we shall need to know whether the same is true for a one-parameter, spherically symmetric,
+finite-range representation of the contact, $\lim_{\Lambda\to\infty}g_\Lambda(r)=\delta(r)$. 
+
+
 
 \section{Appendix: The core wave function}
 Our ansatz for an $A$-boson system in its ground state
