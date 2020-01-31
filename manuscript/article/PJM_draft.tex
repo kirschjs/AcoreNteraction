@@ -25,6 +25,9 @@
 \renewcommand\thefootnote{\fnsymbol{footnote}}
 
 \usepackage[dvipsnames]{xcolor} 
+\newcommand{\es}{1\text{\scriptsize s}}
+\newcommand{\zs}{2\text{\scriptsize s}}
+
 \newcommand{\red}[1]{\textcolor{red}{#1}} 
 \newcommand{\green}[1]{\textcolor{green}{#1}} 
 \newcommand{\blue}[1]{\textcolor{blue}{#1}} 
@@ -228,10 +231,43 @@ All the three-body calculations have been performed using SVM.
 \caption{}
 \end{figure} 
 
-The $A$-boson ground states of a theory characterized via a Hamiltonian of type \eqref{eq:hamiltonian}
-has been numerically analysed in detail (see \eg~ \cite{}).
-We recover the same qualitative behaviour of the energy $B(A)$ and rms radii $\rms{A}$ of those states here for $A\in[2,6]$
-employing an $A$-body SVM method: the states are spatially totally symmetric, they are bound with respect to the
+The $A$-boson ground states of a theory characterized by a Hamiltonian of
+type \eqref{eq:hamiltonian}
+has been numerically analysed in detail (see \eg~ \cite{Bazak:2016wxm,2015PhRvA..92c3626Y,Gattobigio:2012tk,vonStecher:2011zz,Gattobigio:2011ey}).
+In contrast to these studies, the bosonic interaction of this work supports
+exactly one bound dimer and one trimer. The universal accumulation of trimers
+at the $1+1$ body threshold is not considered. Furthermore, for all considered
+ratios $B(3)/B(2):=\Lambda^*$, only one $(A+1)$-boson state is found below
+the $A$-boson threshold and no second as established numerically, \eg, in Refs.~
+\cite{Hammer:2006ct,2009NatPh...5..417V,vonStecher:2011zz}.
+Comparing the $A<7$ body spectra of $\Lambda^*=4$ with $\Lambda^*=3$ in
+\figref{fig:treshold}, $B(A)/B(3)$ reduces, too. This indicates, that these states
+resemble the shallow components of the conjectured universal pair. This hypothesis is
+based on the argument that $\Lambda^*\to0$ is realized with an increasingly repulsive
+three-body interaction which precludes the emergence of further $A$-boson bound states
+but has an enhanced effect in a larger system as the number of triplets grows
+with $A$. Therefore, one na\"ively expects a more rapid decrease of $B(A)$ \wrt $B(A-1)$ which compensates the initially found wider gap. To parametrize the
+number $A^*$ at which $B(A^*+1)<B(A^*)$, \ie, stable $(A^*+1)$-body
+cluster cease to exist, remains an open question.
+For this work, we assume that $A^*=2$, which
+means that for moving the trimer bound state closer to the dimer-boson threshold
+the larger systems remain stable but they accumulate at the trimer-$(A-3)$-boson
+threshold. This accumulation resembles the set of shallow states of the
+alleged universal pair.
+
+These considerations which identify the observed $A$-body states as ground
+states are useful to characterize their spatial structure. The variational
+bases expand only states with $L_\text{total}=0$. Yet, spatial configurations with
+mixed symmetry are, in principle, allowed. However, interaction matrix elements
+of such mixed states, \eg, particles occupying different oscillator $S$-shells
+\scalebox{0.8}{$\young(\es,\zs)$}, 
+should be of higher energy than a totally symmetric state
+\scalebox{0.8}{$\young(\es\es)$}. For the three and four-body states we verified
+this conjecture numerically i 
+
+\noindent\rule{\textwidth}{1pt}
+
+The states are spatially totally symmetric, they are bound with respect to the
 $B(A-1)$ threshold, the convergence rate of $B(A)$ and $\rms{A}$ (within the considered cutoff range
 $\Lambda\in[0.1,14]~\text{fm}^{-1}$) increases with $B(3)/B(2)$, \ie, closer to the 2-body unitarity limit, the bosonic
 ground states become less sensitive with respect to details of the two- and three-body interactions.
@@ -306,8 +342,20 @@ We shall discuss the case which disregards the exchange of the orbiter with one 
 approximation) before the results which employ the antisymmetrization \wrt~this pair in the RGM equation.
 In both cases, the conjectures are presented before substantiating them with the data in \figref{fig:RGM}.
 
-Any non-relativistic system of $A+1$ particles with identical masses and an $A$-dimensional internal flavour space
-whose dynamics is 
+A non-relativistic system of $A+1$ particles with identical masses and
+an $A$-dimensional internal flavour space cannot sustain a bound state if
+its dynamics is constrained by representations of two- and three-particle
+momentum-independent contact interactions which are renormalized to yield
+a bound/unitary two-body state and a bound three-body state and whose
+residual finite-range is below a critical value ($\lambda_c^{−1}$)
+which decreases with increasing particle content $A$ of the system.
+If the range of the regulated contact interactions, however, surpasses the
+critical range, the ground state of the $A+1$ particles is bound with respect
+to breakup in the bosonic, spatially symmetric $A$-body ground state and a
+single free particle. The total orbital angular momentum of this $A+1$ bound
+state is $L_{\text{\scriptsize total}}= 1$.
+For any finite ratio $\Lambda^*<\infty$,
+the critical range reaches a minimum at a certain number of particles $A$.
 
 
 \newpage
