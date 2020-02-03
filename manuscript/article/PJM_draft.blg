@@ -5,45 +5,45 @@ The style file: ieeetr.bst
 Database file #1: Thebibliography.bib.bib
 Warning--empty journal in Hammer:2019poc
 Warning--empty journal in Beck:2019abp
-You've used 29 entries,
+You've used 31 entries,
             1876 wiz_defined-function locations,
-            684 strings with 9070 characters,
-and the built_in function-call counts, 9451 in all, are:
-= -- 928
-> -- 431
+            699 strings with 9390 characters,
+and the built_in function-call counts, 10036 in all, are:
+= -- 990
+> -- 450
 < -- 0
-+ -- 155
-- -- 126
-* -- 651
-:= -- 1304
-add.period$ -- 30
-call.type$ -- 29
-change.case$ -- 29
++ -- 162
+- -- 131
+* -- 687
+:= -- 1381
+add.period$ -- 32
+call.type$ -- 31
+change.case$ -- 31
 chr.to.int$ -- 0
-cite$ -- 31
-duplicate$ -- 529
-empty$ -- 759
-format.name$ -- 126
-if$ -- 2352
+cite$ -- 33
+duplicate$ -- 565
+empty$ -- 810
+format.name$ -- 131
+if$ -- 2504
 int.to.chr$ -- 0
-int.to.str$ -- 29
-missing$ -- 29
-newline$ -- 91
-num.names$ -- 29
-pop$ -- 70
+int.to.str$ -- 31
+missing$ -- 31
+newline$ -- 97
+num.names$ -- 31
+pop$ -- 74
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 465
+skip$ -- 496
 stack$ -- 0
-substring$ -- 561
-swap$ -- 299
+substring$ -- 593
+swap$ -- 319
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 71
-width$ -- 31
-write$ -- 293
+while$ -- 76
+width$ -- 33
+write$ -- 314
 (There were 2 warnings)
