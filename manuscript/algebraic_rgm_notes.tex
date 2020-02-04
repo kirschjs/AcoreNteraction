@@ -11,6 +11,8 @@
 \usepackage{slashed} 
 \usepackage[dvipsnames]{xcolor} 
 \usepackage{soul}
+\usepackage{rotating}
+\usepackage{pdflscape}
 %=============================================================================
 \def\cM{{\widehat{M}}}
 \newcommand{\sube}{_\text{\tiny EX}}
@@ -342,63 +344,94 @@ interactions ($\Lambda\to\infty$).
 \item The range of terms originating from the two-body interaction is $\approx 2\times$ as large as the one
 of the terms proportional to $D_1^\Lambda$.
 \item For $A\to\infty$, the interaction becomes local, \ie, $\beta\to0$.
-\item For $A\gg1$, the pair terms ($\eta_1,\zeta_2$) grow linearly with $A$, while the triplet terms
-($\eta_{2,3},\zeta_{3,4}$) increase in magnitude quadratically in $A$.
+\item For $A\gg1$, the terms $\eta_1$ and $\zeta_2$ grow linearly with $A$ consistent with the number
+of pairwise interactions between the orbiter and a core constituent. The terms
+$\eta_{2,3}$ and $\zeta_{3,4}$) increase in magnitude quadratically with $A$ which reflects the $(A-1)(A-2)$
+possible ways triplets can be selected including the orbiter and two core particles.
 \item The strength of the exchange term ($\zeta_1$) is independent of $A$ and $\Lambda$. It depends linearly
 on the energy and is repulsive in even, and attractive in odd partial waves ($i^lj_l(ir)\gtrless0\;\;\forall r$ for ${\text{even}\atop\text{odd}}\;\;l$).
 \end{itemize}
 
+%\begin{table}
+% 
+%\centering
+%\caption{\label{tab.rgmpot}{Defining parameters of the effective potential between
+%a Gaussian $A$-body core, characterized via the width $a$~\eqref{eq.rgm.corewfkt},
+%and one {\it odd} particle (see \eqref{eq.rgm.sglnonloc}).
+%The 2- and 3-body LECs $C^\Lambda_0$ and $D^\Lambda_1$ are
+%calibrated to a 2- and 3-body symmetric bound state (see table~\ref{tab.legend}).
+%$A\mprime=A-1, A\mdprime=A-2, \ldots$. The coefficients $\eta_i,\zeta_i$ {\bf do}
+%consider non-zero interacting pair and triplet contributions from $\sum_{i<A}$ and
+%$\sum_{i<A\atop j<A-1}$ but {\bf not} $(-1)^{\mathfrak{p}}$.}}
+%
+%\small
+\newpage
+
 \begin{widetext}
-\begin{turnpage}
-\begin{table}
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{2.4}
-\caption{\label{tab.rgmpot}{Defining parameters of the effective potential between
-a Gaussian $A$-body core, characterized via the width $a$~\eqref{eq.rgm.corewfkt},
-and one {\it odd} particle (see \eqref{eq.rgm.sglnonloc}).
-The 2- and 3-body LECs $C^\Lambda_0$ and $D^\Lambda_1$ are
-calibrated to a 2- and 3-body symmetric bound state (see table~\ref{tab.legend}).
-$A\mprime=A-1, A\mdprime=A-2, \ldots$. The coefficients $\eta_i,\zeta_i$ {\bf do}
-consider non-zero interacting pair and triplet contributions from $\sum_{i<A}$ and
-$\sum_{i<A\atop j<A-1}$ but {\bf not} $(-1)^{\mathfrak{p}}$.}}
-\small\centering
-\begin{tabular}{lc|ccc}
-\hline\hline
-$i$ & $\eta_i$~[MeV] & $\kappa_i$ & & \\
-1   & $8~C_0^\Lambda~\frac{A\mprime}{\left(4+\frac{A\mprime}{A}\frac{\Lambda^2}{a}\right)^{3/2}}\toinf\mathcal{O}(A)\cdot \frac{C_0^\Lambda}{\Lambda^3}\cdot a^{\frac{3}{2}}$  & $\frac{A\Lambda^2}{4A+A\mprime\frac{\Lambda^2}{a}}\toinf\frac{A}{A-1}\cdot a$ \\
-2   & $
-\frac{32 D_1^\Lambda a^3 A\mdprime A\mprime A^{3/2}}
-{\left(16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4\right)^{3/2}}\toinf\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^3$ &
-$\frac{\Lambda ^2 \left(4 a^2 A+2 a A \Lambda ^2\right)}
-{16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4}\toinf\frac{A}{A-2}\cdot 2a$ \\
-3 & 
-$\frac{32 D_1^\Lambda A\mdprime A\mprime}{\left(\frac{\left(4 a+\Lambda ^2\right) \left(4 a A+A\mdprime \Lambda ^2\right)}{a^2 A}\right)^{3/2}}\toinf\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^3$ & $\frac{2 a A \Lambda ^2}{4 a A+A\mdprime \Lambda ^2}\toinf\frac{A}{A-2}\cdot 2a$ \\
-\hline
-$n$ & $\zeta_i$~[MeV$\cdot$fm$^{-3}$] & $\alpha_n$~[fm$^{-2}$] & $\beta_n$~[fm$^{-2}$] & $\gamma_n$~[fm$^{-2}$] \\
-1 &$\frac{2 \sqrt{2}}{\left(\frac{A\mprime (A+1)^2}{a A^3}\right)^{3/2}}\to \mathcal{O}(1)\cdot a^{\frac{3}{2}}$&
-$\frac{a \left(A^3+A\right)}{2 A\mprime (A+1)^2}\to\frac{1}{2}a$&
-$\frac{2 a A^2}{A\mprime (A+1)^2}\to 2a$&
-$\frac{a \left(A^3+A\right)}{2 A\mprime (A+1)^2}\to\frac{1}{2}a$\\
-2 & 
-$ \frac{8 C_0^\Lambda a^3 A\mprime A^{9/2}}{\pi ^{3/2} (A+1)^3 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)^{3/2}}\toinf\mathcal{O}(A)\cdot \frac{C_0^\Lambda}{\Lambda^3}\cdot a^3$ & 
-$\frac{\text{} a A \left(4 a \left(A^2+1\right)+\left(3 A^2+A+2\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}\toinf \frac{3}{2}a$&
-$\frac{4 \text{} a A^2 \left(2 a+\Lambda ^2\right)}{(A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}\toinf \mathcal{O}(A^{-1})\cdot4a$&
-$\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-A+2\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}$ \\
-3 &
-$\frac{32 D_1^\Lambda A\mdprime A\mprime (a A)^{9/2}}{\pi ^{3/2} (A+1)^3 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)^{3/2}}\toinf\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^{\frac{9}{2}}$&
-$\frac{\text{} a A \left(16 a^2 \left(A^2+1\right)+4 a \left(5 A^2+A+4\right) \Lambda ^2+\left(5 A^2+2 A+3\right) \Lambda ^4\right)}{2 (A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}\toinf \frac{5}{2}a$&
-$\frac{2 \text{} a A^2 \left(16 a^2+16 a \Lambda ^2+3 \Lambda ^4\right)}{(A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}\toinf \mathcal{O}(A^{-1})\cdot6a$&
-$\frac{a A \left(16 a^2 \left(A^2+1\right)+4 a \left(3 A^2-A+4\right) \Lambda ^2+\left(A^2-2 A+3\right) \Lambda ^4\right)}{2 (A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}$\\ 
-4 &
-$\frac{32 D_1^\Lambda A\mdprime A\mprime}{\pi ^{3/2} \left(\frac{(A+1)^2 \left(4 a+\Lambda ^2\right) \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}{a^3 A^3}\right)^{3/2}}\toinf\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^{\frac{9}{2}}$&
-$\frac{\text{} a A \left(4 a \left(A^2+1\right)+\left(5 A^2+2 A+3\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}\toinf \frac{5}{2}a$&
-$\frac{2 \text{} a A^2 \left(4 a+3 \Lambda ^2\right)}{(A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}\toinf \mathcal{O}(A^{-1})\cdot6a$&
-$\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-2 A+3\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}$\\
-\end{tabular}
-\end{table}
-\end{turnpage}
+
+\begin{align*}
+V(\ve{R},\ve{R}')=&
+\;\;\;C_0^\Lambda\cdot\frac{8A\mprime}{\left(4+\frac{A\mprime}{A}\frac{\Lambda^2}{a}\right)^{3/2}}&&\cdot
+e^{-\frac{A\Lambda^2}{4A+A\mprime\frac{\Lambda^2}{a}}\ve{R}^2}&&\left(V^{(2)}_{dir}\right)\\
+%
+&+D_1^\Lambda\cdot\frac{32 a^3 A\mdprime A\mprime A^{3/2}}{\left(16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4\right)^{3/2}}
+&&\cdot
+e^{-\frac{\Lambda ^2 \left(4 a^2 A+2 a A \Lambda ^2\right)}{16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4}\ve{R}^2}&&\left(V^{(3_a)}_{dir}\right)\\
+%
+&+D_1^\Lambda\cdot\frac{32  A\mdprime A\mprime}{\left(\frac{\left(4 a+\Lambda ^2\right) \left(4 a A+A\mdprime \Lambda ^2\right)}{a^2 A}\right)^{3/2}}
+&&\cdot e^{-\frac{2 a A \Lambda ^2}{4 a A+A\mdprime \Lambda ^2}\ve{R}^2}&&(V^{(3_*)}_{dir})\\
+%
+&+\frac{2 \sqrt{2}}{\left(\frac{A\mprime (A+1)^2}{a A^3}\right)^{3/2}}\cdot\mathcal{O}_1
+&&\cdot e^{-\frac{a \left(A^3+A\right)}{2 A\mprime (A+1)^2}\ve{R}^2-\frac{2 a A^2}{A\mprime (A+1)^2}\ve{R}\cdot\ve{R}'-\frac{a \left(A^3+A\right)}{2 A\mprime (A+1)^2}\ve{R}'^2}&&\left(V^{(\mathbb{1})}_{Ex}\right)\\
+&+C_0^\Lambda\cdot\frac{8 a^3 A\mprime A^{9/2}}{\pi ^{3/2} (A+1)^3 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)^{3/2}}
+&&\cdot e^{-\frac{a A \left(4 a \left(A^2+1\right)+\left(3 A^2+A+2\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}\ve{R}^2}\\
+&&&\cdot e^{-\frac{4a A^2 \left(2 a+\Lambda ^2\right)}{(A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}\ve{R}\cdot\ve{R}'}\\
+&&&\cdot e^{-\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-A+2\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}\ve{R}'^2}&&\left(V^{(2)}_{Ex}\right)\\
+%
+&+D_1^\Lambda\cdot\frac{32 \pi ^{-\frac{3}{2}} (A+1)^{-3} A\mdprime A\mprime (a A)^{9/2}}{ \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)^{3/2}}
+&&\cdot e^{-\frac{a A \left(16 a^2 \left(A^2+1\right)+4 a \left(5 A^2+A+4\right) \Lambda ^2+\left(5 A^2+2 A+3\right) \Lambda ^4\right)}{2 (A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}\ve{R}^2}\\
+&&&\cdot e^{-\frac{2 a A^2 \left(16 a^2+16 a \Lambda ^2+3 \Lambda ^4\right)}{(A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}\ve{R}\cdot\ve{R}'}\\
+&&&\cdot e^{-\frac{a A \left(16 a^2 \left(A^2+1\right)+4 a \left(3 A^2-A+4\right) \Lambda ^2+\left(A^2-2 A+3\right) \Lambda ^4\right)}{2 (A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}\ve{R}'^2}&&\left(V^{(3_a)}_{Ex}\right)\\
+&+D_1^\Lambda\cdot\frac{32 A\mdprime A\mprime}{\pi ^{3/2} \left(\frac{(A+1)^2 \left(4 a+\Lambda ^2\right) \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}{a^3 A^3}\right)^{3/2}}
+&&\cdot e^{-\frac{a A \left(4 a \left(A^2+1\right)+\left(5 A^2+2 A+3\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}\ve{R}^2}\\
+&&&\cdot e^{-\frac{2 a A^2 \left(4 a+3 \Lambda ^2\right)}{(A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}\ve{R}\cdot\ve{R}'}\\
+&&&\cdot e^{-\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-2 A+3\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}\ve{R}'^2}&&\left(V^{(3_*)}_{Ex}\right)\\
+\end{align*}
+\begin{align*}
+\toinf&\;\;\;\;\;\mathcal{O}(A)\cdot\frac{C_0^\Lambda}{\Lambda^3}\cdot a^{\frac{3}{2}}\cdot e^{-\frac{A}{A-1}\cdot a}
+&&+2\cdot\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^3\cdot e^{-\frac{A}{A-2}\cdot 2a}\\
+&+\mathcal{O}(A)\cdot\frac{C_0^\Lambda}{\Lambda^3}\cdot a^{3}\cdot e^{-\frac{3}{2}a\ve{R}^2-\frac{4a}{\mathcal{O}(A)}\ve{R}\cdot\ve{R}'-\frac{3}{2}a\ve{R}'^2}
+&&+2\cdot\mathcal{O}(A^2)\cdot\frac{D_1^\Lambda}{\Lambda^6}\cdot a^{\frac{9}{2}}\cdot e^{-\frac{5}{2}a\ve{R}^2-\frac{6a}{\mathcal{O}(A)}\ve{R}\cdot\ve{R}'-\frac{5}{2}a\ve{R}'^2}\\
+&+\mathcal{O}(1)\cdot a^{\frac{3}{2}}\cdot e^{-\frac{a}{2}\ve{R}^2-2a\ve{R}\cdot\ve{R}'-\frac{a}{2}\ve{R}'^2}&&\\
+\end{align*}
 \end{widetext}
 \newpage
+
+%2   & $
+%\to\frac{1}{2}a
+%\to \mathcal{O}(1)\cdot a^{\frac{3}{2}}
+%\toinf\mathcal{O}(A)\cdot \frac{C_0^\Lambda}{\Lambda^3}\cdot a^{\frac{3}{2}} e^{-\frac{A}{A-1}\cdot a}
+%\toinf\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^3
+%\toinf\frac{A}{A-2}\cdot 2a
+%3 & 
+%\toinf\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^3$ & $
+%\toinf\frac{A}{A-2}\cdot 2a$ \\
+%\hline
+%\to\frac{1}{2}a
+%\to\mathcal{O}(A^{-1})\cdot 2a
+%2 & 
+%\toinf\mathcal{O}(A)\cdot \frac{C_0^\Lambda}{\Lambda^3}\cdot a^3$ & 
+%\toinf \frac{3}{2}a$&
+%\toinf \mathcal{O}(A^{-1})\cdot4a$&
+%3 &
+%\toinf\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^{\frac{9}{2}}$&
+%\toinf \frac{5}{2}a$&
+%\toinf \mathcal{O}(A^{-1})\cdot6a$&
+%4 &
+%\toinf\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^{\frac{9}{2}}$&
+%\toinf \frac{5}{2}a$&
+%\toinf \mathcal{O}(A^{-1})\cdot6a$&
+%\end{table}
 \bibliographystyle{unsrt}
 \bibliography{Thebibliography.bib}
 \end{document}

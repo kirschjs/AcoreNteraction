@@ -121,15 +121,6 @@ J.~{von Stecher}, J.~P. {D'Incao}, and C.~H. {Greene}, ``{Signatures of
   universal four-body phenomena and their relation to the Efimov effect},''
   {\em Nature Physics}, vol.~5, pp.~417--421, Jun 2009.
 
-\bibitem{Bertulani:2002sz}
-C.~A. Bertulani, H.~W. Hammer, and U.~Van~Kolck, ``{Effective field theory for
-  halo nuclei},'' {\em Nucl. Phys.}, vol.~A712, pp.~37--58, 2002.
-
-\bibitem{Brown:2013zla}
-L.~S. Brown and G.~M. Hale, ``{Field Theory of the $d + t \to n + \alpha$
-  Reaction Dominated by a $^5$He$^*$ Unstable Particle},'' {\em Phys. Rev.},
-  vol.~C89, no.~1, p.~014622, 2014.
-
 \bibitem{PhysRev.52.1083}
 J.~A. Wheeler, ``Molecular viewpoints in nuclear structure,'' {\em Phys. Rev.},
   vol.~52, pp.~1083--1106, Dec 1937.
@@ -140,18 +131,13 @@ P.~Naidon, S.~Endo, and A.~M. Garc{\'{\i}}a-Garc{\'{\i}}a, ``Scattering of
   of Physics B: Atomic, Molecular and Optical Physics}, vol.~49, p.~034002, jan
   2016.
 
-\bibitem{Chadwick20112887}
-M.~Chadwick, M.~Herman, P.~Oblo{\v z}insk{\' y}, M.~Dunn, Y.~Danon, A.~Kahler,
-  D.~Smith, B.~Pritychenko, G.~Arbanas, R.~Arcilla, R.~Brewer, D.~Brown,
-  R.~Capote, A.~Carlson, Y.~Cho, H.~Derrien, K.~Guber, G.~Hale, S.~Hoblit,
-  S.~Holloway, T.~Johnson, T.~Kawano, B.~Kiedrowski, H.~Kim, S.~Kunieda,
-  N.~Larson, L.~Leal, J.~Lestone, R.~Little, E.~McCutchan, R.~MacFarlane,
-  M.~MacInnes, C.~Mattoon, R.~McKnight, S.~Mughabghab, G.~Nobre, G.~Palmiotti,
-  A.~Palumbo, M.~Pigni, V.~Pronyaev, R.~Sayer, A.~Sonzogni, N.~Summers,
-  P.~Talou, I.~Thompson, A.~Trkov, R.~Vogt, S.~van~der Marck, A.~Wallner,
-  M.~White, D.~Wiarda, and P.~Young, ``{ENDF/B-VII.1} nuclear data for science
-  and technology: Cross sections, covariances, fission product yields and decay
-  data,'' {\em Nuclear Data Sheets}, vol.~112, no.~12, pp.~2887 -- 2996, 2011.
-\newblock Special Issue on ENDF/B-VII.1 Library.
+\bibitem{Bertulani:2002sz}
+C.~A. Bertulani, H.~W. Hammer, and U.~Van~Kolck, ``{Effective field theory for
+  halo nuclei},'' {\em Nucl. Phys.}, vol.~A712, pp.~37--58, 2002.
+
+\bibitem{Brown:2013zla}
+L.~S. Brown and G.~M. Hale, ``{Field Theory of the $d + t \to n + \alpha$
+  Reaction Dominated by a $^5$He$^*$ Unstable Particle},'' {\em Phys. Rev.},
+  vol.~C89, no.~1, p.~014622, 2014.
 
 \end{thebibliography}
