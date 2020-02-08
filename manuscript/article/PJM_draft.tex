@@ -3,6 +3,8 @@
 \usepackage{slashed}
 \usepackage{graphicx}
 \usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{bbold}
 \usepackage{amssymb,latexsym}
 \usepackage{amsmath,amsbsy,bbm}
 \usepackage{multirow}
@@ -27,7 +29,7 @@
 \usepackage[dvipsnames]{xcolor} 
 \newcommand{\es}{1\text{\scriptsize s}}
 \newcommand{\zs}{2\text{\scriptsize s}}
-
+\newcommand*{\mprime}{^{\prime}\mkern-1.2mu}
 \newcommand{\largescale}{\ensuremath{\Lambda_\text{Hi}}}
 \newcommand{\lc}{\ensuremath{\lambda_c}}
 \newcommand{\fm}{\ensuremath{\,\text{fm}^{-1}}}
@@ -441,7 +443,7 @@ The effect of a spin-dependent LO interaction which discriminates between a real
 deuteron, and virtual singlets, has been found small (see \eg~\cite{}), and in
 particular, as the interaction in the other two-body channels is still
 attractive -- the observed phenomena rest on the combinatorial enhancement of
-attractive two- and three-body matrix elements (see RGM appendix) and
+attractive two- and three-body matrix elements (see appendix~\ref{app:rgm}) and
 depend only in magnitude on those -- our qualitative results shall not change.
 
 For $A\le 4$, we observe instability pattern qualitatively identical to
@@ -450,21 +452,20 @@ Hence, the three-parameter theory predicts correctly the experimentally
 established instability of nuclei in the
 $^3p,\,^3n,\,^4\text{H},\,^4\text{Li},\,\text{and}~^5\text{He}$ channels.
 
-
 In contrast, $^6$Li is known to sustain a $J^\pi=1^+ $ bound state
 approximately $1.5~$MeV below the $\alpha$-deuteron threshold.
 In order to make predictions with contact theories for this
-three-proton and three-neutron ($2+2+1+1$) the (iso)spin component of the SVM
+three-proton and three-neutron ($2+2+1+1$) nucleus, the (iso)spin component of the SVM
 wave function was chosen appropriately.
 We find a particle-stable $^6$Li below a critical cutoff
 $\lc\approx1.5\fm$, while for larger cutoffs,
 \ie, a smaller interaction range, the ground state energy is
-smaller than the sum of the consistently assessed deuteron and alpha particle binding
+smaller than the sum of the consistently assessed deuteron and alpha-particle binding
 energies (see \figref{fig:nuclear}).
 Analogously, we find $^8$Be ($2+2+2+2$) to become unstable \wrt~an alpha decay at a
 $\lc\approx 1\fm$, \ie, the same order as a nuclear interaction
-range mediated by pions (see discussion above).
-In contrast to the $\abb$ systems $\lc$ decreases with the number of particles.
+range assumed to be mediated by pion exchange (see discussion above).
+In contrast to the $\abb$ systems, $\lc$ decreases with the number of particles.
 
 To understand this, we return to the one-particle-fragment motion relative to an $A$-particle core. 
 For this motion being in an odd partial wave, repulsive components in
@@ -473,75 +474,56 @@ or repulsive character of one of their components is set solely by the respectiv
 low-energy constant indicating its origin -- interaction resulting from an assumed\footnote{} repulsive
 three-body contact are small compared with the attractive two-body terms for small $A$ and $\Lambda$.
 Increasing any of the two parameters increases the repulsive three-body-related term, either because
-the running of $D_1^\Lambda$ exceeds $\Lambda^6$, eventually, or via a dominance of the triplets over
-pairs in the many-body system. This explains qualitatively the increase of $\lc$ with $A$ in odd partial
-wave.
+the running of $D_0^\Lambda$ exceeds $\Lambda^6$, eventually, or via a dominance of the triplets over
+pairs in the many-body system.
+While this dependence on $A$ and $\Lambda$ suggests that for larger $A$ the weakening of attractive along
+an enhancement of the repulsive components of the potential also reduces $\lc$ the exponentially
+increase in range of both through the implicit dependence of $a$ on $A$ is larger in case of the
+attractive two-body remnant. The slower extension of its range, however, eventually is compensated by
+the quadratic growth of the strength of the repulsive three-body parts (given reasonable assumptions, \eg, liquid drop,
+about the $a(A)$ relation). 
+This explains qualitatively the initial increase of $\lc$ with $A$ up to an $A^*$ (range dominance) beyond which
+number, $\lc$ should decrease (as discussed in \figref{fig:RGM2}) in consequence of the quadratic strength
+increase of the repulsive interaction component (combinatorial strength dominance).
 
-For the motion being in an even partial wave, the sign of the exchange terms are inverted. As a consequence,
-at low $\Lambda$, the attractive $C_0^\Lambda$-proportional direct term is weakened by its exchange
-partner to a much larger extend relative to the added attraction to the repulsive $D_1^\Lambda$-proportional
-direct term
+In an even partial wave, the effective interaction strengths between the core and a single particle are reduced
+by considering the exchange of the particle with one core element. In addition, the independent motion of the particles
+during the exchange introduces and interaction-independent repulsion in an even partial wave (exchange kernel).
+These two effect combined disfavour a stable state.
 
+If, however, there is an even number of particles exchanged between the fragments (two in the case of $^6$Li, and
+four for $^8$Be), the effective potential changes by additional terms pertaining to these elements of the
+antisymmetrizer. Those new components introduce the opposite behaviour, namely, an enhancement of a coupling strength
+in an even partial wave and a mitigation in an odd one.
 
-
-A decrease of $\lc$ with a implies an increasing dominance of an attractive interaction over a repulsive
-one for larger $A$. What made the exchange interaction enhance the direct interaction in the case of
-a one-particle fragment, namely, the minus sign of every elements in the inter-fragment antisymmetrizer,
-reverts its effect if the fragment contains two particles. In the latter case, the antisymmetrizer contains
-more terms with a positive sign, \ie, an even number of permutations between the fragments, while the
-partial-wave decomposition remains unaffected barring a different reduced mass. Hence, 
-
-
- suggests the accretion of a repulsive
-interaction between the fragments with the number of their constituents
+Even relative angular momentum, at low $\Lambda$, weakens the attractive $C_0^\Lambda$-proportional
+and the repulsive $D_0^\Lambda$-proportional term.
+The component of the potential which supports binding is thereby reduced and the combinatorially-enhanced
+balance relative to the repulsive three-body term is dominated by the latter already for smaller $A$.
 
 The meaning of $\lc$, however, is unchanged.
 Once the cutoff exceeds these critical values in the course of taking the
-zero-range limit, neither $^6$Li and $^8$Be are predicted particle stable
+zero-range limit, neither $^6$Li nor $^8$Be are predicted particle stable
 by the leading-order theory.
 
-It is in order to elaborate on two issues: first, the positive parity of the
-two nuclei and how this spatial arrangement relates to the above discussion of
-negative parity $\abb$ systems and the decreasing rather than increasing $\lc$ with $A$;
-second, the fate of the bound states once they pass through the respective thresholds at $\lc$.
-
-Regarding parity, the calculated instability in systems which are dominated by
-two fragments in a relative motion of even orbital angular
-momentum\footnote{Without a bound state in the truncated one-channel Hilbert space
-$^6\text{Li}\approx\alpha+{}^2\text{H}$ and $^8\text{Be}\approx\alpha+\alpha$ no
-binding will occur in the full space.} indicates, that it is not necessarily the
-residual, attractive two-body $P$-wave interaction which induces the binding
-in larger systems
-when the two-body $P$-wave potential is still seizable at small $\Lambda$
-(see also discussion below on the projection of the interaction).
-
-
-Studying the spectrum of the $A^2B^2CD$ system ($^6$Li if fitted on nuclear observable), more than one state appear to be stable for very small $\Lambda$.
-All those states becomes unstable for large $\Lambda$. 
-Studying the order of the states and the order of disappearance (see \tabref{tab:levelorder}), it well represent the expected one for the physical $^6$Li despite the oversimplified interaction used.
-
-Inspecting the scale of the critical cut-off with respect to the other present in the theory it can be argued that $\lc$ for $^6$Li is of the same order  as the pionmass breaking scale $\lc\sim1.5$ fm$^{-1} \approx300$ MeV.
-In EFT the cut-off of the theory should be pushed to be much larger that the expected breaking scale in order to be able to define the powercounting.
-Therfore, we conclude that the presence of a stable six-body bound state is a cut-off artifact.
-Nonetheless, a less puristic approach of the theory whit a finite range interaction might be still able to bind the six-body system. 
-This methodology might be successful to describe small and even medium-large nuclei, but it mixes different orders of the powercounting making hard to have a consistent estimation of theoretical uncertainties.
-
-
-We summarize this discussion as follows:
-A non-relativistic system of $A+1$ particles with identical masses and
-an $A$-dimensional internal flavour space cannot sustain a bound state if
-its dynamics is constrained by representations of two- and three-particle
-momentum-independent contact interactions which are renormalized to yield
-a bound/unitary two-body state and a bound three-body state and whose
-residual finite-range is below a critical value ($\lc^{−1}$)
-which decreases with increasing particle content $A$ of the system.
-If the range of the regulated contact interactions, however, surpasses the
-critical range, the ground state of the $A+1$ particles is bound with respect
-to breakup in the bosonic, spatially symmetric $A$-body ground state and a
-single free particle. The total orbital angular momentum of this $A+1$ bound
-state is $L_{\text{\scriptsize total}}= 1$.
-For any finite ratio $\Lambda^*<\infty$,
-the critical range reaches a minimum at a certain number of particles $A$.
+The implication of this result for the usefulness of the pionless leading-order effective field theory for
+the description of these nuclei, the trajectory of the bound-state poles through the respective thresholds at $\lc$
+is crucial.
+To this end, we apply the method of analytical continuation in the coupling
+constant (ACCC, see, \eg Ref.~\cite{Kukulin_1977}) to the $2+1$ case which represents, \eg, a three-neutron system.
+Thereby, an attractive three-body contact term is introduces with strength $d_0^\Lambda$ of the same structure as the one
+which renormalizes the bosonic three-body system in \eqref{eq:hamiltonian}. The delta functions of this term use a
+cutoff parameter $\Lambda$ which is identical to the two-body cutoff. For a range of cutoffs
+(see \figref{fig:poletrajectory}), the initial $d_0^\Lambda$ was chosen to bind the $2+1$ system before taking
+the limit $d_0^\Lambda\to 0$ while following the bound state pole on its way on the physical (energy) sheet through
+the branch cut starting at $E=0$ from above onto the fourth quadrant of the unphysical sheet. On The latter (hatched
+area in \figref{fig:poletrajectory}), it represents a resonance. The pole remains on this sheet for
+$\Lambda\lesssim4\fm$. For larger cutoffs, the pole passes through another branch cut and leaves the first
+unphysical sheet. Thus, it no longer represents a dimer-particle resonance. Furthermore, its trajectory does not
+indicate to converge to a point on this second unphysical sheet. This behaviour suggests that an analogue of the dynamical
+pole generated (not generated by a single diagram but rather an infinite geometric series) by the
+contact theory \eqref{eq:hamiltonian} in the two- and three-boson systems, does not
+exist in \abb, neither as a bound nor resonant state.
 
 \begin{figure}[h] 
 \centering 
@@ -553,6 +535,53 @@ which disappear with increasing regulator cutoff ($\lambda$ label) through the
 three-fragment breakup branch cut.}
 \label{fig:poletrajectory}
 \end{figure}
+%Studying the spectrum of the $A^2B^2CD$ system ($^6$Li if fitted on nuclear observable), 
+%more than one state appear to be stable for very small $\Lambda$.
+%All those states becomes unstable for large $\Lambda$. 
+%Studying the order of the states and the order of disappearance (see \tabref{tab:levelorder}),
+%it well represent the expected one for the physical $^6$Li despite the oversimplified interaction used.
+
+To relate this observation to \eftnopi, in particular,
+the magnitude of the critical cutoff relative the scales in the theory is of importance.
+$\lc$ for $^6$Li is arguably of the same order as the breakdown scale $\lc\sim1.5$ fm$^{-1} \approx300$ MeV set by
+the pion mass.
+The EFT framework demands to study cutoff/renormalization-group independence of the theory at values
+significantly larger than any presumed breakdown scale.
+Thereby, the interpretation of the stable six-body bound states as a cutoff artefact is justified.
+
+For the conception of an extension of the \eftnopi which predicts also the particle-stable character of
+$^6$Li and $^8$Be in the zero-range limit, we analyse the mechanism behind the stability of these
+systems for $\Lambda<\lc$. Of all artefacts introduced by the finite range of the regulated contact interaction,
+we single out: First, a finite effective range in the two-body $S$-wave channel, and second, a non-zero, attractive
+two-body $P$-wave interaction. Both contribute to the attraction in the \abb~system but their relative
+significance in this role is obscure.
+%\textbf{Projecting the interaction} discriminate between the contribution of different partial waves
+% ( and different orders of the theory) included into the finite cut-off interaction.
+%In facts, the Gaussian regulator expanded in partial waves contains any-order partial waves.
+%Larger angular momentum contributions disappear only when the cut-off is increased,
+% but are still relevant in the region in which P-wave states are stable. 
+In other words, the finite-range interaction does not only describe a finite but large $S$-wave scattering length
+but also other finite parameters of the effective-range expansion of the $S$-wave amplitude, the $S$-wave
+effective range $r_0$ being one of these. Furthermore, the scattering volume $a_p$ of the two-nucleon $P$-wave amplitude is
+non-zero.
+%Both contributions are expected to enter only subleading in the system description but contribute to
+%the stabilization of P-wave systems at low cut-off.
+By studying the sensitivity of the bound \abb system below \lc \wrt a variation of either of those
+parameters instead of the combined change as induced by varying $\Lambda$ as in the analysis presented thus far,
+insight about the order of a potential enhancement of the corresponding higher-order-in-LO-\eftnopi vertices 
+is gained.
+
+First, we project the two-body interaction in a spin 0, \ie, an asymmetric internal state.
+This forces two interacting particles into an even spatial state. Non-zero matrix elements between states
+in odd partial waves cancel.
+The effect of removing this contribution is shown in \figref{fig:Sprojection}. Namely, a significant
+reduction of $\lc^A$. 
+Without the residual attraction in odd partial waves, the binding is attributed mainly to the finite $r_0$ and
+a coupling to even larger relative two-body angular momenta.
+
+\red{What is our proposal for a contact theory which describes all what \eftnopi~does and 6Li et al.?}
+
+
 
 %Defining an effective theory as in equation \ref{eq:hamiltonian}
 % with $C_0$ and $D_0$ fitted to reproduce the two- and 
@@ -694,22 +723,46 @@ and the $2+2+1+1$ ($^6$Li nucleus) systems in different partial waves.
 \label{fig:Sprojection}
 \end{figure} 
 
-\textbf{Projecting the interaction} discriminate between the contribution of different partial waves ( and different orders of the theory) included into the finite cut-off interaction.
-In facts, the Gaussian regulator expanded in partial waves contains any-order partial waves.
-Larger angular momentum contributions disappear only when the cut-off is increased, but are still relevant in the region in which P-wave states are stable. 
-In other words, finite range interaction does not only describe a finite and large S-wave scattering length but is also contaminated by finite larger-order ERE parameters in S-wave, as the S-wave effective range and the scattering volume for L=1.
-Both this contributions are expected to enter only subleading in the system description but contribute to the stabilization of P-wave systems at low cut-off.
-To study which partial waves mostly contribute to the system binding we project the four-flavor system in asymmetric spinorial state.
-This forces the spatial part to be symmetrical, (even total angular momentum). 
-We observe a great reduction of $\lc^A$ (shown in \figref{fig:Sprojection}) which indicates that residual odd angular momentums play a fundamental role in the system stability.
-The residual binding is due to S-wave effective range and large even angular momentum (L=2) contributions.
-This observation does not prove that a P-wave interaction will stabilize P-wave states above $\lc^A$, but suggests that it might help to extend contact EFT to multi-fermionic systems.
+\section{Conclusion}
+A non-relativistic system of $A+1$ particles with identical masses and
+an $A$-dimensional internal flavour space cannot sustain a bound state if
+its dynamics is constrained by representations of two- and three-particle
+momentum-independent contact interactions which are renormalized to yield
+a bound/unitary two-body state and a bound three-body state and whose
+residual finite-range is below a critical value ($\lc^{−1}$)
+which decreases with increasing particle content $A$ of the system.
+If the range of the regulated contact interactions, however, surpasses the
+critical range, the ground state of the $A+1$ particles is bound with respect
+to breakup in the bosonic, spatially symmetric $A$-body ground state and a
+single free particle. The total orbital angular momentum of this $A+1$ bound
+state is $L_{\text{\scriptsize total}}= 1$.
+For any finite ratio $\Lambda^*<\infty$,
+the critical range reaches a minimum at a certain number of particles $A$.
 
-\textbf{The pole movement} with respect to $\Lambda$ when the system becomes unstable is another important aspect of this study.
+\section{Appendix: Inter-cluster Potential}\la{app:rgm}
 
-
-
-\section{Discussion and conclusions}
+\begin{subequations}\la{eq.rgm.pw}
+\begin{gather}
+\int\Bigg\lbrace\frac{\hbar^2}{2\mu}\left[-\partial^2_R\left(\mathbb{1}+(\mathfrak{o}_E\leftrightarrow\mathfrak{o}_\mu)\right)+
+\frac{l(l+1)}{R^2}\left(\mathbb{1}+(\mathfrak{o}_E\leftrightarrow\mathfrak{o}_L)\right)\right]
+\phi_{lm}(R\mprime)\la{eq.rgm.pw.a}\\
+%
+-E\left(\delta(R-R\mprime)+(-)^{l+1}\mathfrak{o}_E(1)\left(\frac{a}{\pi}\right)^{3/2}
+e^{+\frac{1}{2}\mathfrak{o}_E(aA^{-1})RR\mprime-\frac{1}{2}\mathfrak{o}_E(a)\ve{R}^2-\frac{1}{2}\mathfrak{o}_E(a)\ve{R}'^2}\right)\la{eq.rgm.pw.b}\\
+%
++\mathfrak{o}_2(A)\cdot\frac{C_0^\Lambda}{\Lambda^3}\cdot a^{\frac{3}{2}}\cdot
+e^{-\mathfrak{o}_2(a)\ve{R}^2}
+\left(\delta(R-R\mprime)+(-)^{l+1}\mathfrak{o}_2(1)\left(\frac{a}{\pi}\right)^{3/2}
+e^{+\mathfrak{o}_2(aA^{-1})RR\mprime-\mathfrak{o}_2(a)\ve{R}'^2}\right)\la{eq.rgm.pw.c}\\
+%
++2\cdot\mathfrak{o}_3(A^2)\cdot\frac{D_0^\Lambda}{\Lambda^6}\cdot a^{3}\cdot
+e^{-2\mathfrak{o}_3(a)\ve{R}^2}
+\left(\delta(R-R\mprime)+(-)^{l+1}\mathfrak{o}_3(1)\left(\frac{a}{\pi}\right)^{3/2}
+e^{+2\mathfrak{o}_3(aA^{-1})RR\mprime-2\mathfrak{o}_3(a)\ve{R}'^2}\right)
+\Bigg\rbrace\phi_{lm}(R\mprime)dR\mprime\la{eq.rgm.pw.d}\\
+ =0\;\;\;.\nonumber
+\end{gather}
+\end{subequations}
 
 \newpage
 \section*{References}

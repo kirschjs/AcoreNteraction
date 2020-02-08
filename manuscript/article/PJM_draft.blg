@@ -6,45 +6,45 @@ Database file #1: Thebibliography.bib.bib
 Warning--I didn't find a database entry for ""
 Warning--empty journal in Hammer:2019poc
 Warning--empty journal in Beck:2019abp
-You've used 30 entries,
+You've used 31 entries,
             1876 wiz_defined-function locations,
-            690 strings with 8337 characters,
-and the built_in function-call counts, 8977 in all, are:
-= -- 942
-> -- 292
+            697 strings with 8528 characters,
+and the built_in function-call counts, 9301 in all, are:
+= -- 979
+> -- 300
 < -- 0
-+ -- 109
-- -- 79
-* -- 560
-:= -- 1181
-add.period$ -- 30
-call.type$ -- 30
-change.case$ -- 30
++ -- 112
+- -- 81
+* -- 583
+:= -- 1223
+add.period$ -- 31
+call.type$ -- 31
+change.case$ -- 31
 chr.to.int$ -- 0
-cite$ -- 32
-duplicate$ -- 544
-empty$ -- 774
-format.name$ -- 79
-if$ -- 2298
+cite$ -- 33
+duplicate$ -- 560
+empty$ -- 802
+format.name$ -- 81
+if$ -- 2378
 int.to.chr$ -- 0
-int.to.str$ -- 30
-missing$ -- 30
-newline$ -- 93
-num.names$ -- 30
-pop$ -- 74
+int.to.str$ -- 31
+missing$ -- 31
+newline$ -- 96
+num.names$ -- 31
+pop$ -- 75
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 476
+skip$ -- 492
 stack$ -- 0
-substring$ -- 549
-swap$ -- 306
+substring$ -- 581
+swap$ -- 315
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 73
-width$ -- 32
-write$ -- 301
+while$ -- 77
+width$ -- 33
+write$ -- 311
 (There were 3 warnings)

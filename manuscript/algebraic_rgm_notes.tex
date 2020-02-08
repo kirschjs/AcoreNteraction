@@ -2,8 +2,10 @@
 [aps,nofootinbib,prl,showpacs,twocolumn,groupedaddress,superscriptaddress]
 {revtex4}
 \usepackage{graphicx} 
+\usepackage{dashrule}
 \usepackage{dcolumn} 
 \usepackage{longtable} 
+\usepackage{mathtools}
 \usepackage{amssymb} 
 \usepackage{bbold}
 \usepackage{amsmath} 
@@ -39,7 +41,8 @@
 \newcommand{\rvec}{{\bs{r}}} 
 \newcommand{\xvec}{{\bs{x}}} 
 \newcommand{\sgmvec}{\ensuremath{\boldsymbol{\sigma}}} 
-\newcommand{\tauvec}{\ensuremath{\boldsymbol{\tau}}} 
+\newcommand{\tauvec}{\ensuremath{\boldsymbol{\tau}}}
+\newcommand{\fm}{\ensuremath{\,\text{fm}^{-1}}} 
 \newcommand{\half}{\frac{1}{2}}
 \newcommand{\eg}{\textit{e.g.}\;}
 \newcommand{\ie}{\textit{i.e.}\;}
@@ -122,7 +125,7 @@ Schr\"odinger equation with a non-local potential
 \begin{widetext}
 \be\label{eq.rgm.sglnonloc}
 \left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\right)\psi(\ve{R})+\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi(\ve{R})-
-\sum_{n=1}^4\zeta_n\int\left\lbrace\mathcal{O}_ne^{-\alpha_n\ve{R}^2-\beta_n\ve{R}\cdot\ve{R}'-\gamma_n\ve{R}'^2}\right\rbrace\psi(\ve{R}') d\ve{R}'=0\;\;.
+\sum_{n=1}^4\zeta_n\int\left\lbrace\widehat{\mathfrak{O}}_ne^{-\alpha_n\ve{R}^2-\beta_n\ve{R}\cdot\ve{R}'-\gamma_n\ve{R}'^2}\right\rbrace\psi(\ve{R}') d\ve{R}'=0\;\;.
 \ee
 \end{widetext}
 The coefficients $\alpha,\ldots,\kappa$ are functions of the number of
@@ -130,11 +133,11 @@ core particles $A$,
 the core size $a$, the interaction regulator $\Lambda$,
 and the single-particle mass $m$, and 
 \begin{align}\la{eq.exop}
-\mathcal{O}_1=&~-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\\
+\widehat{\mathfrak{O}}_1=&~-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\\
 \to&~-\frac{\hbar^2}{2\mu}\left(4\alpha_1^2\ve{R}^2+\beta_1^2\ve{R}'^2
 +4\alpha_1\beta_1\ve{R}\cdot\ve{R}'-2\alpha_1\right)-E\;\;,\nonumber
 \end{align}
-while $\mathcal{O}_{2,3,4}=\mathbb{1}$. The sign ($+$) of the first sum -- the direct
+while $\widehat{\mathfrak{O}}_{2,3,4}=\mathbb{1}$. The sign ($+$) of the first sum -- the direct
 interaction -- is that of the microscopic LEC. In contrast, the second, non-local
 part reverts the sign. For example, the effect of an attractive 2-body potential
 becomes a repulsive contribution due to antisymmetrization in this term.
@@ -178,7 +181,7 @@ partial wave:
 \phi_{lm}(R)\\
 -(-E)\int
 \left(4\pi\,i^l\cdot\zeta_1\cdot j_l(i\beta_1 RR')\right)\cdot
- e^{-\alpha_1\ve{R}^2-\gamma_1\ve{R}'^2}\phi_{lm}(R\mprime)~R\mprime dR\mprime
+ e^{-\alpha_1\ve{R}^2-\gamma_1\ve{R}'^2}\phi_{lm}(R\mprime)~RR\mprime dR\mprime
  \la{eq.rgm.sglnonloc.pw.Eex}\\
 -\left(\frac{\hbar^2}{2\mu}\right)\int
 (4\pi\cdot\zeta_1) \cdot e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}
@@ -190,12 +193,12 @@ partial wave:
  \threej{1}{l-1}{l}{0}{0}{0}^2+
  i^{l+1} j_{l+1}(i\beta_1 RR') (2l-1)
  \threej{1}{l+1}{l}{0}{0}{0}^2\right)\Bigg\rbrace
-~\phi_{lm}(R\mprime)~R\mprime dR\mprime\la{eq.rgm.sglnonloc.pw.tex}\\
+~\phi_{lm}(R\mprime)~RR\mprime dR\mprime\la{eq.rgm.sglnonloc.pw.tex}\\
 -\sum_{n=\red{2}}^4\zeta_n\int
 (4\pi\,i^l)\cdot j_l(i\beta_n RR')\cdot 
-e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}~\phi_{lm}(R\mprime)~R\mprime\,dR\mprime\la{eq.rgm.sglnonloc.pw.noloc}\\
+e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}~\phi_{lm}(R\mprime)~RR\mprime\,dR\mprime\la{eq.rgm.sglnonloc.pw.noloc}\\
 +\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\phi_{lm}(R)\la{eq.rgm.sglnonloc.pw.t}\\
- =0\;\;.\nonumber
+ =0\;\;\;\;\;,\text{with}\;\;[\eta_i]=\text{MeV}\;\;\;\;[\zeta_i]=\text{fm}^{-3}\nonumber
 \end{gather}
 \end{subequations}
 \end{widetext}
@@ -370,43 +373,118 @@ on the energy and is repulsive in even, and attractive in odd partial waves ($i^
 \begin{widetext}
 
 \begin{align*}
-V(\ve{R},\ve{R}')=&
-\;\;\;C_0^\Lambda\cdot\frac{8A\mprime}{\left(4+\frac{A\mprime}{A}\frac{\Lambda^2}{a}\right)^{3/2}}&&\cdot
-e^{-\frac{A\Lambda^2}{4A+A\mprime\frac{\Lambda^2}{a}}\ve{R}^2}&&\left(V^{(2)}_{dir}\right)\\
+\mathfrak{v}(\ve{R},\ve{R}')=&
+\;\;\;C_0^\Lambda\cdot
+\frac{8A\mprime(a A)^{3/2}}
+{\left(4aA+A\mprime\Lambda^2\right)^{3/2}}&&\cdot
+e^{-\frac{aA\Lambda^2}{4aA+A\mprime\Lambda^2}\ve{R}^2}&&\left(V^{(2)}_{dir}\right)\\
 %
-&+D_1^\Lambda\cdot\frac{32 a^3 A\mdprime A\mprime A^{3/2}}{\left(16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4\right)^{3/2}}
+&+D_1^\Lambda\cdot
+\frac{32 a^3 A\mdprime A\mprime A^{3/2}}
+{\left(16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4\right)^{3/2}}
 &&\cdot
-e^{-\frac{\Lambda ^2 \left(4 a^2 A+2 a A \Lambda ^2\right)}{16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4}\ve{R}^2}&&\left(V^{(3_a)}_{dir}\right)\\
+e^{-\frac{2aA\Lambda ^2 \left(2 a +\Lambda ^2\right)}{16 a^2 A+4 a (3 A-1) \Lambda ^2+A\mdprime \Lambda ^4}\ve{R}^2}&&\left(V^{(3_a)}_{dir}\right)\\
 %
-&+D_1^\Lambda\cdot\frac{32  A\mdprime A\mprime}{\left(\frac{\left(4 a+\Lambda ^2\right) \left(4 a A+A\mdprime \Lambda ^2\right)}{a^2 A}\right)^{3/2}}
-&&\cdot e^{-\frac{2 a A \Lambda ^2}{4 a A+A\mdprime \Lambda ^2}\ve{R}^2}&&(V^{(3_*)}_{dir})\\
+&+D_1^\Lambda\cdot
+\frac{32 a^3 A\mdprime A\mprime A^{3/2}}
+{\left(16 a^2 A+8 a (A-1) \Lambda^2+A\mdprime \Lambda^4\right)^{3/2}}
+&&\cdot e^{-\frac{2 a A \Lambda^2}{4 a A+A\mdprime \Lambda^2}\ve{R}^2}&&(V^{(3_*)}_{dir})\\
 %
-&+\frac{2 \sqrt{2}}{\left(\frac{A\mprime (A+1)^2}{a A^3}\right)^{3/2}}\cdot\mathcal{O}_1
+&&\mathclap{\hdashrule{\columnwidth}{0.4pt}{0.3em}}\\
+%
+&+\frac{2 \sqrt{2} (aA^3)^{3/2}}{\left(A\mprime (A+1)^2\right)^{3/2}}\cdot\widehat{\mathfrak{O}}_1
 &&\cdot e^{-\frac{a \left(A^3+A\right)}{2 A\mprime (A+1)^2}\ve{R}^2-\frac{2 a A^2}{A\mprime (A+1)^2}\ve{R}\cdot\ve{R}'-\frac{a \left(A^3+A\right)}{2 A\mprime (A+1)^2}\ve{R}'^2}&&\left(V^{(\mathbb{1})}_{Ex}\right)\\
-&+C_0^\Lambda\cdot\frac{8 a^3 A\mprime A^{9/2}}{\pi ^{3/2} (A+1)^3 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)^{3/2}}
+%
+&&\mathclap{\hdashrule{\columnwidth}{0.4pt}{0.3em}}\\
+%
+&+C_0^\Lambda\cdot
+\frac{8\pi^{-3/2} (A+1)^{-3} A\mprime (a A)^{9/2}}
+{\left(4 a^2 A\mprime+aA\mdprime \Lambda ^2\right)^{3/2}}
 &&\cdot e^{-\frac{a A \left(4 a \left(A^2+1\right)+\left(3 A^2+A+2\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}\ve{R}^2}\\
 &&&\cdot e^{-\frac{4a A^2 \left(2 a+\Lambda ^2\right)}{(A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}\ve{R}\cdot\ve{R}'}\\
 &&&\cdot e^{-\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-A+2\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mdprime \Lambda ^2\right)}\ve{R}'^2}&&\left(V^{(2)}_{Ex}\right)\\
 %
-&+D_1^\Lambda\cdot\frac{32 \pi ^{-\frac{3}{2}} (A+1)^{-3} A\mdprime A\mprime (a A)^{9/2}}{ \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)^{3/2}}
+&+D_1^\Lambda\cdot
+\frac{32 \pi^{-\frac{3}{2}} (A+1)^{-3} A\mdprime A\mprime (a A)^{9/2}}
+{\left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)^{3/2}}
 &&\cdot e^{-\frac{a A \left(16 a^2 \left(A^2+1\right)+4 a \left(5 A^2+A+4\right) \Lambda ^2+\left(5 A^2+2 A+3\right) \Lambda ^4\right)}{2 (A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}\ve{R}^2}\\
 &&&\cdot e^{-\frac{2 a A^2 \left(16 a^2+16 a \Lambda ^2+3 \Lambda ^4\right)}{(A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}\ve{R}\cdot\ve{R}'}\\
 &&&\cdot e^{-\frac{a A \left(16 a^2 \left(A^2+1\right)+4 a \left(3 A^2-A+4\right) \Lambda ^2+\left(A^2-2 A+3\right) \Lambda ^4\right)}{2 (A+1)^2 \left(16 a^2 A\mprime+4 a (3 A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)}\ve{R}'^2}&&\left(V^{(3_a)}_{Ex}\right)\\
-&+D_1^\Lambda\cdot\frac{32 A\mdprime A\mprime}{\pi ^{3/2} \left(\frac{(A+1)^2 \left(4 a+\Lambda ^2\right) \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}{a^3 A^3}\right)^{3/2}}
+&+D_1^\Lambda\cdot
+\frac{32 \pi^{-\frac{3}{2}} (A+1)^{-3} A\mdprime A\mprime (a A)^{9/2}}
+{\left(16 a^2 A\mprime+4 a (2A-4) \Lambda ^2+A\mtprime \Lambda ^4\right)^{3/2}}
 &&\cdot e^{-\frac{a A \left(4 a \left(A^2+1\right)+\left(5 A^2+2 A+3\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}\ve{R}^2}\\
 &&&\cdot e^{-\frac{2 a A^2 \left(4 a+3 \Lambda ^2\right)}{(A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}\ve{R}\cdot\ve{R}'}\\
 &&&\cdot e^{-\frac{a A \left(4 a \left(A^2+1\right)+\left(A^2-2 A+3\right) \Lambda ^2\right)}{2 (A+1)^2 \left(4 a A\mprime+A\mtprime \Lambda ^2\right)}\ve{R}'^2}&&\left(V^{(3_*)}_{Ex}\right)\\
 \end{align*}
+\end{widetext}
+%
+The strengths of the exchange-interaction terms for $A\gg 1$ and/or $\Lambda\gg 1$\fm is then related to the corresponding
+direct-interaction strength via
+\be
+\zeta_{n+1}=\eta_n\cdot\left(\frac{A}{A+1}\right)^3\left(\frac{a}{\pi}\right)^{3/2}\;\;\;.
+\ee
+The fraction $\left(\frac{a}{\pi}\right)^{3/2}$ is the inverse of an integration of the non-local
+terms assuming a constant wave function (exponents scale with $a$ which produces an $\sqrt{\pi/a}$ upon integration,
+and the spherical Bessel functions provide the remaining $a^{-1}$).
+
+In order to study the zero-range limit and the related renormalization-group invariance, the large $\Lambda$
+behaviour is of interest. In this limit, the potential scales as
+%
+\begin{widetext}
 \begin{align*}
-\toinf&\;\;\;\;\;\mathcal{O}(A)\cdot\frac{C_0^\Lambda}{\Lambda^3}\cdot a^{\frac{3}{2}}\cdot e^{-\frac{A}{A-1}\cdot a}
-&&+2\cdot\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^3\cdot e^{-\frac{A}{A-2}\cdot 2a}\\
+\lim_{\Lambda\to\infty}\mathfrak{v}(\ve{R},\ve{R}')=&\;\;\;\;\;\mathcal{O}(A)\cdot\frac{C_0^\Lambda}{\Lambda^3}\cdot a^{\frac{3}{2}}\cdot e^{-a\ve{R}^2}
+&&+2\cdot\mathcal{O}(A^2)\cdot \frac{D_1^\Lambda}{\Lambda^6}\cdot a^3\cdot e^{-2a\ve{R}^2}\\
 &+\mathcal{O}(A)\cdot\frac{C_0^\Lambda}{\Lambda^3}\cdot a^{3}\cdot e^{-\frac{3}{2}a\ve{R}^2-\frac{4a}{\mathcal{O}(A)}\ve{R}\cdot\ve{R}'-\frac{3}{2}a\ve{R}'^2}
 &&+2\cdot\mathcal{O}(A^2)\cdot\frac{D_1^\Lambda}{\Lambda^6}\cdot a^{\frac{9}{2}}\cdot e^{-\frac{5}{2}a\ve{R}^2-\frac{6a}{\mathcal{O}(A)}\ve{R}\cdot\ve{R}'-\frac{5}{2}a\ve{R}'^2}\\
-&+\mathcal{O}(1)\cdot a^{\frac{3}{2}}\cdot e^{-\frac{a}{2}\ve{R}^2-2a\ve{R}\cdot\ve{R}'-\frac{a}{2}\ve{R}'^2}&&\\
+&+\mathcal{O}(1)\cdot a^{\frac{3}{2}}\cdot e^{-\frac{a}{2}\ve{R}^2-2a\ve{R}\cdot\ve{R}'-\frac{a}{2}\ve{R}'^2}\;\;\;,&&\\
 \end{align*}
 \end{widetext}
-\newpage
+and terms were organized their origin from pair or triplet interactions. The third-row term stems from the norm-exchange
+kernel. This skeleton of the potential is now fed into the partial-wave projected RGM equation \eqref{eq.rgm.sglnonloc.pw}
+to yield
+%
+\begin{widetext}
+\begin{subequations}\la{eq.rgm.pw}
+\begin{gather}
+\int\Bigg\lbrace\frac{\hbar^2}{2\mu}\left[-\partial^2_R\left(\mathbb{1}+(\mathfrak{o}_E\leftrightarrow\mathfrak{o}_\mu)\right)+
+\frac{l(l+1)}{R^2}\left(\mathbb{1}+(\mathfrak{o}_E\leftrightarrow\mathfrak{o}_L)\right)\right]
+\phi_{lm}(R\mprime)\la{eq.rgm.pw.a}\\
+%
+-E\left(\delta(R-R\mprime)+(-)^{l+1}\mathfrak{o}_E(1)\left(\frac{a}{\pi}\right)^{3/2}
+e^{+\frac{1}{2}\mathfrak{o}_E(aA^{-1})RR\mprime-\frac{1}{2}\mathfrak{o}_E(a)\ve{R}^2-\frac{1}{2}\mathfrak{o}_E(a)\ve{R}'^2}\right)\la{eq.rgm.pw.b}\\
+%
++\mathfrak{o}_2(A)\cdot\frac{C_0^\Lambda}{\Lambda^3}\cdot a^{\frac{3}{2}}\cdot
+e^{-\mathfrak{o}_2(a)\ve{R}^2}
+\left(\delta(R-R\mprime)+(-)^{l+1}\mathfrak{o}_2(1)\left(\frac{a}{\pi}\right)^{3/2}
+e^{+\mathfrak{o}_2(aA^{-1})RR\mprime-\mathfrak{o}_2(a)\ve{R}'^2}\right)\la{eq.rgm.pw.c}\\
+%
++2\cdot\mathfrak{o}_3(A^2)\cdot\frac{D_1^\Lambda}{\Lambda^6}\cdot a^{3}\cdot
+e^{-2\mathfrak{o}_3(a)\ve{R}^2}
+\left(\delta(R-R\mprime)+(-)^{l+1}\mathfrak{o}_3(1)\left(\frac{a}{\pi}\right)^{3/2}
+e^{+2\mathfrak{o}_3(aA^{-1})RR\mprime-2\mathfrak{o}_3(a)\ve{R}'^2}\right)
+\Bigg\rbrace\phi_{lm}(R\mprime)dR\mprime\la{eq.rgm.pw.d}\\
+ =0\;\;\;.\nonumber
+\end{gather}
+\end{subequations}
+\end{widetext}
+%
+The first and second row of this equation demonstrate the effect of the antisymmetrization on the single-particle
+characteristics of the system which is solely the reduced mass. For even partial waves, the exchange of the particle
+amounts to an increased mass if the particle is close to the core, while for a large separation the original
+mass dictates the free propagation. The distance over which the mass is significantly enlarged is set by the
+core size $a$ in the exponent of \eqref{eq.rgm.pw.b}. The mass/kinetic-energy correction due to exchange is thus
+characterized repulsive or attractive solely by the partial wave (only one single permutation comprises the 
+antisymmetrization) with strength and range increasing with the size of the core.
 
+The exchange has qualitatively the same effect on the terms associated with the two- and three-body contact interactions.
+Corrections to both \eqref{eq.rgm.pw.c} and \eqref{eq.rgm.pw.d} increase (odd) or decrease (even) the interaction
+strength without changing its attractive or repulsive character. Exchange effects do not turn an attractive interaction
+repulsive or vice versa. A potential destabilization is thus driven by a weakening of an otherwise sufficiently attractive 
+direct interaction in combination with a genuine but interaction-independent repulsion as emergent from the
+kinetic part of the system. This insight in combination with the strengths of the interaction being
+much larger in magnitude for $\lim_{\Lambda\to\infty}$ compared with the kinetic-energy factors justify our qualitative
+conjectures in the discussion of \figref{fig:RGM2} which were based on the local approximation.
 %2   & $
 %\to\frac{1}{2}a
 %\to \mathcal{O}(1)\cdot a^{\frac{3}{2}}
