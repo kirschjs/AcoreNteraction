@@ -1,42 +1,8 @@
 \begin{thebibliography}{10}
 
-\bibitem{manybosons}
-J.~Carlson, S.~Gandolfi, U.~van Kolck, and S.~A. Vitiello, ``Ground-state
-  properties of unitary bosons: From clusters to matter,'' {\em Phys. Rev.
-  Lett.}, vol.~119, p.~223002, Nov 2017.
-
-\bibitem{Barnea:2013uqa}
-N.~Barnea, L.~Contessi, D.~Gazit, F.~Pederiva, and U.~van Kolck, ``{Effective
-  Field Theory for Lattice Nuclei},'' {\em Phys. Rev. Lett.}, vol.~114, no.~5,
-  p.~052501, 2015.
-
-\bibitem{Kartavtsev_2007}
-O.~I. Kartavtsev and A.~V. Malykh, ``Low-energy three-body dynamics in binary
-  quantum gases,'' {\em Journal of Physics B: Atomic, Molecular and Optical
-  Physics}, vol.~40, pp.~1429--1441, mar 2007.
-
-\bibitem{petrov_dimerov}
-D.~S. Petrov, C.~Salomon, and G.~V. Shlyapnikov, ``Weakly bound dimers of
-  fermionic atoms,'' {\em Phys. Rev. Lett.}, vol.~93, p.~090404, Aug 2004.
-
-\bibitem{Petrov:2005zz}
-D.~S. Petrov, C.~Salomon, and G.~V. Shlyapnikov, ``{Scattering properties of
-  weakly bound dimers of fermionic atoms},'' {\em Phys. Rev.}, vol.~A71,
-  p.~012708, 2005.
-
 \bibitem{PhysRevA.92.053624}
 S.~Endo and Y.~Castin, ``Absence of a four-body efimov effect in the $2+2$
   fermionic problem,'' {\em Phys. Rev. A}, vol.~92, p.~053624, Nov 2015.
-
-\bibitem{Contessi:2017rww}
-L.~Contessi, A.~Lovato, F.~Pederiva, A.~Roggero, J.~Kirscher, and U.~van Kolck,
-  ``{Ground-state properties of $^{4}$He and $^{16}$O extrapolated from lattice
-  QCD with pionless EFT},'' {\em Phys. Lett.}, vol.~B772, pp.~839--848, 2017.
-
-\bibitem{Gattobigio:2019omi}
-M.~Gattobigio, A.~Kievsky, and M.~Viviani, ``{Embedding nuclear physics inside
-  the unitary-limit window},'' {\em Phys. Rev.}, vol.~C100, no.~3, p.~034004,
-  2019.
 
 \bibitem{Lepage:1997cs}
 G.~P. Lepage, ``{How to renormalize the Schrodinger equation},'' in {\em
@@ -65,27 +31,15 @@ H.~W. Hammer, C.~Ji, and D.~R. Phillips, ``{Effective field theory description
 H.~W. Hammer, S.~König, and U.~van Kolck, ``{Nuclear effective field theory:
   status and perspectives},'' 2019.
 
-\bibitem{Wigner:1955zz}
-E.~P. Wigner, ``{Lower Limit for the Energy Derivative of the Scattering Phase
-  Shift},'' {\em Phys. Rev.}, vol.~98, pp.~145--147, 1955.
-
-\bibitem{Hammer:2010fw}
-H.~W. Hammer and D.~Lee, ``{Causality and the effective range expansion},''
-  {\em Annals Phys.}, vol.~325, pp.~2212--2233, 2010.
+\bibitem{Konig:2016utl}
+S.~König, H.~W. Grie{\ss}hammer, H.~W. Hammer, and U.~van Kolck, ``{Nuclear
+  Physics Around the Unitarity Limit},'' {\em Phys. Rev. Lett.}, vol.~118,
+  no.~20, p.~202501, 2017.
 
 \bibitem{Phillips}
 D.~R. Phillips and T.~D. Cohen, ``{How short is too short? Constraining contact
   interactions in nucleon-nucleon scattering},'' {\em Phys. Lett.}, vol.~B390,
   pp.~7--12, 1997.
-
-\bibitem{Beck:2019abp}
-S.~Beck, B.~Bazak, and N.~Barnea, ``{Removing the Wigner bound in
-  non-perturbative effective field theory},'' 2019.
-
-\bibitem{Epelbaum:2018zli}
-E.~Epelbaum, A.~M. Gasparyan, J.~Gegelia, and U.-G. Meißner, ``{How (not) to
-  renormalize integral equations with singular potentials in effective field
-  theory},'' {\em Eur. Phys. J.}, vol.~A54, no.~11, p.~186, 2018.
 
 \bibitem{Bazak:2016wxm}
 B.~Bazak, M.~Eliyahu, and U.~van Kolck, ``{Effective Field Theory for Few-Boson
@@ -140,9 +94,19 @@ L.~S. Brown and G.~M. Hale, ``{Field Theory of the $d + t \to n + \alpha$
   Reaction Dominated by a $^5$He$^*$ Unstable Particle},'' {\em Phys. Rev.},
   vol.~C89, no.~1, p.~014622, 2014.
 
+\bibitem{Kirscher:2015yda}
+J.~Kirscher, N.~Barnea, D.~Gazit, F.~Pederiva, and U.~van Kolck, ``{Spectra and
+  Scattering of Light Lattice Nuclei from Effective Field Theory},'' {\em Phys.
+  Rev.}, vol.~C92, no.~5, p.~054002, 2015.
+
 \bibitem{Kukulin_1977}
 V.~I. Kukulin and V.~M. Krasnopol, ``Description of few-body systems via
   analytical continuation in coupling constant,'' {\em Journal of Physics A:
   Mathematical and General}, vol.~10, pp.~L33--L37, feb 1977.
+
+\bibitem{TANG1978167}
+Y.~Tang, M.~LeMere, and D.~Thompsom, ``Resonating-group method for nuclear
+  many-body problems,'' {\em Physics Reports}, vol.~47, no.~3, pp.~167 -- 223,
+  1978.
 
 \end{thebibliography}

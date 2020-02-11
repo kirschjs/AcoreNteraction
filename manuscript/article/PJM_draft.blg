@@ -3,48 +3,46 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: PJM_draft.aux
 The style file: ieeetr.bst
 Database file #1: Thebibliography.bib.bib
-Warning--I didn't find a database entry for ""
 Warning--empty journal in Hammer:2019poc
-Warning--empty journal in Beck:2019abp
-You've used 31 entries,
+You've used 23 entries,
             1876 wiz_defined-function locations,
-            697 strings with 8528 characters,
-and the built_in function-call counts, 9301 in all, are:
-= -- 979
-> -- 300
+            648 strings with 7397 characters,
+and the built_in function-call counts, 6972 in all, are:
+= -- 740
+> -- 213
 < -- 0
-+ -- 112
-- -- 81
-* -- 583
-:= -- 1223
-add.period$ -- 31
-call.type$ -- 31
-change.case$ -- 31
++ -- 80
+- -- 57
+* -- 432
+:= -- 911
+add.period$ -- 23
+call.type$ -- 23
+change.case$ -- 23
 chr.to.int$ -- 0
-cite$ -- 33
-duplicate$ -- 560
-empty$ -- 802
-format.name$ -- 81
-if$ -- 2378
+cite$ -- 24
+duplicate$ -- 423
+empty$ -- 605
+format.name$ -- 57
+if$ -- 1790
 int.to.chr$ -- 0
-int.to.str$ -- 31
-missing$ -- 31
-newline$ -- 96
-num.names$ -- 31
-pop$ -- 75
+int.to.str$ -- 23
+missing$ -- 23
+newline$ -- 72
+num.names$ -- 23
+pop$ -- 54
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 492
+skip$ -- 374
 stack$ -- 0
-substring$ -- 581
-swap$ -- 315
+substring$ -- 443
+swap$ -- 240
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 2
-while$ -- 77
-width$ -- 33
-write$ -- 311
-(There were 3 warnings)
+warning$ -- 1
+while$ -- 58
+width$ -- 25
+write$ -- 234
+(There was 1 warning)
