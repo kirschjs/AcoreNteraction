@@ -1,5 +1,20 @@
 \begin{thebibliography}{10}
 
+\bibitem{Bedaque:1998kg}
+P.~F. Bedaque, H.~W. Hammer, and U.~van Kolck, ``{Renormalization of the
+  three-body system with short range interactions},'' {\em Phys. Rev. Lett.},
+  vol.~82, pp.~463--467, 1999.
+
+\bibitem{Platter:2004zs}
+L.~Platter, H.~W. Hammer, and U.-G. Meissner, ``{On the correlation between the
+  binding energies of the triton and the alpha-particle},'' {\em Phys. Lett.},
+  vol.~B607, pp.~254--258, 2005.
+
+\bibitem{von_Stecher_2010}
+J.~von Stecher, ``Weakly bound cluster states of efimov character,'' {\em
+  Journal of Physics B: Atomic, Molecular and Optical Physics}, vol.~43,
+  no.~10, p.~101002, 2010.
+
 \bibitem{PhysRevA.92.053624}
 S.~Endo and Y.~Castin, ``Absence of a four-body efimov effect in the $2+2$
   fermionic problem,'' {\em Phys. Rev. A}, vol.~92, p.~053624, Nov 2015.
@@ -13,11 +28,6 @@ G.~P. Lepage, ``{How to renormalize the Schrodinger equation},'' in {\em
 \bibitem{vanKolck:1999mw}
 U.~van Kolck, ``{Effective field theory of nuclear forces},'' {\em Prog. Part.
   Nucl. Phys.}, vol.~43, pp.~337--418, 1999.
-
-\bibitem{Bedaque:1998kg}
-P.~F. Bedaque, H.~W. Hammer, and U.~van Kolck, ``{Renormalization of the
-  three-body system with short range interactions},'' {\em Phys. Rev. Lett.},
-  vol.~82, pp.~463--467, 1999.
 
 \bibitem{Braaten:2004rn}
 E.~Braaten and H.~W. Hammer, ``{Universality in few-body systems with large
