@@ -146,9 +146,9 @@ def pot_local(r, argv):
 
 pedantic = 0
 
-NState = 20
-Rmax = 120
-order = 600
+NState = 30
+Rmax = 40
+order = 800
 
 Lrel = 1  # Momento angolare
 
@@ -157,43 +157,27 @@ mpi = '137'
 m = 938.12
 hbar = 197.327
 
-#aumenta rcore e aumenti Lc
-# Lc4 = 0.6
-#name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="13L", lec_list_one_three,  0.02, "Local"
-#name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "13", lec_list_one_three, 0.02, 0., "Local"
-
-# Lc3 = 0.65
-#name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="14L", lec_list_one_four,  0.02, "Local"
-#name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="14", lec_list_one_four,  0.00044, "NonLocal"
-
 # Lc15 = 0.9
-name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "1115L", lec_list_one_onefive, 0.009, 0., "Local"
+name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "1115L", lec_list_one_onefive, 0.005, 0., "Local"
 #name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "1115", lec_list_one_onefive, 0.000412, 0.0, "NonLocal"
-
-# Lc0 = 0.7
-#name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="04L", lec_list_unitary_scatt,  1.432,0., "Local"
-#name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "04L", lec_list_unitary_scatt, 1.432, 0., "Local"
-#name, lec_list, Aradius_modifyer_fac,Aradius_modifyer_exp, interaction ="04", lec_list_unitary_scatt,  0.000414, "NonLocal"
 
 print(name, Aradius_modifyer_fac, Aradius_modifyer_exp)
 
-Amin = 20
-Amax = 22
+Amin = 4
+Amax = 37
 
-Lmin = 1.1
-Lmax = 2.0
+Lmin = 0.3
+Lmax = 2.2
 dL = 0.05
 
 cores = range(Amin, Amax)
 Lrange = np.arange(Lmin, Lmax, dL)
 
-omegas = np.arange(0.0005, 0.7, 0.01)
+omegas = np.arange(0.01, 0.04, 0.01)
 
 resu = []
 
 for Ncore in cores:
-
-    print("\n\n=========== A Core " + str(Ncore) + " ============")
 
     for Lamb in Lrange:
 
@@ -356,6 +340,8 @@ for Ncore in cores:
             elif interaction == 'Local':
                 energiesloc = energiesnonloc
 
+            noBSinSpec = (energiesloc.real > 0.0).all()
+
             # calculate eigensystem of the exchange kernel
             # this is done to identify forbidden states one of whose
             # signatures are negative or complex eigenvalues in this kernel
@@ -425,6 +411,16 @@ for Ncore in cores:
                     os.remove('HEV.dat')
                 np.savetxt('HEV.dat', valnonloc, fmt='%12.4f')
 
+            if noBSinSpec == False:
+                break
+
+        if noBSinSpec:
+            print("A = %d :  L_c = %4.4f fm^-1" % (Ncore, Lamb))
+            #            print(noBSinSpec, energiesloc[:4])
+            break
+        else:
+            continue
+
 f = plt.figure(figsize=(18, 12))
 f.suptitle(r'', fontsize=14)
 
@@ -436,25 +432,28 @@ ax1.set_ylabel(r'$E_0$ [MeV]', fontsize=12)
 for nbrC in range(len(cores)):
     for ll in range(len(Lrange)):
 
-        xx = [
+        xx = np.array([
             np.array(resu)[:, 3][ee]
             for ee in range(len(np.array(resu)[:, 3]))
             if ((np.array(resu)[:, 0][ee] == cores[nbrC]) &
                 (np.array(resu)[:, 1][ee] == Lrange[ll]))
-        ]
+        ])
 
-        yy = [
+        yy = np.array([
             np.array(resu)[:, 4][ee]
             for ee in range(len(np.array(resu)[:, 4]))
             if ((np.array(resu)[:, 0][ee] == cores[nbrC]) &
                 (np.array(resu)[:, 1][ee] == Lrange[ll]))
-        ]
+        ])
 
-        ax1.plot(xx, yy, label=r'A=%d  L=%4.3f' % (cores[nbrC], Lrange[ll]))
+        ax1.plot(
+            xx.real,
+            yy.real,
+            label=r'A=%d  L=%4.3f' % (cores[nbrC], Lrange[ll]))
 
 plt.legend(loc='best', fontsize=24)
 
-strFile = 'testNL.pdf'
+strFile = 'test_%s.pdf' % interaction
 if os.path.isfile(strFile):
     os.remove(strFile)
 plt.savefig(strFile)
