@@ -1,0 +1,283 @@
+\documentclass[preprint,12pt]{elsarticle} 
+
+
+
+%=============================================================================
+%\usepackage[margin=1.in]{geometry}
+\usepackage{slashed}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{bbold}
+\usepackage{amssymb,latexsym}
+\usepackage{amsmath,amsbsy,bbm}
+\usepackage{multirow}
+\usepackage[vcentermath]{youngtab}
+\usepackage{nicefrac}
+\usepackage[perpage]{footmisc}
+\usepackage{wrapfig,lipsum,booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+%\usepackage{physics}
+\usepackage{floatrow}
+\usepackage[dvipsnames]{xcolor} 
+%\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+%=============================================================================
+\newfloatcommand{capbtabbox}{table}[][0.45\textwidth]
+\DefineFNsymbols*{lamportnostar}[math]{\dagger\ddagger\S\P\|{\dagger\dagger}{\ddagger\ddagger}}
+\setfnsymbol{lamportnostar}
+\renewcommand\thefootnote{\fnsymbol{footnote}}
+%=============================================================================
+\newcommand{\es}{1\text{\scriptsize s}}
+\newcommand{\zs}{2\text{\scriptsize s}}
+\newcommand*{\mprime}{^{\prime}\mkern-1.2mu}
+\newcommand{\largescale}{\ensuremath{\Lambda_\text{Hi}}}
+\newcommand{\lc}{\ensuremath{\lambda_c}}
+\newcommand{\fm}{\ensuremath{\,\text{fm}^{-1}}}
+\newcommand{\abb}{\ensuremath{2\!+\!1^{(A-1)}}}
+\newcommand{\red}[1]{\textcolor{red}{#1}} 
+\newcommand{\green}[1]{\textcolor{green}{#1}} 
+\newcommand{\blue}[1]{\textcolor{blue}{#1}} 
+\newcommand{\lec}{C^\Lambda}
+\newcommand{\led}{D^\Lambda}
+\newcommand{\ddrei}[1]{\delta_{\tiny \Lambda}^{(3)}\!\big(#1\big)}
+\newcommand{\wrt}{\textit{wrt.}~}
+\newcommand{\etc}{\textit{etc.}~}
+\newcommand{\eg}{\textit{e.g.}~}
+\newcommand{\ie}{\textit{i.e.}~}
+\newcommand{\eftnopi}{\mbox{EFT$(\not \! \pi)$}}
+\newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand{\rms}[1]{\ensuremath{\langle r(#1)\rangle}}
+\newcommand{\ls}{\ve{L}\cdot\ve{S}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bra}{\big\langle}
+\newcommand{\ket}{\big\rangle}
+\newcommand{\hl}{\big\vert}
+\newcommand{\vcl}[1]{\ensuremath{\bar{\boldsymbol{r}}_\text{\tiny #1}}}
+\newcommand{\vsp}[1]{\ensuremath{\boldsymbol{r}}_\text{\tiny #1}}
+\newcommand{\la}{\label}
+\newcommand{\figref}[1]{fig.~\ref{#1}}
+\newcommand{\tabref}[1]{table~\ref{#1}}
+%=============================================================================
+
+\journal{Physics Letters B} 
+
+\begin{document}
+
+%=============================================================================
+\section{Introduction}
+
+If each particle of a set of $A$ isomassive fermions can be distinguished by an internal degree of
+freedom, the dynamics change significantly with this number $A$ exceeding the dimension $d$ of
+the flavour space. If the mutual interaction is flavour independent, this change reflects
+the transition from a boson-like system \emph{with}, to a fermi-boson mixture \emph{without} spatially
+totally symmetric states in the respective spectrum -- an effect exclusively driven by
+the demand for the total wave function to be antisymmetric.
+Under these circumstances of $A$ increasing by one but no structural change in the interaction,
+it seems reasonable that certain behaviour of the, now, fermionic
+system is correlated with bosonic observables which constrain the interaction.
+A minimal instance of the latter which explains non-trivial few-body phenomena is a
+unitary/resonant two-body interaction. It pertains to system with an interaction range
+significantly smaller compared with its resultant two-body correlation/scattering length,
+rendering, \eg, the three-body Efimov effect, the Tjon and Phillips correlations, and the
+particle-number-ordered accumulation of threshold states below every element of the universal
+Efimov spectrum as universal consequences for all particles whose two-body collisions are resonant.
+
+Observables of three- and four-body systems driven by fermionic substructures were also found
+correlated with that same resonant two-body interaction. Specifically, no stable
+three-body systems below certain boson-fermion mass ratios were found, and low-energy
+dimer-dimer scattering indicated no presence of four-body structure 
+at a scale close to the normal dimer-dimer threshold.
+Without any counter example, one would thus conclude that strict zero-range unitarity which
+entails one two-body-scale, only, namely the scattering length, cannot describe 
+systems which exhibit such peculiar fermionic structure, \eg, a hypothetical three-neutron resonance.
+Hence, if one upholds the motivation to deduce few-fermi phenomena from two-body dynamics, a dominant
+scale needs to be identified and be excluded from the renormalization-group average which removed
+all but the scattering length thus far. One choice for these scales are those effective-range-expansion (ERE)
+parameters of higher orders and in higher partial waves which are zero for an amplitude at unitarity, \ie,
+all but the $S$-wave scattering length ($a_0$).
+
+Here, we approach the issue of finding this correlation between a two-boson and a fermionic
+few-body phenomenon with an effective field theory (EFT). The cutoff regularization we chose to
+renormalize this theory induces finite ERE parameters beyond $a_0$. The convergence to zero of the former
+is parametrized by taking the limit of a single scale ($\Lambda\to\infty$). The effect of a finite $\Lambda$, \ie,
+non-zero higher-order ERE parameters, on a fermionic system should depend on its size as set by, one, the difference
+between particle number flavour-space dimension ($A-d$), and two, the absolute dimension $d$ of the flavour space.
+The former affects the character of the interaction by excluding certain pairwise attractions while the
+latter determines the location of the break-up thresholds. Although, we find larger fermionic systems to
+be more sensitive \wrt~the finite regulator, their instability\footnote{We identify instability with the
+absence of a negative energy eigenvalue, \ie, a bound state.} is universal as $\Lambda\to\infty$.
+
+%=============================================================================
+\section{Theoretical framework}
+
+The development of the minimal EFT of non-relativistic point particles exhibiting two- and three-body shallow states has been extensively studied in literature (\eg~Refs.\cite{Lepage:1997cs,vanKolck:1999mw, Bedaque:1998kg, Braaten:2004rn, Hammer:2017tjm, Hammer:2019poc}).
+The theory is arranged in a powercounting and can be systematically refined to attain a desired accuracy.
+The theoretical framework at leading order (LO) can be translated in a cut-off $\Lambda$ dependent Hamiltonian comprising a zero-range two- and three-body renormalized vertexes
+
+\begin{equation}
+H = - \sum_i \frac{\hbar^2}{2m}\ve{\nabla}^2+ \lec \sum_{i<j}{\delta_\Lambda(\ve{r}_i-\ve{r}_j)} 
++ \led \sum_{ i<j<k \atop \text{cyc} }\delta_\Lambda(\ve{r}_i-\ve{r}_j)\delta_\Lambda(\ve{r}_i-\ve{r}_k).
+\label{eq:hamiltonian}
+\end{equation}
+
+The expansion of any ensuing amplitude whose LO is represented by all Born terms depending solely on the coupling constants $\lec$ and $\led$, while parameters representing the aforementioned refinements enter perturbatively at the order given na\"ively by their higher mass dimension. 
+Specific to this work is the Gaussian regulator 
+\mbox{$\delta_\Lambda(\ve{x}) \propto\Lambda^3 e^{-\frac{\Lambda^2}{4}\ve{x}^2}$}.
+The unobservable $\Lambda$ dependence of $\lec$ and $\led$ was chosen to render the energy of a single bound state in each, the two- and three-body system, respectively, $\Lambda$-independent.
+Whether or not the induced dependence of another amplitude on the particular choice for $B(2)$ and $B(3)$ converges for $\Lambda\to\infty$, classifies it as either universal or emergent \red{in the sense alluded to in the introduction}. %lets think about it
+The problem is specified through five parameters, the particle's mass defined using the average nucleon one $m=938~$MeV, the number of particle $A$, a dimer and trimer. 
+Specifically we use: $B(2)=1$~MeV with $B(3)\in\lbrace1.5,\,3,\,4\rbrace$~MeV; and $B(2)=0^+$~MeV with $B(3)=3$~MeV.
+In this work, we consider a class of few-body systems with \abb~statistics as they approach the unitary limit via increasing the numerator instead of the denominator of the ratio $B(3)/B(2):=\upsilon$.
+The pionless, nuclear EFT is renormalized separately to yield the deuteron and triton binding energies of $B(2)=2.22$~MeV
+and $B(3)=8.48$~MeV, respectively. 
+Technically, the necessary fits employ precise Stochastic Variational Method[] and Resonating Group Method[] variational diagonalizations for $\led$, while $\lec$ was determined via a Numerov-type integration of the appropriate one-dimensional radial Schr\"odinger equation.
+
+
+
+\section{Results}
+
+
+
+The bosonic ground states of a theory characterized by a Hamiltonian of type \eqref{eq:hamiltonian} has been numerically analysed in detail (see \eg~Refs.\cite{Bazak:2016wxm,2015PhRvA..92c3626Y,Gattobigio:2012tk,vonStecher:2011zz,Gattobigio:2011ey}).
+The interaction of this work supports exactly one bound dimer and one trimer and it has been applied to systems up to $7$ particles using SVM.
+The bosonic-like gound state energy of $A$ fermions is shown as solid lines in \figref{fig:threshold}. 
+It is in qualitative agreement with the previous works, exhibit renormalization invariace, and agrees with the universal statement for which $B(4)\sim4\,B(4)$[ref].
+Comparing the $A<7$ body spectra of $\upsilon=4$ with $\upsilon=3$ in \figref{fig:threshold}, $B(A)/B(3)$ reduces too. 
+\red{This indicates that these states resemble the shallow components of the conjectured universal pair. 
+This hypothesis is based on the argument that $\upsilon\to0$ is realized with an increasingly repulsive three-body interaction, which precludes the emergence of further $A$-boson bound states but has an enhanced effect in a larger system as the number of triplets grows with $A$. 
+Therefore, one na\"ively expects a more rapid decrease of $B(A)$ with respect to $B(A-1)$ which compensates the initially found wider gap. (???)}
+%%I dont understand what is the meaning of this sentence
+
+
+
+Now add one particle with an identical mass and flavour-equal to one of the constituents of the $A$-fermion systems.
+A first SVM implementation of it with anti-symmetric wave function with zero total angular momentum $L_\text{total}=0$ yields to no stable states.
+Even if expected due to Pauli repulsion, this result is not trival, since the possible angular couplings between particles in many-fermionc systems.
+\red{However, the results demonstrate the smallness of such transitions which are necessary for the stability for RG invariant ranges. (?)}
+If the spatial component of the variational basis is projected onto $L_\text{total}=1$, the eigenvalue spectra of the $A+1\in[3,7]$ particle systems do contain a stable value ($B_1(A\oplus 1)=B(A\oplus 1)-B(A)>0$) for $\Lambda\approx0.1\fm$.
+In order to assess the universal character of such a stable bound state the cutoff is varied: $0.1<\Lambda<14.$ fm for all different $\upsilon$ considered.
+With increasing cutoff, \ie decreasing interaction range and approaching the 
+contact limit, $B_1(A\oplus 1)$ is found to decrease
+and vanish at some critical value $\lc$ (\figref{fig:threshold}). 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  need to convince people the numeric are correct?   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%
+%
+%
+%
+%
+This critical range increases linearly with $A$.
+The more particles in the symmetric core, the shorter-ranged the microscopic two- and three-body interaction has to be in order not to stabilize the $A\oplus 1$ mixed-symmetry state.
+In order to gain insight whether the linear dependence of the critical range holds for $A>6$, we employ a single-channel, effective two-fragments resonating-group local approximation (see \eg~Refs.~\cite{PhysRev.52.1083,Naidon_2016}) which we hope to analyze in further and more specific communication. 
+This approximation turns the $A+1$ body problem into a two-body problem between a ``frozen'' core and one of the original particles of the few-body problem. 
+The core is parametrized using a bosonic-like harmonic oscillator groundstate which with is fitted to match the SVM few-body calculated point radius.
+To extend the calculation to larger number of particle match the core wave function with the drop model formula $<r^2>\propto A^{1/3}(?)$[gandolfi].
+What makes this simplification appropriate is the halo character of the problem.
+In essence, the increasingly large gap between $B(A)$ and $B(A-1)$ does not allow for excitation of the bosonic core induced by the $A+1$-th particle.    
+%%%%%%%%%%
+%  is it true? %
+%%%%%%%%%%
+
+The increase of the critical Gaussian cutoff $\lc$ with the number of particles which we found by explicit $A$-body SVM calculations for $A<8$ continues in the RGM extrapolation up to a maximum number of particles $A^*$.
+Both, $A^*$ and the associated $\lc(A^*)$ increase with $\upsilon$ (compare maxima of the three curves in \figref{fig:RGM}).
+\red{The significance of this finding depends on the magnitude of $\lc$ relative the the breakdown scale ($\largescale$) of the specific physics inspected. }
+%%%%%%%%%%%%%%%%%
+% I am not convinced  %
+%%%%%%%%%%%%%%%%%
+This value differs for each physical system inspected being the smaller between the mass of the particles, typical momentum of long range forces, and the energy of the amplitude poles not described by the theory.
+Due to the universality of the system considered (for which we allow $r_0\ll a_0$) only the mass of the particles, the three-body energy, and the number of corpses are relevant scales.
+\red{In the cases close to universality $\aleph=1/a_0$ becomes a relevant scale as well but should not be considered since the LO resummation of the interaction[kolk99].}
+For particles whose substructure is known, \eg, nucleons as composites whose excitations become relevant at energies of about the pion mass ($m_\pi$), the above conclusion, namely  \mbox{$\largescale\approx m_\pi^{-1}\sim\mathcal{O}(1\fm)<\lc$} is satisfied for $A\gtrsim7$. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Talk about this more, it cannot change after breakingscale..               %
+% The number of particles is a scale as well                                            %
+% Need something about unitarity  (Lc increases linearly, what is Lc? )    %
+% Where this discussion is leading? I dont see the point                          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To substantiate the conjecture that the same instability happens also in the nuclear case and for more particles in the secondary core, we fit the experimental deuteron and triton binding energies, $B(2)=2.22$~MeV and $B(3)=8.48$~MeV, respectively. 
+The spin-singlet dibaryon (\eg, the dineutron) also bound with $B(2)$ as a consequence of the assumed spin-independence of the leading-order theory.
+However, the effect of a spin-dependent LO interaction which discriminates between a real deuteron, and virtual singlets, has been found small and inessential (see \eg~Refs.\cite{Kirscher:2015yda,Konig:2016utl}).
+For $A\le 4$, we observe instability pattern qualitatively identical to those shown in \figref{fig:threshold} for the corresponding $A+1$ systems.
+Hence, the three-parameter theory predicts correctly the experimentally established instability of nuclei in the $^3p,\,^3n,\,^4\text{H},\,^4\text{Li},\,\text{and}~^5\text{He}$ channels.
+In contrast, $^6$Li is known to sustain a $J^\pi=1^+ $ bound state approximately $1.5~$MeV below the $\alpha$-deuteron threshold.
+We find a particle-stable $^6$Li ($2\oplus 4$) only below a critical cutoff $\lc\approx1.5\fm$.
+For larger cutoffs, \ie a smaller interaction range, the system collapses in a deuteron and a $\alpha$-particle.
+% (see \figref{fig:nuclear}).
+Analogously, we find $^8$Be ($4\oplus 4$), which is considered to be stable in absence of coulomb repulsion [], to  $\alpha$-decay at a $\lc\approx 1\fm$.
+This is on the same order as the nuclear interaction range, but in the context of EFT it describes a cut-off not larger than the breaking scale of the theory (in the renormalization invariant region), thus, not to be considered a physical state.
+A part from the instability of such systems, these observations suggests also that increasing the number of particles in the secondary cores of the system the P-wave system becomes less stable.
+\red{This can be naively understood considering the increasing binding of the bosonic-like system, and the consequent increasing compactness, adding more particles.}
+
+The implication of this results for the usefulness of the pionless effective field theory for the description of these nuclei is crucial to study the trajectory of the bound-state poles through the respective thresholds at $\lambda > \lc$.
+In facts, while it is still debatable if a perturbative insertion of subleading order of the theory can transform a scattering state into a stable one, it is certain that new poles can not be created in this way.
+Therefore, the study of the movement of the poles with respect of the cut-off, \ie if they are, or not, renormalization convergent to shallow momentums, it is foundamental to determine if the theory might have the possibility to describe P-wave physical boundstates when subleading orders are included.
+To this end, we apply the method of analytical continuation of the coupling constant (ACCC, see, \eg~Ref.~\cite{Kukulin_1977}) to the $2+1$ case, which represents, as an example, the three-neutron system.
+\blue{Thereby, an attractive auxiliary three-body contact term is introduces with strength $\Delta^\Lambda$ of the same structure as the one which renormalizes the bosonic three-body system in \eqref{eq:hamiltonian}. 
+The delta functions of this term use a cutoff parameter $\Lambda$ which is identical to the two-body cutoff. 
+For a range of cutoffs (see \figref{fig:poletrajectory}), the initial $\Delta^\Lambda$ was chosen to bind the $2+1$ system before taking the limit $\Delta^\Lambda\to 0$ while following the bound state pole on its way on the physical (energy) sheet through the branch cut starting at $E=0$ from above onto the fourth quadrant of the unphysical sheet. On The latter (hatched area in \figref{fig:poletrajectory}), it represents a resonance. }
+The pole remains on this sheet for $\Lambda\lesssim4\fm$. 
+For larger cutoffs, the pole passes through another branch cut and leaves the first unphysical sheet. 
+Thus, it no longer represents a dimer-particle resonance. 
+Furthermore, its trajectory does not indicate to converge to a point on this second unphysical sheet. 
+This behavior suggests that an analogue of the dynamical pole generated (non-perturbatively) by the contact theory \eqref{eq:hamiltonian} in the two- and three-boson systems, does not exist in \abb, neither as a bound nor resonant state.
+\red{This result is not un-expected[ref], as it is consequence of continuus scale invarinace and the consecutive impossibility of creating a three-body resonances which would require the presence of a pair of poles in the $2+1$ energy-scattering complex amplitude.}
+Nonetheless, this result is a confemation of what the theory is suppose to behave and shows how unphysical poles behave when the bound region is left and the potential range decreased.
+A similar movement is expected in the case of unphysical poles also in systems with discrete scale invariance, \ie $A\geq3$ $A+1$ systems, that have not been studied nor confirmed in the framework of this study.
+
+
+
+For the conception of an extension of the \eftnopi which predicts also the particle-stable character of $^6$Li and $^8$Be in the zero-range limit, we analyze the mechanism behind the stability of these systems for $\Lambda<\lc$. 
+Of all artifacts introduced by the finite range of the regulated contact interaction, we single out: First, a finite effective range in the two-body $S$-wave channel, and second, a non-zero, attractive two-body $P$-wave interaction. 
+Both contribute to the attraction in the \abb~system but their relative significance in this role is obscure.
+In other words, the finite-range interaction does not only describe a finite but large $S$-wave scattering length but also other finite parameters of the effective-range expansion of the $S$-wave amplitude as the effective range $r_0$. 
+Furthermore, the scattering volume $a_1$ of the two-nucleon $P$-wave amplitude is non-zero.
+A better insight about the order of a potential enhancement of the corresponding higher-order-in-LO-\eftnopi vertices can be gained by studying the sensitivity of the bound \abb system below \lc~\wrt a variation of either of those parameters, in contrary of the combined change as induced by varying $\Lambda$.
+To do this, we project the two-body interaction in an asymmetric internal state.
+This forces two interacting particles into an even spatial state ($L=0,2,..$). 
+The effect of removing this contribution is shown in \figref{fig:Sprojection}. 
+Namely, a significant reduction of $\lc^A$. 
+Without the residual attraction in odd partial waves, the binding is attributed mainly to the finite $r_0$ and a coupling to even larger relative two-body angular momenta.
+This show how the small cut-off stability is strongly dependent from $P$-wave components of the interaction, however, these are not yet sufficient to fully explain such stability and effective range contributions also play a role in the stabilization mechanism.
+This result shows a possible way of enhancing the theory, possibly retaining those contribution also in the theory LO including enhancing sub-leading operators.
+However, this would introduces renormalizability complications that need to be carefully addressed if momentum dependence are treated non-perturbatively. 
+
+
+
+
+
+\section{Conclusion}
+As result of this study we find that a non-relativistic system of $A+1$ particles with identical masses and an $A$-dimensional internal flavour space cannot sustain a bound state if its dynamics is constrained by representations of two- and three-particle momentum-independent contact interactions which are renormalized to yield a bound/unitary two-body state and a bound three-body state and whose residual finite-range is below a critical value ($\lc^{-1}$) which decreases with increasing particle content $A$ of the system.
+If the range of the regulated contact interactions, however, surpasses the critical range, the ground state of the $A+1$ particles is bound with respect to breakup in the bosonic, spatially symmetric $A$-body ground state and a single free particle.
+The total orbital angular momentum of this $A+1$ bound state is $L_{\text{\scriptsize total}} = 1$.
+For any finite ratio $\lambda^*<\infty$, the critical range reaches a minimum at a certain number of particles $A$.
+In the unitary case we see a simililar behaviour with the difference that $\lambda^*$ increases linearly with the number of particles.
+The same instability is also fount for physical systems expected to be stable with respect to strong interaction (\ie $^6$Li and $^8$Be). 
+This, in principle, leads to the conclusion that a contact theory is not able to describe P-wave stable states nether in the nuclear framework. 
+The movement of the stable pole outside the bound region was studied in the \abb system, showing that the pole is an inessential cut-off artifact.
+The same study was not done for larger systems $A \geq 3$, however, this analysis will be essential, in the future, to determine if subleading orders are found to be able to move a possible shallow resonance back in the bound reagion.
+The mechanismms that reproduce bound states for shallow cut-offs is also studied in order to design a possible enhancement of the theory LO to reproduce physical P-wave systems.
+Range and $P$-wave effects have been recognized as possible binding mechanism, with the latter having a great role in the stability of the studied systems at small cut-off.
+However, the modification of the theory powercounting to treat those contributions non-perturbatively would have probable consequences in the theory renormalization itself.
+
+
+
+
+
+\section*{Acknowledgments}
+The work of M.S. was supported by the Czech Science Foundation GACR Grant No.19-19640S.
+The authors L.C. and J.K. acknowledge support from “Espace de Structure et de réactions Nucléaire Théorique” (ESNT, http://esnt.cea.fr ) at CEA-Saclay, where this work was partially carried out.
+The work of L.C. was also partially supported by the Pazy Foundation and by the Israel Science Foundation Grant No. 1308/16.
+
+
+\bibliographystyle{ieeetr}
+%\bibliography{Thebibliography.bib}
+\end{document}

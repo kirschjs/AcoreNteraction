@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Axve.aux
+The style file: ieeetr.bst
+Database file #1: Thebibliography.bib.bib
+Warning--I didn't find a database entry for "endnote1"
+Warning--I didn't find a database entry for "endnote2"
+Warning--I didn't find a database entry for "endnote3"
+Warning--empty journal in Hammer:2019poc
+You've used 30 entries,
+            1876 wiz_defined-function locations,
+            700 strings with 8270 characters,
+and the built_in function-call counts, 9048 in all, are:
+= -- 964
+> -- 258
+< -- 0
++ -- 99
+- -- 69
+* -- 561
+:= -- 1179
+add.period$ -- 31
+call.type$ -- 30
+change.case$ -- 29
+chr.to.int$ -- 0
+cite$ -- 31
+duplicate$ -- 536
+empty$ -- 806
+format.name$ -- 69
+if$ -- 2322
+int.to.chr$ -- 0
+int.to.str$ -- 30
+missing$ -- 31
+newline$ -- 94
+num.names$ -- 30
+pop$ -- 71
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 468
+stack$ -- 0
+substring$ -- 628
+swap$ -- 299
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 78
+width$ -- 32
+write$ -- 301
+(There were 4 warnings)

@@ -147,7 +147,7 @@ def pot_local(r, argv):
 pedantic = 0
 
 NState = 30
-Rmax = 40
+Rmax = 140
 order = 800
 
 Lrel = 1  # Momento angolare
@@ -158,16 +158,16 @@ m = 938.12
 hbar = 197.327
 
 # Lc15 = 0.9
-name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "1115L", lec_list_one_onefive, 0.005, 0., "Local"
+name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "1115L", lec_list_one_onefive, 2.47, 0., "Local"
 #name, lec_list, Aradius_modifyer_fac, Aradius_modifyer_exp, interaction = "1115", lec_list_one_onefive, 0.000412, 0.0, "NonLocal"
 
 print(name, Aradius_modifyer_fac, Aradius_modifyer_exp)
 
-Amin = 4
-Amax = 37
+Amin = 5
+Amax = 7
 
-Lmin = 0.3
-Lmax = 2.2
+Lmin = 0.2
+Lmax = 4.2
 dL = 0.05
 
 cores = range(Amin, Amax)
@@ -191,8 +191,8 @@ for Ncore in cores:
             )
             exit()
 
-        coreosci = Aradius_modifyer_fac * Ncore**((
-            1. + Aradius_modifyer_exp) / 3.)
+        coreosci = (3. / 2.) * (Aradius_modifyer_fac**
+                                (-2)) * ((Ncore - 1)**2) / (Ncore**(5. / 3.))
 
         mu = Ncore * m / (Ncore + 1.)
         mh2 = hbar**2 / (2 * mu)
@@ -354,7 +354,7 @@ for Ncore in cores:
 
             if interaction == 'NonLocal':
                 print(
-                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f, NORM = %s'
+                    'A = %d: L = %2.2f , a_core = %8.8f , omega = %e , E(0) = %2.2f + %2.2f i , LeC = %4.4f , LeD = %4.4f, NORM = %s'
                     % (Ncore, Lamb, coreosci,
                        omega, np.real(energiesnonloc[0]),
                        np.imag(energiesnonloc[0]), LeC, LeD, posd))
@@ -365,7 +365,7 @@ for Ncore in cores:
                     ]))
             else:
                 print(
-                    'A = %d: L = %2.2f , a_core = %2.2f , omega = %e , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f, NORM = %s'
+                    'A = %d: L = %2.2f , a_core = %8.8f , omega = %e , E(0) = %2.2f + %2.2f i , E(0,local) = %2.2f , LeC = %4.4f , LeD = %4.4f, NORM = %s'
                     % (Ncore, Lamb, coreosci, omega,
                        np.real(energiesnonloc[0]), np.imag(energiesnonloc[0]),
                        np.real(energiesloc[0]), LeC, LeD, posd))
@@ -414,12 +414,12 @@ for Ncore in cores:
             if noBSinSpec == False:
                 break
 
-        if noBSinSpec:
-            print("A = %d :  L_c = %4.4f fm^-1" % (Ncore, Lamb))
-            #            print(noBSinSpec, energiesloc[:4])
-            break
-        else:
-            continue
+        #if noBSinSpec:
+        #    print("A = %d :  L_c = %4.4f fm^-1" % (Ncore, Lamb))
+        #    #            print(noBSinSpec, energiesloc[:4])
+        #    break
+        #else:
+        #    continue
 
 f = plt.figure(figsize=(18, 12))
 f.suptitle(r'', fontsize=14)

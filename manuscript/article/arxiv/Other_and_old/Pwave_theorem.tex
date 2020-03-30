@@ -1,0 +1,261 @@
+\documentclass[aps,prd,twocolumn,tightenlines,letterpaper,nofootinbib]{revtex4-1}
+
+\usepackage{amssymb,latexsym}
+\usepackage{amsmath,amsbsy,bbm}
+\usepackage{epsfig,bm,color}
+\usepackage{graphicx,comment}
+\usepackage[vcentermath]{youngtab}
+\usepackage{slashed}
+\usepackage{nicefrac}
+\usepackage{tikz,pgfplots}
+
+\unitlength=1mm
+
+\usepackage{dutchcal}
+\usepackage{calligra}
+
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scriptr}{\mathcalligra{r}\,}
+\newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
+
+\begin{document}
+
+\newcommand{\eftnopi}{\mbox{EFT$(\not \! \pi)$}}
+\newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand{\ls}{\ve{L}\cdot\ve{S}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\la}{\label}
+
+\def\asy{\bm{\mathcal{A}}}
+\def\ie{{\it i.e.~}}
+\def\wrt{{\it w.r.t.~}}
+\def\eg{{\it e.g.~}}
+\def\he#1{{{}^#1\text{He}}}
+\def\li#1{{{}^#1\text{Li}}}
+\def\ov#1#2{\big\langle\,#1\,\big\vert\,#2\,\big\rangle}
+
+\def\eqref#1{{(\ref{#1})}}
+
+\def\yta{
+\begin{tikzpicture}[scale=1.]
+\draw[dashed,thick,opacity=0.5] (-2,-1.5) -- (7,-1.5);
+\path
+node at (-1,0)  [minimum size=1cm] {$\phi_0$}
+node at (-1,-1) [minimum size=1cm] {$\phi_1$}
+node at (-1,-3) [minimum size=1cm] {$\phi_\Omega$}
+node at (0,0) [shape=rectangle,draw,minimum size=1cm] {1}
+node at (1,0) [shape=rectangle,draw,minimum size=1cm] {2}
+node at (2,0) [shape=rectangle,draw,minimum size=1cm] {3}
+node at (3,0) [shape=rectangle,draw,minimum size=1cm] {4}
+node at (4,0) [shape=rectangle,draw,minimum size=1cm] {5}
+node at (5,0) [minimum size=1cm] {$\cdots$}
+node at (6,0) [shape=rectangle,draw,minimum size=1cm] {$n_0$}
+node at (0,-1) [shape=rectangle,draw,minimum size=1cm] {}
+node at (1,-1) [shape=rectangle,draw,minimum size=1cm] {}
+node at (2,-1) [minimum size=1cm] {$\cdots$}
+node at (3,-1) [shape=rectangle,draw,minimum size=1cm] {}
+node at (0,-2) [minimum size=1cm] {$\vdots$}
+node at (2,-2) [rotate=90,minimum size=1cm] {$\ddots$}
+node at (0,-3) [shape=rectangle,draw,minimum size=1cm] {}
+node at (1,-3) [minimum size=1cm] {$\cdots$}
+node at (2,-3) [shape=rectangle,draw,minimum size=1cm] {A}
+;
+\end{tikzpicture}
+}
+
+\newenvironment{ecce}[1][Ecce]{\begin{trivlist}\scriptsize\color{blue}
+\item[\hskip \labelsep {\bfseries{\color{red} #1}}]}{\end{trivlist}}
+
+\newenvironment{definition}[1][Definition]{\begin{trivlist}
+\item[\hskip \labelsep {\textrm{\bfseries#1}}]}{\end{trivlist}}
+
+ \author{L.~Contessi}
+ \affiliation{Racah Institute of Physics, The Hebrew University, 91904, Jerusalem, Israel}
+ \author{J.~Kirscher}
+\affiliation{Theoretical Physics Group, Department of Physics and Astronomy, University of Manchester, Manchester, UK}
+
+\title{No-bound-state theorem for $P$-wave systems} 
+
+\begin{abstract}
+We show that momentum-independent contact interactions can
+stabilize composites of non-relativistic, identical fermions 
+only in a totally symmetric, spatial state.
+If the number of constituents exceeds the
+number of accessible internal-symmetry states or another
+reason precludes the total symmetry of the coordinate-space part of the
+wave function, a zero-range $S$-wave interaction cannot bind
+the system with respect to breakup into substructures.
+This theorem holds for an arbitrary number of fermion species and spatial
+dimensions. 
+\end{abstract}
+ 
+\maketitle
+
+\paragraph{Overture}
+
+The problem of a finite number of identical, point-like fermions
+interacting with another is generic for many physical systems.
+In the absence of other degrees of freedom, gauge fields for instance, the 
+interaction between the fermions is purely due to
+contact interactions. These contact interactions, however,
+might exhibit an arbitrarily complicated momentum
+dependence. The problem we address in the following is whether an 
+interaction which comprises only those contact terms
+without momentum dependence (zero-range $S$-wave interactions) can,
+{\it in principle}, sustain a fermionic, bound $A$-body state with a
+totally symmetric spatial wave function.
+
+\paragraph{The no-bound-$P$-wave-state theorem}
+
+We consider momentum-independent contact interactions pertinent for an
+$A$-body system of the general structure
+
+\be\la{eq.cont-int-gen}
+\hat{V}=
+\sum_{i\neq j\atop \widetilde{\ve{S}}}\hat{P}_2(\widetilde{\ve{S}})\delta^{(d)}_{ij}+
+\sum_{i\neq j\neq k\atop \widetilde{\ve{S}}}\hat{P}_3(\widetilde{\ve{S}})
+\delta^{(d)}_{ij}\delta^{(d)}_{jk}+
+\ldots\;\;\;\;\;.
+\ee
+
+The spatial component is given by $d$-dimensional delta-functions,
+$\delta^{(d)}_{ij}=\delta^{(d)}(\ve{r}_i-\ve{r}_j)$, which combine
+with a dependence on the internal degrees of freedom (collectively
+denoted by $\widetilde{\ve{S}}~\stackrel{~\text{\eg}}{=}(SU(2)~\text{spin, SU(N)~isospin})$).
+For the operators corresponding to the latter,
+$\hat{P}_{n\leq A}(\widetilde{\ve{S}})$,
+we assume rank-$0$ tensors \wrt~to rotations in space,
+and their commutation with the antisymmetrizing operator $\asy$
+in order to have $\big[\hat{H},\asy\big]=0$.
+
+For the wave function, we assume the existence of a complete orthonormal,
+single-particle basis in which the state of the {\it interacting}
+$A$-body system, with $(d)$ spatial and $(N)$ internal degrees of freedom
+($\widetilde{r}\equiv(\ve{r},\ve{j})$), can be expanded:
+
+\be\la{eq.wfkt-exp}
+\Psi\left(\widetilde{\ve{r}}_1,\ldots,\widetilde{\ve{r}}_A\right)=
+\sum_{\ve{n},\ve{m}}\left(c_{mn}\prod_{i=1}^A\phi_{n_i}(\ve{r}_i)~\xi_{m_i}
+\right)\equiv\sum\Psi_{\ve{n}\ve{m}}\;\;\;,
+\ee
+
+with $\left\langle\Psi_{\ve{n}\ve{m}}\big\vert\Psi_{\ve{n}'\ve{m}'}
+\right\rangle=\delta_{\ve{m}\ve{m}'}\delta_{\ve{n}\ve{n}'}$.
+As we exclude totally symmetric states in space,
+\mbox{$\exists~(i,j)~\vert~i\neq j~:~n_i\neq n_j$}. Thereby we exclude
+distributions of all $A$ fermions into a single, spatial state $k$,
+$\ve{n}=\delta_{ki}n_i$.
+
+Next, we select one of the expansion terms, $\Psi_{\ve{n}\ve{m}}$,
+arbitrarily. It is helpful, to 
+visualize its behaviour \wrt~permutations with
+a Young tableau. For $A=3$, \eg, we have
+$\phi^{123}_{\ve{k}}\equiv\phi_a(1)\phi_a(2)\phi_b(3)=\young(12,3)$
+in mind, with row labels $a$ and $b$ and two occupied internal states.
+Particles $1$ and $2$ occupy the same spatial shell $a$, and hence
+$\phi^{213(321)}_{\ve{k}}=(-)\phi^{123}_{\ve{k}}$. With an arbitrary
+horizontal line,
+we define a partition of the $A$ coordinates: an upper set $I$, and a lower
+set $II$. The three-body example has only one such partition, namely,
+$I=\lbrace 1,2\rbrace$ and $II=\lbrace 3\rbrace$. The Hamiltonian can always
+be written as a sum of partition-internal operators, a kinetic-energy
+term for the relative motion between the partition, and the interaction
+between particles in different partitions:
+
+\be\la{eq.cl-ham}
+\hat{H}=\hat{H}_I+\hat{H}_{II}+\hat{T}_{\ve{R}}+\hat{V}_{I-II}\;\;\;.
+\ee
+
+We assume knowledge of the spectrum of the partitions
+$\hat{H}_{I(II)}\Phi_{I(II)}=E_{I(II)}\Phi_{I(II)}$, which allows us to
+write the stationary $A$-body Schr\"odinger equation for a single term
+of the wave-function expansion
+
+\be\la{eq.schroe-part}
+\left(\hat{T}_{\ve{R}}+\hat{V}_{I-II}-E_\text{\tiny total}+E_I+E_{II}\right)
+\asy\big(\Phi_I\Phi_{II}\phi_{\ve{R}}\big)=0\;\;\;.
+\ee
+
+It is crucial that conditions were neither made when selecting the term in
+the expansion, \ie, the specific Young tableau, nor when partitioning
+that term. A ``horizontal'' partition is always possible by the definition
+of the system under investigation. Only those configuration with all 
+particles in one shell cannot be partitioned. To those pure ``$S$-wave''
+states, the theorem does not apply.
+
+The projection onto $\Phi_I\Phi_{II}$ leads to the equation
+
+\begin{align}\la{eq.schroe-pro}
+\left\langle~\Phi_I\Phi_{II}~\big\vert\asy\left[\Phi_I\Phi_{II}\left(\hat{T}_{\ve{R}}-E_\text{\tiny total}+E_I+E_{II}
+\right)\phi_{\ve{R}}\right]\right\rangle+\nonumber\\
+\underbrace{\left\langle~\Phi_I\Phi_{II}~\big\vert~\hat{V}_{I-II}~\asy\left[\Phi_I\Phi_{II}\phi_{\ve{R}}\right]\right\rangle}_{\equiv V_\text{EX}}=0\;\;\;.%\nonumber
+\end{align}
+
+The subject of this article is to prove that
+
+\be\la{eq.theorem}
+V_\text{EX}=0\;\;\;{\text{for momentum-independent}\atop \text{zero-range interactions.}}
+\ee
+
+For an arbitrary tuple of interacting particles and a 
+single-particle expansion as in \eqref{eq.wfkt-exp}, only
+the identity $\bm{1}$ and certain permutations within the tuple
+yield non-zero matrix elements. 
+Any permutation which affects a particle which does not partake in
+the interaction under consideration will be put into a state which
+is orthogonal to the one it occupies in $\Phi_I\Phi_{II}$. As the
+interaction cannot compensate this shift to another state, the
+resulting matrix element is zero.
+
+The contribution of the first term of \eqref{eq.cont-int-gen}~to
+$V_\text{EX}$ is then
+\begin{align}\la{eq.ex-2}
+\ov{\Phi_I\Phi_{II}}{\hat{P}_2(\widetilde{\ve{S}})\delta^{(d)}_{ij}
+~(\bm{1}-(i\leftrightarrow j))
+\left[\Phi_I\Phi_{II}\phi_{\ve{R}}\right]}=\hspace{1cm}
+\nonumber\\
+\ov{\phi^{(i)}_{n_i}\phi^{(i)}_{n_j}}
+{\phi^{(i)}_{n_i}\phi^{(i)}_{n_j}}\cdot\hspace{.7cm}
+\nonumber\\
+\Big[\ov{\xi^{(i)}_{m_i}\xi^{(j)}_{m_j}}{\hat{P}_2
+~\big\vert~\xi^{(i)}_{m_i}\xi^{(j)}_{m_j}}-
+\ov{\xi^{(i)}_{m_i}\xi^{(j)}_{m_j}}{\hat{P}_2
+~\big\vert~\xi^{(j)}_{m_i}\xi^{(i)}_{m_j}}\Big]
+\nonumber\\
+\end{align}
+
+where only the integration over the coordinates of particle $i$ does not
+yield unity. The minus sign stems from the asymmetry of the spatial part
+of the wave function, which follows from particles residing in different
+partitions.
+Hence, exchanging $(i\leftrightarrow j)$ in the spin part of the
+wave function has no effect. Thus, last term of \eqref{eq.ex-2}~does
+not change its value and thus cancels the other spin matrix element
+for an arbitrary pair-interaction operator $\hat{P}_2$.
+
+If we consider an arbitrary contribution to $V_\text{EX}$, \ie,
+a term from \eqref{eq.cont-int-gen}~for a specific operator structure and
+particle tuple,
+it is not obvious that the matrix element
+which involves not just one but an arbitrary number of pairs
+vanishes, too. Instead of a single permutation, any permutation
+($\hat{p}\in S_{|D|}$) of the symmetric group of the interacting set of particles
+($D$), could yield non-zero matrix elements. The generalization of \eqref{eq.ex-2}~is
+
+\begin{align}\la{eq.ex-2}
+\sum_{p\in S_{|D|}}(-)^p\ov{\Phi_I\Phi_{II}}{\hat{P}_{|D|}
+\prod_{i\neq j\in D}\delta^{(d)}_{ij}~\hat{p}~
+\left[\Phi_I\Phi_{II}\phi_{\ve{R}}\right]}
+\propto\hspace{1cm}
+\nonumber\\
+\sum_{p\in S_{|D|}}(-)^p\,\ov{\prod_{i\in D}\xi^{(i)}_{m_i}}{\hat{P}_{|D|}
+~\big\vert~\prod_{i\in D}\xi^{\hat{p}(i)}_{m_{\hat{p}(i)}}}\;\;\;.
+\nonumber\\
+\end{align}
+
+The $|D|!$ terms of this sum cancel as follows. 
+
+
+\end{document}
