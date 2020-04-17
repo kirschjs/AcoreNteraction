@@ -1,5 +1,5 @@
 \documentclass
-[aps,nofootinbib,prl,showpacs,twocolumn,groupedaddress,superscriptaddress]
+[aps,prl,showpacs,twocolumn,groupedaddress,superscriptaddress]
 {revtex4}
 \usepackage{graphicx} 
 \usepackage{dashrule}
@@ -165,7 +165,7 @@ from the left. The uncoupling of different partial waves becomes explicit when
 \be
 e^{-\beta\ve{R}\cdot\ve{R}'}=4\pi\sum_{LM}i^Lj_L(i\beta RR')Y^*_{LM}(\hat{\ve{R}})Y_{LM}(\hat{\ve{R}}')
 \ee
-is substituted. In the $n=1$ part, which encodes the exchange effect on the free
+is substituted\footnote{See Ref.~\cite{Edmonds} Eq.(5.8.3) with spherical Bessel functions $j_0(z)=z^{-1}\sin z=\text{sinc}\,z$.}. In the $n=1$ part, which encodes the exchange effect on the free
 Hamiltonian, we apply the Laplacian before making the above and following
 substitutions:
 \be
@@ -184,7 +184,7 @@ partial wave:
  e^{-\alpha_1\ve{R}^2-\gamma_1\ve{R}'^2}\phi_{lm}(R\mprime)~RR\mprime dR\mprime
  \la{eq.rgm.sglnonloc.pw.Eex}\\
 -\left(\frac{\hbar^2}{2\mu}\right)\int
-(4\pi\cdot\zeta_1) \cdot e^{-\alpha_n\ve{R}^2-\gamma_n\ve{R}'^2}
+(4\pi\cdot\zeta_1) \cdot e^{-\alpha_1\ve{R}^2-\gamma_1\ve{R}'^2}
 \cdot\Bigg\lbrace
 \left[-(4\alpha_1^2R^2+\beta_1^2R\mprime^2-2\alpha_1)+\frac{l(l+1)}{R^2}\right]
  i^l j_{l}(i\beta_1 RR')\nonumber\\
@@ -215,6 +215,9 @@ in terms of a normalizing constant $N_{nl\nu}=
 \left(\left(\frac{2\nu^3}{\pi}\right)^{1/2}\cdot\frac{2^{2l+n+3}n!\nu^l}{(2n+2l+1)!!}\right)^{1/2}$ and generalized
 Laguerre polynomials $L_n^m(x)$.
 }.
+
+\paragraph{The low-energy (``$S$-wave'') limit}
+As a special case, the structure for the $l=0$ partial wave is detailed below. In virtue of $j_{l}(i\beta_1 RR')=$
 
 \paragraph{Example: 5-body system}
 In the following, we analyse features of the effective interaction for the
