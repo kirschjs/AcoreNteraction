@@ -1,6 +1,5 @@
-\documentclass
-[aps,prl,showpacs,twocolumn,groupedaddress,superscriptaddress]
-{revtex4}
+\documentclass[onecolumn,preprint,superscriptaddress,nofootinbib,notitlepage,10pt,linenumbers]{revtex4-1}
+
 \usepackage{graphicx} 
 \usepackage{dashrule}
 \usepackage{dcolumn} 
@@ -14,7 +13,7 @@
 \usepackage[dvipsnames]{xcolor} 
 \usepackage{soul}
 \usepackage{rotating}
-\usepackage{pdflscape}
+%\usepackage{pdflscape}
 %=============================================================================
 \def\cM{{\widehat{M}}}
 \newcommand{\sube}{_\text{\tiny EX}}
@@ -59,6 +58,8 @@
 \newcommand{\lam}[1]{\mbox{\ensuremath{\Lambda=#1\,\text{fm}^{-1}}}}   
 \newcommand{\figref}[1]{fig.~\ref{#1}}
 \newcommand{\tabref}[1]{table~\ref{#1}}
+\newcommand{\cc}{\ensuremath C_0(\Lambda)}
+\newcommand{\dd}{\ensuremath D_1(\Lambda)}
 
 \begin{document}
 
@@ -87,7 +88,7 @@ In order to study the large-$N$ limit, we develop a model inspired by the resona
 That entails the assumption of a frozen $A$-body core whose spatially symmetric wave function we
 parametrize with a single parameter $a$ via
 \be\label{eq.rgm.corewfkt}
-\phi_A:=e^{-\frac{a}{2}\sum_{i=1}^A\left(\ve{r}_i-\ve{R}_A\right)^2}\;\;\;;
+\phi_A:=e^{-\alpha\sum_{i=1}^A\left(\ve{r}_i-\ve{R}_A\right)^2}\;\;\;;
 \begin{array}{l}
      \ve{r}_i\;\;\text{\scriptsize : single-particle coordinates}  \\
      \ve{R}_A\;\;\text{\scriptsize : core centre of mass}
@@ -97,34 +98,36 @@ The system is thereby reduced to only three degrees of freedom, namely the relat
 between core and the odd particle. The respective equation of motion reads in terms of the effective
 mass $\mu$, the relative kinetic energy $E$ between core and odd particle:
 \be\label{eq.rgm.eqom}
-\int\left\lbrace~\phi^*_A\left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E+\mathcal{V}\right)
+\int\left\lbrace~\phi^*_A\left(-\frac{\hbar^2}{2\mu}\ve{\Delta}_R-E+\mathcal{V}\right)
 \mathcal{A}\left[\phi_A\psi(\ve{R})\right]\right\rbrace d\ve{r}_{1\ldots A}=0\;\;.
 \ee
 Antisymmetrization is required between two particles only, 
 $\mathcal{A}=\mathbb{1}-P_{A,A+1}$, 
 and the interaction is effective, only if it involves the odd particle:
 \begin{align}
-\mathcal{V}=&~C_0(\Lambda)\,\sum_{i}^{A-1}\,\ddrei{\ve{r}_i-\ve{r}_{A+1}}\\
-&+D_1(\Lambda)\,\sum^{A-1}_{i<j}\,\left[\ddrei{\ve{r}_i-\ve{r}_j}\,
+\mathcal{V}=&~\cc\,\sum_{i}^{A-1}\,\ddrei{\ve{r}_i-\ve{r}_{A+1}}\\
+&+\dd\,\sum^{A-1}_{i<j}\,\left[\ddrei{\ve{r}_i-\ve{r}_j}\,
 \ddrei{\ve{r}_i-\ve{r}_{A+1}}\right.\\&\qquad\qquad\left.+
 \,\ddrei{\ve{r}_i-\ve{r}_{A+1}}\,
 \ddrei{\ve{r}_j-\ve{r}_{A+1}}\right]\;\,.
 \end{align}
 The contribution from the identical copy of the $(A+1)^\text{\scriptsize th}$ particle
 -- without loss of generality identified with label $A$ -- interacting is excluded, 
-because we anticipate its vanishing because of antisymmetrization.
-As in our calculations, the zero-range contact forces are smeared out in order to 
-obtain regular solutions -- in contrast to, \eg,
-Bethe-Peierls~\cite{bethePeierls} boundary conditions 
--- this {\it a priori} exclusion introduces artefacts. We assume
-that those are insignificant relative to the other terms from 
+because we anticipate its vanishing because of antisymmetrization. This {\it a priori} exclusion introduces artefacts
+because the zero-range contact forces are approximated via
+\be\la{eq.delta}
+\delta^{(1)}(x)=\lim_{\Lambda\to\infty}~\frac{\Lambda}{2\sqrt{\pi}}\cdot e^{-\frac{\Lambda^2}{4}x^2}
+\ee
+in our calculations in order to obtain regular solutions -- in contrast to, \eg,
+Bethe-Peierls~\cite{bethePeierls} boundary conditions.
+We assume that those are insignificant relative to the other terms from 
 the inter-fragment interaction.
 
 The integration in \eqref{eq.rgm.eqom} yields a three-dimensional 
 Schr\"odinger equation with a non-local potential
 \begin{widetext}
 \be\label{eq.rgm.sglnonloc}
-\left(-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\right)\psi(\ve{R})+\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi(\ve{R})-
+\left(-\frac{\hbar^2}{2\mu}\ve{\Delta}_R-E\right)\psi(\ve{R})+\sum_{n=1}^3\eta_n~e^{-\kappa_n\ve{R}^2}\psi(\ve{R})-
 \sum_{n=1}^4\zeta_n\int\left\lbrace\widehat{\mathfrak{O}}_ne^{-\alpha_n\ve{R}^2-\beta_n\ve{R}\cdot\ve{R}'-\gamma_n\ve{R}'^2}\right\rbrace\psi(\ve{R}') d\ve{R}'=0\;\;.
 \ee
 \end{widetext}
@@ -133,7 +136,7 @@ core particles $A$,
 the core size $a$, the interaction regulator $\Lambda$,
 and the single-particle mass $m$, and 
 \begin{align}\la{eq.exop}
-\widehat{\mathfrak{O}}_1=&~-\frac{\hbar^2}{2\mu}\ve{\nabla}_R^2-E\\
+\widehat{\mathfrak{O}}_1=&~-\frac{\hbar^2}{2\mu}\ve{\Delta}_R-E\\
 \to&~-\frac{\hbar^2}{2\mu}\left(4\alpha_1^2\ve{R}^2+\beta_1^2\ve{R}'^2
 +4\alpha_1\beta_1\ve{R}\cdot\ve{R}'-2\alpha_1\right)-E\;\;,\nonumber
 \end{align}
@@ -219,6 +222,78 @@ Laguerre polynomials $L_n^m(x)$.
 \paragraph{The low-energy (``$S$-wave'') limit}
 As a special case, the structure for the $l=0$ partial wave is detailed below. In virtue of $j_{l}(i\beta_1 RR')=$
 
+\newpage
+\paragraph{Example: dimer-dimer scattering -- 2-component Fermions}
+The scattering of two identical dimers, each comprised of equal-mass particles which interact resonantly (scattering length significantly larger
+than the effective range $a^{-1}r\to 0$), at an energy sufficiently low such that the effects of branch cuts due to dimer disintegration and
+excitation can be neglected, shall serve as a benchmark. For this experiment, the remarkable result
+\be
+\frac{a_{dd}}{a}\approx 0.6\;\;\;
+\ee
+for the ratio between $S$-wave scattering
+lengths of the dimer-dimer amplitude $a_{dd}$ and the resonant two-fermion system $a$ has been found\cite{petrov_dimerov}~in
+a four-body calculation.
+We use this result as a standard in order to demonstrate the accuracy of the RGM approximation, \ie, the reformulation of the dimer-dimer
+problem as a two-body system, as well as that of the numerical solution of the ensuing non-local equation.
+
+Pertinent to this system are the following quantities:
+\begin{gather}
+A=4\;\;\;,\;\;\;\mu=m~\text{(single-particle mass)}\;\;\;,\frac{\hbar^2}{2\mu}\stackrel{\text{nuclear}}{=}20.7~\text{MeV}\cdot\text{fm}^2\\
+\phi_{A(B)}=e^{-\alpha\vcl{1(3)}^2}\;\;\;,\\
+\mathcal{A}=\mathbb{1}-\hat{P}_{13}-\hat{P}_{24}+\hat{P}_{13}\hat{P}_{24}\;\;\;,\\
+\mathcal{V}=\cc\sum_{(i,j)\in X}e^{-\frac{\Lambda^2}{4}(\ve{r}_i-\ve{r}_j)^2}\;\;\;,\;\;\;X=\left\lbrace(13),(24)\right\rbrace\;\;\;;
+\end{gather}
+The three-dimensional incarnation \eqref{eq.rgm.eqom} which follows reads
+
+\begin{gather}
+(\hat{T}-E)~\chi(\ve{r})+\mathcal{V}^{(1)}(\ve{r})~\chi(\ve{r})+
+\int d^{(3)}\ve{r}\mprime~\mathcal{V}^{(2)}(\ve{r},\ve{r}\mprime,E)~\chi(\ve{r}\mprime)=0\la{eq.rgm.dimerdimer}
+\intertext{with a {\it local} potential which receives contributions from the identity and the complete particle exchange}
+\mathcal{V}^{(1)}(\ve{r})=
+2\cdot C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot e^{-\frac{2\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}
+\end{gather}
+and a {\it non-local}, energy-dependent potential feeding from the kinetic and potential acting on single, odd exchanges of a single
+atom between the clusters
+\begin{align}
+\mathcal{V}^{(2)}(\ve{r},\ve{r}\mprime,E)=&
+~8~\alpha^{3/2}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
+\cdot e^{-\alpha\ve{r}^2}+E\cdot e^{-\alpha\ve{r}^2}
+-2~C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+ e^{-\alpha\cdot\frac{2\alpha+3\lambda}{2\alpha+\lambda}\ve{r}^2}\right]\;\;\;.
+\end{align}
+It is in order to consider the following limits: 
+\begin{itemize}
+\item $\lambda\gg\alpha$
+\item
+$\int d^{(3)}\ve{r}\mprime~\mathcal{V}^{(2)}(\ve{r},\ve{r}\mprime,E)~\chi(\ve{r}\mprime)\stackrel{E\to 0}{\approx}
+\chi(\ve{r})\cdot v^{(2)}(\ve{r})\cdot\int d^{(3)}\ve{r}\mprime~v^{(2)}(\ve{r}\mprime)$~.
+\end{itemize}
+A comparison between the ensuing local, zero-range approximation
+\be
+\mathcal{V}^{(0)}(\ve{r})=\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)\cdot8~\pi^{3/2}\cdot e^{-\alpha\ve{r}^2}+
+C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+\left(e^{-2\alpha\ve{r}^2}-16\pi^{3/2}e^{-3\alpha\ve{r}^2}\right)
+\ee
+and the full RGM potential will enable us to quantify and trace
+the effect of the particle statistics.
+
+ECCE the following:
+\begin{itemize}
+\item As the non-local potential factorizes, there is no mixing of partial waves and \eqref{eq.rgm.dimerdimer} applies to each partial wave
+\be\la{eq.rgm.dimerdimer.pw}
+\left(-\frac{\hbar^2}{2\mu}\left(\partial_r^2-\frac{l(l+1)}{r^2}\right)-E\right)~\chi_l(r)+\mathcal{V}^{(1)}(r)~\chi_l(r)+
+\int dr\mprime~(4\pi\,rr')~\mathcal{V}^{(2)}(r,r\mprime,E)~\chi_l(r\mprime)=0
+\ee
+with a strictly local angular momentum barrier and a factor of $4\pi$ which stems from the two independent angular integration averages
+of $\chi_l(r)$ and $\chi_l(r\mprime)$. We used $\chi(\ve{r})=r^{-1}\sum_{lm}\chi_l(r)Y_{lm}(\hat{\ve{r}})$, and projected ``from the left''
+with $r\int d^{(2)}\hat{\ve{r}}~Y^*_{l'm'}(\hat{\ve{r}})$.
+
+\item Lorenzo, $\lambda=\frac{\Lambda^2}{4}$ and hence the pre-factor of the second term runs $\propto\Lambda^{-1}$ in \eftnopi. Therefore,
+For $\Lambda\to\infty$, a model-independent interaction remains which encodes microscopic dimer characteristics via $\alpha$.
+\end{itemize}
+
+
+\newpage
 \paragraph{Example: 5-body system}
 In the following, we analyse features of the effective interaction for the
 specific case of four internal degrees of freedom and a system of five particles
@@ -226,31 +301,8 @@ with identical masses. With the numerical values as given in table~\ref{tab.cons
 this example pertains to nuclear physics as described in leading order with the
 pionless effective field theory.
 
-\begin{table}
-\be\la{tab.constants}
-\setlength{\tabcolsep}{4pt}
-\renewcommand{\arraystretch}{1.4}
-\begin{array}{c|cccc}
-n & \eta_n & \kappa_n & & \\
-1 & & & & \\
-2 & & & & \\
-3 & & & & \\
-n & \zeta_n & \alpha_n & \beta_n & \gamma_n \\
-1 & & & & \\
-2 & & & & \\
-3 & & & & \\
-4 & & & & \\
-\hline
-\end{array}
-\ee
-\caption{Numerical values which specify the core-particle motion via
-Eq.~\eqref{eq.rgm.sglnonloc.pw} for $\lam{4}$, $A=4$, $m_N=938~$MeV, $a=0.56~$fm, $\hbar c=197~\text{MeV$\cdot$fm}$.}
-\end{table}
 
 \newpage
-
-
-
 
 
 \section{Appendix: }
@@ -280,7 +332,62 @@ $n=l=0$ state, and one particle in an $n\neq0$ but still $l=0$ state. Matrix ele
 such configurations are zero, and we shall need to know whether the same is true for a one-parameter, spherically symmetric,
 finite-range representation of the contact, $\lim_{\Lambda\to\infty}g_\Lambda(r)=\delta(r)$. 
 
+\section{Appendix: On the microscopic interaction strength}
+In this work, the interaction between atoms is assumed to be represented
+by a two- and a three-body contact interaction which are renormalized
+to the atom-atom and atom-atom-atom amplitudes, respectively, at
+an energy which is small relative to the distance between those
+three singular structures in the three-atom amplitude with the lowest
+energies \wrt the atom-atom-atom structure, and the fourth-closest
+singularity.
 
+Specifically, this choice determines the dependence of the interaction
+strengths $\cc$ and $\dd$ on the cutoff, which is, the range of the
+potential operators. Linear combinations of these strengths characterize
+the macroscopic interaction along with the corresponding Gaussian
+exponents. The dependence of a two-fragment amplitude on the RG parameter
+$\Lambda$ is thus given. In general, it is reasonable to infer from the
+divergence of the strength of an interaction in the course of a symmetry 
+transformation to infinite attraction,
+while simultaneously its range remains finite, an
+ill-defined and thus useless theory.
+On the other hand, no meaning can come from a divergence of a theory
+that represents an infinite repulsion with infinite range.
+All other cases are candidates for theories with predictable power
+for macroscopic quantities based on the dynamics of their microscopic
+structure.
+
+After these general consideration, we shall apply the rational to the
+case where mass and threshold scales are semblances of the nuclear regime.
+
+\begin{figure}[h] 
+\centering 
+\includegraphics[width=0.95\textwidth,angle=0]{./lecsets.pdf} 
+\label{fig:lecs}
+\caption{Cutoff dependence of the two- and three-body interaction
+ strengths, individually and relative to each other. The various
+ curves. The various dependencies correspond to 
+ $B(2)\in (0,20)$ and $B(3)\in (1.5,54)$ for atom masses between
+$938$~MeV and $1640~$MeV. The shades roughly mark interval in which the 
+three-body force is attractive (blue) or repulsive (brown).}
+
+From \figref{fig:lecs}, we draw the following conclusions:
+\begin{itemize}
+\item $\dd\propto e^{\kappa\Lambda}$ for $\Lambda>$ some lower limit which
+is related to $B(3)$ and is close to the point where the interaction
+strength changes sign, namely, from an attractive to a repulsive force.
+\item Foreseeing another bound state to enter the three-atom spectrum
+once the interaction strength reaches a certain magnitude at some cutoff,
+we expect this pattern to repeat itself if one identifies that newly
+found pole as the one which represents the renormalization condition
+for $\dd$.
+\item For $B(2)\to 0$ and $B(3)\to 0$, \ie, in the multi-resonant
+limit, the three-body force has a static, repulsive character. The
+interaction pair is ``Janus-like'', an always attractive two-body
+side and an ever repulsive three-body face. 
+\end{itemize}
+
+\end{figure}
 
 \section{Appendix: The core wave function}
 I assume that a spin-independent zero-range interaction renormalized to a shallow dimer and a shallow trimer

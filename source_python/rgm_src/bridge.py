@@ -12,7 +12,6 @@ BINpath = home + '/kette_repo/AcoreNteraction/source_python/rgm_src/'
 tni = 1
 
 mpii = '137'
-Lrange = [8.00]  #np.arange(9.7, 9.8, 0.05)
 
 # 'reduce' , 'bdg' , 'over' , 'QUA' , 'plot' , 'scatt'
 cal = ['OBLU', 'bdg', 'QUA', 'plot', 'scatt']
@@ -32,12 +31,8 @@ dbg = 1
 pot_scale = 1.
 
 anzs = 1
-v_i = 1.0
-v_e = 1.0
-over_space = [15., 0.1, 0.0001]
-eps_space = np.linspace(v_i, v_e, anzs)
 
-r2w = 0.0
+r2w = 1.0
 r2b = 0.0
 ls = 0.0  #0.56 #0.16 #0.13
 ten = 0.0
