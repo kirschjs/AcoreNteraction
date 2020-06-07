@@ -10,6 +10,7 @@ from C0D1_lec_sets import *
 
 #                      result result
 #              J  S CH [e,ph] [lec]  label color reduce? scale
+chan = 'np-3S1'
 chs_nn = {
     # DEUTERON
     'np-3SD1': [1, 1, [2, 10]],
@@ -40,19 +41,19 @@ dd_scatlengths = []
 alphs = []
 lams = []
 
-nn_scale = 2.55
-dd_scale = 2.25
+nn_scale = 1.55
+dd_scale = 1.25
 addw = 0
 
 plo = 0
 verb = 0
 
-chan = 'np-3S1'
+#  lec_list = [
+#      line for line in open(
+#          '/home/kirscher/kette_repo/AcoreNteraction/source_mathematica/tmp.dat')
+#  ]
 
-lec_list = [
-    line for line in open(
-        '/home/kirscher/kette_repo/AcoreNteraction/source_mathematica/tmp.dat')
-]
+lec_list = C0D1_lec_set['tmp']
 
 print(
     'L[fm^-1]   alpha[fm^-2]    C0[MeV]        B_d[MeV]   a_ff[fm]   a_dd[fm]')
@@ -61,7 +62,7 @@ head = 'L[fm^-1]   alpha[fm^-2]    C0[MeV]        B_d[MeV]   a_ff[fm]   a_dd[fm]
 
 for lec in lec_list:
 
-    lam = float(lec.split()[0])
+    lam = float(lec)
 
     n2path = home + '/kette_repo/sim_par/nucleus/2n/%s/' % str(lam)
     if os.path.isdir(n2path) == False:
@@ -79,10 +80,10 @@ for lec in lec_list:
     potnn = 'pot_nn_%5s' % str(lam)
     potdd = 'pot_dd_%5s' % str(lam)
 
-    cloW = float(lec.split()[1])
+    cloW = float(lec_list[lec][0])
     cloB = 0.
 
-    prep_pot_files([lam], [cloW], [], [], [], potnn)
+    prep_pot_files([0.25 * lam**2], [cloW], [], [], [], potnn)
 
     jay = chs_nn[chan][0]
     stot = chs_nn[chan][1]
@@ -123,8 +124,8 @@ for lec in lec_list:
 
     dimerBDGs.append(get_h_ev()[0])
 
-    alph = 2503.5 * nn_scatlengths[-1]**(-2)  # [] = fm^-2
-    #alph = 1.5 * np.abs(dimerBDGs[-1]) * mn['137'] / MeVfm**2
+    #alph = 1.5 * nn_scatlengths[-1]**(-2)  # [] = fm^-2
+    alph = 1.5 * np.abs(dimerBDGs[-1]) * mn['137'] / MeVfm**2
     alphs.append(alph)
     lams.append(lam)
 
