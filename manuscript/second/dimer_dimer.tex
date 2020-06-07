@@ -1,0 +1,188 @@
+\documentclass[onecolumn,preprint,superscriptaddress,nofootinbib,notitlepage,10pt,linenumbers]{revtex4-1}
+
+\usepackage{graphicx} 
+\usepackage{dashrule}
+\usepackage{dcolumn} 
+\usepackage{longtable} 
+\usepackage{mathtools}
+\usepackage{amssymb} 
+\usepackage{bbold}
+\usepackage{amsmath} 
+\usepackage{amsfonts} 
+\usepackage{wasysym}
+\usepackage{slashed} 
+\usepackage[dvipsnames]{xcolor} 
+\usepackage{soul}
+\usepackage{rotating}
+\usepackage{paracol}
+%\usepackage{pdflscape}
+%=============================================================================
+\def\cM{{\widehat{M}}}
+\newcommand{\sube}{_\text{\tiny EX}}
+\newcommand{\subd}{_\text{\tiny D}}
+\def\cS{{\mathcal S}}
+\newcommand*{\mprime}{^{\prime}\mkern-1.2mu}
+\newcommand*{\mdprime}{^{\prime\prime}\mkern-1.2mu}
+\newcommand*{\mtprime}{^{\prime\prime\prime}\mkern-1.2mu}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}} 
+\newcommand{\gray}[1]{\textcolor{gray}{#1}} 
+\newcommand{\blue}[1]{\textcolor{blue}{#1}} 
+\newcommand{\bs}[1]{\boldsymbol{#1}} 
+\newcommand{\nopieft}{\mbox{$\slashed{\pi}$EFT}} 
+\newcommand{\eftnopi}{\mbox{EFT($\slashed{\pi}$) }} 
+\newcommand{\Lag}{{\cal L}}
+\newcommand{\la}{\label} 
+\newcommand{\be}{\begin{equation}} 
+\newcommand{\ee}{\end{equation}} 
+\newcommand{\vcl}[1]{\ensuremath{\bar{\boldsymbol{r}}_\text{\tiny #1}}}
+\newcommand{\toinf}{\ensuremath{\stackrel{\text{\scalebox{0.6}{$\Lambda\to\infty$}}}{\longrightarrow}}}
+\newcommand{\cl}[1]{\ensuremath{\bar{r}_\text{\tiny #1}}}
+\newcommand{\vsp}[1]{\ensuremath{\boldsymbol{r}}_\text{\tiny #1}}
+\newcommand{\rvec}{{\bs{r}}} 
+\newcommand{\xvec}{{\bs{x}}} 
+\newcommand{\sgmvec}{\ensuremath{\boldsymbol{\sigma}}} 
+\newcommand{\tauvec}{\ensuremath{\boldsymbol{\tau}}}
+\newcommand{\fm}{\ensuremath{\,\text{fm}^{-1}}} 
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\eg}{\textit{e.g.}\;}
+\newcommand{\ie}{\textit{i.e.}\;}
+\newcommand{\wrt}{\textit{wrt.}\;}
+\newcommand{\etc}{\textit{etc.}\;}
+\newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
+\newcommand{\ddrei}[1]{\delta_{\tiny \Lambda}^{(3)}\!\big(#1\big)}
+\newcommand{\abb}{\ensuremath{2\!+\!1^{(A-1)}}}
+\newcommand{\coup}[3]{\left[\,#1\,\otimes\,#2\,\right]^{#3}}
+\newcommand{\threej}[6]{ \begin{pmatrix}
+   #1 & #2 & #3 \\
+   #4 & #5 & #6 
+  \end{pmatrix}}
+\newcommand{\lam}[1]{\mbox{\ensuremath{\Lambda=#1\,\text{fm}^{-1}}}}   
+\newcommand{\figref}[1]{fig.~\ref{#1}}
+\newcommand{\tabref}[1]{table~\ref{#1}}
+\newcommand{\cc}{\ensuremath C_0(\Lambda)}
+\newcommand{\dd}{\ensuremath D_1(\Lambda)}
+\newcommand{\abab}{\ensuremath $(ab)\!\!:\!\!(ab)$}
+\newcommand{\abca}{\ensuremath $(ab)\wasytherefore(ca)$}
+
+\begin{document}
+
+\section{dimer-dimer scattering}
+In the single-channel approximation, the resonating-group equation assumes the non-local form
+\be\la{eq.rgm}
+(\hat{T}-E)~\chi(\ve{r})+\mathcal{V}^{(1)}(\ve{r})~\chi(\ve{r})+
+\int d^{(3)}\ve{r}\mprime~\mathcal{V}^{(2)}(\ve{r},\ve{r}\mprime,E)~\chi(\ve{r}\mprime)=0
+\ee
+with the radial coordinates denoting the spatial separation between the two fragments. If these fragments are
+two-body $S$-wave bound states comprised of equal-mass fermions, the effective potentials which derive from a
+zero-range fermion-fermion interaction are given for a two- and three-species system. We denote the former
+as \abab~(scale invariant), and the latter \abca(discretely scale invariant, Thomas
+collapse of $(abc)$). The characteristic three-body scale in an \abca~system flows into the effective
+dimer-dimer potentials, while in the absence of such a scale in the zero-range two-body limit, the effective
+potentials are parametrized by the dimer, \ie, a two-body observable, only.
+
+In detail, 
+
+\begin{description}
+	\item[\abab]
+\be\la{eq.local.abab}
+\mathcal{V}^{(1)}_{\text{\tiny\abab}}(\ve{r})=
+2\,C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+ e^{-\frac{2\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}\;\;,
+\ee
+\be\la{eq.nonlocal.abab}
+\mathcal{V}^{(2)}_{\text{\tiny\abab}}(\ve{r},\ve{r}\mprime,E)=
+~8~\alpha^{3/2}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
+\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
+\cdot e^{-\alpha\ve{r}^2}+
+E\cdot e^{-\alpha\ve{r}^2}
+-2~C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+ e^{-\alpha\cdot\frac{2\alpha+3\lambda}{2\alpha+\lambda}\ve{r}^2}\right]\;\;.
+\ee
+
+\item[\abca]
+\begin{eqnarray}\la{eq.local.abca}
+\mathcal{V}^{(1)}_{\text{\tiny\abca}}(\ve{r})&=&
+3\cdot C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+ e^{-\frac{2\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}\\
+&&+D_0(\lambda)\cdot\left(
+\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3}\cdot e^{-\frac{4\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}+
+\left(\frac{2\alpha}{\sqrt{(2\alpha+\lambda)^2+2\alpha\lambda}}\right)^{3}\cdot
+ e^{-\frac{4\alpha\lambda(\alpha+\lambda)}{4\alpha^2+6\alpha\lambda+\lambda^2}\ve{r}^2}
+\right)
+\end{eqnarray}
+
+
+\begin{eqnarray}\la{eq.nonlocal.abca}
+\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{3/2}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
+\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
+\cdot e^{-\alpha\ve{r}^2}+
+E\cdot e^{-\alpha\ve{r}^2}\right]\\
+&&-C_0(\lambda)\cdot
+ e^{-(\alpha+\lambda)(\ve{r}^2+\ve{r}\mprime^2)-2\lambda\ve{r}\mprime\cdot\ve{r}}
+-2~C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+ e^{-\alpha\cdot\left(\ve{r}\mprime^2+\frac{2\alpha+3\lambda}{2\alpha+\lambda}\ve{r}^2\right)}\\
+ &&-~D_0(\lambda)\cdot\left(\frac{\alpha}{\alpha+\lambda}\right)^{3/2}\cdot
+ e^{-\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}(\ve{r}^2+\ve{r}\mprime^2)-\frac{\lambda^2}{\alpha+\lambda}\ve{r}\cdot\ve{r}\mprime}\\
+ &&-D_0(\lambda)\cdot\left(\frac{2\alpha(\alpha+\lambda)}{2\alpha^2+3\alpha\lambda+\lambda^2}\right)^{3/2}\cdot
+ e^{-\frac{2\alpha^2+5\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}\ve{r}^2-(\alpha+\lambda)\ve{r}\mprime^2-2\lambda\ve{r}\cdot\ve{r}\mprime}\Bigg)
+\end{eqnarray}
+
+\end{description}
+
+It is in order to consider the following limits: 
+\begin{description}
+\item[zero-range or contact limit]$\lambda\gg\alpha$
+\item[local approximation]
+$\int d^{(3)}\ve{r}\mprime~\mathcal{V}^{(2)}(\ve{r},\ve{r}\mprime,E)~\chi(\ve{r}\mprime)\stackrel{E\to 0}{\approx}
+\chi(\ve{r})\cdot v^{(2)}(\ve{r})\cdot\int d^{(3)}\ve{r}\mprime~v^{(2)}(\ve{r}\mprime)$~.
+\end{description}
+
+Assuming an unnaturally large dimer scale emergent from a relatively short-ranged fermion-fermion interaction,
+the zero-range approximation is justified and the ensuing dimer-dimer potentials read:
+
+\begin{description}
+	\item[(zero-range)~\abab]
+\be\la{eq.local.abab}
+\mathcal{V}^{(1)}_{\text{\tiny\abab}}(\ve{r})=
+2\,(2\alpha)^{3/2}~\frac{C_0(\lambda)}{\lambda^{3/2}}\cdot
+ e^{-2\alpha\ve{r}^2}\;\;,
+\ee
+\be\la{eq.nonlocal.abab}
+\mathcal{V}^{(2)}_{\text{\tiny\abab}}(\ve{r},\ve{r}\mprime,E)=
+~8~\alpha^{3/2}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
+\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
+\cdot e^{-\alpha\ve{r}^2}+
+E\cdot e^{-\alpha\ve{r}^2}
+-2\,(2\alpha)^{3/2}~\frac{C_0(\lambda)}{\lambda^{3/2}}\cdot
+ e^{-3\alpha\ve{r}^2}\right]\;\;.
+\ee
+
+\item[(zero-range)~\abca]
+\begin{eqnarray}\la{eq.local.abca}
+\mathcal{V}^{(1)}_{\text{\tiny\abca}}(\ve{r})&=&
+3\,(2\alpha)^{3/2}~\frac{C_0(\lambda)}{\lambda^{3/2}}\cdot
+ e^{-2\alpha\ve{r}^2}
+ +2\,(2\alpha)^{3}~\frac{D_0(\lambda)}{\lambda^{3}}\cdot
+ e^{-4\alpha\ve{r}^2}
+\end{eqnarray}
+
+
+\begin{eqnarray}\la{eq.nonlocal.abca}
+\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{3/2}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
+\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
+\cdot e^{-\alpha\ve{r}^2}+
+E\cdot e^{-\alpha\ve{r}^2}\right]\\
+&&-C_0(\lambda)\cdot
+ e^{-\lambda(\ve{r}+\ve{r}\mprime)^2}
+-2~(2\alpha)^{3/2}\,\frac{C_0(\lambda)}{\lambda^{3/2}}\cdot
+ e^{-\alpha\ve{r}\mprime^2-3\alpha\ve{r}^2}\\
+ &&-\alpha^{3/2}(1+2^{3/2})~\frac{D_0(\lambda)}{\lambda^{3/2}}\cdot
+ e^{-\frac{\lambda}{2}(\ve{r}+\ve{r}\mprime)^2}\Bigg)
+\end{eqnarray}
+
+\end{description}
+
+\bibliographystyle{unsrt}
+\bibliography{Thebibliography.bib}
+\end{document}
