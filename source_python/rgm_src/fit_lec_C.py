@@ -60,7 +60,7 @@ if os.path.isfile(n2path + 'INQUA_N') == True:
 os.chdir(n2path)
 
 # mini- and maximal cutoff, increment -----------------------------------------
-lmax = 10.0
+lmax = 10.1
 inc = 1.0
 lam = 1.0
 deub = 0.1
@@ -146,7 +146,8 @@ while lam < lmax:
     res_lo = fitti(ft_lo[0], 0.0, 0, 0)
 
     print('{ %2.2f , %12.4f , %12.4f },' %
-          (lam, 1.5 * np.abs(res_lo) * mn['137'] / MeVfm**2, cloW * ft_lo[0]))
+          (0.25 * lam**2, 1.5 * np.abs(res_lo) * mn['137'] / MeVfm**2,
+           cloW * ft_lo[0]))
     bdgs.append(res_lo)
 
     lam += inc

@@ -68,14 +68,32 @@
 \begin{document}
 
 \section{dimer-dimer scattering}
-In the single-channel approximation, the resonating-group equation assumes the non-local form
+The two-fragment resonating-group equation
+\be\label{eq.rgm.eqom}
+\int\left\lbrace~\phi^*_A\phi^*_B\left(-\frac{\hbar^2}{2\mu}\ve{\Delta}_R-E+\mathcal{V}_{AB}\right)
+\mathcal{A}_{AB}\left[\phi_A\phi_B\psi(\ve{R})\right]\right\rbrace d\ve{r}^\text{\tiny internal}_{A,B}=0
+\ee
+embodies the assumption of a rapid internal motion relative to the slow relative motion between
+clusters $A$ and $B$.
+Ockham's ansatz for spatially symmetric fragments employs a one-parameter Gaussian
+\be\label{eq.rgm.corewfkt}
+\phi_A:=e^{-\alpha\sum_{i=1}^A\left(\ve{r}_i-\ve{R}_A\right)^2}\;\;\;;
+\begin{array}{l}
+     \ve{r}_i\;\;\text{\scriptsize : single-particle coordinates}  \\
+     \ve{R}_A\;\;\text{\scriptsize : core centre of mass}
+\end{array}\;\;.
+\ee
+The parameter representation $\psi(\ve{R})=\int d\ve{R}\mprime\delta^{(3)}(\ve{R}-\ve{R}\mprime)\psi(\ve{R}\mprime)$
+allows for a translation of the inter-cluster antisymmetrizer $\mathcal{A}_{AB}$ into a non-local
+integro-differential equation which, in general, assumes the form
 \be\la{eq.rgm}
 (\hat{T}-E)~\chi(\ve{r})+\mathcal{V}^{(1)}(\ve{r})~\chi(\ve{r})+
 \int d^{(3)}\ve{r}\mprime~\mathcal{V}^{(2)}(\ve{r},\ve{r}\mprime,E)~\chi(\ve{r}\mprime)=0
 \ee
 with the radial coordinates denoting the spatial separation between the two fragments. If these fragments are
 two-body $S$-wave bound states comprised of equal-mass fermions, the effective potentials which derive from a
-zero-range fermion-fermion interaction are given for a two- and three-species system. We denote the former
+zero-range fermion-fermion -- \eg, \eftnopi~LO -- interaction are given for a two- and three-species system -- \eg, four neutrons assuming a
+bound di-neutron, and 4-hydrogen, respectively. We denote the former
 as \abab~(scale invariant), and the latter \abca(discretely scale invariant, Thomas
 collapse of $(abc)$). The characteristic three-body scale in an \abca~system flows into the effective
 dimer-dimer potentials, while in the absence of such a scale in the zero-range two-body limit, the effective
@@ -192,7 +210,54 @@ inherited from the renormalized fermion-fermion interaction.
 We commence the analysis of the renormalizability of the transformed dimer-dimer theory under the assumption that
 the transformation does not affect the power-counting rules. That means, solutions of a Schr\"odinger equation
 with and interaction as given by the non-local potentials shall be well-behaved for $\lambda\to\infty$.
+Renormalizing the fermion-fermion amplitude yields
+\be\la{eq.c0running}
+C_0(\lambda)\propto\lambda
+\ee
+and arguably two scenarios for the three-body parameter:
+\begin{align}
+\text{Three-body spectrum with one single shallow bound state}~\neq f(\lambda):~&D_0(\lambda)\propto e^{\kappa\lambda}\\
+\text{Three-body spectrum with a tower of Efimov-type states with the shallowest}~\neq f(\lambda):~&\text{countably infinite poles}
+\end{align}
 
+Revisit the effective potentials, considering $\lambda\to\infty$:
+\begin{description}
+	\item[(zero-range)~\abab]
+\be\la{eq.local.abab}
+\mathcal{V}^{(1)}_{\text{\tiny\abab}}(\ve{r})=0
+\ee
+\be\la{eq.nonlocal.abab}
+\mathcal{V}^{(2)}_{\text{\tiny\abab}}(\ve{r},\ve{r}\mprime,E)=
+~8~\alpha^{3/2}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
+\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
+\cdot e^{-\alpha\ve{r}^2}+
+E\cdot e^{-\alpha\ve{r}^2}\right]\;\;.
+\ee
+In words, the sub-threshold dimer-dimer amplitude depends on the microscopic interaction only through the
+character of a single dimer as parametrized with $\alpha$. Although, no analytic form of the functional relation
+$\alpha=f(\aleph)$ is known, its existence implies a universal low-energy dimer-dimer system, thereby conforming with
+the ``Petrov ratio'' $a_{dd}/a_{ff}\approx0.6$. 
+\item[(zero-range)~\abca]
+\begin{eqnarray}\la{eq.local.abca}
+\mathcal{V}^{(1)}_{\text{\tiny\abca}}(\ve{r})&=&
+c_1\texttt{P}[\lambda]\cdot
+ e^{-4\alpha\ve{r}^2}
+\end{eqnarray}
+
+
+\begin{eqnarray}\la{eq.nonlocal.abca}
+\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{3/2}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
+\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
+\cdot e^{-\alpha\ve{r}^2}+
+E\cdot e^{-\alpha\ve{r}^2}\right]-c_2\texttt{P}[\lambda]\cdot
+ e^{-\frac{\lambda}{2}(\ve{r}+\ve{r}\mprime)^2}\Bigg)
+\end{eqnarray}
+\texttt{ECCE} this structure, which I want to discuss/have an opinion on.
+
+\end{description}
+The specific form of the polynomials depends on the implemented three-body renormalization condition, and so do
+the values of the non-equal constants $c_{1,2}$. Yet, regardless of the specific shape, the induced $\lambda$ dependence
+will translate into dimer-dimer observables which consequently do not have a well defined $\lim\limits_{\lambda\to\infty}$!
 \bibliographystyle{unsrt}
 \bibliography{Thebibliography.bib}
 \end{document}
