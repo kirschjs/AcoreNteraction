@@ -119,8 +119,6 @@ for num_lam in range(len(Lrange)):
         coeff3 = np.array([0, 0., 1.])
         pots3 = 'pot_nnn_%02d' % int(float(la))
 
-        lec_list = lec_list_unitary_bnd
-
         opt2bdyLEC = lec_list[la][0]
         try:
             d0 = lec_list_unitary_scatt[la][-1]

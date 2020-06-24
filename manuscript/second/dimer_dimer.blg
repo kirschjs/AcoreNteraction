@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: dimer_dimer.aux
+The style file: unsrt.bst
+Database file #1: dimer_dimerNotes.bib
+Database file #2: ../Thebibliography.bib.bib
+Warning--empty title in Naidon_2016
+Warning--empty journal in Naidon_2016
+Warning--empty journal in Rupak:2006jj
+You've used 6 entries,
+            1791 wiz_defined-function locations,
+            491 strings with 4532 characters,
+and the built_in function-call counts, 1361 in all, are:
+= -- 107
+> -- 71
+< -- 0
++ -- 26
+- -- 20
+* -- 116
+:= -- 233
+add.period$ -- 17
+call.type$ -- 6
+change.case$ -- 5
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 53
+empty$ -- 127
+format.name$ -- 20
+if$ -- 283
+int.to.chr$ -- 0
+int.to.str$ -- 6
+missing$ -- 6
+newline$ -- 32
+num.names$ -- 6
+pop$ -- 13
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 18
+stack$ -- 0
+substring$ -- 97
+swap$ -- 4
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 12
+width$ -- 7
+write$ -- 63
+(There were 3 warnings)

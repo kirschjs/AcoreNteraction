@@ -12,7 +12,6 @@ BINpath = home + '/kette_repo/source/seriell/eft_sandkasten/'
 tni = 1
 
 mpii = '137'
-Lrange = np.arange(0.1, 10., 0.05)
 
 # 'reduce' , 'bdg' , 'over' , 'QUA' , 'plot' , 'scatt'
 cal = ['OBLU', 'bdg', 'QUA', 'plot', 'scatt']
@@ -28,6 +27,8 @@ cal = ['bdg', 'QUA', 'reduce']
 cal = ['bdg', 'QUA', 'fit']
 
 energy2fit = 3.0
+lec_list = tmp
+Lrange = np.array(list(tmp.keys())).astype(float)  #np.arange(0.1, 10., 0.5)
 
 dbg = 0
 

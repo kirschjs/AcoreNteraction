@@ -50,7 +50,7 @@
 \newcommand{\wrt}{\textit{wrt.}\;}
 \newcommand{\etc}{\textit{etc.}\;}
 \newcommand{\ve}[1]{\ensuremath{\boldsymbol{#1}}}
-\newcommand{\ddrei}[1]{\delta_{\tiny \Lambda}^{(3)}\!\big(#1\big)}
+\newcommand{\ddrei}[1]{\delta_{\tiny \lambda}^{(3)}\!\big(#1\big)}
 \newcommand{\abb}{\ensuremath{2\!+\!1^{(A-1)}}}
 \newcommand{\coup}[3]{\left[\,#1\,\otimes\,#2\,\right]^{#3}}
 \newcommand{\threej}[6]{ \begin{pmatrix}
@@ -60,18 +60,23 @@
 \newcommand{\lam}[1]{\mbox{\ensuremath{\Lambda=#1\,\text{fm}^{-1}}}}   
 \newcommand{\figref}[1]{fig.~\ref{#1}}
 \newcommand{\tabref}[1]{table~\ref{#1}}
-\newcommand{\cc}{\ensuremath C_0(\Lambda)}
-\newcommand{\dd}{\ensuremath D_1(\Lambda)}
+\newcommand{\cc}{\ensuremath C(\lambda)}
+\newcommand{\dd}{\ensuremath D(\lambda)}
 \newcommand{\abab}{\ensuremath $(ab)\!\!:\!\!(ab)$}
 \newcommand{\abca}{\ensuremath $(ab)\wasytherefore(ca)$}
+\newcommand{\aff}{\ensuremath a_{\text{\tiny ff}}}
+\newcommand{\add}{\ensuremath a_{\text{\tiny dd}}}
 
 \begin{document}
 
 \section{dimer-dimer scattering}
+
+\subsection{Resonating-group description}
+
 The two-fragment resonating-group equation
 \be\label{eq.rgm.eqom}
 \int\left\lbrace~\phi^*_A\phi^*_B\left(-\frac{\hbar^2}{2\mu}\ve{\Delta}_R-E+\mathcal{V}_{AB}\right)
-\mathcal{A}_{AB}\left[\phi_A\phi_B\psi(\ve{R})\right]\right\rbrace d\ve{r}^\text{\tiny internal}_{A,B}=0
+\mathcal{A}_{AB}\left[\phi_A\phi_B\chi(\ve{R})\right]\right\rbrace d\ve{r}^\text{\tiny internal}_{A,B}=0
 \ee
 embodies the assumption of a rapid internal motion relative to the slow relative motion between
 clusters $A$ and $B$.
@@ -83,47 +88,113 @@ Ockham's ansatz for spatially symmetric fragments employs a one-parameter Gaussi
      \ve{R}_A\;\;\text{\scriptsize : core centre of mass}
 \end{array}\;\;.
 \ee
-The parameter representation $\psi(\ve{R})=\int d\ve{R}\mprime\delta^{(3)}(\ve{R}-\ve{R}\mprime)\psi(\ve{R}\mprime)$
+If the two fragments contain identical particle species, antisymmetrization is required between these, \ie,
+the inter-cluster antisymmetrizer comprises elements $\mathfrak{P}$ of the symmetric group of the particle labels
+in cluster $A$ and $B$ ($\mathfrak{S}_{AB}$),   
+\be\la{eq.asymmetr}
+\mathcal{A}_{AB}:=\mathbb{1}+\sum_{\mathfrak{p}\in \mathfrak{S}_{AB}}(-1)^{\mathfrak{p}}\,\mathfrak{P}\;\;.
+\ee 
+The interaction, in contrast, is effective only if it involves particles in different clusters, which are {\bf not} of
+the same species. Here, the focus is on zero-range interactions between two and three particles. The latter are one
+way to avoid a collapse of the three-body system which would occur with two-body zero-range potentials, only.
+\be\la{eq.int}
+\mathcal{V}_{AB}=\cc\,\sum_{i\in A\atop j\in B}\,\ddrei{\ve{r}_i-\ve{r}_j}+
+\dd\,\sum_{i,j,k\atop i\in A\Rightarrow j\vee k\in B}\ddrei{\ve{r}_i-\ve{r}_j}\,\ddrei{\ve{r}_i-\ve{r}_k}\;\,.
+\ee
+The subscripted contacts indicate a specific regularization, namely, for one Cartesian dimension
+\be\la{eq.delta}
+\delta^{(1)}(x)=\lim_{\lambda\to\infty}~\sqrt{\frac{\lambda}{\pi}}\cdot e^{-\lambda x^2}
+\ee
+The nucleon-nucleon interaction assumes this form in the leading-order of the \eftnopi, where the two coupling strengths
+are renormalized, \eg, to a dimer and a trimer binding energy, respectively.
+Thereby, the parameter $\alpha$ in \eqref{eq.rgm.corewfkt} is correlated with a physical observable and its $\lambda$-regulator
+dependence should, even if the fragment's wave function is not subjected directly to a renormalization constraint, vanish
+for $\lim_{\lambda\to\infty}$. We assume from here-on, that all considered fragments a within the range of the applicability of the
+microscopic theory. In case of \eftnopi, \eg, we shall assume the existence of a functional correlation between
+$\alpha_{^2H,^3He,^4He}=f_{^2H,^3H,^4He}(\aff,B(^3H))$. Analytic forms of these functions $f$ remain obscure,
+and we rely on reasonable estimates, \eg, for $\alpha_{^2H}$ the dimer $S$-wave function can be derived in closed form
+\be
+\phi(r)=\frac{e^{-\frac{r}{\aff}}}{\sqrt{2\pi \aff}r}\;\;.
+\ee
+Foreseeing the importance of the spacial extend of the fragment's state in light of the non-local character of the effective
+interaction, demanding that the average radius ensuing from this form equals that of the ansatz \eqref{eq.rgm.corewfkt}, which
+yields:
+\be
+\alpha_{^2H}=\frac{3}{2}\,\,\aff^{-2}
+\ee
+where the fermion-fermion scattering length $\aff$ is a converging function of the regulator $\lambda$ if one
+enforces a $\lambda$ independent fermion-fermion binding energy to renormalize the interaction, \ie, $\cc$.
+To refine this choice, we adjust this value once to obtain a known dimer-dimer results which was obtained in a
+microscopic four-body calculation, \eg, to obtain for $\lambda\to\infty$ the result in \eqref{eq.ffddrat} and subsequently
+scale the $\alpha$'s of other systems with the size of those relative to the dimer.
+
+The parameter representation $\chi(\ve{R})=\int d\ve{R}\mprime\delta^{(3)}(\ve{R}-\ve{R}\mprime)\chi(\ve{R}\mprime)$
 allows for a translation of the inter-cluster antisymmetrizer $\mathcal{A}_{AB}$ into a non-local
 integro-differential equation which, in general, assumes the form
 \be\la{eq.rgm}
 (\hat{T}-E)~\chi(\ve{r})+\mathcal{V}^{(1)}(\ve{r})~\chi(\ve{r})+
 \int d^{(3)}\ve{r}\mprime~\mathcal{V}^{(2)}(\ve{r},\ve{r}\mprime,E)~\chi(\ve{r}\mprime)=0
 \ee
-with the radial coordinates denoting the spatial separation between the two fragments. If these fragments are
-two-body $S$-wave bound states comprised of equal-mass fermions, the effective potentials which derive from a
-zero-range fermion-fermion -- \eg, \eftnopi~LO -- interaction are given for a two- and three-species system -- \eg, four neutrons assuming a
-bound di-neutron, and 4-hydrogen, respectively. We denote the former
-as \abab~(scale invariant), and the latter \abca(discretely scale invariant, Thomas
-collapse of $(abc)$). The characteristic three-body scale in an \abca~system flows into the effective
-dimer-dimer potentials, while in the absence of such a scale in the zero-range two-body limit, the effective
-potentials are parametrized by the dimer, \ie, a two-body observable, only.
+with the radial coordinates denoting the spatial separation between the two fragment's mass centres. If these fragments are
+bound states of the spectrum of the single-particle interaction -- here taken as in \eqref{eq.int} -- and if the energy of the relative motion
+between these fragments $E$ is small relative to their binding {\bf and} excitation energies, it is in order to attach physical meaning
+to the equation of motion which follows after the averaging over internal degrees of freedom in \eqref{eq.rgm.eqom}. That being, an approximation
+of the scattering characteristics of the two cluster.
 
-In detail, 
+The effective potentials which feed into this equation are then parametrized by the underlying, microscopic interaction strengths,
+\eg, for \eftnopi~LO, $\cc$~and $\dd$. Consequently, the extent to which such a single-particle theory is able to describe
+many-body features, \eg, four neutrons assuming a
+bound di-neutron, 5-body resonances, 6-helium halos, or 16-oxygen, is then assessed by the dependence of the respective many-body
+amplitudes on the short-distance regulator scale $\lambda$.
+
+We commence with the four-body system, dimer-dimer scattering therein.
+There are two scenarios which embody the transition between Bose and Fermi dynamics, namely a system of two dimers, each one composed of
+the same two species of a fermion. We denote this system as \abab~-- a hypothetical dineutron, for example.
+Such a system is by all we know scale invariant, which means that its low-energy behaviour is independent of $\lambda$, and does not
+require the additional three-body renormalization constraint manifest in $\dd$.
+This arrangement has been studied very thoroughly and indeed, the remarkable universality of the ratio between
+dimer-dimer and fermion-fermion attraction -- measured by scattering lengths $a>0$ -- has been numerically
+discovered~\cite{petrov_dimerov,petrov_dimerov_nm} and confirmed
+in numerous approaches~\cite{Naidon_2016,Elhatisari:2016hui,PhysRevA.79.030501,Rupak:2006jj}:
+\be\la{eq.ffddrat}
+\frac{\add}{\aff}\approx 0.6\;\;.
+\ee
+
+If a third species is present in one of the clusters, the dynamics change fundamentally and lead to a collapse of the
+three-body state comprised of these three different equal-mass, two-body-contact-interacting particles.
+Universal scale invariance reduces to a discrete scale invariance. Expressed less abstractly, parts of the three-body spectrum
+show cyclic behaviour instead of convergence.
+We denote this composition as \abca. The dimer-dimer potential of such a four-body system inherits the characteristic three-body
+scale through its dependence on $\dd$. This four-body amplitude is then correlated to one two-body and one three-body datum,
+while \abab, in the absence of such a three-body scale in the zero-range two-body limit,
+depends on a two-body observable, only.
+
+With the above formulas, it is arguably painful, but straight forward to arrive at the specific forms for the effective potentials
+as given below. 
 
 \begin{description}
 	\item[\abab]
 \be\la{eq.local.abab}
 \mathcal{V}^{(1)}_{\text{\tiny\abab}}(\ve{r})=
-2\,C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+2\,\cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
  e^{-\frac{2\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}\;\;,
 \ee
 \be\la{eq.nonlocal.abab}
 \mathcal{V}^{(2)}_{\text{\tiny\abab}}(\ve{r},\ve{r}\mprime,E)=
-~8~\alpha^{3/2}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
+~8~\alpha^{\frac{3}{2}}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
 \left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
 \cdot e^{-\alpha\ve{r}^2}+
 E\cdot e^{-\alpha\ve{r}^2}
--2~C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+-2~\cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
  e^{-\alpha\cdot\frac{2\alpha+3\lambda}{2\alpha+\lambda}\ve{r}^2}\right]\;\;.
 \ee
 
 \item[\abca]
 \begin{eqnarray}\la{eq.local.abca}
 \mathcal{V}^{(1)}_{\text{\tiny\abca}}(\ve{r})&=&
-3\cdot C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+3\cdot \cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
  e^{-\frac{2\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}\\
-&&+D_0(\lambda)\cdot\left(
+&&+\dd\left(
 \left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3}\cdot e^{-\frac{4\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}+
 \left(\frac{2\alpha}{\sqrt{(2\alpha+\lambda)^2+2\alpha\lambda}}\right)^{3}\cdot
  e^{-\frac{4\alpha\lambda(\alpha+\lambda)}{4\alpha^2+6\alpha\lambda+\lambda^2}\ve{r}^2}
@@ -131,22 +202,125 @@ E\cdot e^{-\alpha\ve{r}^2}
 \end{eqnarray}
 
 
-\begin{eqnarray}\la{eq.nonlocal.abca}
-\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{3/2}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
+\begin{eqnarray}
+\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{\frac{3}{2}}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
 \left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
 \cdot e^{-\alpha\ve{r}^2}+
 E\cdot e^{-\alpha\ve{r}^2}\right]\\
-&&-C_0(\lambda)\cdot
+&&-\cc\cdot
  e^{-(\alpha+\lambda)(\ve{r}^2+\ve{r}\mprime^2)-2\lambda\ve{r}\mprime\cdot\ve{r}}
--2~C_0(\lambda)\cdot\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}\cdot
+-2~\cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
  e^{-\alpha\cdot\left(\ve{r}\mprime^2+\frac{2\alpha+3\lambda}{2\alpha+\lambda}\ve{r}^2\right)}\\
- &&-~D_0(\lambda)\cdot\left(\frac{\alpha}{\alpha+\lambda}\right)^{3/2}\cdot
+ &&-~\dd\left(\frac{\alpha}{\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
  e^{-\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}(\ve{r}^2+\ve{r}\mprime^2)-\frac{\lambda^2}{\alpha+\lambda}\ve{r}\cdot\ve{r}\mprime}\\
- &&-D_0(\lambda)\cdot\left(\frac{2\alpha(\alpha+\lambda)}{2\alpha^2+3\alpha\lambda+\lambda^2}\right)^{3/2}\cdot
+ &&-\dd\left(\frac{2\alpha(\alpha+\lambda)}{2\alpha^2+3\alpha\lambda+\lambda^2}\right)^{\frac{3}{2}}\cdot
  e^{-\frac{2\alpha^2+5\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}\ve{r}^2-(\alpha+\lambda)\ve{r}\mprime^2-2\lambda\ve{r}\cdot\ve{r}\mprime}\Bigg)
+ \la{eq.nonlocal.abca}
 \end{eqnarray}
 
 \end{description}
+
+\newpage
+\subsection{Solution of the resonating-group equation}
+Above, any low-energy two-fragment observable was found encoded in the solution of \eqref{eq.rgm}, which assumes the generic form
+\begin{gather}\label{eq.rgm.sglnonloc}
+\sum_{n=1}^{N_{\text{loc}}}\hat{\eta}_n~e^{-w_n\ve{R}^2}\chi(\ve{R})-
+\sum_{n=1}^{N_{\text{n-loc}}}\int\left\lbrace\hat{\zeta}_n\,e^{-a_n\ve{R}^2-b_n\ve{R}\cdot\ve{R}'-c_n\ve{R}'^2}\right\rbrace\chi(\ve{R}') d\ve{R}'=0\\
+\intertext{with$\;\;\;\hat{\eta}_n,\hat{\zeta}_n,w_n,a_n,b_n,c_n\;\;\;\text{dependent upon}\;\;\;\cc,\dd,\alpha,\lambda,E,A,B$~.\nonumber} 
+\end{gather}
+We identify $n=1$ with the quantities which result in the course of the antisymmetrization and integration from the kinetic part
+of \eqref{eq.rgm.eqom}, and therefore have
+\be
+\hat{\eta}_1=\left(-\frac{\hbar^2}{2\mu}\ve{\Delta}_R-E\right)\;\;,\;\;w_1=0\;\;,\;\;
+\hat{\zeta}_1=\left(-\frac{\hbar^2}{2\mu}\ve{\Delta}_R-E\right)\zeta_1\;\;.
+\ee
+Acting with the derivative on the integral kernel produces the structures as listed 
+for the \abab~and \abca~ systems in equations \eqref{eq.local.abab} to \eqref{eq.nonlocal.abca}.
+c
+\paragraph{In partial waves}
+
+\begin{gather}
+\text{Expanding}~\;\chi(\ve{R})=R^{-1}\sum_{lm}\phi_{lm}(R)Y_{lm}(\hat{\ve{R}})~
+\text{~and projecting from the left with}\;\;
+R\,\int d^2\hat{\ve{R}}~Y^*_{lm}(\hat{\ve{R}})\\
+\intertext{before substituting}
+e^{-b\ve{R}\cdot\ve{R}'}=4\pi\sum_{LM}i^Lj_L(ib RR')Y^*_{LM}(\hat{\ve{R}})Y_{LM}(\hat{\ve{R}}')\;\;,\;\;
+\ve{R}\cdot\ve{R}'=-\sqrt{3}\coup{\ve{R}_p}{\ve{R}\mprime_{-p}}{00}~\text{and~}\ve{r}_m=\sqrt{\frac{4\pi}{3}}rY_{1,m}(\hat{\ve{r}})
+\end{gather}
+yields for
+\begin{description}
+	\item[$l\geq 0$]
+\begin{subequations}\la{eq.rgm.sglnonloc.pw}
+\begin{gather}
+0=\left(\frac{\hbar^2}{2\mu}\left[-\partial^2_R+\frac{l(l+1)}{R^2}\right]-E\right)
+\phi_{lm}(R)+\sum_{n=2}^{N_{\text{loc}}}\eta_n~e^{-w_nR^2}\phi_{lm}(R)\\
+-\int
+(4\pi RR\mprime )~\zeta_1 \cdot e^{-a_1R^2-c_1R'^2}
+\cdot\Bigg\lbrace
+\left[-(4a_1^2R^2+b_1^2R\mprime^2-2a_1)+\frac{l(l+1)}{R^2}-\frac{2\mu}{\hbar^2}E\right]
+ i^l j_{l}(ib_1 RR')\nonumber\\
++(4a_1b_1)\cdot RR\mprime\cdot
+ \left(i^{\vert l-1\vert} j_{\vert l-1\vert}(ib_1 RR') \vert 2l-1\vert
+ \threej{1}{\vert l-1\vert}{l}{0}{0}{0}^2+
+ i^{l+1} j_{l+1}(ib_1 RR') (2l+3)
+ \threej{1}{l+1}{l}{0}{0}{0}^2\right)\Bigg\rbrace
+~\phi_{lm}(R\mprime)~dR\mprime\la{eq.rgm.sglnonloc.pw.tex}\\
+-\sum_{n=\red{2}}^{N_{\text{n-loc}}}\zeta_n\int
+(4\pi RR\mprime)\,i^l j_l(ib_n RR')\cdot 
+e^{-a_nR^2-c_nR'^2}~\phi_{lm}(R\mprime)\,dR\mprime\la{eq.rgm.sglnonloc.pw.noloc}
+\end{gather}
+\end{subequations}
+
+	\item[$l= 0$ and $b_1=0$]
+\begin{subequations}\la{eq.rgm.sglnonloc.sw}
+\begin{gather}
+0=\left(-\frac{\hbar^2}{2\mu}\partial^2_R-E\right)
+\phi_{lm}(R)+\sum_{n=2}^{N_{\text{loc}}}\eta_n~e^{-w_nR^2}\phi_{lm}(R)\\
++\int (4\pi RR\mprime )~\left\lbrace\zeta_1 \cdot e^{-a_1R^2-c_1R'^2}
+\left[(4a_1^2R^2-2a_1)+\frac{2\mu}{\hbar^2}E\right]
+-\sum_{n=2}^{N_{\text{n-loc}}}\zeta_n\,j_0(ib_n RR')\cdot 
+e^{-a_nR^2-c_nR'^2}\right\rbrace~\phi_{lm}(R\mprime)\,dR\mprime\la{eq.rgm.sglnonloc.sw.noloc}
+\end{gather}
+\end{subequations}
+\end{description}
+For the two dimer-dimer realizations, we list the coefficients of this equation explicitly in table~\ref{tab.dd.pot.coffs}.
+
+\begin{table}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.6}
+\caption{\label{tab.dd.pot.coffs}{Defining coefficients for the local and non-local effective RGM interaction to be used in
+\eqref{eq.rgm.sglnonloc.pw}~to~\eqref{eq.rgm.sglnonloc.sw.noloc} for the scale-invariant \abab, and the discrete-scale-invariant \abca~
+dimer-dimer configurations.
+Gaussian widths $w,a,b,c$ have units $\text{length}^{-2}$, the local coupling strengths $\eta$ and $\zeta_1$ scale as energies, and the
+non-local $\zeta_{n\geq2}$ as an energy density, energy$\cdot\text{length}^{-3}$.}}
+\small\centering
+\begin{tabular}{l|cccc}
+\multicolumn{5}{c}{\abab}\\
+$n$ & $\eta$  & $w$ & &\\
+2   & $2\,\cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}$ & $\frac{2\alpha\lambda}{2\alpha+\lambda}$ &  &  \\
+\hline
+           & $\zeta$ & $a$ & $b$ & $c$ \\
+1   & $8~\alpha^{3/2}\left(\frac{\hbar^2}{2\mu}\right)$ & $\alpha$ & $0$ & $\alpha$ \\
+2   & $-16~\alpha^{3/2}\,\cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}$ & $\alpha\frac{2\alpha+3\lambda}{2\alpha+\lambda}$ & $0$ & $\alpha$ \\
+\hline\hline
+\multicolumn{5}{c}{\abca}\\
+$n$ & $\eta$  & $w$ & &\\
+2   & $3\,\cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}$ & $\frac{2\alpha\lambda}{2\alpha+\lambda}$ &  &  \\
+3   & $\dd\left(\frac{2\alpha}{2\alpha+\lambda}\right)^3$ & $\frac{4\alpha\lambda}{2\alpha+\lambda}$ &  &  \\
+4   & $\dd\left(\frac{2\alpha}{\sqrt{(2\alpha+\lambda)^2+2\alpha\lambda}}\right)^3$ & $\frac{4\alpha\lambda(\alpha+\lambda)}{4\alpha^2+6\alpha\lambda+\lambda^2}$ &  &  \\
+\hline
+           & $\zeta$ & $a$ & $b$ & $c$ \\
+1   & $8~\alpha^{3/2}\left(\frac{\hbar^2}{2\mu}\right)$ & $\alpha$ & $0$ & $\alpha$ \\
+2   & $-8~\alpha^{3/2}\cc$ & $\alpha+\lambda$ & $2\lambda$ & $\alpha+\lambda$ \\
+3   & $-16~\alpha^{3/2}\,\cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3/2}$ & $\alpha\frac{2\alpha+3\lambda}{2\alpha+\lambda}$ & $0$ & $\alpha$ \\
+4   & $-8~\alpha^{3/2}\dd\left(\frac{\alpha}{\alpha+\lambda}\right)^{3/2}$ & $\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}$ & $\frac{\lambda^2}{\alpha+\lambda}$ & $\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}$ \\
+5   & $-8~\alpha^{3/2}\dd\left(\frac{2\alpha(\alpha+\lambda)}{2\alpha^2+3\alpha\lambda+\lambda^2}\right)^{3/2}$ & $\frac{2\alpha^2+5\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}$ & $2\lambda$ & $\alpha+\lambda$ \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+\newpage
+\subsection{Limiting cases and renormalizability}
 
 It is in order to consider the following limits: 
 \begin{description}
@@ -161,41 +335,41 @@ the zero-range approximation is justified and the ensuing dimer-dimer potentials
 
 \begin{description}
 	\item[(zero-range)~\abab]
-\be\la{eq.local.abab}
+\be
 \mathcal{V}^{(1)}_{\text{\tiny\abab}}(\ve{r})=
-2\,(2\alpha)^{3/2}~\frac{C_0(\lambda)}{\lambda^{3/2}}\cdot
+2\,(2\alpha)^{\frac{3}{2}}~\frac{\cc}{\lambda^{\frac{3}{2}}}\cdot
  e^{-2\alpha\ve{r}^2}\;\;,
 \ee
-\be\la{eq.nonlocal.abab}
+\be
 \mathcal{V}^{(2)}_{\text{\tiny\abab}}(\ve{r},\ve{r}\mprime,E)=
-~8~\alpha^{3/2}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
+~8~\alpha^{\frac{3}{2}}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
 \left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
 \cdot e^{-\alpha\ve{r}^2}+
 E\cdot e^{-\alpha\ve{r}^2}
--2\,(2\alpha)^{3/2}~\frac{C_0(\lambda)}{\lambda^{3/2}}\cdot
+-2\,(2\alpha)^{\frac{3}{2}}~\frac{\cc}{\lambda^{\frac{3}{2}}}\cdot
  e^{-3\alpha\ve{r}^2}\right]\;\;.
 \ee
 
 \item[(zero-range)~\abca]
-\begin{eqnarray}\la{eq.local.abca}
+\begin{eqnarray}
 \mathcal{V}^{(1)}_{\text{\tiny\abca}}(\ve{r})&=&
-3\,(2\alpha)^{3/2}~\frac{C_0(\lambda)}{\lambda^{3/2}}\cdot
+3\,(2\alpha)^{\frac{3}{2}}~\frac{\cc}{\lambda^{\frac{3}{2}}}\cdot
  e^{-2\alpha\ve{r}^2}
- +2\,(2\alpha)^{3}~\frac{D_0(\lambda)}{\lambda^{3}}\cdot
+ +2\,(2\alpha)^{3}~\frac{\dd}{\lambda^{3}}\cdot
  e^{-4\alpha\ve{r}^2}
 \end{eqnarray}
 
 
-\begin{eqnarray}\la{eq.nonlocal.abca}
-\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{3/2}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
+\begin{eqnarray}
+\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{\frac{3}{2}}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
 \left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
 \cdot e^{-\alpha\ve{r}^2}+
 E\cdot e^{-\alpha\ve{r}^2}\right]\\
-&&-C_0(\lambda)\cdot
+&&-\cc\cdot
  e^{-\lambda(\ve{r}+\ve{r}\mprime)^2}
--2~(2\alpha)^{3/2}\,\frac{C_0(\lambda)}{\lambda^{3/2}}\cdot
+-2~(2\alpha)^{\frac{3}{2}}\,\frac{\cc}{\lambda^{\frac{3}{2}}}\cdot
  e^{-\alpha\ve{r}\mprime^2-3\alpha\ve{r}^2}\\
- &&-\alpha^{3/2}(1+2^{3/2})~\frac{D_0(\lambda)}{\lambda^{3/2}}\cdot
+ &&-\alpha^{\frac{3}{2}}(1+2^{\frac{3}{2}})~\frac{\dd}{\lambda^{\frac{3}{2}}}\cdot
  e^{-\frac{\lambda}{2}(\ve{r}+\ve{r}\mprime)^2}\Bigg)
 \end{eqnarray}
 
@@ -212,23 +386,23 @@ the transformation does not affect the power-counting rules. That means, solutio
 with and interaction as given by the non-local potentials shall be well-behaved for $\lambda\to\infty$.
 Renormalizing the fermion-fermion amplitude yields
 \be\la{eq.c0running}
-C_0(\lambda)\propto\lambda
+\cc\propto\lambda
 \ee
 and arguably two scenarios for the three-body parameter:
 \begin{align}
-\text{Three-body spectrum with one single shallow bound state}~\neq f(\lambda):~&D_0(\lambda)\propto e^{\kappa\lambda}\\
+\text{Three-body spectrum with one single shallow bound state}~\neq f(\lambda):~&\dd\propto e^{\omega\lambda}\\
 \text{Three-body spectrum with a tower of Efimov-type states with the shallowest}~\neq f(\lambda):~&\text{countably infinite poles}
 \end{align}
 
 Revisit the effective potentials, considering $\lambda\to\infty$:
 \begin{description}
 	\item[(zero-range)~\abab]
-\be\la{eq.local.abab}
+\be
 \mathcal{V}^{(1)}_{\text{\tiny\abab}}(\ve{r})=0
 \ee
-\be\la{eq.nonlocal.abab}
+\be
 \mathcal{V}^{(2)}_{\text{\tiny\abab}}(\ve{r},\ve{r}\mprime,E)=
-~8~\alpha^{3/2}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
+~8~\alpha^{\frac{3}{2}}\cdot e^{-\alpha\ve{r}\mprime^2}\cdot
 \left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
 \cdot e^{-\alpha\ve{r}^2}+
 E\cdot e^{-\alpha\ve{r}^2}\right]\;\;.
@@ -236,28 +410,37 @@ E\cdot e^{-\alpha\ve{r}^2}\right]\;\;.
 In words, the sub-threshold dimer-dimer amplitude depends on the microscopic interaction only through the
 character of a single dimer as parametrized with $\alpha$. Although, no analytic form of the functional relation
 $\alpha=f(\aleph)$ is known, its existence implies a universal low-energy dimer-dimer system, thereby conforming with
-the ``Petrov ratio'' $a_{dd}/a_{ff}\approx0.6$. 
+the ``Petrov ratio'' $\add/\aff\approx0.6$. 
 \item[(zero-range)~\abca]
-\begin{eqnarray}\la{eq.local.abca}
+\begin{eqnarray}
 \mathcal{V}^{(1)}_{\text{\tiny\abca}}(\ve{r})&=&
 c_1\texttt{P}[\lambda]\cdot
  e^{-4\alpha\ve{r}^2}
 \end{eqnarray}
 
 
-\begin{eqnarray}\la{eq.nonlocal.abca}
-\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{3/2}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
+\begin{eqnarray}
+\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{\frac{3}{2}}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
 \left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
 \cdot e^{-\alpha\ve{r}^2}+
 E\cdot e^{-\alpha\ve{r}^2}\right]-c_2\texttt{P}[\lambda]\cdot
  e^{-\frac{\lambda}{2}(\ve{r}+\ve{r}\mprime)^2}\Bigg)
 \end{eqnarray}
 \texttt{ECCE} this structure, which I want to discuss/have an opinion on.
-
 \end{description}
+
+
 The specific form of the polynomials depends on the implemented three-body renormalization condition, and so do
 the values of the non-equal constants $c_{1,2}$. Yet, regardless of the specific shape, the induced $\lambda$ dependence
 will translate into dimer-dimer observables which consequently do not have a well defined $\lim\limits_{\lambda\to\infty}$!
+
+\newpage
+\section{Summary of physical insight which can be gained accessed with the above}
+
+\begin{description}
+\item[universality of fragment-fragment scattering]
+\end{description}	
+
 \bibliographystyle{unsrt}
-\bibliography{Thebibliography.bib}
+\bibliography{../Thebibliography.bib}
 \end{document}

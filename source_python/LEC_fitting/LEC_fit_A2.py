@@ -58,8 +58,6 @@ for lam in Lrange:
     pots = 'pot_nn_%02d' % int(float(la))
     valinter = False
 
-    lec_list = lec_list_unitary_bnd
-
     try:
         cloW = lec_list[la][0]
         cloB = 0

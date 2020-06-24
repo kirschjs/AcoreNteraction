@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: joki_PLB_v0.aux
+The style file: ieeetr.bst
+Database file #1: Thebibliography.bib.bib
+Warning--I didn't find a database entry for "hmh"
+Warning--empty journal in Hammer:2019poc
+You've used 30 entries,
+            1876 wiz_defined-function locations,
+            694 strings with 8209 characters,
+and the built_in function-call counts, 9167 in all, are:
+= -- 970
+> -- 276
+< -- 0
++ -- 105
+- -- 75
+* -- 586
+:= -- 1205
+add.period$ -- 31
+call.type$ -- 30
+change.case$ -- 29
+chr.to.int$ -- 0
+cite$ -- 31
+duplicate$ -- 531
+empty$ -- 810
+format.name$ -- 75
+if$ -- 2338
+int.to.chr$ -- 0
+int.to.str$ -- 30
+missing$ -- 31
+newline$ -- 94
+num.names$ -- 30
+pop$ -- 68
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 463
+stack$ -- 0
+substring$ -- 648
+swap$ -- 295
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 80
+width$ -- 32
+write$ -- 302
+(There were 2 warnings)

@@ -56,9 +56,10 @@ verb = 0
 lec_list = C0D1_lec_set['tmp']
 
 print(
-    'L[fm^-1]   alpha[fm^-2]    C0[MeV]        B_d[MeV]   a_ff[fm]   a_dd[fm]')
+    'L[fm^-1]   alpha[fm^-2]    C[MeV]    D[MeV]        B_d[MeV]   a_ff[fm]   a_dd[fm]'
+)
 
-head = 'L[fm^-1]   alpha[fm^-2]    C0[MeV]        B_d[MeV]   a_ff[fm]   a_dd[fm]\n'
+head = 'L[fm^-1]   alpha[fm^-2]    C[MeV]    D[MeV]        B_d[MeV]   a_ff[fm]   a_dd[fm]\n'
 
 for lec in lec_list:
 
@@ -82,6 +83,7 @@ for lec in lec_list:
 
     cloW = float(lec_list[lec][0])
     cloB = 0.
+    dlo = float(lec_list[lec][-1])
 
     prep_pot_files([0.25 * lam**2], [cloW], [], [], [], potnn)
 
@@ -172,12 +174,15 @@ for lec in lec_list:
     dd_scatlengths.append(-(float(e0) * 2 * mn[mpii] / MeVfm**2)**
                           (-0.5) * np.tan(float(d0) * np.pi / 180))
 
-    print('%2.4f     %8.8f      %8.6f      %4.2f      %4.2f      %4.2f' %
-          (lam, alph, cloW, dimerBDGs[-1], nn_scatlengths[-1],
+    lam = 0.25 * lam**2
+    print(
+        '%2.4f     %8.8f      %8.6f      %8.6f      %4.2f      %4.2f      %4.2f'
+        % (lam, alph, cloW, dlo, dimerBDGs[-1], nn_scatlengths[-1],
            dd_scatlengths[-1]))
 
-    head += '%2.4f     %8.8f      %8.6f      %4.2f      %4.2f      %4.2f\n' % (
-        lam, alph, cloW, dimerBDGs[-1], nn_scatlengths[-1], dd_scatlengths[-1])
+    head += '%2.4f     %8.8f      %8.6f      %8.6f      %4.2f      %4.2f      %4.2f\n' % (
+        lam, alph, cloW, dlo, dimerBDGs[-1], nn_scatlengths[-1],
+        dd_scatlengths[-1])
     #print(
     #    'L = %2.2f fm^-1     B(NN) = %4.4f MeV     a(NN) = %4.4f fm       a_RGM = %8.8f       B(DD) = %4.4f MeV     a(DD) = %4.4f fm'
     #    % (lam, Bnn, nn_scatlengths[-1], alph, Bdd, dd_scatlengths[-1]))
