@@ -86,12 +86,24 @@ The University of Manchester, Manchester, M13 9PL, United Kingdom}
 
 
 \begin{abstract}
-In this paper we numerically extend and study the effect of universality beyond totally spatially symmetric systems. 
-No mixed angular momentum stable states can be found in the universal limit: in which the scattering length is much larger than the effective range.
-This result has strong implications for any system close to universality, especially to nuclear physics, in which such stability is expected (e.g. $^6$He).
-This points to the conclusion that momentumless contact theories can not qualitatively describe the nuclear chart and momentum dependent operators needs to be accounted to resolve the issue. 
+We demonstrate numerically the instability of quantum few-body systems with zero-range resonant two-body
+interactions if an indistinguishable pair of particles enforces mixed spatial symmetry in the wave function.
 
-We extend this study inspecting the role of the interaction range and studying this effect for different systems close to universality and realizations of discrete scale invariance.
+%In this paper we numerically extend and study the effect of universality beyond totally spatially symmetric systems. 
+%No mixed angular momentum stable states can be found in the universal limit:
+% in which the scattering length is much larger than the effective range.
+The result is significant for the theoretical formulation of any physical system which falls into this
+universality class in which the two-body scattering length is much larger than the interaction range.
+We exemplify this with nuclear physics, where the feature is realized as the inability
+of a momentum-independent contact effective field theory, the \eftnopi, to
+pre-/postdict the bound character of $A>4$ nuclei. 
+%This result has strong implications for any system close to universality, especially to nuclear physics,
+%in which such stability is expected (e.g. $^6$He).
+%This points to the conclusion that momentumless contact theories can not qualitatively describe
+%the nuclear chart and momentum dependent operators needs to be accounted to resolve the issue. 
+We find a finite interaction range necessary to stabilize an asymmetric $A$-body system, and we
+assess the dependence of the minimal value of this range which allows for a bound state on the
+proximity of a system to unitarity, on $A$, and on various realizations of discrete scale invariance.
 \end{abstract}
 
 \begin{keyword} 
@@ -105,39 +117,58 @@ P-wave systems, universality, contact effective field theory, unitarity, renorma
 
 \section{Introduction}
 
-Quantum systems with a two-body scattering length much larger than the effective range $\frac{r_0}{a_0}\rightarrow 0$ are observed to follow similar behavior regardless of the energy scale of the problem or the inter-particle interaction detail.
-These systems are therefore known as universal or scale invariant, and they can be found in the most disparate energy settings as hadronic, nuclear, and atomic physics ~(see, \eg,
-Refs.~\cite{Tornqvist:1991ks,Voloshin:2003nt,Braaten:2003he,philli,tjon,PhysRevLett.81.69}).
-One example of universal behaviour is the accumulation of infinite bound states at threshold in the three-bosonic system with a contact two-body interaction ($r_0\rightarrow0$) \cite{Efimov:1971zz}.
-This also leads to the Thomas collapse \cite{PhysRev.47.903} and to the requirement of the inclusion of a three-body force to apply these theories to a physical and energetically-finite three-body configuration.
-Doing so, the breaking scale invariance is broken (by the new three-body energy scale introduced) leaving only a weaker and discrete version of it.
-In spite of that, many physical proprieties of few-body systems result to be merely consequence of universality and of the particular realization of the discrete scale invariance, which in return can be used to explain many physical behaviour in a very model-independent fashion.
-Notable universal effects comprehend, the Tjon~\cite{tjon}~and Phillips~\cite{philli}~correlations, and the spectrum of the multi-boson system~\cite{manybosons}.
-However, if consequence of universality in spatially totally symmetric systems are wildly studied [,,], very little is known for systems with higher internal angular momenta. 
+Quantum systems whose two-body interaction (range $r_0$) gives rise to a much larger two-body scale in form of, \eg,
+a bound or resonant state (typically parametrised by a scattering length $a_0$),
+develop behaviour which is universal in the sense of being independent of the energy scale of the problem and
+the details of the inter-particle interaction.
+These universal or scale invariant features can thus be identified in hadronic, nuclear, and atomic physics ~(see, \eg,
+Refs.~\cite{Tornqvist:1991ks,Voloshin:2003nt,Braaten:2003he,philli,tjon,PhysRevLett.81.69}) with very different degrees of freedom,
+masses, and interaction mechanisms because regardless of these differences, they give rise to $r_0/a_0\to0$.
+Prominent examples if such universal behaviour include the Thomas collapse~\cite{PhysRev.47.903}~of the three-body system,
+the related accumulation of three-body bound states at threshold with a constant energy ratio~\cite{Efimov:1971zz},
+the correlation between three- and four-body bound states (Tjon line~\cite{tjon}) and between the three-body bound- and
+scattering-systems (Phillips line~\cite{philli}), and the spectrum of the multi-boson system~\cite{manybosons}.
+All these examples are expressed in states with total spatial symmetry and are accessible for distinguishable particles, only.
 
-Some information in this regard come from atomic and nuclear physics. 
-O. I. Kartavtsev et al.  \cite{Kartavtsev_2007} showed that in the case of three two-component fermions, a contact theory ($r_0\rightarrow 0$) predicts a stable bound state only if the mass ratio between the two species is larger than $m_B/m_A \gtrapprox 13 $.
-D. S. Petrov et al. \cite{petrov_dimerov, Petrov:2005zz,PhysRevA.92.053624} extended this result showing that if the fermions have the same mass, adding a fourth one the system does not bind as well.
-Should be noticed that those two systems can not support Efimov effect as more than two fermions with two-internal-components can not be arranged in totally symmetric spatial wave functions.
+Very few instances of universal behaviour are known in comparison for systems which cannot reside in pure $S$-wave states.
+Notable in this regard is the inability of a zero-range theory to stabilize three mass-imbalanced two-component fermions
+if the mass ratio between the two species is smaller than $m_B/m_A \gtrapprox 13 $~\cite{Kartavtsev_2007}.
+A zero-range resonant two-body interaction was found to have similar consequences for the stability of an equal-mass four-body system,
+in which the universal ratio between the scattering lengths of two two-component dimers to the fermion-fermion scattering length
+implies the unbound nature of the four fermions~\cite{petrov_dimerov, Petrov:2005zz,PhysRevA.92.053624}.
 
-In nuclear physics, the situation is more complex since the number of fermionic flavors is four and more particles can be arranged in a symmetric spatial wave function.
-Within contact EFT framework, it was shown \cite{Contessi:2017rww} that $^{16}$O nucleus appears to be unstable with respect to four-$\alpha$ breaking.
-Recently, Gattobigio et al. \cite{Gattobigio:2019omi} showed that also $^{6}$He is not stabilized by a momentumless short-range interaction with respect deuterium and $\alpha$ decay, but a stable bound state can be found if P-wave attraction is included nonperturbativly.
-These two evidences point towards the possibility that theories with $a_0/r_0\rightarrow \infty$ are not able to stabilize systems with mixed spatial symmetry (in this paper referred as P-wave systems).
-This effect can be a feature of universality, but it is certainly a disadvantage for physics that experimentally show this stability.
-In this paper we analyze this issue using contact EFT (effective field theory) to approach the contact limit. 
-At first we complement the studies done for few-nucleon systems that can be found in literature with 6-, 7-, and 8-body calculations.
-Then we extend our description in what the authors think is the most promising scenario to find universal P-wave stable states.
-In this respect, we look at O. I. Kartavtsev et al. work \cite{Kartavtsev_2007} in which the binding of two non-interacting identical fermions is induced by a third massive particle, when the mass ratio between the species is large enough.
-For having a similar situation one can think of a system of $A+1$ particles, which includes a pair of identical fermions and $A-1$ particles forming a massive spatially symmetrical \textit{core} which might induce binding.
-Increasing the number of particles in the core, the attraction with the extra fermions will be enhanced increasing the overall stability of the system.
-Even if this scenario seems an artificial way of probing the configuration for the most probable binding, this situation can be found in atoms with large spin component (e.g. 9 spin-7/2 atoms [*which?*]) or in systems of two identical fermions in a bath of bosons with all the interactions similar and unitary (e.g. two polarized $^3$He atoms in a bath of zero temperature $^4$He).
+Analyses for nuclei typically focus on larger systems because a single nucleon can access four different internal (iso)spin states,
+and up to four nucleons can realize Bose-like universality.
+Realizing the resonant interaction condition within a contact EFT framework, the $^{16}$O nucleus was postdicted unstable
+with respect to a four-$\alpha$ decay~\cite{Contessi:2017rww}.
+Similarly, $^{6}$He was found not to be stabilized by a momentum-independent short-range interaction~\cite{Gattobigio:2019omi},
+but stable if a $P$-wave attraction is included nonperturbatively.
+All four studies hint towards a general characteristic of interaction theories with $a_0/r_0\rightarrow \infty$, namely,
+the universal prediction of unstable mixed-spatial-symmetry systems ($P$-wave systems, from here on).
 
-However, as will be shown in this paper, we do not find evidences of P-wave binding even in this ideal scenario and changing the particular realization of three-body discrete scale invariance used.
-Therefore, we conclude that the absence of P-wave stable states is a consequence of universality and is featured in all the systems at unitarity or with a contact S-wave interaction.
-This absence has deep consequences for physics in several energy regimes but mostly in nuclear physics where such P-wave stability is expected, and for which realization, the relaxation of unitarity trough the inclusion of an additional scale might be required.
-
-
+In this paper, we analyze precisely this issue: whether unitary contact theories in the zero-range limit exhibit unbound $P$-wave
+states in general and therefore must to augmented in order to include such stable states for systems which contain them.
+In our approach, we formulate the contact theory as the leading order (LO) of an effective field theory (EFT). 
+First, we complement afore-cited studies of few-nucleon systems with 6-, 7-, and 8-body calculations.
+Subsequently, we attempt to find universal and stable $P$-wave states under the most favourable conditions.
+Motivated by Ref.~\cite{Kartavtsev_2007}~in which the binding of two non-interacting identical fermions is induced by a third massive particle
+for large enough mass ratios between the species,
+we device a system of $A+1$ particles, which includes a pair of identical fermions and $A-1$ particles forming a
+massive spatially symmetric core which might induce binding -- the number of particles in the core creating a mean field for the out-of-shell
+particle in which it moves with a larger mass.
+Increasing the number of particles in the core is by this analogy expected to realize similar conditions as the larger fermion-species
+mass ratio as in Ref.~\cite{Kartavtsev_2007}, which might eventually lead to a stable system.
+%Even if this scenario seems an artificial way of probing the configuration for the most probable binding,
+%this situation can be found in atoms with large spin component (e.g. 9 spin-7/2 atoms [*which?*]) or in systems
+%of two identical fermions in a bath of bosons with all the interactions similar and unitary (e.g. two
+%polarized $^3$He atoms in a bath of zero temperature $^4$He).
+As we will show, there is no evidence of $P$-wave binding even in this ideal scenario independent of the specific
+realization of the discrete three-body scale symmetry.
+This leads us to conclude that unbound $P$-wave states are a consequence of universality and is featured in all the systems
+at unitarity with a contact $S$-wave interaction.
+This conjecture affects theoretical descriptions of all physical systems which can be put into the class of unitary systems, arguably
+most prominently in the EFT for nuclei, where the $P$-wave stability for $A>4$, as of now, is unaccounted for and might demand
+the promotion of an additional scale.
 
 %=============================================================================
 %\vspace{4mm}
@@ -179,8 +210,8 @@ These arrangements will be referred to as \abb~as this notation has the advantag
 We approach the unitarity limit in these systems by increasing the ratio \mbox{$\upsilon:=B(3)/B(2)$},
 we assume exact unitarity with $B(2)=\epsilon$ in combination with $B(3)=3$~MeV, and a deviation from it with $B(2)=1$~MeV and $B(3)\in\lbrace3,\,4\rbrace$~MeV.
 The nuclear case is renormalized to yield the deuterium and triton binding energies of $B(2)=2.22$~MeV and $B(3)=8.48$~MeV, respectively. 
-We choose to drop any spin and isospin dependence of the interaction in accordance with the recent formulation~\cite{Konig:2016utl}
-of $S$-shell nuclei in an expansion around the unitarity limit whose LO is (iso)spin symmetric.
+We choose to drop any spin and isospin dependence of the interaction in accordance with the recent formulation~\cite{Konig:2016utl}~of
+ $S$-shell nuclei in an expansion around the unitarity limit whose LO is (iso)spin symmetric.
 
 The necessary fits for $\led$ employ Stochastic-Variational~(SVM,~\cite{Suzuki:1631377})~and
 Resonating-Group~(RGM,~\cite{PhysRev.52.1083,hmh-rrgm})~variational diagonalizations. $\lec$ is
@@ -237,13 +268,13 @@ properties which might in combination lead to additional low-energy scales.
 For the applicability of the pionless EFT to a nucleus the magnitude of $\lc$ when it decays from
 bound to unbound matters. For all considered nuclei, we found this transition to occur at interaction ranges which are of the
 same order or even smaller than the inverse nuclear breakdown scale (expected to be around the pion mass $m_\pi$).
-The stability, \ie, the amplitude pole location on a fixed Riemann sheet, is therefore not invariant \wrt~appropriate RG transformations
-($\Lambda\gg m_\pi$), \ie, in regions where the cutoff is expected to parametrize unobservable high-energy behaviour.
+The stability, \ie, the amplitude pole location on a fixed Riemann sheet, is therefore not invariant \wrt~appropriate renormalization-group (RG)
+transformations ($\Lambda\gg m_\pi$), \ie, in regions where the cutoff is expected to parametrize unobservable high-energy behaviour.
 Hence, the three-parameter theory postdicts correctly only the experimentally established instability of nuclei in the
 $^3\text{H}(\frac{3}{2}^-),\,^3n,\,^4\text{H},\,^{3,4}\text{Li},\,\text{and}~^5\text{He}$ channels.
 The isotopes $^{6,7}\text{Li}$ and $^8$Be with $J^\pi=1^+$, $\frac{3}{2}^-$, and $0^+$, which are known to sustain stable
-states\footnote{$^8$Be is considered to be stable without Coulomb repulsion~\cite{AFZAL:1969zz,Higa:2008dn}}
-are not correctly reproduced in that aspect.
+states\footnote{$^8$Be is considered to be stable without Coulomb repulsion~\cite{AFZAL:1969zz,Higa:2008dn}}~are
+not correctly reproduced in that aspect.
 %
 Interestingly, once a bound $^8$Be ground state is found with $J^\pi=0^+$ at $\Lambda<\lc$ the theory orders excited states in the
 rotational spectrum correctly, namely, $0^+$, $2^+$, and $4^+$. 
@@ -257,7 +288,7 @@ The latter two states emerge in form of bound excited states for $\Lambda<0.4~{\
         \caption{(LO Cutoff dependence of ground-state energies of $A$ spatially symmetric (solid) and \abb~mixed-symmetric systems
         (dashed) obtained with $B(2)=1~$MeV and $B(3)=3$ and $4~$MeV (blue and red) from equation \ref{eq:hamiltonian}. 
         The energies and the cut-off are represented in the natural scales, as function of $B(3)$ and scattering length $a_0$ respectively, this choice make possible the comparison of different $\upsilon$ but maks hard to represent the same quantity in the unitary limit with $a_0\rightarrow\infty$ and $\upsilon\rightarrow\infty$. 
-        In the case of systems which can support total spatially symmetric groundstates, we find convergent behaviour as $\Lambda\to\infty$ (tested varying the cutoff between $1.2~a^{-1}<\Lambda<60~a^{-1}$) consistent with the one described in J.Carlson et al. study \cite{manybosons}.
+        In the case of systems which can support total spatially symmetric ground states, we find convergent behaviour as $\Lambda\to\infty$ (tested varying the cutoff between $1.2~a^{-1}<\Lambda<60~a^{-1}$) consistent with the one described in J.Carlson et al. study \cite{manybosons}.
         With scattering volume set to zero, the \abb~systems destabilize at smaller \lc~(red crosses, $B(3)=4$~MeV). 
         \red{change the graph to have $\upsilon$ in the key [and (maybe) we can express $\Lambda$ in B(3) as whell?] }}
         \label{fig:threshold}
@@ -271,7 +302,7 @@ approximately?
 In order to assess the potential effect of the finite two-body scale (the deuteron),
 we employed recalibrated EFTs (theory section) to obtain
 at unitarity ($\upsilon\rightarrow \infty$) a ratio $B(4)/B(3)$ in agreement with 
-Refs.~\cite{Hammer:2006ct,2009NatPh...5..417V}  as a benchmark.
+Refs.~\cite{Hammer:2006ct,2009NatPh...5..417V}~as a benchmark.
 In addition, \mbox{$B(A)/B(3)\Big\vert_{\upsilon=3}<B(A)/B(3)\Big\vert_{\upsilon=4}$}, implying that the universal ratios between the $A$- and 3-body energies is approached from below when taking the unitary limit.
 
 Beyond distinguishable particles, we find systems with \abb~symmetry not stable in states with total orbital angular momentum $L_\text{total}=0$. This confirms the intuitive demand for mixed spatial symmetry due to the presence of an identical fermionic pair.
@@ -292,7 +323,7 @@ the two-boson interaction, \ie, an additional scale.
 \includegraphics[width=\linewidth]{./RGM.pdf} 
 \caption{Dependence of the critical cutoff $\lc$ on the number of core particles
 $A$. SVM few-body results are shown for $A<7$ (dots, $B(3)=4~$MeV) along with single-channel resonating-group approximations for $A<150$ (lines). The unitarity limit
-(yellow) was realized with $B(2)\to0^+$ and $B(3)=3~$MeV and deviations from it
+(yellow) was realized with $B(2)=\epsilon$ and $B(3)=3~$MeV and deviations from it
 with $B(2)=1~$MeV and $B(3)\in\lbrace3,4\rbrace~$MeV (blue, red). 
 In the shaded regions, the respective theories do sustain bound \abb~states,
 while systems above the lines are unstable.
@@ -369,34 +400,33 @@ it remains to be calculated in order to advance the development of a contact EFT
 %\vspace{4mm}
 \section*{Conclusion}
 
-We employ a 3-parameter non-relativistic contact EFT at LO for the description of $P$-wave nuclei with up to eight nucleons.
+We employ a three-parameter non-relativistic contact EFT at LO for the description of $P$-wave nuclei with up to eight nucleons.
 We find no bound states for these nuclei if the cutoff-renormalization scale of the theory exceeds a system-dependent critical value.
-In addition to nucleons with their large but finite scattering length, we find systems which are arbitrarily close to unitary and realize
-discrete scale invariance differently equally unstable for large enough cutoffs, \ie, in the zero-range limit.
-This leads to the conclusion that systems whose dynamics is given by momentum-independent two- and three-body contacts, which are
+In addition to nucleons with their large but finite scattering length, we find systems which are arbitrarily close to unitarity and realize
+discrete scale invariance in multiple ways equally unstable for large enough cutoffs, \ie, in the zero-range limit.
+We conclude that systems whose dynamics is given by momentum-independent two- and three-body contacts, which are
 constrained by spatially totally symmetric dimer and trimer states, are stable only if their spatial state is also totally symmetric.
 States of mixed symmetry, as enforced by the presence of identical fermions in a system, are in turn predicted to be universally unstable. 
 
 In order to generalize this result, and to assess the role of the ratio of distinguishable particles versus identical
-particles in the system, we analyze $A$-body equal-mass systems with only one pair of identical particles within the EFT framework.
-Thereby, we enforce a momentum-less contact interaction between all the particle pairs and triplets barring those which include the
+particles in the system, we analyse $A$-body equal-mass systems with only one pair of identical particles within the EFT framework.
+Thereby, we enforce a momentum-less contact interaction between all the particle pairs and triplets, barring those which include the
 identical pair. 
-Also in this case which weakens the potential attraction due to the statistical properties in a minimal way, we find that these systems 
-disintegrate in symmetrical spatial fragments -- a totally symmetric $A-1$-body core of distinguishable particles and one free particle
-relative to it -- when the interaction cut-off is increased over a maximum value.
-Both, number of particles (tested up to $A\sim150$) and proximity to the unitary limit stabilize the system for interactions of shorter range.
+Although, we deem the weakening of the potential attraction due to the statistical properties, thus induced, to be minimal,
+we find these systems to disintegrate into a totally symmetric $A-1$-body core of distinguishable particles and one free particle
+if the interaction cutoff is increased beyond a finite value.
+\red{For any finite-range interaction, a number of particles (tested up to $A\sim150$) can be found which realizes a stable $P$-wave composite.
+Furthermore, proximity to the unitary limit supports $P$-wave stability for finite interactions ranges.
 However, this range does not seem to converge to zero with either, implying that a pure contact theory is unable stabilize any mixed-symmetry
 system. Having thus refuted the possibility of a combinatorial effect to conspire with the contact interactions to yield stable
 mixed-symmetry states, momentum-dependent corrections left as the only means fit for this purpose.
-
-\red{I think we should move this as too detailed into the results section}
+%\red{I think we should move this as too detailed into the results section}
 %We stress that, a part of the ideal scenario in which the model do not contemplate the existence of further scales in the system, the application 
 %of this theory to a physical system which would include a breaking scale $M$ given by high energy interaction components (\ie the existence of 
 %meson exchanges in nuclear physics), would not change the conclusion of our analysis.
 %In facts, as a finite $\lc$ indicates a drastic change of the system's behaviour, its magnitude being of the order of or even above (increasing 
 %the number of particles) a conceivable breakdown scale would exclude this behaviour from the range of applicability of the theory.
 %While, if $\lc\ll M$ the appearance of bound P-wave states should be interpreted as a cut-off artifact.
-
 Therefore, for a future refined version of the above EFT which can be applied to systems with stable states of mixed symmetry,
 nuclei in particular, we assess the effect of additional constraints on the theory: a finite two-body $S$-wave effective-range,
 or a finite two-body $P$-wave scattering volume. 
@@ -407,7 +437,7 @@ non-perturbative creation.
 Whether or not such a mechanism which would pertain to any effective-field-theory formulation of systems close to universality,
 which exhibit stability with mixed spatial symmetry as nuclei do most prominently, has to be implemented follows logically from
 this work as a next stage. The answer will eventually allow for a universal understanding of seemingly different fields, where as of now,
-Bose-like atoms and $S$-shell nuclei could be paralleled. 
+Bose-like atoms and $S$-shell nuclei could be paralleled.}
 
 \paragraph*{Acknowledgments}
 We thank N.~Barnea,  M.~Birse, U.~van Kolck, J.~Mare\v{s}, N.~Walet for insightful
