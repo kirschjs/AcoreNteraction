@@ -234,7 +234,7 @@ radial Schr\"odinger equation.
 obtained in LO~\eftnopi. For $A<5$, solid lines represent nuclei with
 spatially symmetric ground-state wave functions. For $A>4$,
 solid lines mark the lowest decay threshold into two spatially symmetric fragments.
-The convergence of the energy with respect the cut-off was verified, up to $\Lambda\sim 10$fm$^{-1}$, to be in agreement with the expected $E\propto\tfrac{1}{\Lambda}$ behaviour \cite{Bedaque:1998kg, Barnea:2013uqa}, however, large cut-offs are omitted in the figure for sake of clarity.}
+The convergence of the energy with respect the cut-off was verified, up to $\Lambda\sim 10$~fm$^{-1}$, to be in agreement with the expected $E\propto\tfrac{1}{\Lambda}$ behaviour \cite{Bedaque:1998kg, Barnea:2013uqa}, however, large cutoffs are omitted in the figure for sake of clarity.}
 \label{fig:nuclear}
 \end{figure}
 
@@ -286,10 +286,11 @@ The latter two states emerge in form of bound excited states for $\Lambda<0.4~{\
         \centering
         \includegraphics[width=\linewidth]{./p-systems-vs-l} 
         \caption{(LO Cutoff dependence of ground-state energies of $A$ spatially symmetric (solid) and \abb~mixed-symmetric systems
-        (dashed) obtained with $B(2)=1~$MeV and $B(3)=3$ and $4~$MeV (blue and red) from equation \ref{eq:hamiltonian}. 
-        The energies and the cut-off are represented in the natural scales, as function of $B(3)$ and scattering length $a_0$ respectively, this choice make possible the comparison of different $\upsilon$ but maks hard to represent the same quantity in the unitary limit with $a_0\rightarrow\infty$ and $\upsilon\rightarrow\infty$. 
-        In the case of systems which can support total spatially symmetric ground states, we find convergent behaviour as $\Lambda\to\infty$ (tested varying the cutoff between $1.2~a^{-1}<\Lambda<60~a^{-1}$) consistent with the one described in J.Carlson et al. study \cite{manybosons}.
-        With scattering volume set to zero, the \abb~systems destabilize at smaller \lc~(red crosses, $B(3)=4$~MeV). 
+        (dashed) obtained with $B(2)=1~$MeV and \mbox{$B(3)\in\lbrace3,4\rbrace~$MeV} (blue and red) from equation \ref{eq:hamiltonian}. 
+        %The energies and the cutoff are represented in the natural scales, as function of $B(3)$ and scattering length $a_0$ respectively, this choice make possible the comparison of different $\upsilon$ but maks hard to represent the same quantity in the unitary limit with $a_0\rightarrow\infty$ and $\upsilon\rightarrow\infty$. 
+        %In the case of systems which can support total spatially symmetric ground states, we find convergent behaviour as $\Lambda\to\infty$ (tested varying the cutoff between $1.2~a^{-1}<\Lambda<60~a^{-1}$) consistent with the one described in J.Carlson et al. study \cite{manybosons}.
+        (Red) crosses indicate the shift in the intersection of dashed and solid lines (critical cutoff) as a consequence of
+        a zero scattering volume. 
         \red{change the graph to have $\upsilon$ in the key [and (maybe) we can express $\Lambda$ in B(3) as whell?] }}
         \label{fig:threshold}
 \end{figure} 
@@ -327,7 +328,7 @@ $A$. SVM few-body results are shown for $A<7$ (dots, $B(3)=4~$MeV) along with si
 with $B(2)=1~$MeV and $B(3)\in\lbrace3,4\rbrace~$MeV (blue, red). 
 In the shaded regions, the respective theories do sustain bound \abb~states,
 while systems above the lines are unstable.
-The critical cut-off $\Lambda_c$ is expressed in fm$^{-1}$ (scale defined by the choice of the discrete scale symmetry breaking and the particle mass) to allow the rendering of the unitary limit as well, as each finite cut-off is to be considered extremely hard compared to the scattering length $a_0\rightarrow\infty$.
+%The critical cut-off $\Lambda_c$ is expressed in fm$^{-1}$ (scale defined by the choice of the discrete scale symmetry breaking and the particle mass) to allow the rendering of the unitary limit as well, as each finite cut-off is to be considered extremely hard compared to the scattering length $a_0\rightarrow\infty$.
 The step-like change in the curves results from a numerical criterion for the onset of binding and
 can be removed systematically. 
 \red{the key should be displayed in $\upsilon$ [and maybe the cut-off in b3?]}}
@@ -365,7 +366,7 @@ Both contribute to the attraction in the \abb~system but their relative signific
 In other words, the finite-range interaction does not only describe a large $S$-wave scattering length but
 also other finite parameters of the effective-range expansion as the effective range $r_0$ and the scattering volume $a_1$.
 To shed light on their relative importance, we project the two-body interaction into even partial waves.
-An approximate $50\%$ reduction of $\lc$ for all $A$ is observed (purple crosses in \figref{fig:threshold})
+An approximate $50\%$ reduction of $\lc$ for all $A$ is observed (red crosses in \figref{fig:threshold})
 as well as a decrease of equal proportion in the relative $P$-wave binding.
 We infer from these results a similar significance of the finite $r_0$ and $a_1$ for the stability of the nuclear $P$-wave systems.
 %
@@ -414,12 +415,19 @@ Thereby, we enforce a momentum-less contact interaction between all the particle
 identical pair. 
 Although, we deem the weakening of the potential attraction due to the statistical properties, thus induced, to be minimal,
 we find these systems to disintegrate into a totally symmetric $A-1$-body core of distinguishable particles and one free particle
-if the interaction cutoff is increased beyond a finite value.
-\red{For any finite-range interaction, a number of particles (tested up to $A\sim150$) can be found which realizes a stable $P$-wave composite.
-Furthermore, proximity to the unitary limit supports $P$-wave stability for finite interactions ranges.
-However, this range does not seem to converge to zero with either, implying that a pure contact theory is unable stabilize any mixed-symmetry
-system. Having thus refuted the possibility of a combinatorial effect to conspire with the contact interactions to yield stable
-mixed-symmetry states, momentum-dependent corrections left as the only means fit for this purpose.
+if the interaction cutoff is increased beyond a critical value.
+We assess the dependence of this critical range on the system size $A$ and the proximity to unitarity.
+For any non-unitary interaction, the critical range increases with $A$ up to a maximum before decreasing from thereon, while in the unitary
+case it rises linearly up to $A\sim150$.
+This dependence suggests that for any finite-range interaction a number of particles can be found which realizes a stable $P$-wave composite.
+%Furthermore, proximity to the unitary limit supports $P$-wave stability for finite interactions ranges.
+Moreover, as the dependence on $A$ does not indicate a convergence of the critical range to zero for any of the analysed systems close or at
+unitarity, the absence of stable  mixed-symmetry states in the spectra of pure contact theories appears logical.
+
+With this $A$-species model, we present strong evidence against the possibility of a combinatorial effect
+to conspire with the contact interactions to yield stable
+mixed-symmetry states, and momentum-dependent corrections to the operator structure of the potential are
+left as the only means to provide the $P$-wave-state-stabilizing (effective) interaction range.
 %\red{I think we should move this as too detailed into the results section}
 %We stress that, a part of the ideal scenario in which the model do not contemplate the existence of further scales in the system, the application 
 %of this theory to a physical system which would include a breaking scale $M$ given by high energy interaction components (\ie the existence of 
@@ -427,17 +435,19 @@ mixed-symmetry states, momentum-dependent corrections left as the only means fit
 %In facts, as a finite $\lc$ indicates a drastic change of the system's behaviour, its magnitude being of the order of or even above (increasing 
 %the number of particles) a conceivable breakdown scale would exclude this behaviour from the range of applicability of the theory.
 %While, if $\lc\ll M$ the appearance of bound P-wave states should be interpreted as a cut-off artifact.
-Therefore, for a future refined version of the above EFT which can be applied to systems with stable states of mixed symmetry,
+Therefore, for a future refined version of an EFT which can be applied to systems with stable states of mixed symmetry,
 nuclei in particular, we assess the effect of additional constraints on the theory: a finite two-body $S$-wave effective-range,
 or a finite two-body $P$-wave scattering volume. 
 Both were found of similar importance for the binding, and our study is thus inconclusive and cannot promote one parameter over the other.
-Moreover, the way these corrections should be treated -- as a perturbation or in a non-perturbative fashion -- remains an open question.
-While shallow, RG-stable poles might be stabilized with perturbative insertions of sub-leading operators, their absence demands for a
-non-perturbative creation.
+Moreover, the way these corrections should be treated -- as a perturbation or in a non-perturbative fashion -- remains an open question:
+Only if shallow, RG-stable resonance poles are in the spectrum of the EFT at LO,
+they might be transcribed into bound states with perturbative insertions of sub-leading operators.
+If such poles leave the convergence radius of the theory in the course of the RG evolution, this absence demands
+for a non-perturbative creation.
 Whether or not such a mechanism which would pertain to any effective-field-theory formulation of systems close to universality,
-which exhibit stability with mixed spatial symmetry as nuclei do most prominently, has to be implemented follows logically from
+which exhibit stability with mixed spatial symmetry, as nuclei do most prominently, has to be implemented follows logically from
 this work as a next stage. The answer will eventually allow for a universal understanding of seemingly different fields, where as of now,
-Bose-like atoms and $S$-shell nuclei could be paralleled.}
+Bose-like atoms and $S$-shell nuclei could be paralleled.
 
 \paragraph*{Acknowledgments}
 We thank N.~Barnea,  M.~Birse, U.~van Kolck, J.~Mare\v{s}, N.~Walet for insightful
