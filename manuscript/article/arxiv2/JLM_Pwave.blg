@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: JLM_Pwave.aux
+The style file: ieeetr.bst
+Database file #1: JLM_PwaveNotes.bib
+Database file #2: Thebibliography.bib.bib
+Warning--empty title in hmh-rrgm
+You've used 33 entries,
+            1876 wiz_defined-function locations,
+            713 strings with 8719 characters,
+and the built_in function-call counts, 10274 in all, are:
+= -- 1080
+> -- 322
+< -- 0
++ -- 121
+- -- 88
+* -- 639
+:= -- 1345
+add.period$ -- 34
+call.type$ -- 33
+change.case$ -- 31
+chr.to.int$ -- 0
+cite$ -- 34
+duplicate$ -- 612
+empty$ -- 910
+format.name$ -- 88
+if$ -- 2634
+int.to.chr$ -- 0
+int.to.str$ -- 33
+missing$ -- 34
+newline$ -- 103
+num.names$ -- 35
+pop$ -- 84
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 521
+stack$ -- 0
+substring$ -- 690
+swap$ -- 341
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 88
+width$ -- 35
+write$ -- 337
+(There was 1 warning)

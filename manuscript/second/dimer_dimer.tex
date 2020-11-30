@@ -15,7 +15,7 @@
 \usepackage{soul}
 \usepackage{rotating}
 \usepackage{paracol}
-%\usepackage{pdflscape}
+\usepackage{nicefrac}
 %=============================================================================
 \def\cM{{\widehat{M}}}
 \newcommand{\sube}{_\text{\tiny EX}}
@@ -64,6 +64,8 @@
 \newcommand{\dd}{\ensuremath D(\lambda)}
 \newcommand{\abab}{\ensuremath $(ab)\!\!:\!\!(ab)$}
 \newcommand{\abca}{\ensuremath $(ab)\wasytherefore(ca)$}
+\newcommand{\ebce}{\ensuremath $(abc)\wasytherefore(a)$}
+\newcommand{\alal}{\ensuremath $(abcd)\wasytherefore(abcd)$}
 \newcommand{\aff}{\ensuremath a_{\text{\tiny ff}}}
 \newcommand{\add}{\ensuremath a_{\text{\tiny dd}}}
 
@@ -172,6 +174,8 @@ depends on a two-body observable, only.
 With the above formulas, it is arguably painful, but straight forward to arrive at the specific forms for the effective potentials
 as given below. 
 
+\newpage
+
 \begin{description}
 	\item[\abab]
 \be\la{eq.local.abab}
@@ -196,31 +200,64 @@ E\cdot e^{-\alpha\ve{r}^2}
  e^{-\frac{2\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}\\
 &&+\dd\left(
 \left(\frac{2\alpha}{2\alpha+\lambda}\right)^{3}\cdot e^{-\frac{4\alpha\lambda}{2\alpha+\lambda}\ve{r}^2}+
-\left(\frac{2\alpha}{\sqrt{(2\alpha+\lambda)^2+2\alpha\lambda}}\right)^{3}\cdot
+\left(\frac{4\alpha^2}{4\alpha^2+6\alpha\lambda+\lambda^2}\right)^{\nicefrac{3}{2}}\cdot
  e^{-\frac{4\alpha\lambda(\alpha+\lambda)}{4\alpha^2+6\alpha\lambda+\lambda^2}\ve{r}^2}
 \right)
 \end{eqnarray}
 
 
-\begin{eqnarray}
-\mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=&~8~\alpha^{\frac{3}{2}}\cdot\Bigg(&e^{-\alpha\ve{r}\mprime^2}\cdot
-\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)
-\cdot e^{-\alpha\ve{r}^2}+
-E\cdot e^{-\alpha\ve{r}^2}\right]\\
-&&-\cc\cdot
+\begin{align}
+\multispan2{$\displaystyle \mathcal{V}^{(2)}_{\text{\tiny\abca}}(\ve{r},\ve{r}\mprime,E)=$\hfil}\\
+8~\alpha^{\frac{3}{2}}\cdot\Bigg\lbrace&~
+e^{-\alpha(\ve{r}^2+\ve{r}\mprime^2)}\cdot
+\left[\frac{\hbar^2}{2\mu}~(4\alpha^2\ve{r}^2-2\alpha)+
+E\right]\\
+&~-\cc\cdot\left(
  e^{-(\alpha+\lambda)(\ve{r}^2+\ve{r}\mprime^2)-2\lambda\ve{r}\mprime\cdot\ve{r}}
--2~\cc\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
- e^{-\alpha\cdot\left(\ve{r}\mprime^2+\frac{2\alpha+3\lambda}{2\alpha+\lambda}\ve{r}^2\right)}\\
- &&-~\dd\left(\frac{\alpha}{\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
- e^{-\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}(\ve{r}^2+\ve{r}\mprime^2)-\frac{\lambda^2}{\alpha+\lambda}\ve{r}\cdot\ve{r}\mprime}\\
- &&-\dd\left(\frac{2\alpha(\alpha+\lambda)}{2\alpha^2+3\alpha\lambda+\lambda^2}\right)^{\frac{3}{2}}\cdot
- e^{-\frac{2\alpha^2+5\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}\ve{r}^2-(\alpha+\lambda)\ve{r}\mprime^2-2\lambda\ve{r}\cdot\ve{r}\mprime}\Bigg)
++2\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
+ e^{-\alpha\cdot\left(\frac{2\alpha+3\lambda}{2\alpha+\lambda}\ve{r}^2+\ve{r}\mprime^2\right)}\right)\\
+&~-~\dd\left(\left(\frac{\alpha}{\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
+ e^{-\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}(\ve{r}^2+\ve{r}\mprime^2)-\frac{\lambda^2}{\alpha+\lambda}\ve{r}\cdot\ve{r}\mprime}
++\left(\frac{2\alpha}{2\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
+ e^{-\frac{2\alpha^2+5\alpha\lambda+\lambda^2}{2\alpha+\lambda}\ve{r}^2-(\alpha+\lambda)\ve{r}\mprime^2-2\lambda\ve{r}\cdot\ve{r}\mprime}\right)
+ \Bigg\rbrace\nonumber\\
  \la{eq.nonlocal.abca}
+\end{align}
+
+\item[\ebce]
+\begin{eqnarray}\la{eq.local.ebce}
+\mathcal{V}^{(1)}_{\text{\tiny\ebce}}(\ve{r})&=&
+2\cdot \cc\left(\frac{3\alpha}{3\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
+ e^{-\frac{3\alpha\lambda}{3\alpha+\lambda}\ve{r}^2}\\
+&&+8\cdot\dd\left(
+\left(\frac{3\alpha^2}{12\alpha^2+16\alpha\lambda+\lambda^2}\right)^{\nicefrac{3}{2}}\cdot e^{-\frac{12\alpha\lambda(\alpha+\lambda)}{12\alpha^2+16\alpha\lambda+\lambda^2}\ve{r}^2}
+\right)
 \end{eqnarray}
+
+
+\begin{align}
+\multispan2{$\displaystyle \mathcal{V}^{(2)}_{\text{\tiny\ebce}}(\ve{r},\ve{r}\mprime,E)=$\hfil}\\
+\alpha^{\frac{3}{2}}~3^3~\left(\frac{3}{2}\right)^{\nicefrac{3}{2}}\cdot\Bigg\lbrace&~
+e^{-\frac{3}{16}\alpha(5\ve{r}^2+6\ve{r}\cdot\ve{r}\mprime+5\ve{r}\mprime^2)}\cdot
+\frac{1}{8}\left[\frac{\hbar^2}{2\mu}~\frac{1}{2^6}\left(3\cdot(5\alpha\ve{r}+3\alpha\ve{r}\mprime)^2-40\,\alpha\right)
++E\right]\\
+&~-2~\cc\cdot\left(\frac{\alpha}{4\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
+ e^{-\frac{3}{4}\frac{\alpha}{4\alpha+\lambda}\cdot\left((5\alpha+8\lambda)\ve{r}^2+6(\alpha+\lambda)\ve{r}\cdot\ve{r}\mprime+(5\alpha+2\lambda)\ve{r}\mprime^2\right)}\\
+&~-\dd\cdot\left(\frac{\alpha}{4\alpha+5\lambda}\right)^{\frac{3}{2}}\cdot
+ e^{-\frac{3}{4}\frac{1}{16\alpha+20\lambda}\cdot\left((20\alpha^2+52\alpha\lambda+27\lambda^2)\ve{r}^2+6(4\alpha^2+8\alpha\lambda+3\lambda^2)\ve{r}\cdot\ve{r}\mprime+(20\alpha^2+28\alpha\lambda+3\lambda^2)\ve{r}\mprime^2\right)}\Bigg\rbrace\nonumber\\ 
+% &&-~\dd\left(\frac{\alpha}{\alpha+\lambda}\right)^{\frac{3}{2}}\cdot
+% e^{-\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}(\ve{r}^2+\ve{r}\mprime^2)
+% -\frac{\lambda^2}{\alpha+\lambda}\ve{r}\cdot\ve{r}\mprime}\\
+% &&-\dd\left(\frac{2\alpha(\alpha+\lambda)}{2\alpha^2+3\alpha\lambda+\lambda^2}\right)^{\frac{3}{2}}\cdot
+% e^{-\frac{2\alpha^2+5\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}\ve{r}^2-(\alpha+\lambda)\ve{r}\mprime^2-2\lambda\ve{r}\cdot\ve{r}\mprime}\Bigg)
+ \la{eq.nonlocal.abca}
+\end{align}
+
 
 \end{description}
 
 \newpage
+
 \subsection{Solution of the resonating-group equation}
 Above, any low-energy two-fragment observable was found encoded in the solution of \eqref{eq.rgm}, which assumes the generic form
 \begin{gather}\label{eq.rgm.sglnonloc}
@@ -236,7 +273,7 @@ of \eqref{eq.rgm.eqom}, and therefore have
 \ee
 Acting with the derivative on the integral kernel produces the structures as listed 
 for the \abab~and \abca~ systems in equations \eqref{eq.local.abab} to \eqref{eq.nonlocal.abca}.
-c
+
 \paragraph{In partial waves}
 
 \begin{gather}
@@ -244,34 +281,83 @@ c
 \text{~and projecting from the left with}\;\;
 R\,\int d^2\hat{\ve{R}}~Y^*_{lm}(\hat{\ve{R}})\\
 \intertext{before substituting}
-e^{-b\ve{R}\cdot\ve{R}'}=4\pi\sum_{LM}i^Lj_L(ib RR')Y^*_{LM}(\hat{\ve{R}})Y_{LM}(\hat{\ve{R}}')\;\;,\;\;
-\ve{R}\cdot\ve{R}'=-\sqrt{3}\coup{\ve{R}_p}{\ve{R}\mprime_{-p}}{00}~\text{and~}\ve{r}_m=\sqrt{\frac{4\pi}{3}}rY_{1,m}(\hat{\ve{r}})
+e^{-b\ve{R}\cdot\ve{R}'}=4\pi\sum_{LM}i^Lj_L(ib RR')Y^*_{LM}(\hat{\ve{R}})Y_{LM}(\hat{\ve{R}}')\;\;;\;\;
+\ve{R}\cdot\ve{R}'=-\sqrt{3}\coup{\ve{R}_p}{\ve{R}\mprime_{-p}}{00}=\frac{4\pi}{3}RR'\sum_p(-)^p\,Y_{1p}Y'_{1-p}\nonumber\\
+~\text{and~}\;\;\ve{r}_m=\sqrt{\frac{4\pi}{3}}rY_{1,m}(\hat{\ve{r}})
 \end{gather}
 yields for
 \begin{description}
-	\item[$l\geq 0$]
+	\item[partial wave $l$]
 \begin{subequations}\la{eq.rgm.sglnonloc.pw}
-\begin{gather}
-0=\left(\frac{\hbar^2}{2\mu}\left[-\partial^2_R+\frac{l(l+1)}{R^2}\right]-E\right)
+\begin{align}
+0~=&~\left(\frac{\hbar^2}{2\mu}\left[-\partial^2_R+\frac{l(l+1)}{R^2}\right]-E\right)
 \phi_{lm}(R)+\sum_{n=2}^{N_{\text{loc}}}\eta_n~e^{-w_nR^2}\phi_{lm}(R)\\
--\int
-(4\pi RR\mprime )~\zeta_1 \cdot e^{-a_1R^2-c_1R'^2}
-\cdot\Bigg\lbrace
+%
+&-\int dR\mprime~\phi_{lm}(R\mprime)~(4\pi RR\mprime )~\Bigg[
+%
+~\zeta_1 \cdot e^{-a_1R^2-c_1R'^2}\cdot\Bigg\lbrace
 \left[-(4a_1^2R^2+b_1^2R\mprime^2-2a_1)+\frac{l(l+1)}{R^2}-\frac{2\mu}{\hbar^2}E\right]
  i^l j_{l}(ib_1 RR')\nonumber\\
-+(4a_1b_1)\cdot RR\mprime\cdot
- \left(i^{\vert l-1\vert} j_{\vert l-1\vert}(ib_1 RR') \vert 2l-1\vert
- \threej{1}{\vert l-1\vert}{l}{0}{0}{0}^2+
- i^{l+1} j_{l+1}(ib_1 RR') (2l+3)
- \threej{1}{l+1}{l}{0}{0}{0}^2\right)\Bigg\rbrace
-~\phi_{lm}(R\mprime)~dR\mprime\la{eq.rgm.sglnonloc.pw.tex}\\
--\sum_{n=\red{2}}^{N_{\text{n-loc}}}\zeta_n\int
-(4\pi RR\mprime)\,i^l j_l(ib_n RR')\cdot 
-e^{-a_nR^2-c_nR'^2}~\phi_{lm}(R\mprime)\,dR\mprime\la{eq.rgm.sglnonloc.pw.noloc}
-\end{gather}
+%
+&-(4a_1b_1)\cdot RR\mprime\cdot
+\sum_Li^Lj_L(ib_1 RR')~\hat{L}~\hat{l}~\threej{L}{1}{l}{0}{0}{0}^2~\triangle_{L1l}\Bigg\rbrace
+%
++\sum_{n=2}^{N_{\text{n-loc}}}\zeta_n\,i^l j_l(ib_n RR')\cdot 
+e^{-a_nR^2-c_nR'^2}~\Bigg]\la{eq.rgm.sglnonloc.pw.noloc}
+\end{align}
+\end{subequations}
+with a \red{3-$j$ symbol $\neq0\Leftrightarrow L+1+l=$~even}, and $\triangle_{j_1j_2j_3}\neq0\Leftrightarrow j_3=|j_1-j_2|,\ldots,j_1+j_2$.
+
+\item[$S$-wave $l=0$]
+\begin{subequations}\la{eq.rgm.sglnonloc.pw}
+\begin{align}
+0~=&~\left(-\frac{\hbar^2}{2\mu}\partial^2_R-E\right)
+\phi_{S}(R)+\sum_{n=2}^{N_{\text{loc}}}\eta_n~e^{-w_nR^2}\phi_{S}(R)\\
+%
+&-\int\,dR\mprime\phi_{S}(R\mprime)(4\pi RR\mprime )~\Bigg[
+~\sum_{n=\red{2}}^{N_{\text{n-loc}}}\zeta_n\int
+(4\pi RR\mprime)\,j_0(ib_n RR')\cdot 
+e^{-a_nR^2-c_nR'^2}
+\\
+&+\zeta_1 \cdot e^{-a_1R^2-c_1R'^2}
+\cdot\Bigg\lbrace
+\left[-(4a_1^2R^2+b_1^2R\mprime^2-2a_1)-\frac{2\mu}{\hbar^2}E\right]
+ j_0(ib_1 RR')-4a_1b_1\cdot RR\mprime\cdot
+\frac{i}{\sqrt{3}}~j_1(ib_1 RR')\Bigg\rbrace\nonumber
+%
+\la{eq.rgm.sglnonloc.pw.noloc}
+\end{align}
 \end{subequations}
 
-	\item[$l= 0$ and $b_1=0$]
+\item[$P$-wave $l=1$]
+\begin{subequations}
+\begin{align}
+0~=&~\left(\frac{\hbar^2}{2\mu}\left[-\partial^2_R+\frac{2}{R^2}\right]-E\right)
+\phi_{1m}(R)+\sum_{n=2}^{N_{\text{loc}}}\eta_n~e^{-w_nR^2}\phi_{1m}(R)\\
+%
+&-\int\,dR\mprime\phi_{1m}(R\mprime)
+(4\pi RR\mprime )~\Bigg[~\sum_{n=2}^{N_{\text{n-loc}}}\zeta_n\int
+(4\pi RR\mprime)\,ij_1(ib_n RR')\cdot 
+e^{-a_nR^2-c_nR'^2}\\
+%
+&+\zeta_1 \cdot e^{-a_1R^2-c_1R'^2}
+\cdot\Bigg\lbrace
+\left[-(4a_1^2R^2+b_1^2R\mprime^2-2a_1)+\frac{2}{R^2}-\frac{2\mu}{\hbar^2}E\right]
+ij_1(ib_1 RR')\nonumber\\
+%
+ & -4a_1b_1\cdot RR\mprime\cdot
+\left(\frac{1}{\sqrt{3}}~j_0(ib_1 RR')-\frac{2}{\sqrt{15}}~j_2(ib_1 RR')\right)\Bigg\rbrace~\Bigg]
+%
+\end{align}
+\end{subequations}
+
+\end{description}
+\newpage
+
+\subsection{dimer-dimer}
+For the \abab~and \abca~ systems, we already derived all coefficients (see \eqref{eq.local.abab} to \eqref{eq.nonlocal.abca})
+and simplify \eqref{eq.rgm.sglnonloc.pw} with $b_1=0$ to obtain the $S$-wave component
+
 \begin{subequations}\la{eq.rgm.sglnonloc.sw}
 \begin{gather}
 0=\left(-\frac{\hbar^2}{2\mu}\partial^2_R-E\right)
@@ -279,19 +365,19 @@ e^{-a_nR^2-c_nR'^2}~\phi_{lm}(R\mprime)\,dR\mprime\la{eq.rgm.sglnonloc.pw.noloc}
 +\int (4\pi RR\mprime )~\left\lbrace\zeta_1 \cdot e^{-a_1R^2-c_1R'^2}
 \left[(4a_1^2R^2-2a_1)+\frac{2\mu}{\hbar^2}E\right]
 -\sum_{n=2}^{N_{\text{n-loc}}}\zeta_n\,j_0(ib_n RR')\cdot 
-e^{-a_nR^2-c_nR'^2}\right\rbrace~\phi_{lm}(R\mprime)\,dR\mprime\la{eq.rgm.sglnonloc.sw.noloc}
+e^{-a_nR^2-c_nR'^2}\right\rbrace~\phi_{lm}(R\mprime)\,dR\mprime\;\;.\la{eq.rgm.sglnonloc.sw.noloc}
 \end{gather}
 \end{subequations}
-\end{description}
-For the two dimer-dimer realizations, we list the coefficients of this equation explicitly in table~\ref{tab.dd.pot.coffs}.
+The coefficients to be used with this equation are listed in table~\ref{tab.dd.pot.coffs}.
 
 \begin{table}
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.6}
 \caption{\label{tab.dd.pot.coffs}{Defining coefficients for the local and non-local effective RGM interaction to be used in
-\eqref{eq.rgm.sglnonloc.pw}~to~\eqref{eq.rgm.sglnonloc.sw.noloc} for the scale-invariant \abab, and the discrete-scale-invariant \abca~
-dimer-dimer configurations.
-Gaussian widths $w,a,b,c$ have units $\text{length}^{-2}$, the local coupling strengths $\eta$ and $\zeta_1$ scale as energies, and the
+\eqref{eq.rgm.sglnonloc.pw}~to~\eqref{eq.rgm.sglnonloc.sw.noloc} for the scale-invariant \abab, the discrete-scale-invariant \abca~
+dimer-dimer, and the \ebce~trimer-atom configurations.
+Gaussian widths $w,a,b,c$ have units $\text{length}^{-2}$, the coupling strengths $\eta$ (local) and $\zeta_1$ (exchange kernel)
+scale as energies, and the
 non-local $\zeta_{n\geq2}$ as an energy density, energy$\cdot\text{length}^{-3}$.}}
 \small\centering
 \begin{tabular}{l|cccc}
@@ -316,8 +402,22 @@ $n$ & $\eta$  & $w$ & &\\
 4   & $-8~\alpha^{3/2}\dd\left(\frac{\alpha}{\alpha+\lambda}\right)^{3/2}$ & $\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}$ & $\frac{\lambda^2}{\alpha+\lambda}$ & $\frac{2\alpha^2+4\alpha\lambda+\lambda^2}{2(\alpha+\lambda)}$ \\
 5   & $-8~\alpha^{3/2}\dd\left(\frac{2\alpha(\alpha+\lambda)}{2\alpha^2+3\alpha\lambda+\lambda^2}\right)^{3/2}$ & $\frac{2\alpha^2+5\alpha\lambda+\lambda^2}{2\alpha+\lambda}$ & $2\lambda$ & $\alpha+\lambda$ \\
 \hline\hline
+\multicolumn{5}{c}{\ebce}\\
+$n$ & $\eta$  & $w$ & &\\
+2   & $2\,\cc\left(\frac{3\alpha}{3\alpha+\lambda}\right)^{3/2}$ & $\frac{3\alpha\lambda}{3\alpha+\lambda}$ &  &  \\
+3   & $8\,\dd\left(\frac{3\alpha^2}{12\alpha^2+16\alpha\lambda+\lambda^2}\right)^{\nicefrac{3}{2}}$ & $\frac{12\alpha\lambda(\alpha+\lambda)}{12\alpha^2+16\alpha\lambda+\lambda^2}$ &  &  \\
+\hline
+           & $\zeta$ & $a$ & $b$ & $c$ \\
+1   & $\frac{27}{8}~\left(\frac{3}{2}\alpha\right)^{3/2}\left(\frac{\hbar^2}{2\mu}\right)$ & $\frac{15}{16}\alpha$ & $\frac{18}{16}\alpha$ & $\frac{15}{16}\alpha$ \\
+2   & $-2\cdot 27~\left(\frac{3}{2}\alpha\right)^{3/2}\,\cc\left(\frac{\alpha}{4\alpha+\lambda}\right)^{3/2}$ & 
+$\frac{3\alpha(5\alpha+8\lambda)}{4(4\alpha+\lambda)}$ & $\frac{9\alpha(\alpha+\lambda)}{2(4\alpha+\lambda)}$ & $\frac{3\alpha(5\alpha+2\lambda)}{4(4\alpha+\lambda)}$ \\
+3   & $-27~\left(\frac{3}{2}\alpha\right)^{3/2}\,\dd\left(\frac{\alpha}{4\alpha+5\lambda}\right)^{3/2}$ & 
+$\frac{3(20\alpha^2+52\alpha\lambda+27\lambda^2)}{4(16\alpha+20\lambda)}$ & $\frac{9(4\alpha^2+8\alpha\lambda+3\lambda^2)}{2(16\alpha+20\lambda)}$ &
+$\frac{3(20\alpha^2+28\alpha\lambda+3\lambda^2)}{4(16\alpha+20\lambda)}$ \\
+\hline\hline
 \end{tabular}
 \end{table}
+
 
 \newpage
 \subsection{Limiting cases and renormalizability}
@@ -372,6 +472,51 @@ E\cdot e^{-\alpha\ve{r}^2}\right]\\
  &&-\alpha^{\frac{3}{2}}(1+2^{\frac{3}{2}})~\frac{\dd}{\lambda^{\frac{3}{2}}}\cdot
  e^{-\frac{\lambda}{2}(\ve{r}+\ve{r}\mprime)^2}\Bigg)
 \end{eqnarray}
+
+
+\item[(zero-range)~\alal]\hfil\\
+The zero-range approximation yields also a form of the interaction between two fragments with each composed of
+four four-component fermions with equal mass. This pertains to the effective interaction between two
+$\alpha$ nuclei.
+
+Compared with the dimer-dimer interaction, the local part:
+\begin{eqnarray}
+\mathcal{V}^{(1)}_{\text{\tiny\alal}}(\ve{r})&=&
+\frac{\cc}{\lambda^{\frac{3}{2}}}\cdot\frac{32}{\sqrt{3}}\,\alpha^{\frac{3}{2}}\cdot
+ e^{-\frac{4}{3}\alpha\ve{r}^2}
+ +\frac{\dd}{\lambda^3}\cdot48\sqrt{2}\,\alpha^3\cdot
+ e^{-2\alpha\ve{r}^2}\;\;\;,
+\end{eqnarray}
+comprises {\bf stronger} but {\bf shorter-ranged} interactions.
+
+The non-local component assumes the following form:
+\begin{align}
+\multispan2{$\displaystyle \mathcal{V}^{(2)}_{\text{\tiny\alal}}(\ve{r},\ve{r}\mprime,E)=
+~-48\sqrt{2}~\alpha^{\nicefrac{3}{2}}\cdot
+\Bigg[$\hfil}\nonumber\\
+E\cdot\Bigg\lbrace & e^{-2\alpha(\ve{r}^2+\ve{r}\mprime^2)}-3^{-\nicefrac{3}{2}}\frac{10}{3}e^{-\frac{10}{3}\alpha(\ve{r}^2+\ve{r}\mprime^2)}
+\cosh[\frac{16}{3}\alpha~\ve{r}\cdot\ve{r}\mprime]\Bigg\rbrace\\
+-\frac{\hbar^2}{2\mu}\cdot\Bigg\lbrace & e^{-2\alpha(\ve{r}^2+\ve{r}\mprime^2)}((4\alpha\ve{r})^2-4\alpha)\\
+&+\frac{4}{3^{\nicefrac{7}{2}}}\frac{10}{3}\cdot e^{-\frac{10}{3}\alpha(\ve{r}^2+\ve{r}\mprime^2)}\cosh[\frac{16}{3}\alpha~\ve{r}\cdot\ve{r}\mprime]
+\left(\left((10\alpha\ve{r})^2+(8\alpha \ve{r}\mprime)^2-15\alpha\right)-160~\ve{r}\cdot\ve{r}\mprime\tanh[\frac{16}{3}\alpha~\ve{r}\cdot\ve{r}\mprime]\right)
+\Bigg\rbrace\nonumber\\
++\frac{\cc}{\lambda^{\nicefrac{3}{2}}}\cdot\frac{16}{\sqrt{2}}\alpha^{\nicefrac{3}{2}}\cdot \Bigg\lbrace &
+ e^{-4\alpha(\ve{r}^2+\ve{r}\mprime^2)}\cosh[4\alpha~\ve{r}\cdot\ve{r}\mprime]
+ +2e^{-2\alpha(3\ve{r}^2+2\ve{r}\mprime^2)}\cosh[8\alpha~\ve{r}\cdot\ve{r}\mprime]
+ -\frac{4}{3^{\nicefrac{3}{2}}}e^{-\frac{3}{2}\alpha(5\ve{r}^2+3\ve{r}\mprime^2)}
+ \Bigg\rbrace\\
+ +\frac{\dd}{\lambda^3}\cdot 128\alpha^3\cdot
+ \Bigg\lbrace &
+  e^{-6\alpha(\ve{r}^2+\ve{r}\mprime^2)}\cosh[8\alpha~\ve{r}\cdot\ve{r}\mprime]
+ +\frac{4}{5^{\nicefrac{3}{2}}}\cosh[\frac{48}{5}\alpha~\ve{r}\cdot\ve{r}\mprime]\left[
+e^{-\frac{2}{5}\alpha(19\ve{r}^2+11\ve{r}\mprime^2)}-e^{-\frac{2}{5}\alpha(11\ve{r}^2+11\ve{r}\mprime^2)}
+ \right]\nonumber\\
+ &-2^{-\nicefrac{5}{2}}e^{-2\alpha(2\ve{r}^2+\ve{r}\mprime^2)}\Bigg\rbrace\\
+ \multispan2{$\displaystyle \;\;\;\;\;\Bigg]\;\;.$\hfil}
+\end{align}
+This structure is parity-even, and the signs of terms as they relate to one-body ($\propto E,\mu^{-1}$) and two/three-body ($\cc/\dd$)
+interactions are identical to the ones of the dimer-dimer potential, \ie, the non-local form switches the character from
+attractive to repulsive and {\it vice versa}!
 
 \end{description}
 
