@@ -98,22 +98,14 @@ We assume that we can attain an approximation of the fragment-internal wave func
 
 \be\label{eq.rgm.corewfktfull}
 \phi_A:=\sum_n^{N_f}\,c_n\cdot e^{-\alpha_n\sum_{i=1}^{N_A}\left(\ve{r}_i-\ve{R}_A\right)^2}\;\;\;;
-\begin{array}{l}
-     N_f\;\;\text{\scriptsize : basis dimension}  \\
-     N_A\;\;\text{\scriptsize : number of particles in fragment $A$}
+\begin{array}{ll}
+     N_f & \text{\scriptsize : basis dimension}  \\
+     N_A & \text{\scriptsize : number of particles in fragment $A$}\\
+     \ve{r}_i & \text{\scriptsize : single-particle coordinates}  \\
+     \ve{R}_A & =\left(\sum_i^{N_A}m_i\right)^{-1}\sum_i^{N_A}m_i\,\ve{r}_i
 \end{array}\;\;.
 \ee
 
-The states of those two fragments are represented in coordinate space by wave functions $\phi_{A,B}$
-which propagate independently via 
-Ockham's ansatz for spatially symmetric fragments employs a one-parameter Gaussian
-\be\label{eq.rgm.corewfkt}
-\phi_A:=e^{-\alpha\sum_{i=1}^A\left(\ve{r}_i-\ve{R}_A\right)^2}\;\;\;;
-\begin{array}{l}
-     \ve{r}_i\;\;\text{\scriptsize : single-particle coordinates}  \\
-     \ve{R}_A\;\;\text{\scriptsize : core centre of mass}
-\end{array}\;\;.
-\ee
 If the two fragments contain identical particle species, antisymmetrization is required between these, \ie,
 the inter-cluster antisymmetrizer comprises elements $\mathfrak{P}$ of the symmetric group of the particle labels
 in cluster $A$ and $B$ ($\mathfrak{S}_{AB}$),   
